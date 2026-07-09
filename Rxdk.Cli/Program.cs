@@ -1,5 +1,6 @@
 using Rxdk.Engine.Bootstrap;
 using Rxdk.Engine.Build;
+using Rxdk.Engine.Deploy;
 using Rxdk.Engine.Model;
 using Rxdk.Engine.Platform;
 
@@ -20,6 +21,11 @@ if (args.Length == 0)
     Console.Error.WriteLine("  install-zig                 Download the pinned Zig toolchain");
     Console.Error.WriteLine("  zig-status                  Report the resolved Zig toolchain");
     Console.Error.WriteLine("  build --project-root <dir> [--optimize <mode>] [--compile-only]   Compile+link to .xbe");
+    Console.Error.WriteLine("  deploy --project-root <dir> [--console <ip>]     Copy build output to the devkit");
+    Console.Error.WriteLine("  run --project-root <dir> [--console <ip>] [--reboot]   Launch the deployed title");
+    Console.Error.WriteLine("  reboot [--console <ip>]     Warm-reboot the devkit");
+    Console.Error.WriteLine("  set-ip --address <ip>       Set the devkit IP/hostname (registry)");
+    Console.Error.WriteLine("  xbox-ip                     Print the resolved devkit address");
     return 2;
 }
 
@@ -44,6 +50,16 @@ switch (command)
         return await CmdZigStatus();
     case "build":
         return await CmdBuild(opts);
+    case "deploy":
+        return await CmdDeploy(opts);
+    case "run":
+        return await CmdRun(opts);
+    case "reboot":
+        return await CmdReboot(opts);
+    case "set-ip":
+        return await CmdSetIp(opts);
+    case "xbox-ip":
+        return await CmdXboxIp();
     default:
         Console.Error.WriteLine($"unknown command: {command}");
         return 2;
@@ -152,6 +168,99 @@ static async Task<int> CmdBuild(Dictionary<string, string> opts)
     }
     Console.WriteLine($"build OK -> {result.OutDir}");
     return 0;
+}
+
+static async Task<int> CmdDeploy(Dictionary<string, string> opts)
+{
+    if (!opts.TryGetValue("project-root", out var root) || string.IsNullOrEmpty(root))
+    {
+        Console.Error.WriteLine("missing required --project-root");
+        return 2;
+    }
+    opts.TryGetValue("console", out var console);
+    var result = await XboxDeploy.DeployProjectAsync(new XboxDeploy.DeployOptions
+    {
+        ProjectRoot = root,
+        ConsoleName = string.IsNullOrEmpty(console) ? null : console,
+        Log = msg => Console.WriteLine(msg),
+    });
+    if (!result.Ok)
+    {
+        Console.Error.WriteLine($"deploy failed: {result.Error}");
+        return 1;
+    }
+    return 0;
+}
+
+static async Task<int> CmdRun(Dictionary<string, string> opts)
+{
+    if (!opts.TryGetValue("project-root", out var root) || string.IsNullOrEmpty(root))
+    {
+        Console.Error.WriteLine("missing required --project-root");
+        return 2;
+    }
+    var manifest = RxdkManifestLoader.TryLoad(root);
+    if (manifest is null)
+    {
+        Console.Error.WriteLine($"no valid {RxdkManifestLoader.ManifestFileName} under {root}");
+        return 1;
+    }
+    opts.TryGetValue("console", out var console);
+    var result = await XboxLaunch.LaunchProjectAsync(new XboxLaunch.LaunchOptions
+    {
+        ProjectName = manifest.Name,
+        ConsoleName = string.IsNullOrEmpty(console) ? null : console,
+        Reboot = opts.ContainsKey("reboot"),
+        Log = msg => Console.WriteLine(msg),
+    });
+    if (result.NoConsoleConfigured)
+    {
+        Console.Error.WriteLine("no Xbox console configured (set-ip, or Xbox Neighborhood)");
+        return 2;
+    }
+    if (!result.Ok)
+    {
+        Console.Error.WriteLine($"run failed: {result.Error}");
+        return 1;
+    }
+    return 0;
+}
+
+static async Task<int> CmdReboot(Dictionary<string, string> opts)
+{
+    opts.TryGetValue("console", out var console);
+    var result = await XboxLaunch.RebootConsoleAsync(
+        string.IsNullOrEmpty(console) ? null : console, msg => Console.WriteLine(msg));
+    if (result.NoConsoleConfigured) { Console.Error.WriteLine("no Xbox console configured"); return 2; }
+    if (!result.Ok) { Console.Error.WriteLine($"reboot failed: {result.Error}"); return 1; }
+    return 0;
+}
+
+static async Task<int> CmdSetIp(Dictionary<string, string> opts)
+{
+    if (!opts.TryGetValue("address", out var addr) || string.IsNullOrEmpty(addr))
+    {
+        Console.Error.WriteLine("missing required --address");
+        return 2;
+    }
+    try
+    {
+        await ConsoleResolver.SetActiveXboxAddressAsync(addr);
+        Console.WriteLine($"Xbox address set to {addr}");
+        return 0;
+    }
+    catch (Exception ex)
+    {
+        Console.Error.WriteLine($"set-ip failed: {ex.Message}");
+        return 1;
+    }
+}
+
+static async Task<int> CmdXboxIp()
+{
+    var addr = await ConsoleResolver.GetActiveXboxAddressAsync();
+    Console.WriteLine(addr is null ? "no Xbox console configured" : addr);
+    return addr is null ? 1 : 0;
 }
 
 static async Task<int> CmdZigStatus()
