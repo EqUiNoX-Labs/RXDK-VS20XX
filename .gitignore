@@ -1,0 +1,13 @@
+# .NET build output
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+*.user
+
+# VS / Rider
+.vs/
+.idea/
+
+# VSIX build artifacts
+*.vsix
