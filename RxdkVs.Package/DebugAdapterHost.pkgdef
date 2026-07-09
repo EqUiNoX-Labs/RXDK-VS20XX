@@ -1,0 +1,48 @@
+// -----------------------------------------------------------------------------
+// RXDK — Debug Adapter Host registration for the "xbox" debug type.
+//
+// Visual Studio does not natively consume DAP, but ships the VS Debug Adapter Host
+// (Microsoft.VisualStudio.Debugger.DebugAdapterHost). This .pkgdef registers a debug
+// adapter named "xbox" so that a launch.vs.json / launch.json configuration of
+// "type": "xbox" is routed to our external DAP server Rxdk.Dap.exe (stdio), exactly
+// like a VS Code debug adapter.
+//
+// The Debug Adapter Host reads adapters from:
+//   HKLM\Software\Microsoft\VisualStudio\<ver>\DebugAdapterHost\Configurations\<name>  (via the SDK)
+// but the officially-documented, side-by-side-safe way to contribute one from a VSIX is a
+// .pkgdef merged into the deployed pkgdef, with the keys below. The "$RootKey$" token is
+// substituted with the (experimental or real) VS root at deploy time.
+//
+// SOURCES / TODO — the exact registry shape can drift between VS versions; validate against:
+//   https://github.com/microsoft/VSDebugAdapterHost
+//   https://github.com/Microsoft/VSDebugAdapterHost/wiki/Packaging-a-VS-Code-Debug-Adapter-For-Use-in-VS
+// If Rxdk.Dap.exe requires args or a working dir, add "Arguments"/"WorkingDirectory" values.
+// The "$PackageFolder$" token expands to the VSIX install dir; the final tools\ subpath must
+// match ToolLocator's shipping layout decision (see Services/ToolLocator.cs TODO).
+// -----------------------------------------------------------------------------
+
+[$RootKey$\AD7Metrics\Engine\{c5390b93-36ff-4de6-9ca3-3776d9c709bb}]
+@="Xbox (RXDK)"
+"CLSID"="{2811f3d6-3f4a-4b3d-9b2a-1c0f2f9f1abc}"
+"ProgramProvider"="{2811f3d6-3f4a-4b3d-9b2a-1c0f2f9f1abc}"
+"Attach"=dword:00000001
+"AddressBP"=dword:00000000
+"AutoSelectPriority"=dword:00000004
+"CallstackBP"=dword:00000001
+"Name"="Xbox (RXDK)"
+"PortSupplier"="{708C1ECA-FF48-11D2-904F-00C04FA302A1}"
+
+// The Debug Adapter Host adapter contribution: maps the "xbox" configuration name to the
+// external DAP executable. Consumed by Microsoft.VisualStudio.Debugger.DebugAdapterHost.
+[$RootKey$\DebugAdapterHost\Configurations\xbox]
+"ConfigurationName"="xbox"
+"Adapter"="$PackageFolder$\tools\Rxdk.Dap.exe"
+"Args"=""
+"Comm"="stdio"
+"Label"="Xbox (RXDK)"
+"Languages"="C++;C"
+
+// Associate the launch.vs.json "type": "xbox" with the above adapter so Open Folder launch
+// profiles resolve to it.
+[$RootKey$\DebugAdapterHost\Launchers\xbox]
+"ConfigurationName"="xbox"

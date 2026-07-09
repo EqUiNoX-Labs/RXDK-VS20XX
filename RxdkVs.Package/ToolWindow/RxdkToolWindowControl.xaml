@@ -1,0 +1,42 @@
+<UserControl x:Class="RxdkVs.Package.ToolWindow.RxdkToolWindowControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vsshell="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
+             Background="{DynamicResource {x:Static vsshell:EnvironmentColors.ToolWindowBackgroundBrushKey}}"
+             Foreground="{DynamicResource {x:Static vsshell:EnvironmentColors.ToolWindowTextBrushKey}}"
+             mc:Ignorable="d"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="360" d:DesignWidth="240">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="10">
+            <TextBlock Text="RXDK" FontSize="16" FontWeight="Bold" Margin="0,0,0,8" />
+
+            <!-- Devkit IP -->
+            <TextBlock Text="Xbox console" FontWeight="SemiBold" Margin="0,4,0,2" />
+            <DockPanel Margin="0,0,0,8">
+                <Button x:Name="SetIpButton" Content="Set…" DockPanel.Dock="Right" Width="48" Margin="6,0,0,0" Click="OnSetIp" />
+                <TextBlock x:Name="IpText" Text="(unknown)" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+            </DockPanel>
+
+            <Separator Margin="0,4,0,8" />
+
+            <!-- Primary actions -->
+            <Button Content="Build"  Margin="0,2" Click="OnBuild" />
+            <Button Content="Deploy" Margin="0,2" Click="OnDeploy" />
+            <Button Content="Run"    Margin="0,2" Click="OnRun" />
+            <Button Content="Debug"  Margin="0,2" Click="OnDebug" />
+
+            <Separator Margin="0,8,0,8" />
+
+            <!-- Console / project -->
+            <Button Content="Warm Reboot Xbox" Margin="0,2" Click="OnReboot" />
+            <Button Content="New Project"      Margin="0,2" Click="OnNewProject" />
+            <Button Content="Refresh"          Margin="0,2" Click="OnRefresh" />
+
+            <Separator Margin="0,8,0,8" />
+
+            <TextBlock x:Name="StatusText" TextWrapping="Wrap" Opacity="0.8" FontSize="11" />
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

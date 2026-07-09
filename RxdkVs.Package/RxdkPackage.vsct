@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <!--
+    RXDK command table. Defines a top-level "RXDK" menu on the main menu bar with grouped
+    buttons that mirror RXDK-VSCode's contributes.commands. The same buttons are surfaced
+    by the tool window's WPF buttons (which route through the same OleMenuCommandService),
+    so this table is the canonical command surface.
+
+    GUIDs/IDs here MUST match RxdkPackageGuids.cs + Commands/CommandIds.cs.
+  -->
+  <Extern href="stdidcmd.h" />
+  <Extern href="vsshlids.h" />
+
+  <Commands package="guidRxdkPackage">
+
+    <Menus>
+      <!-- Top-level "RXDK" menu, placed on the main menu bar. -->
+      <Menu guid="guidRxdkCmdSet" id="RxdkTopMenu" priority="0x0700" type="Menu">
+        <Parent guid="guidSHLMainMenu" id="IDG_VS_MM_TOOLSADDINS" />
+        <Strings>
+          <ButtonText>RXDK</ButtonText>
+          <CommandName>RXDK</CommandName>
+        </Strings>
+      </Menu>
+    </Menus>
+
+    <Groups>
+      <Group guid="guidRxdkCmdSet" id="RxdkMainGroup" priority="0x0100">
+        <Parent guid="guidRxdkCmdSet" id="RxdkTopMenu" />
+      </Group>
+      <Group guid="guidRxdkCmdSet" id="RxdkConsoleGroup" priority="0x0200">
+        <Parent guid="guidRxdkCmdSet" id="RxdkTopMenu" />
+      </Group>
+      <Group guid="guidRxdkCmdSet" id="RxdkProjectGroup" priority="0x0300">
+        <Parent guid="guidRxdkCmdSet" id="RxdkTopMenu" />
+      </Group>
+      <Group guid="guidRxdkCmdSet" id="RxdkToolsGroup" priority="0x0400">
+        <Parent guid="guidRxdkCmdSet" id="RxdkTopMenu" />
+      </Group>
+      <Group guid="guidRxdkCmdSet" id="RxdkSetupGroup" priority="0x0500">
+        <Parent guid="guidRxdkCmdSet" id="RxdkTopMenu" />
+      </Group>
+    </Groups>
+
+    <Buttons>
+      <!-- ============ Main group: Build / Deploy / Run / Debug ============ -->
+      <Button guid="guidRxdkCmdSet" id="CmdBuild" priority="0x0100" type="Button">
+        <Parent guid="guidRxdkCmdSet" id="RxdkMainGroup" />
+        <Icon guid="guidRxdkImages" id="bmpBuild" />
+        <Strings><ButtonText>Build</ButtonText></Strings>
+      </Button>
+      <Button guid="guidRxdkCmdSet" id="CmdDeploy" priority="0x0110" type="Button">
+        <Parent guid="guidRxdkCmdSet" id="RxdkMainGroup" />
+        <Icon guid="guidRxdkImages" id="bmpDeploy" />
+        <Strings><ButtonText>Deploy</ButtonText></Strings>
+      </Button>
+      <Button guid="guidRxdkCmdSet" id="CmdRun" priority="0x0120" type="Button">
+        <Parent guid="guidRxdkCmdSet" id="RxdkMainGroup" />
+        <Icon guid="guidRxdkImages" id="bmpRun" />
+        <Strings><ButtonText>Run</ButtonText></Strings>
+      </Button>
+      <Button guid="guidRxdkCmdSet" id="CmdDebug" priority="0x0130" type="Button">
+        <Parent guid="guidRxdkCmdSet" id="RxdkMainGroup" />
+        <Icon guid="guidRxdkImages" id="bmpDebug" />
+        <Strings><ButtonText>Debug</ButtonText></Strings>
+      </Button>
+
+      <!-- ============ Console group: Reboot / Set IP / DXT ============ -->
+      <Button guid="guidRxdkCmdSet" id="CmdRebootConsole" priority="0x0100" type="Button">
+        <Parent guid="guidRxdkCmdSet" id="RxdkConsoleGroup" />
+        <Strings><ButtonText>Warm Reboot Xbox</ButtonText></Strings>
+      </Button>
+      <Button guid="guidRxdkCmdSet" id="CmdRemoveDxt" priority="0x0110" type="Button">
+        <Parent guid="guidRxdkCmdSet" id="RxdkConsoleGroup" />
+        <Strings><ButtonText>Remove DXT &amp; Reboot</ButtonText></Strings>
+      </Button>
+      <Button guid="guidRxdkCmdSet" id="CmdSetXboxIp" priority="0x0120" type="Button">
+        <Parent guid="guidRxdkCmdSet" id="RxdkConsoleGroup" />
+        <Strings><ButtonText>Set Xbox IP / Hostname</ButtonText></Strings>
+      </Button>
+
+      <!-- ============ Project group: New Project / New Prebuilt XBE ============ -->
+      <Button guid="guidRxdkCmdSet" id="CmdNewProject" priority="0x0100" type="Button">
+        <Parent guid="guidRxdkCmdSet" id="RxdkProjectGroup" />
+        <Icon guid="guidRxdkImages" id="bmpNew" />
+        <Strings><ButtonText>New Project</ButtonText></Strings>
+      </Button>
+      <Button guid="guidRxdkCmdSet" id="CmdDebugPrebuiltXbe" priority="0x0110" type="Button">
+        <Parent guid="guidRxdkCmdSet" id="RxdkProjectGroup" />
+        <Strings><ButtonText>New Prebuilt XBE Project</ButtonText></Strings>
+      </Button>
+
+      <!-- ============ Tools group: folders / docs / launchers ============ -->
+      <Button guid="guidRxdkCmdSet" id="CmdShowToolWindow" priority="0x0100" type="Button">
+        <Parent guid="guidRxdkCmdSet" id="RxdkToolsGroup" />
+        <Strings><ButtonText>Show RXDK Window</ButtonText></Strings>
+      </Button>
+      <Button guid="guidRxdkCmdSet" id="CmdOpenSdkFolder" priority="0x0110" type="Button">
+        <Parent guid="guidRxdkCmdSet" id="RxdkToolsGroup" />
+        <Strings><ButtonText>Open SDK Folder (include/lib)</ButtonText></Strings>
+      </Button>
+      <Button guid="guidRxdkCmdSet" id="CmdOpenToolsFolder" priority="0x0120" type="Button">
+        <Parent guid="guidRxdkCmdSet" id="RxdkToolsGroup" />
+        <Strings><ButtonText>Open Host Tools Folder</ButtonText></Strings>
+      </Button>
+      <Button guid="guidRxdkCmdSet" id="CmdOpenDocsFolder" priority="0x0130" type="Button">
+        <Parent guid="guidRxdkCmdSet" id="RxdkToolsGroup" />
+        <Strings><ButtonText>Open Documentation Folder</ButtonText></Strings>
+      </Button>
+      <Button guid="guidRxdkCmdSet" id="CmdOpenSdkDocs" priority="0x0140" type="Button">
+        <Parent guid="guidRxdkCmdSet" id="RxdkToolsGroup" />
+        <Strings><ButtonText>Xbox SDK Documentation</ButtonText></Strings>
+      </Button>
+      <Button guid="guidRxdkCmdSet" id="CmdOpenExtensionDocs" priority="0x0150" type="Button">
+        <Parent guid="guidRxdkCmdSet" id="RxdkToolsGroup" />
+        <Strings><ButtonText>Extension Documentation</ButtonText></Strings>
+      </Button>
+      <Button guid="guidRxdkCmdSet" id="CmdFetchLatestSdk" priority="0x0160" type="Button">
+        <Parent guid="guidRxdkCmdSet" id="RxdkToolsGroup" />
+        <Strings><ButtonText>Fetch Latest RXDK-SDK</ButtonText></Strings>
+      </Button>
+      <Button guid="guidRxdkCmdSet" id="CmdInstallDotNet" priority="0x0170" type="Button">
+        <Parent guid="guidRxdkCmdSet" id="RxdkToolsGroup" />
+        <Strings><ButtonText>Install .NET 8 Runtime</ButtonText></Strings>
+      </Button>
+      <Button guid="guidRxdkCmdSet" id="CmdLaunchXbwatson" priority="0x0180" type="Button">
+        <Parent guid="guidRxdkCmdSet" id="RxdkToolsGroup" />
+        <Strings><ButtonText>Launch xbWatson</ButtonText></Strings>
+      </Button>
+      <Button guid="guidRxdkCmdSet" id="CmdLaunchXbNeighborhood" priority="0x0190" type="Button">
+        <Parent guid="guidRxdkCmdSet" id="RxdkToolsGroup" />
+        <Strings><ButtonText>Launch xbNeighborhood</ButtonText></Strings>
+      </Button>
+      <Button guid="guidRxdkCmdSet" id="CmdOpenXboxNeighborhood" priority="0x01A0" type="Button">
+        <Parent guid="guidRxdkCmdSet" id="RxdkToolsGroup" />
+        <Strings><ButtonText>Open Xbox Neighborhood</ButtonText></Strings>
+      </Button>
+      <Button guid="guidRxdkCmdSet" id="CmdCycleGlobalsScope" priority="0x01B0" type="Button">
+        <Parent guid="guidRxdkCmdSet" id="RxdkToolsGroup" />
+        <Strings><ButtonText>Cycle Globals Visibility (Title / +Constants / All)</ButtonText></Strings>
+      </Button>
+
+      <!-- ============ Setup group: prerequisites / build type / settings ============ -->
+      <Button guid="guidRxdkCmdSet" id="CmdSetupPrerequisites" priority="0x0100" type="Button">
+        <Parent guid="guidRxdkCmdSet" id="RxdkSetupGroup" />
+        <Icon guid="guidRxdkImages" id="bmpSetup" />
+        <Strings><ButtonText>Complete Setup</ButtonText></Strings>
+      </Button>
+      <Button guid="guidRxdkCmdSet" id="CmdSetBuildType" priority="0x0110" type="Button">
+        <Parent guid="guidRxdkCmdSet" id="RxdkSetupGroup" />
+        <Strings><ButtonText>Set Build Type (Debug / ReleaseSafe / ReleaseFast / ReleaseSmall)</ButtonText></Strings>
+      </Button>
+      <Button guid="guidRxdkCmdSet" id="CmdOpenSettings" priority="0x0120" type="Button">
+        <Parent guid="guidRxdkCmdSet" id="RxdkSetupGroup" />
+        <Strings><ButtonText>Settings</ButtonText></Strings>
+      </Button>
+    </Buttons>
+
+    <Bitmaps>
+      <!-- The strip's usedList maps 1-based slot indices to the named ids below.
+           Replace Resources\RxdkCommands.png with a real 16x16-per-icon strip. -->
+      <Bitmap guid="guidRxdkImages" href="Resources\RxdkCommands.png"
+              usedList="bmpBuild, bmpDeploy, bmpRun, bmpDebug, bmpNew, bmpSetup" />
+    </Bitmaps>
+  </Commands>
+
+  <Symbols>
+    <GuidSymbol name="guidRxdkPackage" value="{c5390b93-36ff-4de6-9ca3-3776d9c709bb}" />
+
+    <GuidSymbol name="guidRxdkCmdSet" value="{5652ff38-066f-4c97-bc61-212735f299f9}">
+      <!-- Menus / groups. -->
+      <IDSymbol name="RxdkTopMenu" value="0x1000" />
+      <IDSymbol name="RxdkMainGroup" value="0x1100" />
+      <IDSymbol name="RxdkConsoleGroup" value="0x1200" />
+      <IDSymbol name="RxdkProjectGroup" value="0x1300" />
+      <IDSymbol name="RxdkToolsGroup" value="0x1400" />
+      <IDSymbol name="RxdkSetupGroup" value="0x1500" />
+
+      <!-- Buttons (must equal Commands/CommandIds.cs). -->
+      <IDSymbol name="CmdSetupPrerequisites" value="0x0101" />
+      <IDSymbol name="CmdNewProject" value="0x0102" />
+      <IDSymbol name="CmdBuild" value="0x0103" />
+      <IDSymbol name="CmdDeploy" value="0x0104" />
+      <IDSymbol name="CmdRun" value="0x0105" />
+      <IDSymbol name="CmdRemoveDxt" value="0x0106" />
+      <IDSymbol name="CmdRebootConsole" value="0x0107" />
+      <IDSymbol name="CmdDebug" value="0x0108" />
+      <IDSymbol name="CmdDebugPrebuiltXbe" value="0x0109" />
+      <IDSymbol name="CmdSetXboxIp" value="0x010A" />
+      <IDSymbol name="CmdShowToolWindow" value="0x010B" />
+      <IDSymbol name="CmdOpenSdkDocs" value="0x010C" />
+      <IDSymbol name="CmdOpenExtensionDocs" value="0x010D" />
+      <IDSymbol name="CmdOpenSdkFolder" value="0x010E" />
+      <IDSymbol name="CmdOpenToolsFolder" value="0x010F" />
+      <IDSymbol name="CmdOpenDocsFolder" value="0x0110" />
+      <IDSymbol name="CmdFetchLatestSdk" value="0x0111" />
+      <IDSymbol name="CmdInstallDotNet" value="0x0112" />
+      <IDSymbol name="CmdLaunchXbwatson" value="0x0113" />
+      <IDSymbol name="CmdLaunchXbNeighborhood" value="0x0114" />
+      <IDSymbol name="CmdOpenXboxNeighborhood" value="0x0115" />
+      <IDSymbol name="CmdCycleGlobalsScope" value="0x0116" />
+      <IDSymbol name="CmdSetBuildType" value="0x0117" />
+      <IDSymbol name="CmdOpenSettings" value="0x0118" />
+    </GuidSymbol>
+
+    <GuidSymbol name="guidRxdkImages" value="{89c8f7ba-434f-466d-b59a-629e92d80e63}">
+      <IDSymbol name="bmpBuild" value="1" />
+      <IDSymbol name="bmpDeploy" value="2" />
+      <IDSymbol name="bmpRun" value="3" />
+      <IDSymbol name="bmpDebug" value="4" />
+      <IDSymbol name="bmpNew" value="5" />
+      <IDSymbol name="bmpSetup" value="6" />
+    </GuidSymbol>
+  </Symbols>
+</CommandTable>
