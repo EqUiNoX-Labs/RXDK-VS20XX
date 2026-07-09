@@ -1,4 +1,5 @@
 using Rxdk.Engine.Bootstrap;
+using Rxdk.Engine.Build;
 using Rxdk.Engine.Model;
 using Rxdk.Engine.Platform;
 
@@ -18,6 +19,7 @@ if (args.Length == 0)
     Console.Error.WriteLine("  sdk-status                  Report staged SDK presence");
     Console.Error.WriteLine("  install-zig                 Download the pinned Zig toolchain");
     Console.Error.WriteLine("  zig-status                  Report the resolved Zig toolchain");
+    Console.Error.WriteLine("  build --project-root <dir> [--optimize <mode>] [--compile-only]   Compile+link to .xbe");
     return 2;
 }
 
@@ -40,6 +42,8 @@ switch (command)
         return await CmdInstallZig();
     case "zig-status":
         return await CmdZigStatus();
+    case "build":
+        return await CmdBuild(opts);
     default:
         Console.Error.WriteLine($"unknown command: {command}");
         return 2;
@@ -117,6 +121,37 @@ static async Task<int> CmdInstallZig()
         Console.Error.WriteLine($"install-zig failed: {ex.Message}");
         return 1;
     }
+}
+
+static async Task<int> CmdBuild(Dictionary<string, string> opts)
+{
+    if (!opts.TryGetValue("project-root", out var root) || string.IsNullOrEmpty(root))
+    {
+        Console.Error.WriteLine("missing required --project-root");
+        return 2;
+    }
+    var optimize = RxdkOptimizeMode.Debug;
+    if (opts.TryGetValue("optimize", out var opt) && !string.IsNullOrEmpty(opt)
+        && !OptimizeMode.TryParse(opt, out optimize))
+    {
+        Console.Error.WriteLine($"invalid --optimize '{opt}' (Debug|ReleaseSafe|ReleaseFast|ReleaseSmall)");
+        return 2;
+    }
+
+    var result = await XboxBuild.BuildAsync(new BuildOptions
+    {
+        ProjectRoot = root,
+        Optimize = optimize,
+        CompileOnly = opts.ContainsKey("compile-only"),
+        Log = msg => Console.WriteLine(msg),
+    });
+    if (!result.Ok)
+    {
+        Console.Error.WriteLine($"build failed: {result.Error}");
+        return 1;
+    }
+    Console.WriteLine($"build OK -> {result.OutDir}");
+    return 0;
 }
 
 static async Task<int> CmdZigStatus()
