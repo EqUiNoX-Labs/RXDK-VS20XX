@@ -1,5 +1,4 @@
 using System.IO.Compression;
-using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using Rxdk.Engine.Platform;
 
@@ -36,13 +35,8 @@ public static partial class HostToolsInstaller
     [GeneratedRegex(@"(^|/)tools/[^/]+$")]
     private static partial Regex ToolsEntryRegex();
 
-    private static string XdvdfsAssetPrefix() => RxdkPaths.PlatformToolRid() switch
-    {
-        "linux-x64" => "xdvdfs-linux-",
-        "osx-x64" => "xdvdfs-macos-x64-",
-        "osx-arm64" => "xdvdfs-macos-arm64-",
-        _ => "xdvdfs-windows-",
-    };
+    // Visual Studio is Windows-only, so the platform asset is always the Windows variant.
+    private const string XdvdfsAssetPrefix = "xdvdfs-windows-";
 
     /// <summary>
     /// Download + extract host tools into the staged root. <paramref name="hostToolsTag"/> /
@@ -56,12 +50,12 @@ public static partial class HostToolsInstaller
     {
         var root = RxdkPaths.GetStagedToolsRoot();
         Directory.CreateDirectory(root);
-        var rid = RxdkPaths.PlatformToolRid();
 
         // 1. RXDK-Tools managed bundle.
         log?.Invoke("Resolving RXDK-Tools release…");
         var toolsRelease = await GitHubReleases.FetchReleaseAsync(RxdkToolsRepo, hostToolsTag, ct);
-        var toolsAsset = GitHubReleases.RequireAsset(toolsRelease, $"rxdk-managed-{rid}.zip", RxdkToolsRepo);
+        var toolsAsset = GitHubReleases.RequireAsset(
+            toolsRelease, $"rxdk-managed-{RxdkPaths.ToolRid}.zip", RxdkToolsRepo);
         log?.Invoke($"RXDK: host tools {toolsRelease.TagName} → {root}");
         var wrote = await DownloadAndExtractAsync(
             toolsAsset.BrowserDownloadUrl, root,
@@ -73,7 +67,7 @@ public static partial class HostToolsInstaller
         // 2. xdvdfs (separate repo).
         log?.Invoke("Resolving xdvdfs release…");
         var xdvdfsRelease = await GitHubReleases.FetchReleaseAsync(XdvdfsRepo, xdvdfsTag, ct);
-        var prefix = XdvdfsAssetPrefix();
+        var prefix = XdvdfsAssetPrefix;
         var xdvdfsAsset = xdvdfsRelease.Assets
             .Where(a => a.Name.StartsWith(prefix, StringComparison.Ordinal)
                         && a.Name.EndsWith(".zip", StringComparison.Ordinal)
@@ -123,8 +117,6 @@ public static partial class HostToolsInstaller
 
                     var target = Path.Combine(destRoot, PosixBasename(normalized));
                     entry.ExtractToFile(target, overwrite: true);
-                    if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                        File.SetUnixFileMode(target, UnixExecutable);
                     wrote++;
                 }
             }
@@ -137,12 +129,6 @@ public static partial class HostToolsInstaller
             try { File.Delete(tmp); } catch { /* ignore */ }
         }
     }
-
-    // 0o755
-    private const UnixFileMode UnixExecutable =
-        UnixFileMode.UserRead | UnixFileMode.UserWrite | UnixFileMode.UserExecute |
-        UnixFileMode.GroupRead | UnixFileMode.GroupExecute |
-        UnixFileMode.OtherRead | UnixFileMode.OtherExecute;
 
     private static string PosixBasename(string p)
     {

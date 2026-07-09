@@ -1,67 +1,59 @@
-using System.Runtime.InteropServices;
-
 namespace Rxdk.Engine.Platform;
 
 /// <summary>
-/// Platform paths and RIDs for host tools and staged SDK. C# port of the path logic in
-/// RXDK-VSCode's bridgePath.ts (platformToolRid / hostToolExecutableName) and
-/// hostTools.ts (getDefaultStagedToolsRoot / getStagedToolsRoot / resolveHostTool).
-/// The on-disk layout must match the VS Code extension so both share one …/RXDK/tools.
+/// Platform paths for host tools, the staged SDK, and the managed Zig install. C# port of
+/// the path logic in RXDK-VSCode (bridgePath.ts, hostTools.ts, sdkStaging.ts, zigRuntime.ts),
+/// reduced to Windows only: Visual Studio 2022/2026 runs on Windows exclusively. The on-disk
+/// layout still matches the VS Code extension so both toolchains share one …/RXDK tree.
 /// </summary>
 public static class RxdkPaths
 {
-    /// <summary>.NET RID for the current platform, matching the host-tools asset naming.</summary>
-    public static string PlatformToolRid()
+    /// <summary>Host-tools RID. Always win-x64 for the VS port.</summary>
+    public const string ToolRid = "win-x64";
+
+    /// <summary>Append the Windows executable extension.</summary>
+    public static string HostToolExecutableName(string baseName) => $"{baseName}.exe";
+
+    private static string ProgramData()
     {
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            return "win-x64";
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            return "linux-x64";
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            return RuntimeInformation.ProcessArchitecture == Architecture.Arm64 ? "osx-arm64" : "osx-x64";
-        return "win-x64";
+        var programData = Environment.GetEnvironmentVariable("ProgramData");
+        return string.IsNullOrEmpty(programData) ? @"C:\ProgramData" : programData;
     }
 
-    /// <summary>Append ".exe" on Windows.</summary>
-    public static string HostToolExecutableName(string baseName) =>
-        RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? $"{baseName}.exe" : baseName;
+    private static string LocalAppData() =>
+        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 
-    /// <summary>Default persistent tools root, a sibling of the staged SDK (…/RXDK/tools).</summary>
-    public static string GetDefaultStagedToolsRoot()
-    {
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-        {
-            var programData = Environment.GetEnvironmentVariable("ProgramData");
-            if (string.IsNullOrEmpty(programData))
-                programData = @"C:\ProgramData";
-            return Path.Combine(programData, "RXDK", "tools");
-        }
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-        {
-            return Path.Combine(HomeDir(), "Library", "Application Support", "RXDK", "tools");
-        }
-        var xdg = Environment.GetEnvironmentVariable("XDG_DATA_HOME");
-        if (string.IsNullOrWhiteSpace(xdg))
-            xdg = Path.Combine(HomeDir(), ".local", "share");
-        return Path.Combine(xdg, "rxdk", "tools");
-    }
+    // ---- Staged host tools (…/RXDK/tools) ----
 
-    /// <summary>
-    /// Effective staged tools root. Honors the RXDK_STAGED_TOOLS override (the VS host passes
-    /// an explicit path/env rather than reading VS Code's rxdk.stagedToolsPath setting).
-    /// </summary>
-    public static string GetStagedToolsRoot()
-    {
-        var overridePath = Environment.GetEnvironmentVariable("RXDK_STAGED_TOOLS");
-        if (!string.IsNullOrWhiteSpace(overridePath))
-            return Path.GetFullPath(overridePath.Trim());
-        return GetDefaultStagedToolsRoot();
-    }
+    public static string GetDefaultStagedToolsRoot() =>
+        Path.Combine(ProgramData(), "RXDK", "tools");
+
+    /// <summary>Effective staged tools root, honoring the RXDK_STAGED_TOOLS override.</summary>
+    public static string GetStagedToolsRoot() =>
+        EnvOverride("RXDK_STAGED_TOOLS") ?? GetDefaultStagedToolsRoot();
 
     /// <summary>Absolute path to a host tool in the staged tools root (may not exist yet).</summary>
     public static string ResolveHostTool(string baseName) =>
         Path.Combine(GetStagedToolsRoot(), HostToolExecutableName(baseName));
 
-    private static string HomeDir() =>
-        Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+    // ---- Staged SDK (headers + libs, …/RXDK/sdk) ----
+
+    public static string GetDefaultStagedSdkRoot() =>
+        Path.Combine(ProgramData(), "RXDK", "sdk");
+
+    /// <summary>Effective staged SDK root, honoring the RXDK_STAGED_SDK override.</summary>
+    public static string GetStagedSdkRoot() =>
+        EnvOverride("RXDK_STAGED_SDK") ?? GetDefaultStagedSdkRoot();
+
+    // ---- Managed Zig install (…/RXDK/zig under LocalAppData) ----
+
+    /// <summary>Persistent Zig install root.</summary>
+    public static string GetZigInstallRoot() =>
+        Path.Combine(LocalAppData(), "RXDK", "zig");
+
+    private static string? EnvOverride(string name)
+    {
+        var value = Environment.GetEnvironmentVariable(name);
+        return string.IsNullOrWhiteSpace(value) ? null : Path.GetFullPath(value.Trim());
+    }
 }

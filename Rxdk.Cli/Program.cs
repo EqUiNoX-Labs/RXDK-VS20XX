@@ -14,6 +14,10 @@ if (args.Length == 0)
     Console.Error.WriteLine("  info --project-root <dir>   Parse rxdk.project.json and print the resolved model");
     Console.Error.WriteLine("  install-tools [--tools-tag <t>] [--xdvdfs-tag <t>]   Download host tools into the staged root");
     Console.Error.WriteLine("  tools-status                Report whether host tools are installed");
+    Console.Error.WriteLine("  install-sdk                 Clone/update RXDK-SDK (headers + libs)");
+    Console.Error.WriteLine("  sdk-status                  Report staged SDK presence");
+    Console.Error.WriteLine("  install-zig                 Download the pinned Zig toolchain");
+    Console.Error.WriteLine("  zig-status                  Report the resolved Zig toolchain");
     return 2;
 }
 
@@ -28,6 +32,14 @@ switch (command)
         return await CmdInstallTools(opts);
     case "tools-status":
         return CmdToolsStatus();
+    case "install-sdk":
+        return await CmdInstallSdk();
+    case "sdk-status":
+        return CmdSdkStatus();
+    case "install-zig":
+        return await CmdInstallZig();
+    case "zig-status":
+        return await CmdZigStatus();
     default:
         Console.Error.WriteLine($"unknown command: {command}");
         return 2;
@@ -65,6 +77,60 @@ static int CmdToolsStatus()
     }
     Console.WriteLine($"installed: {installed}");
     return installed ? 0 : 1;
+}
+
+static async Task<int> CmdInstallSdk()
+{
+    try
+    {
+        var root = await SdkStaging.EnsureAsync(log: msg => Console.WriteLine(msg));
+        Console.WriteLine($"SDK staged at: {root}");
+        return 0;
+    }
+    catch (Exception ex)
+    {
+        Console.Error.WriteLine($"install-sdk failed: {ex.Message}");
+        return 1;
+    }
+}
+
+static int CmdSdkStatus()
+{
+    Console.WriteLine($"staged SDK root: {RxdkPaths.GetStagedSdkRoot()}");
+    var headers = SdkStaging.IsStagedSdkPresent();
+    var libs = SdkStaging.IsStagedSdkLibPresent();
+    Console.WriteLine($"  headers (include/d3d8.h): {headers}");
+    Console.WriteLine($"  libs (linkable marker):   {libs}");
+    return headers && libs ? 0 : 1;
+}
+
+static async Task<int> CmdInstallZig()
+{
+    try
+    {
+        var zig = await ZigRuntime.InstallAsync(log: msg => Console.WriteLine(msg));
+        Console.WriteLine($"Zig ready: {zig}");
+        return 0;
+    }
+    catch (Exception ex)
+    {
+        Console.Error.WriteLine($"install-zig failed: {ex.Message}");
+        return 1;
+    }
+}
+
+static async Task<int> CmdZigStatus()
+{
+    var zig = await ZigRuntime.ResolveZigExecutableAsync();
+    if (zig is null)
+    {
+        Console.WriteLine("zig: not found (run install-zig)");
+        return 1;
+    }
+    var version = await ZigRuntime.GetVersionLineAsync();
+    Console.WriteLine($"zig: {zig}");
+    Console.WriteLine($"version: {version} (pinned {ZigRuntime.ZigVersion})");
+    return 0;
 }
 
 static int CmdInfo(Dictionary<string, string> opts)
