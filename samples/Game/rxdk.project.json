@@ -1,0 +1,13 @@
+{
+  "name": "my-triangle",
+  "sources": ["src/main.cpp"],
+  "libraries": ["libd3d8", "libd3dx8", "libxapi", "libc", "libcpp", "libkernel"],
+  "configuration": "debug",
+  "outputDir": "out",
+  "imageBuild": {
+    "stackSize": 65536,
+    "debug": true,
+    "noLogo": true,
+    "noLibWarn": true
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "my-empty",
+  "sources": ["src/main.cpp"],
+  "libraries": ["libxapi", "libc", "libkernel"],
+  "configuration": "debug",
+  "outputDir": "out",
+  "imageBuild": {
+    "stackSize": 65536,
+    "debug": true,
+    "noLogo": true,
+    "noLibWarn": true
+  }
+}

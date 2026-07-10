@@ -1,0 +1,6 @@
+{
+  "name": "my-lib",
+  "type": "library",
+  "sources": ["src/mylib.cpp"],
+  "publicIncludePaths": ["include"]
+}

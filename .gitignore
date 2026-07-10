@@ -11,3 +11,9 @@ obj/
 
 # VSIX build artifacts
 *.vsix
+
+# Xbox sample build output (Rxdk.Cli writes into each project's out/)
+out/
+*.xbe
+*.iso
+*.dxt

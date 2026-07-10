@@ -1,0 +1,8 @@
+{
+  "name": "my-dxt",
+  "type": "dxt",
+  "sources": ["src/main.c"],
+  "libraries": ["libxbdm", "libkernel", "libc"],
+  "configuration": "release",
+  "outputDir": "out"
+}
