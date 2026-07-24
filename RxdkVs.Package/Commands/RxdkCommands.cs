@@ -147,34 +147,79 @@ namespace RxdkVs.Package.Commands
                 return;
             }
 
-            // Ensure the launch.vs.json / tasks.vs.json exist and are current so the "xbox"
-            // config the Debug Adapter Host consumes is present, then start debugging via the
-            // shell. VS reads launch.vs.json and routes type:"xbox" to the adapter registered in
-            // RxdkVs.Package.pkgdef.
-            try
+            // Keep the on-disk configs current (for the editor / native F5 path too).
+            try { ProjectConfigGenerator.Generate(projectRoot); } catch { /* non-fatal */ }
+
+            // Resolve the adapter executable.
+            var dapPath = ToolLocator.ResolveDap();
+            if (dapPath == null || !File.Exists(dapPath))
             {
-                ProjectConfigGenerator.Generate(projectRoot);
-            }
-            catch (Exception ex)
-            {
-                await ShowErrorAsync($"Could not generate launch config: {ex.Message}");
+                await ShowErrorAsync(
+                    "Rxdk.Dap.exe not found. Publish it to %ProgramData%\\RXDK\\engine (or set " +
+                    "RXDK_TOOLS_DIR). See RxdkVs.Package/README.md.");
                 return;
             }
 
-            // Start debugging using the "Debug <name>" configuration. In Open Folder mode the
-            // debugger picks up launch.vs.json; here we kick the standard Debug.Start command.
-            // TODO: select the specific "xbox" config explicitly via IVsDebugger4/DebugLaunch if
-            // multiple configs exist; the default start uses the active launch profile.
+            // Launch directly through the VS Debug Adapter Host rather than relying on VS to
+            // surface launch.vs.json as a startup item (which is unreliable in Open Folder mode
+            // and varies by VS version). The "$adapter" property points the Debug Adapter Host
+            // straight at our DAP server; the remaining fields are the launch-request arguments
+            // our adapter reads (see XboxDebugAdapter.HandleLaunchRequestAsync). Invoked via the
+            // documented `DebugAdapterHost.Launch /LaunchJson:<file>` command.
+            var name = ReadProjectName(projectRoot);
+            var launch = new Dictionary<string, object>
+            {
+                // $adapter points the Debug Adapter Host at our DAP server. No $adapterArgs:
+                // the docs omit it for a native exe adapter, and it's the config proven working.
+                ["$adapter"] = dapPath,
+                ["type"] = "xbox",
+                ["request"] = "launch",
+                ["name"] = $"Debug {name}",
+                ["program"] = Path.Combine(projectRoot, "out", name + ".exe"),
+                ["pdb"] = Path.Combine(projectRoot, "out", name + ".pdb"),
+                ["xbePath"] = $@"xe:\{name}\{name}.xbe",
+                ["__workspaceFolder"] = projectRoot,
+                ["reboot"] = false,
+            };
+            var launchFile = Path.Combine(Path.GetTempPath(), $"rxdk-launch-{name}.json");
+            try
+            {
+                File.WriteAllText(launchFile,
+                    System.Text.Json.JsonSerializer.Serialize(launch,
+                        new System.Text.Json.JsonSerializerOptions { WriteIndented = true }));
+            }
+            catch (Exception ex)
+            {
+                await ShowErrorAsync($"Could not write launch config: {ex.Message}");
+                return;
+            }
+
             var dte = (EnvDTE.DTE)await _package.GetServiceAsync(typeof(EnvDTE.DTE));
             try
             {
-                dte?.ExecuteCommand("Debug.Start");
+                // Build + Deploy must have run first (this direct launch does not run preLaunchTasks):
+                // the .exe/.pdb must exist locally and the .xbe must be deployed to xe:\<name>.
+                dte?.ExecuteCommand("DebugAdapterHost.Launch", $"/LaunchJson:\"{launchFile}\"");
             }
             catch (Exception ex)
             {
                 await ShowErrorAsync($"Failed to start debugging: {ex.Message}. " +
-                    "Ensure the VS Debug Adapter Host and Rxdk.Dap.exe are installed (see README).");
+                    "Ensure Build + Deploy have run, and that the VS Debug Adapter Host component is installed.");
             }
+        }
+
+        /// <summary>Read the "name" field from rxdk.project.json (folder name as a fallback).</summary>
+        private static string ReadProjectName(string projectRoot)
+        {
+            try
+            {
+                var json = File.ReadAllText(Path.Combine(projectRoot, "rxdk.project.json"));
+                using var doc = System.Text.Json.JsonDocument.Parse(json);
+                if (doc.RootElement.TryGetProperty("name", out var n) && n.ValueKind == System.Text.Json.JsonValueKind.String)
+                    return n.GetString();
+            }
+            catch { /* fall through */ }
+            return Path.GetFileName(projectRoot.TrimEnd('\\', '/'));
         }
 
         // ---- Project scaffolding ----
