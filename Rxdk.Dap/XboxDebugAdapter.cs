@@ -88,7 +88,7 @@ public sealed partial class XboxDebugAdapter : DebugAdapterBase
 
     protected override async void HandleLaunchRequestAsync(IRequestResponder<LaunchArguments> responder)
     {
-        var args = new JObject(responder.Arguments.ConfigurationProperties);
+        var args = ConfigProps(responder.Arguments.ConfigurationProperties);
         if (GetBool(args, "buildOnly"))
         {
             // preLaunchTask (the build) already ran; nothing to do.
@@ -124,7 +124,7 @@ public sealed partial class XboxDebugAdapter : DebugAdapterBase
 
     protected override async void HandleAttachRequestAsync(IRequestResponder<AttachArguments> responder)
     {
-        var args = new JObject(responder.Arguments.ConfigurationProperties);
+        var args = ConfigProps(responder.Arguments.ConfigurationProperties);
         try
         {
             _titleOutputFile = GetStr(args, "__titleOutputFile") ?? "";

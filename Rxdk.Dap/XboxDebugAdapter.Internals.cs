@@ -616,6 +616,18 @@ public sealed partial class XboxDebugAdapter
         return outList;
     }
 
+    // The VSCodeDebugProtocol library exposes custom launch/attach attributes as an
+    // IDictionary<string, JToken>. `new JObject(dict)` throws ("could not determine JSON
+    // object type for KeyValuePair"), so build the JObject by copying entries.
+    private static JObject ConfigProps(IEnumerable<KeyValuePair<string, JToken>>? props)
+    {
+        var o = new JObject();
+        if (props is not null)
+            foreach (var kv in props)
+                o[kv.Key] = kv.Value;
+        return o;
+    }
+
     private static string? GetStr(JObject o, string key) => o.TryGetValue(key, out var v) && v.Type != JTokenType.Null ? v.ToString() : null;
     private static double GetNum(JObject o, string key) => o.TryGetValue(key, out var v) && (v.Type == JTokenType.Integer || v.Type == JTokenType.Float) ? v.Value<double>() : 0;
     private static bool GetBool(JObject o, string key) => o.TryGetValue(key, out var v) && v.Type == JTokenType.Boolean && v.Value<bool>();
