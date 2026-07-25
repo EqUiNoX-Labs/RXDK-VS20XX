@@ -29,6 +29,17 @@
     <RxdkOptimize Condition="'$(RxdkOptimize)' == ''">Debug</RxdkOptimize>
   </PropertyGroup>
 
+  <!-- Relabel the green Run button / debug-target dropdown to "Xbox Debugger (RXDK)".
+       Purely cosmetic — F5 is handled by the extension's Debug.Start interceptor. -->
+  <ItemGroup>
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)RxdkDebugger.xml">
+      <Context>Project</Context>
+    </PropertyPageSchema>
+  </ItemGroup>
+  <PropertyGroup Condition="'$(DebuggerFlavor)' == ''">
+    <DebuggerFlavor>RxdkXboxDebugger</DebuggerFlavor>
+  </PropertyGroup>
+
   <!-- Makefile-project command lines + IntelliSense settings. -->
   <PropertyGroup>
     <NMakeBuildCommandLine>"$(RxdkCli)" build --project-root "$(MSBuildProjectDirectory)" --optimize $(RxdkOptimize)</NMakeBuildCommandLine>

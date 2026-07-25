@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Custom debugger flavor for RXDK Xbox projects. Its only job is cosmetic: it makes the
+  green Run button and the "Debugger to launch" dropdown read "Xbox Debugger (RXDK)"
+  instead of "Local Windows Debugger". The actual F5 launch is handled by the RXDK
+  extension's Debug.Start interceptor (StartDebugInterceptor), which build+deploy+debugs
+  the title on the devkit — so this rule intentionally defines no launch command.
+-->
+<Rule Name="RxdkXboxDebugger"
+      DisplayName="Xbox Debugger (RXDK)"
+      PageTemplate="debugger"
+      Order="100"
+      xmlns="http://schemas.microsoft.com/build/2009/properties">
+  <Rule.DataSource>
+    <DataSource Persistence="UserFile" HasConfigurationCondition="true" />
+  </Rule.DataSource>
+  <Rule.Categories>
+    <Category Name="StartOptions" DisplayName="Start Options" />
+  </Rule.Categories>
+  <StringProperty Name="RxdkXboxDebuggerInfo"
+                  DisplayName="Debugger"
+                  Category="StartOptions"
+                  ReadOnly="true"
+                  Default="F5 builds, deploys, and debugs the title on the devkit via the RXDK Xbox debug adapter."
+                  Description="Debugging runs on the original Xbox over xbdm; there are no local process options." />
+</Rule>
