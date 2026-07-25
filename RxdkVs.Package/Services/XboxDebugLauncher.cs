@@ -129,7 +129,11 @@ namespace RxdkVs.Package.Services
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
             try
             {
-                var dte = (EnvDTE.DTE)await package.GetServiceAsync(typeof(EnvDTE.DTE));
+                if (!(await package.GetServiceAsync(typeof(EnvDTE.DTE)) is EnvDTE.DTE dte))
+                {
+                    await ShowAsync(package, "Visual Studio automation (DTE) is unavailable.");
+                    return false;
+                }
                 var sb = dte.Solution.SolutionBuild;
                 sb.BuildProject(info.SolutionConfig, info.Project.UniqueName, WaitForBuildToFinish: true);
                 return sb.LastBuildInfo == 0; // number of projects that failed to build

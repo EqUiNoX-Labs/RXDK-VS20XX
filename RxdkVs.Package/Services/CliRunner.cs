@@ -143,7 +143,10 @@ namespace RxdkVs.Package.Services
                 return _pane;
             }
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
-            var outputWindow = (IVsOutputWindow)await _package.GetServiceAsync(typeof(SVsOutputWindow));
+            if (!(await _package.GetServiceAsync(typeof(SVsOutputWindow)) is IVsOutputWindow outputWindow))
+            {
+                return null;
+            }
             var paneGuid = OutputPaneGuid;
             // CreatePane is idempotent for a given guid.
             outputWindow.CreatePane(ref paneGuid, OutputPaneTitle, fInitVisible: 1, fClearWithSolution: 0);
