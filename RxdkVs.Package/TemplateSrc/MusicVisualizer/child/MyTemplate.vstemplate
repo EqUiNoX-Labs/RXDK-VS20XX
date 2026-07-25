@@ -4,6 +4,7 @@
     <Name>vorbis</Name>
     <Description>Ogg Vorbis decoder (stb_vorbis) child library.</Description>
     <Icon>Icon.png</Icon>
+    <Hidden>true</Hidden>
     <ProjectType>VC</ProjectType>
     <ProjectSubType></ProjectSubType>
     <CreateNewFolder>true</CreateNewFolder>

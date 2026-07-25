@@ -4,6 +4,7 @@
     <Name>Cube</Name>
     <Description>Spinning textured cube whose geometry comes from the cubemesh child library.</Description>
     <Icon>Icon.png</Icon>
+    <Hidden>true</Hidden>
     <ProjectType>VC</ProjectType>
     <ProjectSubType></ProjectSubType>
     <CreateNewFolder>true</CreateNewFolder>

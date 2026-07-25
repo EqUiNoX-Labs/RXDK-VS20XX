@@ -4,6 +4,7 @@
     <Name>MusicVisualizer</Name>
     <Description>D3D8 FFT equalizer that streams music.ogg through the vorbis child library.</Description>
     <Icon>Icon.png</Icon>
+    <Hidden>true</Hidden>
     <ProjectType>VC</ProjectType>
     <ProjectSubType></ProjectSubType>
     <CreateNewFolder>true</CreateNewFolder>
