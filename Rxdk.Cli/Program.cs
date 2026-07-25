@@ -154,11 +154,13 @@ static async Task<int> CmdBuild(Dictionary<string, string> opts)
         return 2;
     }
 
+    opts.TryGetValue("manifest", out var manifestPath);
     var result = await XboxBuild.BuildAsync(new BuildOptions
     {
         ProjectRoot = root,
         Optimize = optimize,
         CompileOnly = opts.ContainsKey("compile-only"),
+        ManifestPath = string.IsNullOrEmpty(manifestPath) ? null : manifestPath,
         Log = msg => Console.WriteLine(msg),
     });
     if (!result.Ok)
@@ -178,10 +180,12 @@ static async Task<int> CmdDeploy(Dictionary<string, string> opts)
         return 2;
     }
     opts.TryGetValue("console", out var console);
+    opts.TryGetValue("manifest", out var deployManifest);
     var result = await XboxDeploy.DeployProjectAsync(new XboxDeploy.DeployOptions
     {
         ProjectRoot = root,
         ConsoleName = string.IsNullOrEmpty(console) ? null : console,
+        ManifestPath = string.IsNullOrEmpty(deployManifest) ? null : deployManifest,
         Log = msg => Console.WriteLine(msg),
     });
     if (!result.Ok)
@@ -199,10 +203,13 @@ static async Task<int> CmdRun(Dictionary<string, string> opts)
         Console.Error.WriteLine("missing required --project-root");
         return 2;
     }
-    var manifest = RxdkManifestLoader.TryLoad(root);
+    opts.TryGetValue("manifest", out var runManifest);
+    RxdkProjectManifest? manifest;
+    try { manifest = RxdkManifestLoader.Resolve(root, string.IsNullOrEmpty(runManifest) ? null : runManifest); }
+    catch { manifest = null; }
     if (manifest is null)
     {
-        Console.Error.WriteLine($"no valid {RxdkManifestLoader.ManifestFileName} under {root}");
+        Console.Error.WriteLine($"no valid manifest for {root}");
         return 1;
     }
     opts.TryGetValue("console", out var console);

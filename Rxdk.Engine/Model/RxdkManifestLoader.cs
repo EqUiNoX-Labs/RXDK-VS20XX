@@ -40,6 +40,17 @@ public static class RxdkManifestLoader
         return Parse(File.ReadAllText(path));
     }
 
+    /// <summary>Load a manifest from an explicit file path (e.g. a build-generated one).</summary>
+    public static RxdkProjectManifest LoadFile(string manifestPath) =>
+        Parse(File.ReadAllText(manifestPath));
+
+    /// <summary>
+    /// Resolve the manifest for a project: an explicit path if given (the native-.vcxproj flow
+    /// generates one into out\), else &lt;projectRoot&gt;/rxdk.project.json.
+    /// </summary>
+    public static RxdkProjectManifest Resolve(string projectRoot, string? manifestPath) =>
+        string.IsNullOrEmpty(manifestPath) ? Load(projectRoot) : LoadFile(manifestPath);
+
     /// <summary>Try to load a manifest; returns null instead of throwing on missing/invalid.</summary>
     public static RxdkProjectManifest? TryLoad(string projectRoot)
     {

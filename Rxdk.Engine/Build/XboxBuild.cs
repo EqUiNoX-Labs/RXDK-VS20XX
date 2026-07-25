@@ -13,6 +13,8 @@ public sealed class BuildOptions
     public string? ZigExecutable { get; init; }
     public bool CompileOnly { get; init; }
     public RxdkOptimizeMode Optimize { get; init; } = RxdkOptimizeMode.Debug;
+    /// <summary>Explicit manifest path (native .vcxproj flow). Null = ProjectRoot/rxdk.project.json.</summary>
+    public string? ManifestPath { get; init; }
     public Action<string>? Log { get; init; }
 }
 
@@ -217,7 +219,7 @@ public static class XboxBuild
         try
         {
             var projectRoot = Path.GetFullPath(opts.ProjectRoot);
-            var manifest = ReadManifest(projectRoot);
+            var manifest = RxdkManifestLoader.Resolve(projectRoot, opts.ManifestPath);
             var projectName = manifest.Name;
             var outDir = SdkLayout.GetProjectOutDir(projectRoot, manifest);
             Directory.CreateDirectory(outDir);

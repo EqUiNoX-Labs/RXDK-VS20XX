@@ -24,6 +24,8 @@ public static class XboxDeploy
         public string? ConsoleName { get; init; }
         /// <summary>Filename patterns for the project's own output. Default: *.xbe, *.pdb, *.map.</summary>
         public IReadOnlyList<string>? Files { get; init; }
+        /// <summary>Explicit manifest path (native .vcxproj flow). Null = ProjectRoot/rxdk.project.json.</summary>
+        public string? ManifestPath { get; init; }
         public bool Quiet { get; init; }
         public Action<string>? Log { get; init; }
     }
@@ -33,7 +35,7 @@ public static class XboxDeploy
         try
         {
             var projectRoot = Path.GetFullPath(opts.ProjectRoot);
-            var manifest = RxdkManifestLoader.Load(projectRoot);
+            var manifest = RxdkManifestLoader.Resolve(projectRoot, opts.ManifestPath);
             var projectName = opts.ProjectName ?? manifest.Name;
             var localDir = Path.GetFullPath(opts.LocalDir ?? SdkLayout.GetProjectOutDir(projectRoot, manifest));
             if (!Directory.Exists(localDir))
