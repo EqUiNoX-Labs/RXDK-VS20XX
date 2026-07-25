@@ -19,9 +19,7 @@
     <Project TargetFileName="$safeprojectname$.vcxproj" File="Game.vcxproj" ReplaceParameters="true">
       <ProjectItem ReplaceParameters="true" TargetFileName="rxdk.project.json">rxdk.project.json</ProjectItem>
       <ProjectItem ReplaceParameters="false" TargetFileName="Rxdk.Xbox.props">Rxdk.Xbox.props</ProjectItem>
-      <Folder Name="src" TargetFolderName="src">
-        <ProjectItem ReplaceParameters="false" TargetFileName="main.cpp">src\main.cpp</ProjectItem>
-      </Folder>
+      <ProjectItem ReplaceParameters="false" TargetFileName="src\main.cpp">src\main.cpp</ProjectItem>
     </Project>
   </TemplateContent>
 </VSTemplate>
