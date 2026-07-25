@@ -22,7 +22,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Position = 0)]
-    [ValidateSet('status', 'publish', 'samples', 'deploy', 'run', 'reboot', 'smoke', 'vsix', 'launch-json', 'all', 'help')]
+    [ValidateSet('status', 'publish', 'samples', 'deploy', 'run', 'reboot', 'smoke', 'vsix', 'templates', 'launch-json', 'all', 'help')]
     [string]$Command = 'status',
 
     [ValidateSet('Game', 'Empty', 'Lib', 'Dxt')]
@@ -137,7 +137,24 @@ function Invoke-Smoke {
     }
 }
 
+function Invoke-Templates {
+    Info "Packing VS project templates"
+    $srcRoot = Join-Path $Repo 'RxdkVs.Package\TemplateSrc'
+    $outRoot = Join-Path $Repo 'RxdkVs.Package\ProjectTemplates'
+    # TemplateSrc folder name -> display .zip name shown in File > New.
+    $names = @{ Game = 'Original Xbox Game'; Empty = 'Original Xbox Empty'; Lib = 'Original Xbox Lib'; Dxt = 'Original Xbox DXT' }
+    if (-not (Test-Path $outRoot)) { New-Item -ItemType Directory -Path $outRoot | Out-Null }
+    foreach ($dir in Get-ChildItem -Path $srcRoot -Directory -ErrorAction SilentlyContinue) {
+        $display = if ($names.ContainsKey($dir.Name)) { $names[$dir.Name] } else { $dir.Name }
+        $zip = Join-Path $outRoot "$display.zip"
+        if (Test-Path $zip) { Remove-Item $zip -Force }
+        Compress-Archive -Path (Join-Path $dir.FullName '*') -DestinationPath $zip
+        Ok "  $($dir.Name) -> $display.zip"
+    }
+}
+
 function Invoke-Vsix {
+    Invoke-Templates
     Info "Building RxdkVs.Package VSIX"
     $msb = Get-MSBuild
     & $msb -nologo -v:m -restore "-p:Configuration=Debug" $VsixProj
@@ -201,6 +218,7 @@ switch ($Command) {
     'reboot'      { Invoke-Reboot }
     'smoke'       { Invoke-Smoke }
     'vsix'        { Invoke-Vsix }
+    'templates'   { Invoke-Templates }
     'launch-json' { Write-LaunchJson }
     'all'         { Invoke-Publish; Invoke-Samples }
     'help'        { Show-Help }

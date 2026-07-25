@@ -17,3 +17,6 @@ out/
 *.xbe
 *.iso
 *.dxt
+
+# Generated VS project-template zips (packed from TemplateSrc by dev.ps1 templates)
+RxdkVs.Package/ProjectTemplates/*.zip
