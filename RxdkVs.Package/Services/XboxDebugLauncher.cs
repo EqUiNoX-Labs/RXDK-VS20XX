@@ -76,6 +76,18 @@ namespace RxdkVs.Package.Services
                 return;
             }
 
+            // A DXT is loaded by xbdm at boot, not attached as a title. Build + deploy to
+            // E:\dxt (done above), warm-reboot, and stop — there is no debug-adapter session.
+            if (info.XbeOutput.EndsWith(".dxt", StringComparison.OrdinalIgnoreCase))
+            {
+                await cli.RunAsync(new[] { "reboot" }, info.ProjectDir);
+                await ShowAsync(package,
+                    "DXT deployed to E:\\dxt and the console was warm-rebooted. A debug-monitor " +
+                    "extension loads inside xbdm at boot, so there is no F5 attach-debug for it — " +
+                    "it's now live on the console.");
+                return;
+            }
+
             // Derive the launch config from the .xbe output path.
             var outDir = Path.GetDirectoryName(info.XbeOutput);
             var name = Path.GetFileNameWithoutExtension(info.XbeOutput);
