@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Generates the rxdk build manifest from the .vcxproj so rxdk.project.json is no longer a
+  hand-authored file. VS owns the source list via @(ClCompile); the rest are MSBuild
+  properties (RxdkType/RxdkLibraries/...). The manifest is written into out\ (gitignored)
+  before the Makefile build runs, and Rxdk.Cli reads it (see Rxdk.Xbox.props).
+-->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <UsingTask TaskName="RxdkWriteManifest" TaskFactory="RoslynCodeTaskFactory"
+             AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+    <ParameterGroup>
+      <OutputFile ParameterType="System.String" Required="true" />
+      <Name ParameterType="System.String" Required="true" />
+      <Type ParameterType="System.String" />
+      <Configuration ParameterType="System.String" />
+      <OutputDir ParameterType="System.String" />
+      <Sources ParameterType="Microsoft.Build.Framework.ITaskItem[]" />
+      <Libraries ParameterType="System.String" />
+      <PublicIncludePaths ParameterType="System.String" />
+      <IncludePaths ParameterType="System.String" />
+      <Defines ParameterType="System.String" />
+      <StackSize ParameterType="System.String" />
+      <ImageDebug ParameterType="System.String" />
+      <NoLogo ParameterType="System.String" />
+      <NoLibWarn ParameterType="System.String" />
+    </ParameterGroup>
+    <Task>
+      <Using Namespace="System" />
+      <Using Namespace="System.IO" />
+      <Using Namespace="System.Linq" />
+      <Using Namespace="System.Text" />
+      <Using Namespace="System.Collections.Generic" />
+      <Code Type="Fragment" Language="cs"><![CDATA[
+        Func<string,string> esc = s => (s ?? "").Replace("\\","\\\\").Replace("\"","\\\"");
+        Func<string,string[]> split = s => string.IsNullOrEmpty(s)
+            ? new string[0]
+            : s.Split(new[]{';'}, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).Where(x => x.Length > 0).ToArray();
+        Func<IEnumerable<string>,string> arr = items => "[" + string.Join(", ", items.Select(x => "\"" + esc(x) + "\"")) + "]";
+
+        var sb = new StringBuilder();
+        sb.Append("{\n");
+        sb.Append("  \"name\": \"" + esc(Name) + "\",\n");
+        if (!string.IsNullOrEmpty(Type) && Type != "executable")
+            sb.Append("  \"type\": \"" + esc(Type) + "\",\n");
+        if (!string.IsNullOrEmpty(Configuration))
+            sb.Append("  \"configuration\": \"" + esc(Configuration) + "\",\n");
+        var srcs = (Sources ?? new Microsoft.Build.Framework.ITaskItem[0]).Select(i => i.ItemSpec);
+        sb.Append("  \"sources\": " + arr(srcs) + ",\n");
+        var libs = split(Libraries);
+        if (libs.Length > 0) sb.Append("  \"libraries\": " + arr(libs) + ",\n");
+        var pinc = split(PublicIncludePaths);
+        if (pinc.Length > 0) sb.Append("  \"publicIncludePaths\": " + arr(pinc) + ",\n");
+        var inc = split(IncludePaths);
+        if (inc.Length > 0) sb.Append("  \"includePaths\": " + arr(inc) + ",\n");
+        var defs = split(Defines);
+        if (defs.Length > 0) sb.Append("  \"defines\": " + arr(defs) + ",\n");
+        var ib = new List<string>();
+        if (!string.IsNullOrEmpty(StackSize)) ib.Add("\"stackSize\": " + StackSize);
+        if (!string.IsNullOrEmpty(ImageDebug)) ib.Add("\"debug\": " + ImageDebug.ToLowerInvariant());
+        if (!string.IsNullOrEmpty(NoLogo)) ib.Add("\"noLogo\": " + NoLogo.ToLowerInvariant());
+        if (!string.IsNullOrEmpty(NoLibWarn)) ib.Add("\"noLibWarn\": " + NoLibWarn.ToLowerInvariant());
+        if (ib.Count > 0) sb.Append("  \"imageBuild\": { " + string.Join(", ", ib) + " },\n");
+        sb.Append("  \"outputDir\": \"" + esc(string.IsNullOrEmpty(OutputDir) ? "out" : OutputDir) + "\"\n");
+        sb.Append("}\n");
+
+        Directory.CreateDirectory(Path.GetDirectoryName(OutputFile));
+        File.WriteAllText(OutputFile, sb.ToString());
+      ]]></Code>
+    </Task>
+  </UsingTask>
+
+  <!-- Runs before the Makefile build so the generated manifest exists when Rxdk.Cli reads it. -->
+  <Target Name="RxdkGenerateManifest" BeforeTargets="Build;Rebuild">
+    <RxdkWriteManifest
+      OutputFile="$(RxdkManifestFile)"
+      Name="$(MSBuildProjectName)"
+      Type="$(RxdkType)"
+      Configuration="$(RxdkConfig)"
+      OutputDir="out"
+      Sources="@(ClCompile)"
+      Libraries="$(RxdkLibraries)"
+      PublicIncludePaths="$(RxdkPublicIncludePaths)"
+      IncludePaths="$(RxdkIncludePaths)"
+      Defines="$(RxdkDefines)"
+      StackSize="$(RxdkStackSize)"
+      ImageDebug="$(RxdkImageDebug)"
+      NoLogo="$(RxdkNoLogo)"
+      NoLibWarn="$(RxdkNoLibWarn)" />
+  </Target>
+</Project>

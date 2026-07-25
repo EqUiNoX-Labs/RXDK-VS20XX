@@ -7,8 +7,12 @@
   clean-room Zig pipeline against our own headers/libs. cl.exe does NOT compile the
   title (our libs are GNU-ABI and can't be linked by MSVC); it only powers the IDE.
 
-  rxdk.project.json in each project dir is the build source of truth. Each project sets
-  its own <NMakeOutput> (the .xbe/.lib/.dxt it produces).
+  The .vcxproj is the single source of truth: VS owns the source list via @(ClCompile),
+  and per-project settings are the Rxdk* properties below. Rxdk.Xbox.targets generates the
+  build manifest into out\ from these; there is no hand-authored rxdk.project.json.
+
+  A project sets: <NMakeOutput> (its .xbe/.lib/.dxt), and as needed <RxdkType>,
+  <RxdkLibraries> (semicolon list), <RxdkPublicIncludePaths>, <RxdkDefines>, <RxdkStackSize>.
 -->
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
@@ -23,19 +27,34 @@
     <!-- Clean-room Zig SDK headers, for IntelliSense (the same dir the build compiles against). -->
     <RxdkSdkInclude>$(ProgramData)\RXDK\sdk\include</RxdkSdkInclude>
 
-    <!-- Map the VS configuration to an Rxdk.Cli optimize mode. -->
+    <!-- Map the VS configuration to an Rxdk.Cli optimize mode + SDK library variant. -->
     <RxdkOptimize Condition="'$(Configuration)' == 'Debug'">Debug</RxdkOptimize>
     <RxdkOptimize Condition="'$(Configuration)' == 'Release'">ReleaseSmall</RxdkOptimize>
     <RxdkOptimize Condition="'$(RxdkOptimize)' == ''">Debug</RxdkOptimize>
+    <RxdkConfig Condition="'$(Configuration)' == 'Release'">release</RxdkConfig>
+    <RxdkConfig Condition="'$(RxdkConfig)' == ''">debug</RxdkConfig>
+
+    <!-- Build-manifest defaults (a project overrides RxdkType/RxdkLibraries/etc. as needed). -->
+    <RxdkType Condition="'$(RxdkType)' == ''">executable</RxdkType>
+    <RxdkStackSize Condition="'$(RxdkStackSize)' == ''">65536</RxdkStackSize>
+    <RxdkImageDebug Condition="'$(RxdkImageDebug)' == ''">true</RxdkImageDebug>
+    <RxdkNoLogo Condition="'$(RxdkNoLogo)' == ''">true</RxdkNoLogo>
+    <RxdkNoLibWarn Condition="'$(RxdkNoLibWarn)' == ''">true</RxdkNoLibWarn>
+
+    <!-- Generated build manifest (into the gitignored out\). -->
+    <RxdkManifestFile>$(MSBuildProjectDirectory)\out\rxdk.manifest.json</RxdkManifestFile>
   </PropertyGroup>
 
-  <!-- Makefile-project command lines + IntelliSense settings. -->
+  <!-- Makefile-project command lines + IntelliSense settings. The build reads the generated
+       manifest that Rxdk.Xbox.targets writes into out\ before the build runs. -->
   <PropertyGroup>
-    <NMakeBuildCommandLine>"$(RxdkCli)" build --project-root "$(MSBuildProjectDirectory)" --optimize $(RxdkOptimize)</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine>"$(RxdkCli)" build --project-root "$(MSBuildProjectDirectory)" --optimize $(RxdkOptimize)</NMakeReBuildCommandLine>
+    <NMakeBuildCommandLine>"$(RxdkCli)" build --project-root "$(MSBuildProjectDirectory)" --optimize $(RxdkOptimize) --manifest "$(RxdkManifestFile)"</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>"$(RxdkCli)" build --project-root "$(MSBuildProjectDirectory)" --optimize $(RxdkOptimize) --manifest "$(RxdkManifestFile)"</NMakeReBuildCommandLine>
     <NMakeCleanCommandLine>if exist "$(MSBuildProjectDirectory)\out" rmdir /S /Q "$(MSBuildProjectDirectory)\out"</NMakeCleanCommandLine>
-    <NMakePreprocessorDefinitions>_XBOX;XBOX;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <NMakePreprocessorDefinitions>_XBOX;XBOX;$(RxdkDefines);$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <NMakeIncludeSearchPath>$(RxdkSdkInclude);$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
     <AdditionalOptions>-std=c++23</AdditionalOptions>
   </PropertyGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)Rxdk.Xbox.targets" />
 </Project>

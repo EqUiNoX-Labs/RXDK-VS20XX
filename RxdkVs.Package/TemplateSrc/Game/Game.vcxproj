@@ -28,14 +28,15 @@
   <!-- Shared RXDK wiring (bundled with the project so it's self-contained). -->
   <Import Project="Rxdk.Xbox.props" />
   <PropertyGroup>
-    <NMakeOutput>$(MSBuildProjectDirectory)\out\$safeprojectname$.xbe</NMakeOutput>
+    <RxdkLibraries>libd3d8;libd3dx8;libxapi;libc;libcpp;libkernel</RxdkLibraries>
+    <NMakeOutput>$(MSBuildProjectDirectory)\out\$(MSBuildProjectName).xbe</NMakeOutput>
   </PropertyGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="rxdk.project.json" />
     <None Include="Rxdk.Xbox.props" />
+    <None Include="Rxdk.Xbox.targets" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

@@ -27,6 +27,8 @@ namespace RxdkVs.Package.Services
             public string XbeOutput;      // NMakeOutput (…\out\<name>.xbe)
             public string ConfigName;     // "Debug" / "Release"
             public bool IsXbox;           // RxdkXbox == true
+            public EnvDTE.Project Project; // for building via VS (generates the manifest)
+            public string SolutionConfig; // active solution config name, e.g. "Debug"
         }
 
         /// <summary>True when the current startup project is an RXDK Xbox project.</summary>
@@ -63,14 +65,15 @@ namespace RxdkVs.Package.Services
                 return;
             }
 
-            // Build + deploy through the engine (streams to the RXDK output pane / Error List).
-            var optimize = info.ConfigName == "Release" ? "ReleaseSmall" : "Debug";
-            if (await cli.RunAsync(new[] { "build", "--project-root", info.ProjectDir, "--optimize", optimize }, info.ProjectDir) != 0)
+            // Build through VS/MSBuild (not Rxdk.Cli directly): that runs Rxdk.Xbox.targets, which
+            // generates the manifest into out\ from the .vcxproj. Then deploy reads it via --manifest.
+            if (!await BuildViaVsAsync(package, info))
             {
-                await ShowAsync(package, "Build failed — see the RXDK output pane.");
+                await ShowAsync(package, "Build failed — see the Output / Error List.");
                 return;
             }
-            if (await cli.RunAsync(new[] { "deploy", "--project-root", info.ProjectDir }, info.ProjectDir) != 0)
+            var manifest = Path.Combine(Path.GetDirectoryName(info.XbeOutput), "rxdk.manifest.json");
+            if (await cli.RunAsync(new[] { "deploy", "--project-root", info.ProjectDir, "--manifest", manifest }, info.ProjectDir) != 0)
             {
                 await ShowAsync(package, "Deploy failed — is the devkit on and reachable?");
                 return;
@@ -117,6 +120,27 @@ namespace RxdkVs.Package.Services
             }
         }
 
+        /// <summary>
+        /// Build the startup project synchronously through VS/MSBuild (which runs
+        /// Rxdk.Xbox.targets to generate the manifest). Returns true on success.
+        /// </summary>
+        private static async Task<bool> BuildViaVsAsync(AsyncPackage package, StartupInfo info)
+        {
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+            try
+            {
+                var dte = (EnvDTE.DTE)await package.GetServiceAsync(typeof(EnvDTE.DTE));
+                var sb = dte.Solution.SolutionBuild;
+                sb.BuildProject(info.SolutionConfig, info.Project.UniqueName, WaitForBuildToFinish: true);
+                return sb.LastBuildInfo == 0; // number of projects that failed to build
+            }
+            catch (Exception ex)
+            {
+                await ShowAsync(package, $"Build could not be started: {ex.Message}");
+                return false;
+            }
+        }
+
         // ---- startup-project MSBuild property reads ----
 
         private static async Task<StartupInfo> GetStartupInfoAsync(AsyncPackage package)
@@ -150,7 +174,15 @@ namespace RxdkVs.Package.Services
             var isXbox = string.Equals(ReadProp(bps, "RxdkXbox", fullConfig), "true", StringComparison.OrdinalIgnoreCase);
             var xbe = ReadProp(bps, "NMakeOutput", fullConfig);
 
-            return new StartupInfo { ProjectDir = projectDir, XbeOutput = xbe, ConfigName = configName, IsXbox = isXbox };
+            string solutionConfig = configName;
+            try { solutionConfig = ((EnvDTE.DTE)proj.DTE).Solution.SolutionBuild.ActiveConfiguration.Name; }
+            catch { /* keep project config name */ }
+
+            return new StartupInfo
+            {
+                ProjectDir = projectDir, XbeOutput = xbe, ConfigName = configName, IsXbox = isXbox,
+                Project = proj, SolutionConfig = solutionConfig,
+            };
         }
 
         private static string ReadProp(IVsBuildPropertyStorage bps, string name, string config)
