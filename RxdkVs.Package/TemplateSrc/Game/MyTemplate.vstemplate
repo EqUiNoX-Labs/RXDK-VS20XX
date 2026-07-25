@@ -2,7 +2,8 @@
 <VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
   <TemplateData>
     <Name>Original Xbox Game</Name>
-    <Description>Original Xbox title — a rotating Direct3D 8 triangle. Builds with the RXDK clean-room Zig toolchain; F5 deploys and debugs on a devkit.</Description>
+    <Description>Original Xbox title - a rotating Direct3D 8 triangle. Builds with the RXDK clean-room Zig toolchain; F5 deploys and debugs on a devkit.</Description>
+    <Icon>Icon.png</Icon>
     <ProjectType>VC</ProjectType>
     <ProjectSubType></ProjectSubType>
     <SortOrder>1000</SortOrder>
