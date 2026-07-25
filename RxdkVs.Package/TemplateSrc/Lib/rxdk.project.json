@@ -1,0 +1,6 @@
+{
+  "name": "$safeprojectname$",
+  "type": "library",
+  "sources": ["src/mylib.cpp"],
+  "publicIncludePaths": ["include"]
+}

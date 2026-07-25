@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Shared MSBuild props for native RXDK Xbox projects (Makefile-type .vcxproj).
+
+  Visual Studio owns the project system (Solution Explorer, IntelliSense, Build menu,
+  Error List, F5), but the compile is delegated to Rxdk.Cli.exe, which runs the
+  clean-room Zig pipeline against our own headers/libs. cl.exe does NOT compile the
+  title (our libs are GNU-ABI and can't be linked by MSVC); it only powers the IDE.
+
+  rxdk.project.json in each project dir is the build source of truth. Each project sets
+  its own <NMakeOutput> (the .xbe/.lib/.dxt it produces).
+-->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <!-- Marker so the RXDK VS extension recognizes this as an Xbox project and routes F5 /
+         the green Run button to the Xbox debug adapter instead of the Local Windows Debugger. -->
+    <RxdkXbox>true</RxdkXbox>
+
+    <!-- Rxdk.Cli.exe: env override wins, else the published ProgramData engine dir. -->
+    <RxdkCli Condition="'$(RXDK_TOOLS_DIR)' != ''">$(RXDK_TOOLS_DIR)\Rxdk.Cli.exe</RxdkCli>
+    <RxdkCli Condition="'$(RxdkCli)' == ''">$(ProgramData)\RXDK\engine\Rxdk.Cli.exe</RxdkCli>
+
+    <!-- Clean-room Zig SDK headers, for IntelliSense (the same dir the build compiles against). -->
+    <RxdkSdkInclude>$(ProgramData)\RXDK\sdk\include</RxdkSdkInclude>
+
+    <!-- Map the VS configuration to an Rxdk.Cli optimize mode. -->
+    <RxdkOptimize Condition="'$(Configuration)' == 'Debug'">Debug</RxdkOptimize>
+    <RxdkOptimize Condition="'$(Configuration)' == 'Release'">ReleaseSmall</RxdkOptimize>
+    <RxdkOptimize Condition="'$(RxdkOptimize)' == ''">Debug</RxdkOptimize>
+  </PropertyGroup>
+
+  <!-- Makefile-project command lines + IntelliSense settings. -->
+  <PropertyGroup>
+    <NMakeBuildCommandLine>"$(RxdkCli)" build --project-root "$(MSBuildProjectDirectory)" --optimize $(RxdkOptimize)</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>"$(RxdkCli)" build --project-root "$(MSBuildProjectDirectory)" --optimize $(RxdkOptimize)</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>if exist "$(MSBuildProjectDirectory)\out" rmdir /S /Q "$(MSBuildProjectDirectory)\out"</NMakeCleanCommandLine>
+    <NMakePreprocessorDefinitions>_XBOX;XBOX;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <NMakeIncludeSearchPath>$(RxdkSdkInclude);$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+    <AdditionalOptions>-std=c++23</AdditionalOptions>
+  </PropertyGroup>
+</Project>

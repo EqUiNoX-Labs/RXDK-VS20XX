@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+  <TemplateData>
+    <Name>Original Xbox Empty</Name>
+    <Description>Empty original Xbox title - an idle application that brings up nothing. A starting point for your own code. Builds with the RXDK clean-room Zig toolchain.</Description>
+    <Icon>Icon.png</Icon>
+    <ProjectType>VC</ProjectType>
+    <ProjectSubType></ProjectSubType>
+    <SortOrder>1010</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>XboxApp</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LocationField>Enabled</LocationField>
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+    <LanguageTag>C++</LanguageTag>
+    <PlatformTag>xbox</PlatformTag>
+    <ProjectTypeTag>games</ProjectTypeTag>
+  </TemplateData>
+  <TemplateContent>
+    <Project TargetFileName="$safeprojectname$.vcxproj" File="Empty.vcxproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="true" TargetFileName="rxdk.project.json">rxdk.project.json</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="Rxdk.Xbox.props">Rxdk.Xbox.props</ProjectItem>
+      <Folder Name="src" TargetFolderName="src">
+        <ProjectItem ReplaceParameters="false" TargetFileName="main.cpp">main.cpp</ProjectItem>
+      </Folder>
+    </Project>
+  </TemplateContent>
+</VSTemplate>
