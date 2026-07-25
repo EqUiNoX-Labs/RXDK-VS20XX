@@ -44,11 +44,6 @@
 
     <Buttons>
       <!-- ============ Main group: Build / Deploy / Run / Debug ============ -->
-      <Button guid="guidRxdkCmdSet" id="CmdBuild" priority="0x0100" type="Button">
-        <Parent guid="guidRxdkCmdSet" id="RxdkMainGroup" />
-        <Icon guid="guidRxdkImages" id="bmpBuild" />
-        <Strings><ButtonText>Build</ButtonText></Strings>
-      </Button>
       <Button guid="guidRxdkCmdSet" id="CmdDeploy" priority="0x0110" type="Button">
         <Parent guid="guidRxdkCmdSet" id="RxdkMainGroup" />
         <Icon guid="guidRxdkImages" id="bmpDeploy" />
@@ -58,11 +53,6 @@
         <Parent guid="guidRxdkCmdSet" id="RxdkMainGroup" />
         <Icon guid="guidRxdkImages" id="bmpRun" />
         <Strings><ButtonText>Run</ButtonText></Strings>
-      </Button>
-      <Button guid="guidRxdkCmdSet" id="CmdDebug" priority="0x0130" type="Button">
-        <Parent guid="guidRxdkCmdSet" id="RxdkMainGroup" />
-        <Icon guid="guidRxdkImages" id="bmpDebug" />
-        <Strings><ButtonText>Debug</ButtonText></Strings>
       </Button>
 
       <!-- ============ Console group: Reboot / Set IP / DXT ============ -->
@@ -80,15 +70,6 @@
       </Button>
 
       <!-- ============ Project group: New Project / New Prebuilt XBE ============ -->
-      <Button guid="guidRxdkCmdSet" id="CmdNewProject" priority="0x0100" type="Button">
-        <Parent guid="guidRxdkCmdSet" id="RxdkProjectGroup" />
-        <Icon guid="guidRxdkImages" id="bmpNew" />
-        <Strings><ButtonText>New Project</ButtonText></Strings>
-      </Button>
-      <Button guid="guidRxdkCmdSet" id="CmdDebugPrebuiltXbe" priority="0x0110" type="Button">
-        <Parent guid="guidRxdkCmdSet" id="RxdkProjectGroup" />
-        <Strings><ButtonText>New Prebuilt XBE Project</ButtonText></Strings>
-      </Button>
 
       <!-- ============ Tools group: folders / docs / launchers ============ -->
       <Button guid="guidRxdkCmdSet" id="CmdShowToolWindow" priority="0x0100" type="Button">
@@ -127,10 +108,6 @@
         <Parent guid="guidRxdkCmdSet" id="RxdkToolsGroup" />
         <Strings><ButtonText>Launch xbWatson</ButtonText></Strings>
       </Button>
-      <Button guid="guidRxdkCmdSet" id="CmdLaunchXbNeighborhood" priority="0x0190" type="Button">
-        <Parent guid="guidRxdkCmdSet" id="RxdkToolsGroup" />
-        <Strings><ButtonText>Launch xbNeighborhood</ButtonText></Strings>
-      </Button>
       <Button guid="guidRxdkCmdSet" id="CmdOpenXboxNeighborhood" priority="0x01A0" type="Button">
         <Parent guid="guidRxdkCmdSet" id="RxdkToolsGroup" />
         <Strings><ButtonText>Open Xbox Neighborhood</ButtonText></Strings>
@@ -145,10 +122,6 @@
         <Parent guid="guidRxdkCmdSet" id="RxdkSetupGroup" />
         <Icon guid="guidRxdkImages" id="bmpSetup" />
         <Strings><ButtonText>Complete Setup</ButtonText></Strings>
-      </Button>
-      <Button guid="guidRxdkCmdSet" id="CmdSetBuildType" priority="0x0110" type="Button">
-        <Parent guid="guidRxdkCmdSet" id="RxdkSetupGroup" />
-        <Strings><ButtonText>Set Build Type (Debug / ReleaseSafe / ReleaseFast / ReleaseSmall)</ButtonText></Strings>
       </Button>
       <Button guid="guidRxdkCmdSet" id="CmdOpenSettings" priority="0x0120" type="Button">
         <Parent guid="guidRxdkCmdSet" id="RxdkSetupGroup" />

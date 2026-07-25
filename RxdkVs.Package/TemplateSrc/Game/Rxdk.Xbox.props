@@ -27,12 +27,13 @@
     <!-- Clean-room Zig SDK headers, for IntelliSense (the same dir the build compiles against). -->
     <RxdkSdkInclude>$(ProgramData)\RXDK\sdk\include</RxdkSdkInclude>
 
-    <!-- Map the VS configuration to an Rxdk.Cli optimize mode + SDK library variant. -->
-    <RxdkOptimize Condition="'$(Configuration)' == 'Debug'">Debug</RxdkOptimize>
-    <RxdkOptimize Condition="'$(Configuration)' == 'Release'">ReleaseSmall</RxdkOptimize>
+    <!-- The VS Configuration name IS the RXDK optimize mode
+         (Debug / ReleaseSafe / ReleaseFast / ReleaseSmall) - selected via the config dropdown. -->
+    <RxdkOptimize Condition="'$(Configuration)'=='Debug' or '$(Configuration)'=='ReleaseSafe' or '$(Configuration)'=='ReleaseFast' or '$(Configuration)'=='ReleaseSmall'">$(Configuration)</RxdkOptimize>
     <RxdkOptimize Condition="'$(RxdkOptimize)' == ''">Debug</RxdkOptimize>
-    <RxdkConfig Condition="'$(Configuration)' == 'Release'">release</RxdkConfig>
-    <RxdkConfig Condition="'$(RxdkConfig)' == ''">debug</RxdkConfig>
+    <!-- SDK library variant: debug libs for the Debug config, release libs for the Release* modes. -->
+    <RxdkConfig Condition="'$(Configuration)' == 'Debug'">debug</RxdkConfig>
+    <RxdkConfig Condition="'$(RxdkConfig)' == ''">release</RxdkConfig>
 
     <!-- Build-manifest defaults (a project overrides RxdkType/RxdkLibraries/etc. as needed). -->
     <RxdkType Condition="'$(RxdkType)' == ''">executable</RxdkType>
