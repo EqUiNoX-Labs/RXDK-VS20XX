@@ -22,7 +22,8 @@
 [CmdletBinding()]
 param(
     [Parameter(Position = 0)]
-    [ValidateSet('status', 'publish', 'samples', 'deploy', 'run', 'reboot', 'smoke', 'vsix', 'templates', 'launch-json', 'all', 'help')]
+    [ValidateSet('status', 'publish', 'samples', 'deploy', 'run', 'reboot', 'smoke', 'vsix', 'templates',
+        'install', 'uninstall', 'reinstall', 'launch-json', 'all', 'help')]
     [string]$Command = 'status',
 
     [ValidateSet('Game', 'Empty', 'Lib', 'Dxt')]
@@ -162,6 +163,58 @@ function Invoke-Vsix {
     Ok "VSIX built -> RxdkVs.Package\bin\Debug\RxdkVs.Package.vsix"
 }
 
+function Get-VsixInstaller {
+    $vswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio\Installer\vswhere.exe'
+    $root = & $vswhere -latest -property installationPath | Select-Object -First 1
+    if (-not $root) { throw "Visual Studio installation not found via vswhere." }
+    $exe = Join-Path $root 'Common7\IDE\VSIXInstaller.exe'
+    if (-not (Test-Path $exe)) { throw "VSIXInstaller.exe not found ($exe)." }
+    return $exe
+}
+
+function Get-ExtensionId {
+    $manifest = Join-Path $Repo 'RxdkVs.Package\source.extension.vsixmanifest'
+    $m = Select-String -Path $manifest -Pattern '<Identity[^>]*Id="([^"]+)"' | Select-Object -First 1
+    if (-not $m) { throw "Could not read the extension Identity Id from the manifest." }
+    return $m.Matches[0].Groups[1].Value
+}
+
+function Assert-VsClosed {
+    if (Get-Process devenv -ErrorAction SilentlyContinue) {
+        Warn "Visual Studio (devenv) is running. Close ALL VS windows first - VSIXInstaller cannot update a loaded extension."
+        throw "Close Visual Studio, then retry."
+    }
+}
+
+function Invoke-Uninstall {
+    Assert-VsClosed
+    $installer = Get-VsixInstaller
+    $id = Get-ExtensionId
+    Info "Uninstalling extension $id"
+    & $installer "/uninstall:$id" /quiet | Out-Null
+    # 0 = ok; ~2003 = not installed. Either is fine for a reinstall flow.
+    if ($LASTEXITCODE -eq 0) { Ok "Uninstalled." } else { Warn "Nothing to uninstall (or code $LASTEXITCODE) - continuing." }
+}
+
+function Invoke-Install {
+    Assert-VsClosed
+    $installer = Get-VsixInstaller
+    $vsix = Join-Path $Repo 'RxdkVs.Package\bin\Debug\RxdkVs.Package.vsix'
+    if (-not (Test-Path $vsix)) { throw "VSIX not built yet - run: ./scripts/dev.ps1 vsix" }
+    Info "Installing $vsix"
+    & $installer $vsix /quiet | Out-Null
+    if ($LASTEXITCODE -eq 0) { Ok "Installed. Start Visual Studio to use it." }
+    else { throw "VSIXInstaller failed (code $LASTEXITCODE)." }
+}
+
+function Invoke-Reinstall {
+    Assert-VsClosed
+    Invoke-Vsix          # build (packs templates first)
+    Invoke-Uninstall
+    Invoke-Install
+    Ok "Reinstall complete - launch VS."
+}
+
 function Write-LaunchJson {
     $name = Get-SampleName
     $dir  = Get-SampleDir
@@ -219,6 +272,9 @@ switch ($Command) {
     'smoke'       { Invoke-Smoke }
     'vsix'        { Invoke-Vsix }
     'templates'   { Invoke-Templates }
+    'install'     { Invoke-Install }
+    'uninstall'   { Invoke-Uninstall }
+    'reinstall'   { Invoke-Reinstall }
     'launch-json' { Write-LaunchJson }
     'all'         { Invoke-Publish; Invoke-Samples }
     'help'        { Show-Help }
