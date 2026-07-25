@@ -88,15 +88,15 @@ namespace RxdkVs.Package.Commands
         {
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-            var workspaceRoot = await OpenFolderContext.GetWorkspaceRootAsync(_package);
             var args = new List<string> { verb };
+            string projectRoot = null;
 
             if (requiresProject)
             {
-                var projectRoot = OpenFolderContext.GetProjectRoot(workspaceRoot);
+                projectRoot = await OpenFolderContext.ResolveProjectRootAsync(_package);
                 if (projectRoot == null)
                 {
-                    await ShowInfoAsync("No RXDK project (rxdk.project.json) is open. Use RXDK > New Project first.");
+                    await ShowInfoAsync("No RXDK project selected. Set the Xbox project as the startup project (or open one of its files), then try again.");
                     return;
                 }
                 args.Add("--project-root");
@@ -106,7 +106,7 @@ namespace RxdkVs.Package.Commands
 
             try
             {
-                await _cli.RunAsync(args, workspaceRoot ?? Environment.CurrentDirectory);
+                await _cli.RunAsync(args, projectRoot ?? Environment.CurrentDirectory);
             }
             catch (Exception ex)
             {
@@ -136,76 +136,12 @@ namespace RxdkVs.Package.Commands
 
         // ---- Debug (F5 → Debug Adapter Host → Rxdk.Dap.exe) ----
 
-        private async Task DebugAsync()
+        private Task DebugAsync()
         {
-            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
-            var workspaceRoot = await OpenFolderContext.GetWorkspaceRootAsync(_package);
-            var projectRoot = OpenFolderContext.GetProjectRoot(workspaceRoot);
-            if (projectRoot == null)
-            {
-                await ShowInfoAsync("No RXDK project is open.");
-                return;
-            }
-
-            // Keep the on-disk configs current (for the editor / native F5 path too).
-            try { ProjectConfigGenerator.Generate(projectRoot); } catch { /* non-fatal */ }
-
-            // Resolve the adapter executable.
-            var dapPath = ToolLocator.ResolveDap();
-            if (dapPath == null || !File.Exists(dapPath))
-            {
-                await ShowErrorAsync(
-                    "Rxdk.Dap.exe not found. Publish it to %ProgramData%\\RXDK\\engine (or set " +
-                    "RXDK_TOOLS_DIR). See RxdkVs.Package/README.md.");
-                return;
-            }
-
-            // Launch directly through the VS Debug Adapter Host rather than relying on VS to
-            // surface launch.vs.json as a startup item (which is unreliable in Open Folder mode
-            // and varies by VS version). The "$adapter" property points the Debug Adapter Host
-            // straight at our DAP server; the remaining fields are the launch-request arguments
-            // our adapter reads (see XboxDebugAdapter.HandleLaunchRequestAsync). Invoked via the
-            // documented `DebugAdapterHost.Launch /LaunchJson:<file>` command.
-            var name = ReadProjectName(projectRoot);
-            var launch = new Dictionary<string, object>
-            {
-                // $adapter points the Debug Adapter Host at our DAP server. No $adapterArgs:
-                // the docs omit it for a native exe adapter, and it's the config proven working.
-                ["$adapter"] = dapPath,
-                ["type"] = "xbox",
-                ["request"] = "launch",
-                ["name"] = $"Debug {name}",
-                ["program"] = Path.Combine(projectRoot, "out", name + ".exe"),
-                ["pdb"] = Path.Combine(projectRoot, "out", name + ".pdb"),
-                ["xbePath"] = $@"xe:\{name}\{name}.xbe",
-                ["__workspaceFolder"] = projectRoot,
-                ["reboot"] = false,
-            };
-            var launchFile = Path.Combine(Path.GetTempPath(), $"rxdk-launch-{name}.json");
-            try
-            {
-                File.WriteAllText(launchFile,
-                    System.Text.Json.JsonSerializer.Serialize(launch,
-                        new System.Text.Json.JsonSerializerOptions { WriteIndented = true }));
-            }
-            catch (Exception ex)
-            {
-                await ShowErrorAsync($"Could not write launch config: {ex.Message}");
-                return;
-            }
-
-            var dte = (EnvDTE.DTE)await _package.GetServiceAsync(typeof(EnvDTE.DTE));
-            try
-            {
-                // Build + Deploy must have run first (this direct launch does not run preLaunchTasks):
-                // the .exe/.pdb must exist locally and the .xbe must be deployed to xe:\<name>.
-                dte?.ExecuteCommand("DebugAdapterHost.Launch", $"/LaunchJson:\"{launchFile}\"");
-            }
-            catch (Exception ex)
-            {
-                await ShowErrorAsync($"Failed to start debugging: {ex.Message}. " +
-                    "Ensure Build + Deploy have run, and that the VS Debug Adapter Host component is installed.");
-            }
+            // Same path as F5 / the green Run button: build + deploy the startup Xbox project,
+            // then launch the Xbox debug adapter via the Debug Adapter Host. Reads the output
+            // from the .vcxproj (NMakeOutput), not rxdk.project.json.
+            return XboxDebugLauncher.LaunchAsync(_package, _cli);
         }
 
         /// <summary>Read the "name" field from rxdk.project.json (folder name as a fallback).</summary>

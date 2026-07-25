@@ -12,6 +12,10 @@
 -->
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
+    <!-- Marker so the RXDK VS extension recognizes this as an Xbox project and routes F5 /
+         the green Run button to the Xbox debug adapter instead of the Local Windows Debugger. -->
+    <RxdkXbox>true</RxdkXbox>
+
     <!-- Rxdk.Cli.exe: env override wins, else the published ProgramData engine dir. -->
     <RxdkCli Condition="'$(RXDK_TOOLS_DIR)' != ''">$(RXDK_TOOLS_DIR)\Rxdk.Cli.exe</RxdkCli>
     <RxdkCli Condition="'$(RxdkCli)' == ''">$(ProgramData)\RXDK\engine\Rxdk.Cli.exe</RxdkCli>

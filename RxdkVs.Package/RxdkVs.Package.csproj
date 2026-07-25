@@ -88,6 +88,8 @@
     <Compile Include="RxdkPackageGuids.cs" />
     <Compile Include="Commands\CommandIds.cs" />
     <Compile Include="Commands\RxdkCommands.cs" />
+    <Compile Include="Commands\StartDebugInterceptor.cs" />
+    <Compile Include="Services\XboxDebugLauncher.cs" />
     <Compile Include="Services\CliRunner.cs" />
     <Compile Include="Services\ToolLocator.cs" />
     <Compile Include="Services\ProjectConfigGenerator.cs" />

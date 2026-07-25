@@ -79,5 +79,79 @@ namespace RxdkVs.Package.Services
             var manifest = FindManifest(workspaceRoot);
             return manifest == null ? null : Path.GetDirectoryName(manifest);
         }
+
+        /// <summary>
+        /// Resolve the active RXDK project root across both project models. Order:
+        ///   1. the solution's startup project (the natural "debug/deploy this" target),
+        ///   2. the project containing the active editor document,
+        ///   3. Open Folder fallback (rxdk.project.json at/under the opened folder).
+        /// A candidate only counts if its directory contains rxdk.project.json. Returns null
+        /// if nothing resolves. Must be called on the UI thread.
+        /// </summary>
+        public static async Task<string> ResolveProjectRootAsync(IAsyncServiceProvider serviceProvider)
+        {
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+
+            var dte = (EnvDTE.DTE)await serviceProvider.GetServiceAsync(typeof(EnvDTE.DTE));
+            var fromStartup = TryStartupProjectRoot(dte);
+            if (fromStartup != null) return fromStartup;
+
+            var fromActive = TryActiveDocumentProjectRoot(dte);
+            if (fromActive != null) return fromActive;
+
+            var workspaceRoot = await GetWorkspaceRootAsync(serviceProvider);
+            return GetProjectRoot(workspaceRoot);
+        }
+
+        private static string ProjectDirIfRxdk(EnvDTE.Project project)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            try
+            {
+                var full = project?.FullName;
+                if (string.IsNullOrEmpty(full) || !File.Exists(full)) return null;
+                var dir = Path.GetDirectoryName(full);
+                return File.Exists(Path.Combine(dir, ManifestFileName)) ? dir : null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        private static string TryStartupProjectRoot(EnvDTE.DTE dte)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            try
+            {
+                if (!(dte?.Solution?.SolutionBuild?.StartupProjects is Array arr) || arr.Length == 0) return null;
+                var uniqueName = arr.GetValue(0) as string;
+                if (string.IsNullOrEmpty(uniqueName)) return null;
+                foreach (EnvDTE.Project project in dte.Solution.Projects)
+                {
+                    if (project == null) continue;
+                    if (string.Equals(project.UniqueName, uniqueName, StringComparison.OrdinalIgnoreCase))
+                        return ProjectDirIfRxdk(project);
+                }
+            }
+            catch (Exception)
+            {
+                // COM hiccups / solution folders that don't enumerate cleanly — fall through.
+            }
+            return null;
+        }
+
+        private static string TryActiveDocumentProjectRoot(EnvDTE.DTE dte)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            try
+            {
+                return ProjectDirIfRxdk(dte?.ActiveDocument?.ProjectItem?.ContainingProject);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

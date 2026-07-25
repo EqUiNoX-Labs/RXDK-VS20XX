@@ -1,8 +1,10 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Threading;
+using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using RxdkVs.Package.Commands;
+using RxdkVs.Package.Services;
 using RxdkVs.Package.ToolWindow;
 using Task = System.Threading.Tasks.Task;
 
@@ -29,6 +31,9 @@ namespace RxdkVs.Package
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideToolWindow(typeof(RxdkToolWindow), Style = VsDockStyle.Tabbed, Window = "DocumentWell", Orientation = ToolWindowOrientation.Left)]
     [ProvideAutoLoad(RxdkPackageGuids.RxdkProjectContextString, PackageAutoLoadFlags.BackgroundLoad)]
+    // Also load for any open solution, so the F5 interceptor is registered when a .sln (with
+    // native Xbox .vcxproj projects) is open — Open Folder is not the only project model.
+    [ProvideAutoLoad(VSConstants.UICONTEXT.SolutionExistsAndFullyLoaded_string, PackageAutoLoadFlags.BackgroundLoad)]
     // UI-context rule: active whenever a file matching rxdk.project.json is present. The
     // "HierSingleSelectionName" term matches the selected/opened hierarchy item name; the glob
     // form below is the shell's file-name expression. This is the closest declarative analog to
@@ -55,6 +60,10 @@ namespace RxdkVs.Package
             // Command wiring must happen on the UI thread (OleMenuCommandService is a UI service).
             await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             await RxdkCommands.InitializeAsync(this);
+
+            // Register the F5 / green-Run-button interceptor so debugging an Xbox startup project
+            // routes to the Xbox debug adapter instead of the Local Windows Debugger.
+            await StartDebugInterceptor.RegisterAsync(this, new CliRunner(this));
         }
     }
 }
