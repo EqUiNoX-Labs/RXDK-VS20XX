@@ -1,0 +1,11 @@
+﻿{
+    "$adapter":  "C:\\ProgramData\\RXDK\\engine\\Rxdk.Dap.exe",
+    "type":  "xbox",
+    "request":  "launch",
+    "name":  "Debug my-triangle",
+    "program":  "D:\\Git\\RXDK-VS20XX\\samples\\Game\\out\\my-triangle.exe",
+    "pdb":  "D:\\Git\\RXDK-VS20XX\\samples\\Game\\out\\my-triangle.pdb",
+    "xbePath":  "xe:\\my-triangle\\my-triangle.xbe",
+    "__workspaceFolder":  "D:\\Git\\RXDK-VS20XX\\samples\\Game",
+    "reboot":  false
+}

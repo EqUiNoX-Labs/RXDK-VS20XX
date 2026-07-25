@@ -27,15 +27,14 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <Import Project="..\Rxdk.Xbox.props" />
   <PropertyGroup>
-    <!-- A type:"library" rxdk.project.json builds a static .lib (Rxdk.Cli emits it under out\). -->
-    <NMakeOutput>$(MSBuildProjectDirectory)\out\my-lib.lib</NMakeOutput>
+    <!-- A static library (.lib) that other projects link via projectReferences. -->
+    <RxdkType>library</RxdkType>
+    <RxdkPublicIncludePaths>include</RxdkPublicIncludePaths>
+    <NMakeOutput>$(MSBuildProjectDirectory)\out\$(MSBuildProjectName).lib</NMakeOutput>
   </PropertyGroup>
   <ItemGroup>
     <ClCompile Include="src\mylib.cpp" />
     <ClInclude Include="include\mylib.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="rxdk.project.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

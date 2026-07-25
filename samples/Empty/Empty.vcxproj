@@ -27,13 +27,11 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <Import Project="..\Rxdk.Xbox.props" />
   <PropertyGroup>
-    <NMakeOutput>$(MSBuildProjectDirectory)\out\my-empty.xbe</NMakeOutput>
+    <RxdkLibraries>libxapi;libc;libkernel</RxdkLibraries>
+    <NMakeOutput>$(MSBuildProjectDirectory)\out\$(MSBuildProjectName).xbe</NMakeOutput>
   </PropertyGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="rxdk.project.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

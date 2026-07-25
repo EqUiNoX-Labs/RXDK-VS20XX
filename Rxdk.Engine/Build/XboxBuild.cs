@@ -180,9 +180,11 @@ public static class XboxBuild
     /// <summary>Build one library project to a static .lib and return its path.</summary>
     private static async Task<string> BuildLibraryAsync(
         string libRoot, string zig, string sdkInclude, RxdkOptimizeMode optimize,
-        Action<string>? log, CancellationToken ct)
+        Action<string>? log, CancellationToken ct, RxdkProjectManifest? knownManifest = null)
     {
-        var manifest = ReadManifest(libRoot);
+        // knownManifest is the resolved manifest for a top-level library (native .vcxproj flow,
+        // which has no rxdk.project.json on disk); a projectReference dep reads its own.
+        var manifest = knownManifest ?? ReadManifest(libRoot);
         if (manifest.Type != RxdkProjectKind.Library)
             throw new InvalidOperationException(
                 $"projectReferences must point to type:library projects - {manifest.Name} is not one");
@@ -252,7 +254,7 @@ public static class XboxBuild
             // A library root builds to a .lib and stops (no link / imagebld / deploy).
             if (manifest.Type == RxdkProjectKind.Library)
             {
-                var lib = await BuildLibraryAsync(projectRoot, zig, sdkInclude, optimize, log, ct);
+                var lib = await BuildLibraryAsync(projectRoot, zig, sdkInclude, optimize, log, ct, manifest);
                 log?.Invoke($"OK: library {projectName} build complete -> {lib}");
                 return new BuildResult(true, outDir);
             }

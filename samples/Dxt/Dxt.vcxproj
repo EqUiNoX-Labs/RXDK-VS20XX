@@ -27,16 +27,16 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <Import Project="..\Rxdk.Xbox.props" />
   <PropertyGroup>
-    <!-- A type:"dxt" rxdk.project.json builds a flat .dxt debug-monitor extension. -->
-    <NMakeOutput>$(MSBuildProjectDirectory)\out\my-dxt.dxt</NMakeOutput>
+    <!-- A flat .dxt debug-monitor extension loaded by xbdm at boot. -->
+    <RxdkType>dxt</RxdkType>
+    <RxdkLibraries>libxbdm;libkernel;libc</RxdkLibraries>
+    <RxdkConfig>release</RxdkConfig>
+    <NMakeOutput>$(MSBuildProjectDirectory)\out\$(MSBuildProjectName).dxt</NMakeOutput>
   </PropertyGroup>
   <ItemGroup>
     <ClCompile Include="src\main.c" />
     <ClInclude Include="src\defines.h" />
     <ClInclude Include="src\font.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="rxdk.project.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

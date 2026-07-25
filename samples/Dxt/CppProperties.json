@@ -1,0 +1,19 @@
+{
+  "configurations": [
+    {
+      "name": "Xbox",
+      "includePath": [
+        "C:/ProgramData/RXDK/sdk/include",
+        "${workspaceRoot}/**"
+      ],
+      "defines": [
+        "_XBOX",
+        "_WIN32",
+        "_WINNT",
+        "_X86_"
+      ],
+      "intelliSenseMode": "windows-msvc-x86",
+      "cStandard": "c23"
+    }
+  ]
+}

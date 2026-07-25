@@ -1,0 +1,41 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "rxdk: build",
+      "appliesTo": "rxdk.project.json",
+      "type": "launch",
+      "command": "C:\\ProgramData\\RXDK\\engine\\Rxdk.Cli.exe",
+      "args": [
+        "build",
+        "--project-root",
+        "${workspaceRoot}"
+      ],
+      "workingDirectory": "${workspaceRoot}"
+    },
+    {
+      "taskLabel": "rxdk: deploy",
+      "appliesTo": "rxdk.project.json",
+      "type": "launch",
+      "command": "C:\\ProgramData\\RXDK\\engine\\Rxdk.Cli.exe",
+      "args": [
+        "deploy",
+        "--project-root",
+        "${workspaceRoot}"
+      ],
+      "workingDirectory": "${workspaceRoot}"
+    },
+    {
+      "taskLabel": "rxdk: reboot",
+      "appliesTo": "rxdk.project.json",
+      "type": "launch",
+      "command": "C:\\ProgramData\\RXDK\\engine\\Rxdk.Cli.exe",
+      "args": [
+        "reboot",
+        "--project-root",
+        "${workspaceRoot}"
+      ],
+      "workingDirectory": "${workspaceRoot}"
+    }
+  ]
+}
