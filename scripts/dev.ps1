@@ -147,7 +147,18 @@ function Invoke-Templates {
     $srcRoot = Join-Path $Repo 'RxdkVs.Package\TemplateSrc'
     $outRoot = Join-Path $Repo 'RxdkVs.Package\ProjectTemplates'
     # TemplateSrc folder name -> display .zip name shown in File > New.
-    $names = @{ Game = 'Original Xbox Game'; Empty = 'Original Xbox Empty'; Lib = 'Original Xbox Lib'; Dxt = 'Original Xbox DXT' }
+    $names = @{
+        Game            = 'Original Xbox Game'
+        Empty           = 'Original Xbox Empty'
+        Lib             = 'Original Xbox Lib'
+        Dxt             = 'Original Xbox DXT'
+        ControllerInput = 'Original Xbox Controller Input'
+        FontScroller    = 'Original Xbox Font Scroller'
+        NetworkServer   = 'Original Xbox Network Server'
+        VideoPlayer     = 'Original Xbox Video Player'
+        Cube            = 'Original Xbox Cube (Multi-Project)'
+        MusicVisualizer = 'Original Xbox Music Visualizer (Multi-Project)'
+    }
     if (-not (Test-Path $outRoot)) { New-Item -ItemType Directory -Path $outRoot | Out-Null }
     foreach ($dir in Get-ChildItem -Path $srcRoot -Directory -ErrorAction SilentlyContinue) {
         $display = if ($names.ContainsKey($dir.Name)) { $names[$dir.Name] } else { $dir.Name }

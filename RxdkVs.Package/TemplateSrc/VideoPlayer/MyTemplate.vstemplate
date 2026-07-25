@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+  <TemplateData>
+    <Name>Original Xbox Video Player</Name>
+    <Description>Streams an .xmv movie with libxmv and plays its audio through DirectSound - embeds dsstdfx.bin into the XBE and deploys the video alongside it. Builds with the RXDK clean-room Zig toolchain.</Description>
+    <Icon>Icon.png</Icon>
+    <ProjectType>VC</ProjectType>
+    <ProjectSubType></ProjectSubType>
+    <SortOrder>1070</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>XboxVideo</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LocationField>Enabled</LocationField>
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+    <LanguageTag>C++</LanguageTag>
+    <PlatformTag>xbox</PlatformTag>
+    <ProjectTypeTag>games</ProjectTypeTag>
+  </TemplateData>
+  <TemplateContent>
+    <Project TargetFileName="$safeprojectname$.vcxproj" File="VideoPlayer.vcxproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="false" TargetFileName="Rxdk.Xbox.props">Rxdk.Xbox.props</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="Rxdk.Xbox.targets">Rxdk.Xbox.targets</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="RxdkDebugger.xml">RxdkDebugger.xml</ProjectItem>
+      <Folder Name="src" TargetFolderName="src">
+        <ProjectItem ReplaceParameters="false" TargetFileName="main.cpp">main.cpp</ProjectItem>
+      </Folder>
+      <Folder Name="media" TargetFolderName="media">
+        <ProjectItem ReplaceParameters="false" TargetFileName="test.xmv">test.xmv</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="dsstdfx.bin">dsstdfx.bin</ProjectItem>
+      </Folder>
+    </Project>
+  </TemplateContent>
+</VSTemplate>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+  <TemplateData>
+    <Name>Cube</Name>
+    <Description>Spinning textured cube whose geometry comes from the cubemesh child library.</Description>
+    <Icon>Icon.png</Icon>
+    <ProjectType>VC</ProjectType>
+    <ProjectSubType></ProjectSubType>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>Cube</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LanguageTag>C++</LanguageTag>
+    <PlatformTag>xbox</PlatformTag>
+    <ProjectTypeTag>games</ProjectTypeTag>
+  </TemplateData>
+  <TemplateContent>
+    <Project TargetFileName="$safeprojectname$.vcxproj" File="Cube.vcxproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="false" TargetFileName="Rxdk.Xbox.props">Rxdk.Xbox.props</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="Rxdk.Xbox.targets">Rxdk.Xbox.targets</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="RxdkDebugger.xml">RxdkDebugger.xml</ProjectItem>
+      <Folder Name="src" TargetFolderName="src">
+        <ProjectItem ReplaceParameters="false" TargetFileName="main.cpp">main.cpp</ProjectItem>
+      </Folder>
+    </Project>
+  </TemplateContent>
+</VSTemplate>

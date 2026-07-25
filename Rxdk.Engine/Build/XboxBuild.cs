@@ -40,7 +40,26 @@ public static class XboxBuild
         "-Wno-comment", "-Wno-extra-tokens", "-Wno-unused-command-line-argument",
     };
 
-    private static RxdkProjectManifest ReadManifest(string dir) => RxdkManifestLoader.Load(dir);
+    // Resolve a project's manifest: hand-authored rxdk.project.json if present, else the
+    // build-generated out\rxdk.manifest.json (native .vcxproj flow — a referenced child
+    // library project has no rxdk.project.json, only the manifest its own build emitted).
+    private static RxdkProjectManifest ReadManifest(string dir)
+    {
+        if (File.Exists(Path.Combine(dir, RxdkManifestLoader.ManifestFileName)))
+            return RxdkManifestLoader.Load(dir);
+        var generated = Path.Combine(dir, "out", "rxdk.manifest.json");
+        if (File.Exists(generated))
+            return RxdkManifestLoader.LoadFile(generated);
+        throw new FileNotFoundException(
+            $"No manifest for {dir} (expected rxdk.project.json or out\\rxdk.manifest.json). " +
+            "Build the referenced library project first.");
+    }
+
+    // A referenced project has a manifest if it ships a hand-authored rxdk.project.json OR
+    // (native .vcxproj flow) has already generated one into out\ from its VS build.
+    private static bool HasManifest(string dir) =>
+        File.Exists(Path.Combine(dir, RxdkManifestLoader.ManifestFileName)) ||
+        File.Exists(Path.Combine(dir, "out", "rxdk.manifest.json"));
 
     private static List<string> ProjectDefineArgs(RxdkProjectManifest m) =>
         (m.Defines ?? new()).Where(d => !string.IsNullOrWhiteSpace(d)).Select(d => $"-D{d}").ToList();
@@ -95,8 +114,10 @@ public static class XboxBuild
         {
             if (string.IsNullOrWhiteSpace(rel)) continue;
             var dir = Path.GetFullPath(Path.Combine(projectRoot, rel));
-            if (!File.Exists(Path.Combine(dir, RxdkManifestLoader.ManifestFileName)))
-                throw new InvalidOperationException($"projectReferences: no rxdk.project.json in {dir}");
+            if (!HasManifest(dir))
+                throw new InvalidOperationException(
+                    $"projectReferences: no manifest in {dir} " +
+                    "(rxdk.project.json, or out\\rxdk.manifest.json from a prior build)");
             refs.Add(dir);
         }
         return refs;
@@ -245,11 +266,25 @@ public static class XboxBuild
                 return File.Exists(candidate) ? candidate : null;
             }
 
-            // Build referenced library projects first, in dependency order.
+            // Referenced library projects, in dependency order. If a dep's .lib is already
+            // built (native .vcxproj flow: VS builds the child project first via a
+            // ProjectReference), link it directly; otherwise build it now (CLI / no VS).
             var depOrder = GetDependencyOrder(projectRoot, manifest);
             var userLibs = new List<string>();
             foreach (var dep in depOrder)
-                userLibs.Add(await BuildLibraryAsync(dep, zig, sdkInclude, optimize, log, ct));
+            {
+                var depManifest = ReadManifest(dep);
+                var prebuilt = Path.Combine(SdkLayout.GetProjectOutDir(dep, depManifest), $"{depManifest.Name}.lib");
+                if (File.Exists(prebuilt))
+                {
+                    log?.Invoke($"Using prebuilt library {prebuilt}");
+                    userLibs.Add(prebuilt);
+                }
+                else
+                {
+                    userLibs.Add(await BuildLibraryAsync(dep, zig, sdkInclude, optimize, log, ct, depManifest));
+                }
+            }
 
             // A library root builds to a .lib and stops (no link / imagebld / deploy).
             if (manifest.Type == RxdkProjectKind.Library)

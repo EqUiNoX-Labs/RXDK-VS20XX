@@ -20,6 +20,9 @@
       <PublicIncludePaths ParameterType="System.String" />
       <IncludePaths ParameterType="System.String" />
       <Defines ParameterType="System.String" />
+      <ProjectReferences ParameterType="System.String" />
+      <DeployPaths ParameterType="System.String" />
+      <Embed ParameterType="System.String" />
       <StackSize ParameterType="System.String" />
       <ImageDebug ParameterType="System.String" />
       <NoLogo ParameterType="System.String" />
@@ -55,6 +58,21 @@
         if (inc.Length > 0) sb.Append("  \"includePaths\": " + arr(inc) + ",\n");
         var defs = split(Defines);
         if (defs.Length > 0) sb.Append("  \"defines\": " + arr(defs) + ",\n");
+        var prefs = split(ProjectReferences);
+        if (prefs.Length > 0) sb.Append("  \"projectReferences\": " + arr(prefs) + ",\n");
+        var deploys = split(DeployPaths);
+        if (deploys.Length > 0) sb.Append("  \"deployPaths\": " + arr(deploys) + ",\n");
+        var embeds = split(Embed);
+        if (embeds.Length > 0) {
+            // Each entry is "path|name" (name defaults to path if omitted).
+            var parts = embeds.Select(e => {
+                var kv = e.Split('|');
+                var p = kv[0].Trim();
+                var nm = (kv.Length > 1 ? kv[1] : kv[0]).Trim();
+                return "{ \"path\": \"" + esc(p) + "\", \"name\": \"" + esc(nm) + "\" }";
+            });
+            sb.Append("  \"embed\": [" + string.Join(", ", parts) + "],\n");
+        }
         var ib = new List<string>();
         if (!string.IsNullOrEmpty(StackSize)) ib.Add("\"stackSize\": " + StackSize);
         if (!string.IsNullOrEmpty(ImageDebug)) ib.Add("\"debug\": " + ImageDebug.ToLowerInvariant());
@@ -83,6 +101,9 @@
       PublicIncludePaths="$(RxdkPublicIncludePaths)"
       IncludePaths="$(RxdkIncludePaths)"
       Defines="$(RxdkDefines)"
+      ProjectReferences="$(RxdkProjectReferences)"
+      DeployPaths="$(RxdkDeployPaths)"
+      Embed="$(RxdkEmbed)"
       StackSize="$(RxdkStackSize)"
       ImageDebug="$(RxdkImageDebug)"
       NoLogo="$(RxdkNoLogo)"

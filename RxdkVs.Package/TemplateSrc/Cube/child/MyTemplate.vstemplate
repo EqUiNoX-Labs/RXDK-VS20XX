@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+  <TemplateData>
+    <Name>cubemesh</Name>
+    <Description>Cube mesh geometry library (child project).</Description>
+    <Icon>Icon.png</Icon>
+    <ProjectType>VC</ProjectType>
+    <ProjectSubType></ProjectSubType>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>cubemesh</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LanguageTag>C++</LanguageTag>
+    <PlatformTag>xbox</PlatformTag>
+    <ProjectTypeTag>games</ProjectTypeTag>
+  </TemplateData>
+  <TemplateContent>
+    <Project TargetFileName="cubemesh.vcxproj" File="cubemesh.vcxproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="false" TargetFileName="Rxdk.Xbox.props">Rxdk.Xbox.props</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="Rxdk.Xbox.targets">Rxdk.Xbox.targets</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="RxdkDebugger.xml">RxdkDebugger.xml</ProjectItem>
+      <Folder Name="src" TargetFolderName="src">
+        <ProjectItem ReplaceParameters="false" TargetFileName="cubemesh.cpp">cubemesh.cpp</ProjectItem>
+      </Folder>
+      <Folder Name="include" TargetFolderName="include">
+        <ProjectItem ReplaceParameters="false" TargetFileName="cubemesh.h">cubemesh.h</ProjectItem>
+      </Folder>
+    </Project>
+  </TemplateContent>
+</VSTemplate>

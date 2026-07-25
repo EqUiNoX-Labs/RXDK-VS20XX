@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+  <TemplateData>
+    <Name>vorbis</Name>
+    <Description>Ogg Vorbis decoder (stb_vorbis) child library.</Description>
+    <Icon>Icon.png</Icon>
+    <ProjectType>VC</ProjectType>
+    <ProjectSubType></ProjectSubType>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>vorbis</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LanguageTag>C++</LanguageTag>
+    <PlatformTag>xbox</PlatformTag>
+    <ProjectTypeTag>games</ProjectTypeTag>
+  </TemplateData>
+  <TemplateContent>
+    <Project TargetFileName="vorbis.vcxproj" File="vorbis.vcxproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="false" TargetFileName="Rxdk.Xbox.props">Rxdk.Xbox.props</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="Rxdk.Xbox.targets">Rxdk.Xbox.targets</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="RxdkDebugger.xml">RxdkDebugger.xml</ProjectItem>
+      <Folder Name="src" TargetFolderName="src">
+        <ProjectItem ReplaceParameters="false" TargetFileName="stb_vorbis_impl.c">stb_vorbis_impl.c</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="vorbis_stream.c">vorbis_stream.c</ProjectItem>
+      </Folder>
+      <Folder Name="include" TargetFolderName="include">
+        <ProjectItem ReplaceParameters="false" TargetFileName="vorbis_stream.h">vorbis_stream.h</ProjectItem>
+      </Folder>
+      <Folder Name="vendor" TargetFolderName="vendor">
+        <ProjectItem ReplaceParameters="false" TargetFileName="stb_vorbis.c">stb_vorbis.c</ProjectItem>
+      </Folder>
+    </Project>
+  </TemplateContent>
+</VSTemplate>
