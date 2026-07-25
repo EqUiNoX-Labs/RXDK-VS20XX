@@ -56,5 +56,16 @@
     <AdditionalOptions>-std=c++23</AdditionalOptions>
   </PropertyGroup>
 
+  <!-- Relabel the green Run button / debug-target dropdown to "Xbox Debugger (RXDK)".
+       Contributed like VS's built-in debugger rules (no Context); DebuggerFlavor is
+       forced unconditionally so it wins over the WindowsLocalDebugger default. F5 is
+       still handled by the extension's Debug.Start interceptor. -->
+  <ItemGroup>
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)RxdkDebugger.xml" />
+  </ItemGroup>
+  <PropertyGroup>
+    <DebuggerFlavor>RxdkXboxDebugger</DebuggerFlavor>
+  </PropertyGroup>
+
   <Import Project="$(MSBuildThisFileDirectory)Rxdk.Xbox.targets" />
 </Project>

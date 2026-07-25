@@ -20,6 +20,7 @@
     <Project TargetFileName="$safeprojectname$.vcxproj" File="Dxt.vcxproj" ReplaceParameters="true">
       <ProjectItem ReplaceParameters="false" TargetFileName="Rxdk.Xbox.props">Rxdk.Xbox.props</ProjectItem>
       <ProjectItem ReplaceParameters="false" TargetFileName="Rxdk.Xbox.targets">Rxdk.Xbox.targets</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="RxdkDebugger.xml">RxdkDebugger.xml</ProjectItem>
       <Folder Name="src" TargetFolderName="src">
         <ProjectItem ReplaceParameters="false" TargetFileName="main.c">main.c</ProjectItem>
         <ProjectItem ReplaceParameters="false" TargetFileName="defines.h">defines.h</ProjectItem>
