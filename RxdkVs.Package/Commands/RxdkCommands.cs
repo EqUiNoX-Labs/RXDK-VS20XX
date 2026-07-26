@@ -338,6 +338,7 @@ namespace RxdkVs.Package.Commands
             await RunCliAsync("install-zig", requiresProject: false);
             await RunCliAsync("install-tools", requiresProject: false);
             await RunCliAsync("install-sdk", requiresProject: false);
+            await RunCliAsync("install-docs", requiresProject: false);
         }
 
         private async Task SetBuildTypeAsync()

@@ -20,6 +20,8 @@ if (args.Length == 0)
     Console.Error.WriteLine("  sdk-status                  Report staged SDK presence");
     Console.Error.WriteLine("  install-zig                 Download the pinned Zig toolchain");
     Console.Error.WriteLine("  zig-status                  Report the resolved Zig toolchain");
+    Console.Error.WriteLine("  install-docs                Clone/update RXDK-Docs (SDK + extension help)");
+    Console.Error.WriteLine("  docs-status                 Report staged docs presence");
     Console.Error.WriteLine("  build --project-root <dir> [--optimize <mode>] [--compile-only]   Compile+link to .xbe");
     Console.Error.WriteLine("  deploy --project-root <dir> [--console <ip>]     Copy build output to the devkit");
     Console.Error.WriteLine("  run --project-root <dir> [--console <ip>] [--reboot]   Launch the deployed title");
@@ -48,6 +50,10 @@ switch (command)
         return await CmdInstallZig();
     case "zig-status":
         return await CmdZigStatus();
+    case "install-docs":
+        return await CmdInstallDocs();
+    case "docs-status":
+        return CmdDocsStatus();
     case "build":
         return await CmdBuild(opts);
     case "deploy":
@@ -122,6 +128,29 @@ static int CmdSdkStatus()
     Console.WriteLine($"  headers (include/d3d8.h): {headers}");
     Console.WriteLine($"  libs (linkable marker):   {libs}");
     return headers && libs ? 0 : 1;
+}
+
+static async Task<int> CmdInstallDocs()
+{
+    try
+    {
+        var root = await DocsStaging.EnsureAsync(log: msg => Console.WriteLine(msg));
+        Console.WriteLine($"Docs staged at: {root}");
+        return 0;
+    }
+    catch (Exception ex)
+    {
+        Console.Error.WriteLine($"install-docs failed: {ex.Message}");
+        return 1;
+    }
+}
+
+static int CmdDocsStatus()
+{
+    Console.WriteLine($"staged docs root: {RxdkPaths.GetStagedDocsRoot()}");
+    var present = DocsStaging.IsStagedDocsPresent();
+    Console.WriteLine($"  docs (rxdk/toc.json): {present}");
+    return present ? 0 : 1;
 }
 
 static async Task<int> CmdInstallZig()

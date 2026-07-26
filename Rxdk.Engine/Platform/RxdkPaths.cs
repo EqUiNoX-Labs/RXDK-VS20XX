@@ -45,6 +45,15 @@ public static class RxdkPaths
     public static string GetStagedSdkRoot() =>
         EnvOverride("RXDK_STAGED_SDK") ?? GetDefaultStagedSdkRoot();
 
+    // ---- Staged docs (RXDK-Docs, …/RXDK/docs) ----
+
+    public static string GetDefaultStagedDocsRoot() =>
+        Path.Combine(ProgramData(), "RXDK", "docs");
+
+    /// <summary>Effective staged docs root, honoring the RXDK_STAGED_DOCS override.</summary>
+    public static string GetStagedDocsRoot() =>
+        EnvOverride("RXDK_STAGED_DOCS") ?? GetDefaultStagedDocsRoot();
+
     // ---- Managed Zig install (…/RXDK/zig under LocalAppData) ----
 
     /// <summary>Persistent Zig install root.</summary>
