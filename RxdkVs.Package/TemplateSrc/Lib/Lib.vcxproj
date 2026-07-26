@@ -48,6 +48,7 @@
     <None Include="Rxdk.Xbox.targets" />
     <None Include="RxdkDebugger.xml" />
     <None Include="RxdkXboxImage.xml" />
+    <None Include="RxdkXboxDeployment.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

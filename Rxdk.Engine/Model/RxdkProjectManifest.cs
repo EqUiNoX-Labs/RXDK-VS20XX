@@ -105,6 +105,10 @@ public sealed class RxdkProjectManifest
     /// <summary>Files embedded into the XBE at build time (imagebld /insertfile).</summary>
     public List<RxdkEmbedFile>? Embed { get; set; }
 
+    /// <summary>Pack the build output into an .iso via xdvdfs (default true). When false the build
+    /// stops at the .xbe (plus any deployPaths staged into out\Build), skipping ISO creation.</summary>
+    public bool? CreateIso { get; set; }
+
     /// <summary>imagebld.exe switches for the PE -> XBE step.</summary>
     public RxdkImageBuildOptions? ImageBuild { get; set; }
 

@@ -23,6 +23,7 @@
       <ProjectReferences ParameterType="System.String" />
       <DeployPaths ParameterType="System.String" />
       <Embed ParameterType="System.String" />
+      <CreateIso ParameterType="System.String" />
       <StackSize ParameterType="System.String" />
       <ImageDebug ParameterType="System.String" />
       <NoLogo ParameterType="System.String" />
@@ -79,6 +80,7 @@
             });
             sb.Append("  \"embed\": [" + string.Join(", ", parts) + "],\n");
         }
+        if (!string.IsNullOrEmpty(CreateIso)) sb.Append("  \"createIso\": " + CreateIso.ToLowerInvariant() + ",\n");
         var ib = new List<string>();
         if (!string.IsNullOrEmpty(StackSize)) ib.Add("\"stackSize\": " + StackSize);
         if (!string.IsNullOrEmpty(ImageDebug)) ib.Add("\"debug\": " + ImageDebug.ToLowerInvariant());
@@ -118,6 +120,7 @@
       ProjectReferences="$(RxdkProjectReferences)"
       DeployPaths="$(RxdkDeployPaths)"
       Embed="$(RxdkEmbed)"
+      CreateIso="$(RxdkCreateIso)"
       StackSize="$(RxdkStackSize)"
       ImageDebug="$(RxdkImageDebug)"
       NoLogo="$(RxdkNoLogo)"

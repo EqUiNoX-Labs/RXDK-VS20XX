@@ -389,17 +389,24 @@ public static class XboxBuild
             var xbe = await ImageBuild.BuildXbeAsync(exe, imageBldPath, manifest.ImageBuild, insertFiles, log, ct);
             log?.Invoke($"Built {xbe}");
 
-            try
+            if (manifest.CreateIso ?? true)
             {
-                var stageFiles = PackXiso.ResolveDeployPaths(projectRoot, manifest.DeployPaths, log);
-                if (stageFiles.Count > 0)
-                    log?.Invoke($"Staging {stageFiles.Count} deployPaths file(s) into ISO");
-                var iso = await PackXiso.PackAsync(xbe, projectName, outDir, xdvdfsPath, stageFiles, log, ct);
-                log?.Invoke($"Packed {iso}");
+                try
+                {
+                    var stageFiles = PackXiso.ResolveDeployPaths(projectRoot, manifest.DeployPaths, log);
+                    if (stageFiles.Count > 0)
+                        log?.Invoke($"Staging {stageFiles.Count} deployPaths file(s) into ISO");
+                    var iso = await PackXiso.PackAsync(xbe, projectName, outDir, xdvdfsPath, stageFiles, log, ct);
+                    log?.Invoke($"Packed {iso}");
+                }
+                catch (Exception err)
+                {
+                    log?.Invoke($"Note: ISO pack skipped ({err.Message})");
+                }
             }
-            catch (Exception err)
+            else
             {
-                log?.Invoke($"Note: ISO pack skipped ({err.Message})");
+                log?.Invoke("ISO creation disabled (createIso=false); .xbe is the final output.");
             }
 
             log?.Invoke($"OK: {projectName} build complete -> {outDir}");

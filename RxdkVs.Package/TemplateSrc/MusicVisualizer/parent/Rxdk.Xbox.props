@@ -42,6 +42,9 @@
     <RxdkNoLogo Condition="'$(RxdkNoLogo)' == ''">true</RxdkNoLogo>
     <RxdkNoLibWarn Condition="'$(RxdkNoLibWarn)' == ''">true</RxdkNoLibWarn>
 
+    <!-- Deployment: pack an .iso via xdvdfs after the .xbe (set false to stop at the .xbe). -->
+    <RxdkCreateIso Condition="'$(RxdkCreateIso)' == ''">true</RxdkCreateIso>
+
     <!-- Generated build manifest (into the gitignored out\). -->
     <RxdkManifestFile>$(MSBuildProjectDirectory)\out\rxdk.manifest.json</RxdkManifestFile>
   </PropertyGroup>
@@ -73,6 +76,14 @@
        Rxdk.Xbox.targets when it generates the build manifest. -->
   <ItemGroup>
     <PropertyPageSchema Include="$(MSBuildThisFileDirectory)RxdkXboxImage.xml">
+      <Context>Project</Context>
+    </PropertyPageSchema>
+  </ItemGroup>
+
+  <!-- "Xbox Deployment" project property page: how media is collected (deployed + embedded
+       files) and whether an .iso is packed. -->
+  <ItemGroup>
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)RxdkXboxDeployment.xml">
       <Context>Project</Context>
     </PropertyPageSchema>
   </ItemGroup>
