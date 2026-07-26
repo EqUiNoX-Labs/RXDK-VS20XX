@@ -49,18 +49,32 @@ namespace RxdkVs.Package.Commands
 
         private void RegisterAll(OleMenuCommandService svc)
         {
-            void Add(int id, Func<Task> handler)
+            void Add(int id, Func<Task> handler, EventHandler beforeQueryStatus = null)
             {
                 var cmdId = new CommandID(RxdkPackageGuids.CommandSet, id);
                 var cmd = new OleMenuCommand((s, e) => _package.JoinableTaskFactory.RunAsync(handler).FileAndForget("rxdk/command"), cmdId);
+                if (beforeQueryStatus != null) cmd.BeforeQueryStatus += beforeQueryStatus;
                 svc.AddCommand(cmd);
+            }
+
+            // Context-menu visibility: Deploy for any RXDK Xbox project; Remove DXT only for DXTs.
+            void OnQueryDeploy(object s, EventArgs e)
+            {
+                ThreadHelper.ThrowIfNotOnUIThread();
+                ((OleMenuCommand)s).Visible = Services.XboxDebugLauncher.TryGetSelectedProject(out var sel) && sel.IsXbox;
+            }
+            void OnQueryRemoveDxt(object s, EventArgs e)
+            {
+                ThreadHelper.ThrowIfNotOnUIThread();
+                ((OleMenuCommand)s).Visible = Services.XboxDebugLauncher.TryGetSelectedProject(out var sel) && sel.IsXbox && sel.IsDxt;
             }
 
             Add(CommandIds.CmdBuild, () => RunCliAsync("build"));
             Add(CommandIds.CmdDeploy, () => RunCliAsync("deploy"));
             Add(CommandIds.CmdRun, () => RunCliAsync("run"));
             Add(CommandIds.CmdRebootConsole, () => RunCliAsync("reboot", requiresProject: false));
-            Add(CommandIds.CmdRemoveDxt, RemoveDxtAsync);
+            Add(CommandIds.CmdRemoveDxt, RemoveDxtAsync, OnQueryRemoveDxt);
+            Add(CommandIds.CmdDeployProject, DeployProjectAsync, OnQueryDeploy);
             Add(CommandIds.CmdSetXboxIp, SetXboxIpAsync);
             Add(CommandIds.CmdDebug, DebugAsync);
             Add(CommandIds.CmdDebugPrebuiltXbe, NewPrebuiltXbeAsync);
@@ -114,12 +128,28 @@ namespace RxdkVs.Package.Commands
             }
         }
 
+        // Deploy the selected project's .xbe + media (retry path when the devkit was off at F5).
+        // Wired to the Solution Explorer project context menu (RXDK Xbox projects only).
+        private Task DeployProjectAsync() => XboxDebugLauncher.DeploySelectedAsync(_package, _cli);
+
+        // Remove the selected DXT project's extension from xe:\dxt and warm-reboot. Context-menu
+        // command shown only for RXDK DXT projects, so it targets that specific project by name.
         private async Task RemoveDxtAsync()
         {
-            // Mirror rxdk.removeDxt: the CLI does not yet expose a dedicated verb, so this is a
-            // reboot after the engine clears E:\dxt. TODO: add a `remove-dxt` CLI verb (parity
-            // with RXDK-VSCode xboxLaunch removeDxt) and call it here instead of plain reboot.
-            await RunCliAsync("reboot", requiresProject: false);
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+            if (!XboxDebugLauncher.TryGetSelectedProject(out var sel) || !sel.IsDxt)
+            {
+                await ShowInfoAsync("Select an RXDK DXT project in Solution Explorer, then try Remove DXT again.");
+                return;
+            }
+            var args = new[] { "remove-dxt", "--project-root", sel.Dir, "--name", sel.Name };
+            if (await _cli.RunAsync(args, sel.Dir) != 0)
+            {
+                await ShowErrorAsync($"Remove DXT failed — is the devkit on, and was {sel.Name}.dxt deployed?");
+                return;
+            }
+            await _cli.RunAsync(new[] { "reboot" }, sel.Dir);
+            await ShowInfoAsync($"Removed {sel.Name}.dxt from the console and warm-rebooted.");
         }
 
         private async Task SetXboxIpAsync()

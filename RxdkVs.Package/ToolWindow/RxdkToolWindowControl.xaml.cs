@@ -33,7 +33,6 @@ namespace RxdkVs.Package.ToolWindow
 
         // Console
         private void OnReboot(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdRebootConsole);
-        private void OnRemoveDxt(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdRemoveDxt);
         private void OnSetIp(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdSetXboxIp, refreshAfter: true);
         // Project
         private void OnNewProject(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdNewProject);

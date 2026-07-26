@@ -26,6 +26,7 @@ if (args.Length == 0)
     Console.Error.WriteLine("  deploy --project-root <dir> [--console <ip>]     Copy build output to the devkit");
     Console.Error.WriteLine("  run --project-root <dir> [--console <ip>] [--reboot]   Launch the deployed title");
     Console.Error.WriteLine("  reboot [--console <ip>]     Warm-reboot the devkit");
+    Console.Error.WriteLine("  remove-dxt --project-root <dir> [--manifest <p>] [--console <ip>]   Delete the DXT from xe:\\dxt");
     Console.Error.WriteLine("  set-ip --address <ip>       Set the devkit IP/hostname (registry)");
     Console.Error.WriteLine("  xbox-ip                     Print the resolved devkit address");
     return 2;
@@ -62,6 +63,8 @@ switch (command)
         return await CmdRun(opts);
     case "reboot":
         return await CmdReboot(opts);
+    case "remove-dxt":
+        return await CmdRemoveDxt(opts);
     case "set-ip":
         return await CmdSetIp(opts);
     case "xbox-ip":
@@ -220,6 +223,30 @@ static async Task<int> CmdDeploy(Dictionary<string, string> opts)
     if (!result.Ok)
     {
         Console.Error.WriteLine($"deploy failed: {result.Error}");
+        return 1;
+    }
+    return 0;
+}
+
+static async Task<int> CmdRemoveDxt(Dictionary<string, string> opts)
+{
+    if (!opts.TryGetValue("project-root", out var root) || string.IsNullOrEmpty(root))
+    {
+        Console.Error.WriteLine("missing required --project-root");
+        return 2;
+    }
+    opts.TryGetValue("console", out var console);
+    opts.TryGetValue("manifest", out var manifest);
+    opts.TryGetValue("name", out var name);
+    var result = await XboxDeploy.RemoveDxtAsync(
+        root,
+        projectName: string.IsNullOrEmpty(name) ? null : name,
+        consoleName: string.IsNullOrEmpty(console) ? null : console,
+        manifestPath: string.IsNullOrEmpty(manifest) ? null : manifest,
+        log: msg => Console.WriteLine(msg));
+    if (!result.Ok)
+    {
+        Console.Error.WriteLine($"remove-dxt failed: {result.Error}");
         return 1;
     }
     return 0;

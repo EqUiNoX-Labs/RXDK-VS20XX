@@ -30,14 +30,34 @@
       <Group guid="guidRxdkCmdSet" id="RxdkMainGroup" priority="0x0100">
         <Parent guid="guidRxdkCmdSet" id="RxdkTopMenu" />
       </Group>
+      <!-- Per-project commands on the Solution Explorer project-node context menu. Shown only
+           for RXDK projects (dynamic visibility set in RxdkCommands.BeforeQueryStatus). -->
+      <Group guid="guidRxdkCmdSet" id="RxdkProjectCtxGroup" priority="0x0600">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE" />
+      </Group>
     </Groups>
 
     <Buttons>
-      <!-- The only menu entry: open the RXDK tool window (build/deploy/run/debug are native VS
+      <!-- The only top-menu entry: open the RXDK tool window (build/deploy/run/debug are native VS
            now — F5 / right-click Build / the relabelled green button). -->
       <Button guid="guidRxdkCmdSet" id="CmdShowToolWindow" priority="0x0100" type="Button">
         <Parent guid="guidRxdkCmdSet" id="RxdkMainGroup" />
         <Strings><ButtonText>RXDK Window</ButtonText></Strings>
+      </Button>
+
+      <!-- Project context menu: Deploy (all RXDK Xbox projects) + Remove DXT (DXT projects only).
+           DynamicVisibility + DefaultInvisible so BeforeQueryStatus decides per selection. -->
+      <Button guid="guidRxdkCmdSet" id="CmdDeployProject" priority="0x0100" type="Button">
+        <Parent guid="guidRxdkCmdSet" id="RxdkProjectCtxGroup" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings><ButtonText>Deploy to Xbox</ButtonText></Strings>
+      </Button>
+      <Button guid="guidRxdkCmdSet" id="CmdRemoveDxt" priority="0x0110" type="Button">
+        <Parent guid="guidRxdkCmdSet" id="RxdkProjectCtxGroup" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings><ButtonText>Remove DXT &amp; Reboot</ButtonText></Strings>
       </Button>
     </Buttons>
 
@@ -60,6 +80,7 @@
       <IDSymbol name="RxdkProjectGroup" value="0x1300" />
       <IDSymbol name="RxdkToolsGroup" value="0x1400" />
       <IDSymbol name="RxdkSetupGroup" value="0x1500" />
+      <IDSymbol name="RxdkProjectCtxGroup" value="0x1600" />
 
       <!-- Buttons (must equal Commands/CommandIds.cs). -->
       <IDSymbol name="CmdSetupPrerequisites" value="0x0101" />
@@ -86,6 +107,7 @@
       <IDSymbol name="CmdCycleGlobalsScope" value="0x0116" />
       <IDSymbol name="CmdSetBuildType" value="0x0117" />
       <IDSymbol name="CmdOpenSettings" value="0x0118" />
+      <IDSymbol name="CmdDeployProject" value="0x0119" />
     </GuidSymbol>
 
     <GuidSymbol name="guidRxdkImages" value="{89c8f7ba-434f-466d-b59a-629e92d80e63}">

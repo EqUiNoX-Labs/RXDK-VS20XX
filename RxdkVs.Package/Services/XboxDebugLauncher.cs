@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
@@ -36,6 +37,124 @@ namespace RxdkVs.Package.Services
         {
             var info = await GetStartupInfoAsync(package);
             return info != null && info.IsXbox;
+        }
+
+        /// <summary>Lightweight facts about the Solution-Explorer-selected project (for context menus).</summary>
+        internal struct SelectedProject
+        {
+            public bool IsXbox;      // RxdkXbox == true
+            public bool IsDxt;       // NMakeOutput ends with .dxt
+            public string Dir;       // project directory
+            public string Name;      // output base name (from NMakeOutput)
+            public string XbeOutput; // NMakeOutput
+            public string SolutionConfig;
+            public EnvDTE.Project Project;
+        }
+
+        /// <summary>
+        /// Reads the currently selected Solution Explorer project's RXDK facts synchronously (safe
+        /// to call from a command's BeforeQueryStatus, which runs on the UI thread). Returns false
+        /// if the selection is not a single project.
+        /// </summary>
+        public static bool TryGetSelectedProject(out SelectedProject sel)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            sel = default;
+            if (!(Microsoft.VisualStudio.Shell.Package.GetGlobalService(typeof(SVsShellMonitorSelection)) is IVsMonitorSelection mon))
+                return false;
+
+            IntPtr hierPtr = IntPtr.Zero, containerPtr = IntPtr.Zero;
+            try
+            {
+                if (mon.GetCurrentSelection(out hierPtr, out uint itemid, out _, out containerPtr) != VSConstants.S_OK)
+                    return false;
+                if (hierPtr == IntPtr.Zero) return false;
+                if (!(Marshal.GetObjectForIUnknown(hierPtr) is IVsHierarchy hier)) return false;
+                if (!(GetExtObject(hier) is EnvDTE.Project proj)) return false;
+
+                string dir;
+                try { dir = Path.GetDirectoryName(proj.FullName); }
+                catch { return false; }
+
+                var fullConfig = "Debug|Win32";
+                try
+                {
+                    var cfg = proj.ConfigurationManager?.ActiveConfiguration;
+                    if (cfg != null) fullConfig = $"{cfg.ConfigurationName}|{cfg.PlatformName}";
+                }
+                catch { /* keep default */ }
+
+                var bps = hier as IVsBuildPropertyStorage;
+                var isXbox = string.Equals(ReadProp(bps, "RxdkXbox", fullConfig), "true", StringComparison.OrdinalIgnoreCase);
+                var outp = ReadProp(bps, "NMakeOutput", fullConfig) ?? string.Empty;
+
+                var solutionConfig = "Debug";
+                try { solutionConfig = ((EnvDTE.DTE)proj.DTE).Solution.SolutionBuild.ActiveConfiguration.Name; }
+                catch { /* keep default */ }
+
+                sel = new SelectedProject
+                {
+                    IsXbox = isXbox,
+                    IsDxt = outp.EndsWith(".dxt", StringComparison.OrdinalIgnoreCase),
+                    Dir = dir,
+                    Name = Path.GetFileNameWithoutExtension(outp),
+                    XbeOutput = outp,
+                    SolutionConfig = solutionConfig,
+                    Project = proj,
+                };
+                return true;
+            }
+            catch { return false; }
+            finally
+            {
+                if (hierPtr != IntPtr.Zero) Marshal.Release(hierPtr);
+                if (containerPtr != IntPtr.Zero) Marshal.Release(containerPtr);
+            }
+        }
+
+        /// <summary>
+        /// Build + (re)deploy the selected RXDK project's .xbe and media to the console — the
+        /// retry path when the devkit was off during F5. For a DXT, deploy to E:\dxt and warm-reboot.
+        /// </summary>
+        public static async Task DeploySelectedAsync(AsyncPackage package, CliRunner cli)
+        {
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+            if (!TryGetSelectedProject(out var sel) || !sel.IsXbox)
+            {
+                await ShowAsync(package, "Select an RXDK Xbox project in Solution Explorer, then try Deploy again.");
+                return;
+            }
+            if (string.IsNullOrEmpty(sel.XbeOutput))
+            {
+                await ShowAsync(package, "Could not determine the project's output (NMakeOutput). Build once, then Deploy.");
+                return;
+            }
+
+            var info = new StartupInfo
+            {
+                ProjectDir = sel.Dir, XbeOutput = sel.XbeOutput, IsXbox = true,
+                Project = sel.Project, SolutionConfig = sel.SolutionConfig,
+            };
+            // Incremental build via VS first (regenerates the manifest + ensures output is current),
+            // then deploy — so this both retries a failed deploy and picks up any source changes.
+            if (!await BuildViaVsAsync(package, info))
+            {
+                await ShowAsync(package, "Build failed — see the Output / Error List.");
+                return;
+            }
+            var manifest = Path.Combine(Path.GetDirectoryName(info.XbeOutput), "rxdk.manifest.json");
+            if (await cli.RunAsync(new[] { "deploy", "--project-root", info.ProjectDir, "--manifest", manifest }, info.ProjectDir) != 0)
+            {
+                await ShowAsync(package, "Deploy failed — is the devkit on and reachable? Fix it and run Deploy to Xbox again.");
+                return;
+            }
+            if (sel.IsDxt)
+            {
+                await cli.RunAsync(new[] { "reboot" }, info.ProjectDir);
+                await ShowAsync(package, $"Deployed {sel.Name}.dxt to E:\\dxt and warm-rebooted the console.");
+                return;
+            }
+            await ShowAsync(package, $"Deployed {sel.Name} (.xbe + media) to the console.");
         }
 
         /// <summary>

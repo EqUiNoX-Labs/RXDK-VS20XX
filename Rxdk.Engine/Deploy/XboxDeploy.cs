@@ -150,12 +150,13 @@ public static class XboxDeploy
     /// <summary>Delete a DXT from the console's E:\dxt via xbdel (pair with a warm reboot).</summary>
     public static async Task<DeployResult> RemoveDxtAsync(
         string projectRoot, string? projectName = null, string? consoleName = null,
-        Action<string>? log = null, CancellationToken ct = default)
+        string? manifestPath = null, Action<string>? log = null, CancellationToken ct = default)
     {
         try
         {
-            var manifest = RxdkManifestLoader.Load(Path.GetFullPath(projectRoot));
-            var name = projectName ?? manifest.Name;
+            var name = projectName;
+            if (string.IsNullOrEmpty(name))
+                name = RxdkManifestLoader.Resolve(Path.GetFullPath(projectRoot), manifestPath).Name;
             var xbdel = RxdkPaths.ResolveHostTool("xbdel");
             if (!File.Exists(xbdel))
                 return DeployResult.Fail($"xbdel not found at {xbdel}. Update the RXDK host tools.");

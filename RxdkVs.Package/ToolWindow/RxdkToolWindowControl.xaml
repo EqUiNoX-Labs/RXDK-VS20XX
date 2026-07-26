@@ -21,7 +21,6 @@
                 <TextBlock x:Name="IpText" Text="(unknown)" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
             </DockPanel>
             <Button Content="Warm Reboot Xbox"    Margin="0,2" Click="OnReboot" />
-            <Button Content="Remove DXT &amp; Reboot" Margin="0,2" Click="OnRemoveDxt" />
 
             <Separator Margin="0,8,0,8" />
 
