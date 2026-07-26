@@ -27,40 +27,40 @@
 
   <!-- ===== General ===== -->
   <StringProperty Name="RxdkStackSize" DisplayName="Stack Size"
-                  Category="General"
+                  Category="General" Default="65536"
                   Description="Title thread stack size in bytes (imagebld /stack). Decimal, e.g. 131072 for 0x20000." />
 
   <BoolProperty Name="RxdkImageDebug" DisplayName="Include Debug Info"
-                Category="General"
+                Category="General" Default="true"
                 Description="Include the debug directory in the XBE so the debugger can resolve symbols (imagebld /debug)." />
 
   <BoolProperty Name="RxdkNoLogo" DisplayName="Suppress Startup Banner"
-                Category="General"
+                Category="General" Default="true"
                 Description="Do not print the imagebld banner (imagebld /nologo)." />
 
   <BoolProperty Name="RxdkNoLibWarn" DisplayName="Disable Library Warnings"
-                Category="General"
+                Category="General" Default="true"
                 Description="Suppress library-version warnings from imagebld (imagebld /nolibwarn)." />
 
   <BoolProperty Name="RxdkLimitMemory" DisplayName="Limit Memory (64 MB)"
-                Category="General"
+                Category="General" Default="false"
                 Description="Run the title as if the console has only 64 MB of RAM (imagebld /limitmem)." />
 
   <!-- ===== Utility Drive ===== -->
   <BoolProperty Name="RxdkDontModifyHardDisk" DisplayName="Don't Modify Hard Disk"
-                Category="UtilityDrive"
+                Category="UtilityDrive" Default="false"
                 Description="Prevent the title from modifying the retail hard disk layout (imagebld /dontmodifyhd)." />
 
   <BoolProperty Name="RxdkDontMountUtilityDrive" DisplayName="Don't Mount Utility Drive"
-                Category="UtilityDrive"
+                Category="UtilityDrive" Default="false"
                 Description="Do not mount the utility (Z:) drive at launch (imagebld /dontmountud). Cannot be combined with Format Utility Drive." />
 
   <BoolProperty Name="RxdkFormatUtilityDrive" DisplayName="Format Utility Drive"
-                Category="UtilityDrive"
+                Category="UtilityDrive" Default="false"
                 Description="Format the utility (Z:) drive at launch (imagebld /formatud). Cannot be combined with Don't Mount Utility Drive." />
 
   <EnumProperty Name="RxdkUtilityDriveClusterSize" DisplayName="Utility Drive Cluster Size"
-                Category="UtilityDrive"
+                Category="UtilityDrive" Default="0"
                 Description="Cluster size for the utility drive (imagebld /udcluster). Default lets imagebld choose.">
     <EnumValue Name="0" DisplayName="Default" />
     <EnumValue Name="16384" DisplayName="16 KB" />

@@ -37,7 +37,7 @@
                       Description="Files baked into the XBE at build time (imagebld /INSERTFILE). One 'source|section' per entry, e.g. media\dsstdfx.bin|dsstdfx (the section name defaults to the path when omitted)." />
 
   <BoolProperty Name="RxdkCreateIso" DisplayName="Create ISO Image"
-                Category="Packaging"
+                Category="Packaging" Default="true"
                 Description="Pack the build output into an .iso with xdvdfs. Set to No to stop at the .xbe (plus staged deploy files)." />
 
 </Rule>
