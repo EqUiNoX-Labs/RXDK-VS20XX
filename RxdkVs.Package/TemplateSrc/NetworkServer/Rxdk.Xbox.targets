@@ -34,6 +34,18 @@
       <FormatUtilityDrive ParameterType="System.String" />
       <UtilityDriveClusterSize ParameterType="System.String" />
       <NoPreload ParameterType="System.String" />
+      <TestId ParameterType="System.String" />
+      <TestAltId ParameterType="System.String" />
+      <TestRegion ParameterType="System.String" />
+      <TestRatings ParameterType="System.String" />
+      <TestMediaTypes ParameterType="System.String" />
+      <TestLanKey ParameterType="System.String" />
+      <TestSignKey ParameterType="System.String" />
+      <TestName ParameterType="System.String" />
+      <TestVersion ParameterType="System.String" />
+      <TitleInfo ParameterType="System.String" />
+      <TitleImage ParameterType="System.String" />
+      <DefaultSaveImage ParameterType="System.String" />
     </ParameterGroup>
     <Task>
       <Using Namespace="System" />
@@ -94,6 +106,20 @@
             ib.Add("\"utilityDriveClusterSize\": " + UtilityDriveClusterSize);
         var noPreload = split(NoPreload);
         if (noPreload.Length > 0) ib.Add("\"noPreload\": " + arr(noPreload));
+        // Certificate + title info (string pass-through; esc handles quotes/backslashes).
+        Action<string,string> addStr = (key, val) => { if (!string.IsNullOrEmpty(val)) ib.Add("\"" + key + "\": \"" + esc(val) + "\""); };
+        addStr("testId", TestId);
+        addStr("testAltId", TestAltId);
+        addStr("testRegion", TestRegion);
+        addStr("testRatings", TestRatings);
+        addStr("testMediaTypes", TestMediaTypes);
+        addStr("testLanKey", TestLanKey);
+        addStr("testSignKey", TestSignKey);
+        addStr("testName", TestName);
+        addStr("testVersion", TestVersion);
+        addStr("titleInfo", TitleInfo);
+        addStr("titleImage", TitleImage);
+        addStr("defaultSaveImage", DefaultSaveImage);
         if (ib.Count > 0) sb.Append("  \"imageBuild\": { " + string.Join(", ", ib) + " },\n");
         sb.Append("  \"outputDir\": \"" + esc(string.IsNullOrEmpty(OutputDir) ? "out" : OutputDir) + "\"\n");
         sb.Append("}\n");
@@ -130,6 +156,18 @@
       DontMountUtilityDrive="$(RxdkDontMountUtilityDrive)"
       FormatUtilityDrive="$(RxdkFormatUtilityDrive)"
       UtilityDriveClusterSize="$(RxdkUtilityDriveClusterSize)"
-      NoPreload="$(RxdkNoPreload)" />
+      NoPreload="$(RxdkNoPreload)"
+      TestId="$(RxdkTestId)"
+      TestAltId="$(RxdkTestAltId)"
+      TestRegion="$(RxdkTestRegion)"
+      TestRatings="$(RxdkTestRatings)"
+      TestMediaTypes="$(RxdkTestMediaTypes)"
+      TestLanKey="$(RxdkTestLanKey)"
+      TestSignKey="$(RxdkTestSignKey)"
+      TestName="$(RxdkTestName)"
+      TestVersion="$(RxdkTestVersion)"
+      TitleInfo="$(RxdkTitleInfo)"
+      TitleImage="$(RxdkTitleImage)"
+      DefaultSaveImage="$(RxdkDefaultSaveImage)" />
   </Target>
 </Project>

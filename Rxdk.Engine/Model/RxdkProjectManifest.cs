@@ -49,6 +49,36 @@ public sealed class RxdkImageBuildOptions
 
     /// <summary>Section names for /nopreload:&lt;section&gt;.</summary>
     public List<string>? NoPreload { get; set; }
+
+    // ---- XBE certificate (imagebld /TEST* switches) ----
+
+    /// <summary>Title ID (/TESTID). Decimal or 0x-hex string.</summary>
+    public string? TestId { get; set; }
+    /// <summary>Alternate title ID, optionally "number,key" (/TESTALTID).</summary>
+    public string? TestAltId { get; set; }
+    /// <summary>Allowed regions bitmask (/TESTREGION).</summary>
+    public string? TestRegion { get; set; }
+    /// <summary>Ratings value (/TESTRATINGS).</summary>
+    public string? TestRatings { get; set; }
+    /// <summary>Allowed media types bitmask (/TESTMEDIATYPES).</summary>
+    public string? TestMediaTypes { get; set; }
+    /// <summary>LAN key (/TESTLANKEY).</summary>
+    public string? TestLanKey { get; set; }
+    /// <summary>Signature key (/TESTSIGNKEY).</summary>
+    public string? TestSignKey { get; set; }
+
+    // ---- Title info (imagebld title switches) ----
+
+    /// <summary>Test title name (/TESTNAME).</summary>
+    public string? TestName { get; set; }
+    /// <summary>Test version number (/TESTVERSION).</summary>
+    public string? TestVersion { get; set; }
+    /// <summary>Project-relative title info file (/TITLEINFO).</summary>
+    public string? TitleInfo { get; set; }
+    /// <summary>Project-relative title image, XPR format (/TITLEIMAGE).</summary>
+    public string? TitleImage { get; set; }
+    /// <summary>Project-relative default save image, XPR format (/DEFAULTSAVEIMAGE).</summary>
+    public string? DefaultSaveImage { get; set; }
 }
 
 /// <summary>A prebuilt-XBE project references existing artifacts in place (no compile step).</summary>

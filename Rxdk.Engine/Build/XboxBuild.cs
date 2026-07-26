@@ -386,7 +386,7 @@ public static class XboxBuild
                 }
             }
 
-            var xbe = await ImageBuild.BuildXbeAsync(exe, imageBldPath, manifest.ImageBuild, insertFiles, log, ct);
+            var xbe = await ImageBuild.BuildXbeAsync(exe, imageBldPath, manifest.ImageBuild, insertFiles, projectRoot, log, ct);
             log?.Invoke($"Built {xbe}");
 
             if (manifest.CreateIso ?? true)

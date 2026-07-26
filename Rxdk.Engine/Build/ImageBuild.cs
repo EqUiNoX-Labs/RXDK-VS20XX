@@ -21,6 +21,19 @@ public static class ImageBuild
         public bool FormatUtilityDrive;
         public int UtilityDriveClusterSize;
         public List<string> NoPreload = new();
+        // Certificate / title info (pass-through strings; empty = omit the switch).
+        public string? TestId;
+        public string? TestAltId;
+        public string? TestRegion;
+        public string? TestRatings;
+        public string? TestMediaTypes;
+        public string? TestLanKey;
+        public string? TestSignKey;
+        public string? TestName;
+        public string? TestVersion;
+        public string? TitleInfo;
+        public string? TitleImage;
+        public string? DefaultSaveImage;
     }
 
     private static ResolvedSettings Resolve(RxdkImageBuildOptions? o)
@@ -37,14 +50,27 @@ public static class ImageBuild
         if (o.FormatUtilityDrive is { } fu) s.FormatUtilityDrive = fu;
         if (o.UtilityDriveClusterSize is { } uc) s.UtilityDriveClusterSize = uc;
         if (o.NoPreload is { } np) s.NoPreload = np;
+        s.TestId = o.TestId;
+        s.TestAltId = o.TestAltId;
+        s.TestRegion = o.TestRegion;
+        s.TestRatings = o.TestRatings;
+        s.TestMediaTypes = o.TestMediaTypes;
+        s.TestLanKey = o.TestLanKey;
+        s.TestSignKey = o.TestSignKey;
+        s.TestName = o.TestName;
+        s.TestVersion = o.TestVersion;
+        s.TitleInfo = o.TitleInfo;
+        s.TitleImage = o.TitleImage;
+        s.DefaultSaveImage = o.DefaultSaveImage;
         return s;
     }
 
     /// <summary>Convert a linked Win32 PE .exe into an Xbox .xbe. Returns the .xbe path.</summary>
+    /// <param name="projectRoot">Base dir for resolving project-relative title/save-image files.</param>
     public static async Task<string> BuildXbeAsync(
         string inputExe, string toolPath, RxdkImageBuildOptions? imageBuild,
-        IReadOnlyList<string>? insertFiles = null, Action<string>? log = null,
-        CancellationToken ct = default)
+        IReadOnlyList<string>? insertFiles = null, string? projectRoot = null,
+        Action<string>? log = null, CancellationToken ct = default)
     {
         var input = Path.GetFullPath(inputExe);
         if (!File.Exists(input)) throw new FileNotFoundException($"imagebld: input not found: {input}");
@@ -56,6 +82,18 @@ public static class ImageBuild
         if (cfg.FormatUtilityDrive && cfg.DontMountUtilityDrive)
             throw new InvalidOperationException(
                 "imageBuild: formatUtilityDrive and dontMountUtilityDrive cannot both be true");
+
+        // Resolve a project-relative file argument (title info / images) to an absolute path.
+        string? ResolveFile(string? rel)
+        {
+            if (string.IsNullOrWhiteSpace(rel)) return null;
+            var p = rel.Replace('/', Path.DirectorySeparatorChar);
+            if (!Path.IsPathRooted(p) && !string.IsNullOrEmpty(projectRoot))
+                p = Path.Combine(projectRoot, p);
+            var full = Path.GetFullPath(p);
+            if (!File.Exists(full)) log?.Invoke($"Warning: imagebld file not found: {full}");
+            return full;
+        }
 
         var args = new List<string> { $"/in:{input}", $"/out:{output}" };
         if (cfg.NoLogo) args.Add("/nologo");
@@ -71,6 +109,21 @@ public static class ImageBuild
             args.Add($"/nopreload:{section}");
         foreach (var insert in (insertFiles ?? Array.Empty<string>()).Where(s => !string.IsNullOrEmpty(s)))
             args.Add($"/INSERTFILE:{insert}");
+
+        // Certificate.
+        if (!string.IsNullOrWhiteSpace(cfg.TestId)) args.Add($"/TESTID:{cfg.TestId.Trim()}");
+        if (!string.IsNullOrWhiteSpace(cfg.TestAltId)) args.Add($"/TESTALTID:{cfg.TestAltId.Trim()}");
+        if (!string.IsNullOrWhiteSpace(cfg.TestRegion)) args.Add($"/TESTREGION:{cfg.TestRegion.Trim()}");
+        if (!string.IsNullOrWhiteSpace(cfg.TestRatings)) args.Add($"/TESTRATINGS:{cfg.TestRatings.Trim()}");
+        if (!string.IsNullOrWhiteSpace(cfg.TestMediaTypes)) args.Add($"/TESTMEDIATYPES:{cfg.TestMediaTypes.Trim()}");
+        if (!string.IsNullOrWhiteSpace(cfg.TestLanKey)) args.Add($"/TESTLANKEY:{cfg.TestLanKey.Trim()}");
+        if (!string.IsNullOrWhiteSpace(cfg.TestSignKey)) args.Add($"/TESTSIGNKEY:{cfg.TestSignKey.Trim()}");
+        // Title info.
+        if (!string.IsNullOrWhiteSpace(cfg.TestName)) args.Add($"/TESTNAME:{cfg.TestName.Trim()}");
+        if (!string.IsNullOrWhiteSpace(cfg.TestVersion)) args.Add($"/TESTVERSION:{cfg.TestVersion.Trim()}");
+        if (ResolveFile(cfg.TitleInfo) is { } ti) args.Add($"/TITLEINFO:{ti}");
+        if (ResolveFile(cfg.TitleImage) is { } tim) args.Add($"/TITLEIMAGE:{tim}");
+        if (ResolveFile(cfg.DefaultSaveImage) is { } dsi) args.Add($"/DEFAULTSAVEIMAGE:{dsi}");
 
         var r = await ProcessRunner.RunStreamedAsync(toolPath, args, log, ct: ct);
         if (!r.Success) throw new InvalidOperationException($"imagebld failed (exit {r.ExitCode})");

@@ -78,6 +78,12 @@
     <PropertyPageSchema Include="$(MSBuildThisFileDirectory)RxdkXboxImage.xml">
       <Context>Project</Context>
     </PropertyPageSchema>
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)RxdkXboxCertificate.xml">
+      <Context>Project</Context>
+    </PropertyPageSchema>
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)RxdkXboxTitleInfo.xml">
+      <Context>Project</Context>
+    </PropertyPageSchema>
   </ItemGroup>
 
   <!-- "Xbox Deployment" project property page: how media is collected (deployed + embedded
