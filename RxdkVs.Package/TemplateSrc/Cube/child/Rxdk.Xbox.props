@@ -68,5 +68,14 @@
     <DebuggerFlavor>RxdkXboxDebugger</DebuggerFlavor>
   </PropertyGroup>
 
+  <!-- "Xbox Image" project property page: the imagebld settings that build the .xbe (like the
+       original XDK's Xbox Image page). The Rxdk* properties it edits are read by
+       Rxdk.Xbox.targets when it generates the build manifest. -->
+  <ItemGroup>
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)RxdkXboxImage.xml">
+      <Context>Project</Context>
+    </PropertyPageSchema>
+  </ItemGroup>
+
   <Import Project="$(MSBuildThisFileDirectory)Rxdk.Xbox.targets" />
 </Project>

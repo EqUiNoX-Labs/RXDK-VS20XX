@@ -27,6 +27,12 @@
       <ImageDebug ParameterType="System.String" />
       <NoLogo ParameterType="System.String" />
       <NoLibWarn ParameterType="System.String" />
+      <LimitMemory ParameterType="System.String" />
+      <DontModifyHardDisk ParameterType="System.String" />
+      <DontMountUtilityDrive ParameterType="System.String" />
+      <FormatUtilityDrive ParameterType="System.String" />
+      <UtilityDriveClusterSize ParameterType="System.String" />
+      <NoPreload ParameterType="System.String" />
     </ParameterGroup>
     <Task>
       <Using Namespace="System" />
@@ -78,6 +84,14 @@
         if (!string.IsNullOrEmpty(ImageDebug)) ib.Add("\"debug\": " + ImageDebug.ToLowerInvariant());
         if (!string.IsNullOrEmpty(NoLogo)) ib.Add("\"noLogo\": " + NoLogo.ToLowerInvariant());
         if (!string.IsNullOrEmpty(NoLibWarn)) ib.Add("\"noLibWarn\": " + NoLibWarn.ToLowerInvariant());
+        if (!string.IsNullOrEmpty(LimitMemory)) ib.Add("\"limitMemory\": " + LimitMemory.ToLowerInvariant());
+        if (!string.IsNullOrEmpty(DontModifyHardDisk)) ib.Add("\"dontModifyHardDisk\": " + DontModifyHardDisk.ToLowerInvariant());
+        if (!string.IsNullOrEmpty(DontMountUtilityDrive)) ib.Add("\"dontMountUtilityDrive\": " + DontMountUtilityDrive.ToLowerInvariant());
+        if (!string.IsNullOrEmpty(FormatUtilityDrive)) ib.Add("\"formatUtilityDrive\": " + FormatUtilityDrive.ToLowerInvariant());
+        if (!string.IsNullOrEmpty(UtilityDriveClusterSize) && UtilityDriveClusterSize != "0")
+            ib.Add("\"utilityDriveClusterSize\": " + UtilityDriveClusterSize);
+        var noPreload = split(NoPreload);
+        if (noPreload.Length > 0) ib.Add("\"noPreload\": " + arr(noPreload));
         if (ib.Count > 0) sb.Append("  \"imageBuild\": { " + string.Join(", ", ib) + " },\n");
         sb.Append("  \"outputDir\": \"" + esc(string.IsNullOrEmpty(OutputDir) ? "out" : OutputDir) + "\"\n");
         sb.Append("}\n");
@@ -107,6 +121,12 @@
       StackSize="$(RxdkStackSize)"
       ImageDebug="$(RxdkImageDebug)"
       NoLogo="$(RxdkNoLogo)"
-      NoLibWarn="$(RxdkNoLibWarn)" />
+      NoLibWarn="$(RxdkNoLibWarn)"
+      LimitMemory="$(RxdkLimitMemory)"
+      DontModifyHardDisk="$(RxdkDontModifyHardDisk)"
+      DontMountUtilityDrive="$(RxdkDontMountUtilityDrive)"
+      FormatUtilityDrive="$(RxdkFormatUtilityDrive)"
+      UtilityDriveClusterSize="$(RxdkUtilityDriveClusterSize)"
+      NoPreload="$(RxdkNoPreload)" />
   </Target>
 </Project>
