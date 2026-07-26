@@ -162,12 +162,18 @@ namespace RxdkVs.Package.Commands
 
         private async Task NewProjectAsync()
         {
-            // A full New Project wizard is Phase 3 (see PLAN.md). For the scaffold we invoke the
-            // tool window's create flow. TODO: build an IVsTemplateWizard-based wizard that writes
-            // rxdk.project.json from the templates/ set + calls ProjectConfigGenerator.Generate.
-            await ShowToolWindowAsync();
-            await ShowInfoAsync("New Project wizard is not yet implemented (Phase 3). " +
-                "Create rxdk.project.json manually, then RXDK > (re)generate opens tasks/launch.");
+            // Open VS's standard New Project dialog; the RXDK templates (Original Xbox Game/Empty/
+            // Lib/DXT/Video Player/Cube/…) are contributed via the VSIX and filterable by the Xbox tag.
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+            var dte = (EnvDTE.DTE)await _package.GetServiceAsync(typeof(EnvDTE.DTE));
+            try
+            {
+                dte?.ExecuteCommand("File.NewProject");
+            }
+            catch (Exception ex)
+            {
+                await ShowErrorAsync($"Could not open New Project: {ex.Message}");
+            }
         }
 
         private async Task NewPrebuiltXbeAsync()
@@ -200,19 +206,98 @@ namespace RxdkVs.Package.Commands
             Process.Start(new ProcessStartInfo("explorer.exe", $"\"{path}\"") { UseShellExecute = true });
         }
 
-        private async Task OpenDocsAsync(string subfolder)
+        private async Task OpenDocsAsync(string which)
         {
-            var docsRoot = ToolLocator.StagedDocsRoot;
-            var index = Path.Combine(docsRoot, subfolder, "index.html");
+            // "sdk" -> the Xbox SDK help set (cloned under docs\xboxsdk), "rxdk" -> the extension
+            // docs (docs\rxdk). The RXDK-Docs pages are .htm with a toc.json, and the SDK set has
+            // no index page, so resolve the landing page rather than assuming docs\<x>\index.html.
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
-            if (File.Exists(index))
+            var candidates = which == "sdk" ? new[] { "xboxsdk", "sdk" } : new[] { which };
+            string landing = null;
+            string tried = null;
+            foreach (var folder in candidates)
             {
-                Process.Start(new ProcessStartInfo(index) { UseShellExecute = true });
+                tried = Path.Combine(ToolLocator.StagedDocsRoot, folder);
+                landing = ResolveDocsLanding(tried);
+                if (landing != null) break;
+            }
+            if (landing != null)
+            {
+                Process.Start(new ProcessStartInfo(landing) { UseShellExecute = true });
             }
             else
             {
-                await ShowInfoAsync($"Documentation not found: {index}\nRun RXDK > Complete Setup to clone RXDK-Docs.");
+                await ShowInfoAsync($"Documentation not found under {tried}.\nRun RXDK > Complete Setup to clone RXDK-Docs.");
             }
+        }
+
+        /// <summary>
+        /// Resolves the landing page for a docs folder: an index.htm/html if present, otherwise the
+        /// first "page" referenced by the folder's toc.json (the SDK help set has no index page).
+        /// Returns null if the folder is missing or no page can be found.
+        /// </summary>
+        private static string ResolveDocsLanding(string dir)
+        {
+            if (string.IsNullOrEmpty(dir) || !Directory.Exists(dir))
+            {
+                return null;
+            }
+            // Prefer the toc.json's declared landing page ("defaultPage"), then its first page.
+            var toc = Path.Combine(dir, "toc.json");
+            if (File.Exists(toc))
+            {
+                try
+                {
+                    using var doc = System.Text.Json.JsonDocument.Parse(File.ReadAllText(toc));
+                    var root = doc.RootElement;
+                    if (root.TryGetProperty("defaultPage", out var dp) && dp.ValueKind == System.Text.Json.JsonValueKind.String)
+                    {
+                        var p = Path.Combine(dir, dp.GetString());
+                        if (File.Exists(p)) return p;
+                    }
+                    var page = FindFirstTocPage(root);
+                    if (!string.IsNullOrEmpty(page))
+                    {
+                        var p = Path.Combine(dir, page);
+                        if (File.Exists(p)) return p;
+                    }
+                }
+                catch { /* malformed toc — fall through */ }
+            }
+            foreach (var name in new[] { "index.htm", "index.html", "default.htm", "default.html" })
+            {
+                var p = Path.Combine(dir, name);
+                if (File.Exists(p)) return p;
+            }
+            return null;
+        }
+
+        /// <summary>Depth-first search for the first "page" string in a toc.json tree.</summary>
+        private static string FindFirstTocPage(System.Text.Json.JsonElement el)
+        {
+            switch (el.ValueKind)
+            {
+                case System.Text.Json.JsonValueKind.Object:
+                    if (el.TryGetProperty("page", out var pg) && pg.ValueKind == System.Text.Json.JsonValueKind.String)
+                    {
+                        var s = pg.GetString();
+                        if (!string.IsNullOrEmpty(s)) return s;
+                    }
+                    foreach (var prop in el.EnumerateObject())
+                    {
+                        var r = FindFirstTocPage(prop.Value);
+                        if (r != null) return r;
+                    }
+                    break;
+                case System.Text.Json.JsonValueKind.Array:
+                    foreach (var item in el.EnumerateArray())
+                    {
+                        var r = FindFirstTocPage(item);
+                        if (r != null) return r;
+                    }
+                    break;
+            }
+            return null;
         }
 
         private async Task LaunchHostToolAsync(string tool)

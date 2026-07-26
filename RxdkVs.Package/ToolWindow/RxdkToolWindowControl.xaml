@@ -11,6 +11,8 @@
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="10">
             <TextBlock Text="RXDK" FontSize="16" FontWeight="Bold" Margin="0,0,0,8" />
+            <TextBlock Text="Build, deploy and debug are native VS: press F5, or right-click the project and Build."
+                       TextWrapping="Wrap" Opacity="0.7" FontSize="11" Margin="0,0,0,8" />
 
             <!-- Devkit IP -->
             <TextBlock Text="Xbox console" FontWeight="SemiBold" Margin="0,4,0,2" />
@@ -18,21 +20,47 @@
                 <Button x:Name="SetIpButton" Content="Set…" DockPanel.Dock="Right" Width="48" Margin="6,0,0,0" Click="OnSetIp" />
                 <TextBlock x:Name="IpText" Text="(unknown)" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
             </DockPanel>
-
-            <Separator Margin="0,4,0,8" />
-
-            <!-- Primary actions -->
-            <Button Content="Build"  Margin="0,2" Click="OnBuild" />
-            <Button Content="Deploy" Margin="0,2" Click="OnDeploy" />
-            <Button Content="Run"    Margin="0,2" Click="OnRun" />
-            <Button Content="Debug"  Margin="0,2" Click="OnDebug" />
+            <Button Content="Warm Reboot Xbox"    Margin="0,2" Click="OnReboot" />
+            <Button Content="Remove DXT &amp; Reboot" Margin="0,2" Click="OnRemoveDxt" />
 
             <Separator Margin="0,8,0,8" />
 
-            <!-- Console / project -->
-            <Button Content="Warm Reboot Xbox" Margin="0,2" Click="OnReboot" />
-            <Button Content="New Project"      Margin="0,2" Click="OnNewProject" />
-            <Button Content="Refresh"          Margin="0,2" Click="OnRefresh" />
+            <!-- Project -->
+            <TextBlock Text="Project" FontWeight="SemiBold" Margin="0,0,0,2" />
+            <Button Content="New Project…" Margin="0,2" Click="OnNewProject" />
+
+            <Separator Margin="0,8,0,8" />
+
+            <!-- Folders -->
+            <TextBlock Text="Folders" FontWeight="SemiBold" Margin="0,0,0,2" />
+            <Button Content="Open SDK Folder (include/lib)" Margin="0,2" Click="OnOpenSdkFolder" />
+            <Button Content="Open Host Tools Folder"        Margin="0,2" Click="OnOpenToolsFolder" />
+            <Button Content="Open Documentation Folder"     Margin="0,2" Click="OnOpenDocsFolder" />
+
+            <Separator Margin="0,8,0,8" />
+
+            <!-- Documentation -->
+            <TextBlock Text="Documentation" FontWeight="SemiBold" Margin="0,0,0,2" />
+            <Button Content="Xbox SDK Documentation"  Margin="0,2" Click="OnOpenSdkDocs" />
+            <Button Content="Extension Documentation" Margin="0,2" Click="OnOpenExtensionDocs" />
+
+            <Separator Margin="0,8,0,8" />
+
+            <!-- Tools -->
+            <TextBlock Text="Tools" FontWeight="SemiBold" Margin="0,0,0,2" />
+            <Button Content="Launch xbWatson"        Margin="0,2" Click="OnLaunchXbwatson" />
+            <Button Content="Open Xbox Neighborhood" Margin="0,2" Click="OnOpenXboxNeighborhood" />
+            <Button Content="Cycle Globals Visibility (Title / +Constants / All)" Margin="0,2" Click="OnCycleGlobals" />
+
+            <Separator Margin="0,8,0,8" />
+
+            <!-- Setup -->
+            <TextBlock Text="Setup" FontWeight="SemiBold" Margin="0,0,0,2" />
+            <Button Content="Fetch Latest RXDK-SDK" Margin="0,2" Click="OnFetchSdk" />
+            <Button Content="Install .NET 8 Runtime" Margin="0,2" Click="OnInstallDotNet" />
+            <Button Content="Complete Setup"        Margin="0,2" Click="OnCompleteSetup" />
+            <Button Content="Settings"              Margin="0,2" Click="OnSettings" />
+            <Button Content="Refresh"               Margin="0,2" Click="OnRefresh" />
 
             <Separator Margin="0,8,0,8" />
 

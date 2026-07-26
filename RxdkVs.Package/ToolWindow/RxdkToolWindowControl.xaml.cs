@@ -31,13 +31,28 @@ namespace RxdkVs.Package.ToolWindow
 
         // ---- button handlers: dispatch to the shared command IDs ----
 
-        private void OnBuild(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdBuild);
-        private void OnDeploy(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdDeploy);
-        private void OnRun(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdRun);
-        private void OnDebug(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdDebug);
+        // Console
         private void OnReboot(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdRebootConsole);
-        private void OnNewProject(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdNewProject);
+        private void OnRemoveDxt(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdRemoveDxt);
         private void OnSetIp(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdSetXboxIp, refreshAfter: true);
+        // Project
+        private void OnNewProject(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdNewProject);
+        // Folders
+        private void OnOpenSdkFolder(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdOpenSdkFolder);
+        private void OnOpenToolsFolder(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdOpenToolsFolder);
+        private void OnOpenDocsFolder(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdOpenDocsFolder);
+        // Documentation
+        private void OnOpenSdkDocs(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdOpenSdkDocs);
+        private void OnOpenExtensionDocs(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdOpenExtensionDocs);
+        // Tools
+        private void OnLaunchXbwatson(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdLaunchXbwatson);
+        private void OnOpenXboxNeighborhood(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdOpenXboxNeighborhood);
+        private void OnCycleGlobals(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdCycleGlobalsScope);
+        // Setup
+        private void OnFetchSdk(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdFetchLatestSdk);
+        private void OnInstallDotNet(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdInstallDotNet);
+        private void OnCompleteSetup(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdSetupPrerequisites);
+        private void OnSettings(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdOpenSettings);
         private void OnRefresh(object sender, RoutedEventArgs e) => _ = RefreshAsync();
 
         private void Exec(int commandId, bool refreshAfter = false)
