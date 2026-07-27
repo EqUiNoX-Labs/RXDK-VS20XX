@@ -1,3 +1,4 @@
+using System.Linq;
 using Rxdk.Engine.Platform;
 
 namespace Rxdk.Engine.Build;
@@ -25,6 +26,18 @@ public static class XdkLink
         CancellationToken ct = default)
     {
         var args = new List<string> { "cc" };
+
+        // C++ exception unwinding: libcpp.lib bundles libunwind, whose baremetal frame lookup
+        // reads &__eh_frame_start / &__eh_frame_end to find the merged .eh_frame. Those bounds
+        // aren't linker-provided on this PE target, so we bracket the section with two tiny CRT
+        // marker objects — begin linked first, end linked last — exactly like the SDK's own title
+        // link (build/link_pe.zig). Only needed when libcpp is in the link (STL / exceptions).
+        var linksLibcpp = libs.Any(l => Path.GetFileName(l).Contains("libcpp", StringComparison.OrdinalIgnoreCase));
+        string? ehBegin = null, ehEnd = null;
+        if (linksLibcpp)
+            (ehBegin, ehEnd) = await CompileEhBracketsAsync(zig, Path.GetDirectoryName(Path.GetFullPath(outExe))!, log, ct);
+        if (ehBegin is not null) args.Add(ehBegin);
+
         args.AddRange(objs);
 
         if (libDir is not null)
@@ -46,6 +59,7 @@ public static class XdkLink
         }
 
         args.AddRange(libs);
+        if (ehEnd is not null) args.Add(ehEnd); // ___eh_frame_end must follow every .eh_frame contributor
         args.AddRange(new[]
         {
             "-target", "x86-windows-gnu",
@@ -57,5 +71,48 @@ public static class XdkLink
         args.AddRange(new[] { "-rtlib=compiler-rt", "-e", string.IsNullOrEmpty(entry) ? "start" : entry, "-o", outExe });
 
         return await ProcessRunner.RunStreamedAsync(zig, args, log, ct: ct);
+    }
+
+    // The two .eh_frame bracket markers (i386 COFF mangles C __eh_frame_start -> ___eh_frame_start).
+    // Kept in-engine (rather than shipped in the SDK) because they're a pure link-time concern.
+    private const string EhBeginAsm =
+        ".section .eh_frame,\"dr\"\n.globl ___eh_frame_start\n___eh_frame_start:\n";
+    private const string EhEndAsm =
+        ".section .eh_frame,\"dr\"\n.globl ___eh_frame_end\n___eh_frame_end:\n";
+
+    /// <summary>
+    /// Writes and compiles the two .eh_frame bracket markers next to the output. Returns
+    /// (beginObj, endObj) to place first/last in the link, or (null, null) if compilation fails
+    /// (the link then surfaces the missing-symbol error, which is the actionable diagnostic).
+    /// </summary>
+    private static async Task<(string?, string?)> CompileEhBracketsAsync(
+        string zig, string outDir, Action<string>? log, CancellationToken ct)
+    {
+        try
+        {
+            Directory.CreateDirectory(outDir);
+            async Task<string?> CompileAsync(string stem, string asm)
+            {
+                var src = Path.Combine(outDir, stem + ".S");
+                var obj = Path.Combine(outDir, stem + ".o");
+                await File.WriteAllTextAsync(src, asm, ct);
+                var r = await ProcessRunner.RunStreamedAsync(
+                    zig, new[] { "cc", "-target", "x86-windows-gnu", "-march=pentium3", "-c", src, "-o", obj }, log, ct: ct);
+                return r.Success ? obj : null;
+            }
+            var begin = await CompileAsync("rxdk_eh_begin", EhBeginAsm);
+            var end = await CompileAsync("rxdk_eh_end", EhEndAsm);
+            if (begin is null || end is null)
+            {
+                log?.Invoke("Warning: could not build .eh_frame brackets; C++ exception unwinding may fail to link.");
+                return (null, null);
+            }
+            return (begin, end);
+        }
+        catch (Exception ex)
+        {
+            log?.Invoke($"Warning: .eh_frame bracket setup failed ({ex.Message}); continuing without it.");
+            return (null, null);
+        }
     }
 }

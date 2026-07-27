@@ -88,9 +88,22 @@ public static class XboxBuild
 
         var toolArgs = new List<string>();
         if (isCpp)
+        {
             toolArgs.AddRange(new[] { "c++", "-std=c++23", "-nostdinc++", "-fno-exceptions", "-frtti" });
+            // C++ standard library: RXDK ships libc++ (built against picolibc) with headers staged
+            // at sdk/include/c++/v1. Add it *before* the C include dir so libc++'s C-header wrappers
+            // (ctype.h/wchar.h/...) win and include_next into picolibc. -fms-compatibility-version
+            // simulates MSVC 2015+, where char16_t/char32_t are native keywords libc++ requires;
+            // plain -fms-compatibility emulates older MSVC and disables them. (libcpp.lib is linked
+            // via the project's libraries — the importer force-adds it, and the C++ templates list it.)
+            var cxxInc = Path.Combine(SdkLayout.GetSdkIncludeDir(), "c++", "v1");
+            if (Directory.Exists(cxxInc))
+                toolArgs.AddRange(new[] { $"-I{cxxInc}", "-fms-compatibility-version=19.20" });
+        }
         else
+        {
             toolArgs.AddRange(new[] { "cc", "-std=c23" });
+        }
         toolArgs.AddRange(common);
 
         var result = await ProcessRunner.RunStreamedAsync(zig, toolArgs, log, ct: ct);
