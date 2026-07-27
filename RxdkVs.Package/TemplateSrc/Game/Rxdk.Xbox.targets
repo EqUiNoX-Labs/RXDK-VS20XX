@@ -178,4 +178,13 @@
       TitleImage="$(RxdkTitleImage)"
       DefaultSaveImage="$(RxdkDefaultSaveImage)" />
   </Target>
+
+  <!-- Pre/Post-build events (parity with a normal VC project's Build Events). Commands are set
+       on the Xbox Build page and run around the Makefile build; both support MSBuild macros. -->
+  <Target Name="RxdkRunPreBuildEvent" BeforeTargets="Build;Rebuild" Condition="'$(RxdkPreBuildEvent)' != ''">
+    <Exec Command="$(RxdkPreBuildEvent)" WorkingDirectory="$(MSBuildProjectDirectory)" />
+  </Target>
+  <Target Name="RxdkRunPostBuildEvent" AfterTargets="Build;Rebuild" Condition="'$(RxdkPostBuildEvent)' != ''">
+    <Exec Command="$(RxdkPostBuildEvent)" WorkingDirectory="$(MSBuildProjectDirectory)" />
+  </Target>
 </Project>

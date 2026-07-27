@@ -16,6 +16,7 @@
     <Category Name="General" DisplayName="General" Description="Build flavor and optimization." />
     <Category Name="Compiler" DisplayName="Compiler" Description="Preprocessor and compile settings." />
     <Category Name="Linker" DisplayName="Linker" Description="Libraries linked into the title." />
+    <Category Name="BuildEvents" DisplayName="Build Events" Description="Commands run around the build." />
   </Rule.Categories>
 
   <Rule.DataSource>
@@ -63,5 +64,22 @@
   <StringListProperty Name="RxdkAdditionalLibraries" DisplayName="Additional Dependencies"
                       Category="Linker" Separator=";"
                       Description="Explicit prebuilt static-library files to link, by path (project-relative or absolute .lib), in addition to the named Libraries above." />
+
+  <!-- ===== Build Events ===== -->
+  <StringProperty Name="RxdkPreBuildEvent" DisplayName="Pre-Build Event Command"
+                  Category="BuildEvents"
+                  Description="Command line run before the build (cmd script; MSBuild macros allowed).">
+    <StringProperty.ValueEditors>
+      <ValueEditor EditorType="DefaultCommandPropertyEditor" DisplayName="&lt;Edit...&gt;" />
+    </StringProperty.ValueEditors>
+  </StringProperty>
+
+  <StringProperty Name="RxdkPostBuildEvent" DisplayName="Post-Build Event Command"
+                  Category="BuildEvents"
+                  Description="Command line run after a successful build (cmd script; MSBuild macros allowed).">
+    <StringProperty.ValueEditors>
+      <ValueEditor EditorType="DefaultCommandPropertyEditor" DisplayName="&lt;Edit...&gt;" />
+    </StringProperty.ValueEditors>
+  </StringProperty>
 
 </Rule>
