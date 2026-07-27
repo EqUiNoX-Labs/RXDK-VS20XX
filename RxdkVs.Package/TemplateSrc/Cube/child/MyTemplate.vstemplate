@@ -16,6 +16,7 @@
   </TemplateData>
   <TemplateContent>
     <Project TargetFileName="cubemesh.vcxproj" File="cubemesh.vcxproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="false" TargetFileName="cubemesh.vcxproj.filters">cubemesh.vcxproj.filters</ProjectItem>
       <ProjectItem ReplaceParameters="false" TargetFileName="Rxdk.Xbox.props">Rxdk.Xbox.props</ProjectItem>
       <ProjectItem ReplaceParameters="false" TargetFileName="Rxdk.Xbox.targets">Rxdk.Xbox.targets</ProjectItem>
       <ProjectItem ReplaceParameters="false" TargetFileName="RxdkDebugger.xml">RxdkDebugger.xml</ProjectItem>
