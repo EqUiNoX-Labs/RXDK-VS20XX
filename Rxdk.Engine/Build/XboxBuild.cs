@@ -104,7 +104,19 @@ public static class XboxBuild
             // via the project's libraries — the importer force-adds it, and the C++ templates list it.)
             var cxxInc = Path.Combine(SdkLayout.GetSdkIncludeDir(), "c++", "v1");
             if (Directory.Exists(cxxInc))
-                toolArgs.AddRange(new[] { $"-I{cxxInc}", "-fms-compatibility-version=19.20" });
+                toolArgs.AddRange(new[]
+                {
+                    $"-I{cxxInc}", "-fms-compatibility-version=19.20",
+                    // libc++ was built with _WIN32/__MINGW32__ undefined so it takes its newlib
+                    // (not Win32/MSVCRT) locale + support backends. Consuming TUs must match, or
+                    // libc++'s <locale> pulls the Windows backend and fails on MSVC-only types
+                    // like _locale_t that picolibc doesn't provide.
+                    "-U_WIN32", "-U__MINGW32__",
+                    // The newlib locale backend calls picolibc's *_l locale functions
+                    // (strtod_l, ...), which picolibc only declares under __GNU_VISIBLE
+                    // (_GNU_SOURCE). libcpp's own build enables it via picolibc_prereq.h.
+                    "-D_GNU_SOURCE",
+                });
         }
         else
         {
