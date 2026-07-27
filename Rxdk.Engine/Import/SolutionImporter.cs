@@ -9,8 +9,10 @@ namespace Rxdk.Engine.Import;
 /// native RXDK multi-project solution: each project becomes its own <c>.vcxproj</c> (via
 /// <see cref="Vcproj2003Importer"/>) under its own subfolder, the solution's project-dependency graph
 /// is reproduced as native <c>&lt;ProjectReference&gt;</c> items (so RXDK links each child <c>.lib</c>
-/// into its dependents), and a fresh <c>.sln</c> ties them together. Configs are canonicalized to
-/// {Debug, Release} so every project shares a config set and cross-project references resolve.
+/// into its dependents), and a fresh <c>.sln</c> ties them together. Each project keeps its own full
+/// (filtered) config set; the generated <c>.sln</c> maps every solution config to each project's
+/// matching config (by name, else by flavor) so cross-project references resolve even when projects
+/// name their configs differently — exactly how the original <c>.sln</c> did.
 /// </summary>
 public static class SolutionImporter
 {
@@ -72,7 +74,7 @@ public static class SolutionImporter
 
             log?.Invoke($"Importing {p.SlnName} -> {p.OutSubdir}");
             p.Result = Vcproj2003Importer.Import(p.AbsVcproj, p.OutSubdir, scaffoldDir,
-                copySources: copySources, canonicalConfigs: true, projectRefs: refs, log: log);
+                copySources: copySources, projectRefs: refs, log: log);
             result.Projects.Add(p.Result);
             result.Warnings.AddRange(p.Result.Warnings.Select(w => $"[{p.SlnName}] {w}"));
         }
@@ -171,13 +173,18 @@ public static class SolutionImporter
             sb.AppendLine("EndProject");
         }
 
-        // Solution configs come from the canonicalized project configs (a subset of {Debug, Release}).
-        var solutionConfigs = projects
-            .SelectMany(p => p.Result?.Configs.Select(c => c.Name) ?? Enumerable.Empty<string>())
-            .Distinct(StringComparer.OrdinalIgnoreCase)
-            .OrderBy(n => n.Equals("Debug", StringComparison.OrdinalIgnoreCase) ? 0 : 1)
-            .ThenBy(n => n, StringComparer.OrdinalIgnoreCase)
-            .ToList();
+        // Solution configs = the union of every project's configs, in first-encounter order (Debug-
+        // flavor configs before Release so the list reads naturally). Each project keeps its own full
+        // set; projects that lack a given config fall back by flavor in MapProjectConfig below.
+        var solutionConfigs = new List<string>();
+        var seenConfigs = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        foreach (var flavorFirst in new[] { true, false })
+            foreach (var p in projects)
+                foreach (var c in p.Result?.Configs ?? new List<(string Name, string Flavor)>())
+                {
+                    var isDebug = c.Flavor.Equals("Debug", StringComparison.OrdinalIgnoreCase);
+                    if (isDebug == flavorFirst && seenConfigs.Add(c.Name)) solutionConfigs.Add(c.Name);
+                }
         if (solutionConfigs.Count == 0) solutionConfigs.Add("Debug");
 
         sb.AppendLine("Global");

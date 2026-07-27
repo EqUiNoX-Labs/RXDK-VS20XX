@@ -69,8 +69,7 @@ public static class Vcproj2003Importer
     }
 
     public static ImportResult Import(string vcprojPath, string outDir, string? scaffoldDir,
-        bool copySources = false, bool canonicalConfigs = false,
-        IReadOnlyList<ProjRef>? projectRefs = null, Action<string>? log = null)
+        bool copySources = false, IReadOnlyList<ProjRef>? projectRefs = null, Action<string>? log = null)
     {
         vcprojPath = Path.GetFullPath(vcprojPath);
         if (!File.Exists(vcprojPath)) throw new FileNotFoundException($"vcproj not found: {vcprojPath}");
@@ -93,19 +92,25 @@ public static class Vcproj2003Importer
         result.IsLibrary = isLib;
 
         // ---- configurations ----
-        var allConfigs = new List<Cfg>();
-        foreach (var c in root.Element("Configurations")?.Elements("Configuration") ?? Enumerable.Empty<XElement>())
-            allConfigs.Add(ParseConfig(c, unmapped));
+        // XDK .vcproj files carry Xbox-platform configs and often PC "|Win32" variants too; import
+        // only the Xbox ones — the Win32 builds can't target the console and, sharing a base name
+        // with their Xbox counterparts, would otherwise collide into duplicate configurations.
+        var allElems = (root.Element("Configurations")?.Elements("Configuration") ?? Enumerable.Empty<XElement>()).ToList();
+        var xboxElems = allElems.Where(c => ConfigPlatform(c).Equals("Xbox", StringComparison.OrdinalIgnoreCase)).ToList();
+        if (xboxElems.Count == 0 && allElems.Count > 0)
+        {
+            xboxElems = allElems;
+            result.Warnings.Add("no Xbox-platform configs found; imported all platforms.");
+        }
+        var allConfigs = xboxElems.Select(c => ParseConfig(c, unmapped)).ToList();
 
-        // Drop configs RXDK has no equivalent for (profiling / LTCG / non-Xbox platform variants).
-        var configs = allConfigs.Where(c => !IsUnsupportedConfig(c.Name)).ToList();
+        // Drop configs RXDK has no equivalent for (profiling / LTCG / SDL / Win32 name variants),
+        // then dedupe by name so the generated project can never carry duplicate configurations.
+        var configs = allConfigs.Where(c => !IsUnsupportedConfig(c.Name))
+            .GroupBy(c => c.Name, StringComparer.OrdinalIgnoreCase).Select(g => g.First()).ToList();
         var dropped = allConfigs.Count - configs.Count;
-        if (dropped > 0) result.Warnings.Add($"dropped {dropped} unsupported config(s) (profile/LTCG/fastcap/non-Xbox).");
+        if (dropped > 0) result.Warnings.Add($"dropped {dropped} unsupported config(s) (profile/LTCG/fastcap/SDL/Win32).");
         if (configs.Count == 0) { configs = allConfigs; result.Warnings.Add("all configs were unsupported; kept them as-is."); }
-
-        // For multi-project (solution) imports, collapse to a canonical {Debug, Release} set so every
-        // project shares config names and cross-project references build cleanly.
-        if (canonicalConfigs) configs = Canonicalize(configs);
 
         result.ConfigurationCount = configs.Count;
         result.Configs = configs.Select(c => (c.Name, c.Flavor)).ToList();
@@ -206,6 +211,14 @@ public static class Vcproj2003Importer
         return cfg;
     }
 
+    // The platform half of a VS2003 config Name ("Debug|Xbox" -> "Xbox").
+    private static string ConfigPlatform(XElement c)
+    {
+        var full = (string?)c.Attribute("Name") ?? "";
+        var bar = full.IndexOf('|');
+        return bar >= 0 ? full[(bar + 1)..].Trim() : "";
+    }
+
     // Config names RXDK has no build equivalent for: profiling/instrumentation modes and non-Xbox
     // platform variants encoded into the config name (the XDK uses "(Win32)"/"(SDL)" suffixes).
     private static bool IsUnsupportedConfig(string name)
@@ -213,20 +226,6 @@ public static class Vcproj2003Importer
         var n = name.ToLowerInvariant();
         return n.Contains("profile") || n.Contains("ltcg") || n.Contains("fastcap") || n.Contains("fast cap")
             || n.Contains("(win32)") || n.Contains("(win)") || n.Contains("(sdl)") || n.Contains("(pc)");
-    }
-
-    // Collapse a config list to a canonical {Debug, Release} set (first source config of each flavor
-    // wins its settings, renamed to the flavor). Used for multi-project imports so every project
-    // exposes the same config names and cross-project references resolve.
-    private static List<Cfg> Canonicalize(List<Cfg> configs)
-    {
-        var result = new List<Cfg>();
-        foreach (var flavor in new[] { "Debug", "Release" })
-        {
-            var first = configs.FirstOrDefault(c => c.Flavor == flavor);
-            if (first != null) { first.Name = flavor; result.Add(first); }
-        }
-        return result.Count > 0 ? result : configs;
     }
 
     private static string? MapLib(string token, out bool known)
