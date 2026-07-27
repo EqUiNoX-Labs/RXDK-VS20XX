@@ -274,50 +274,51 @@ namespace RxdkVs.Package.Commands
 
             if (isSolution)
             {
-                // A generated .sln ties the imported projects together; offer to open it.
+                // A generated .sln ties the imported projects together; open it in VS.
                 var producedSln = Directory.GetFiles(outDir, "*.sln", SearchOption.TopDirectoryOnly).FirstOrDefault();
                 if (producedSln != null && dte != null)
                 {
-                    var open = VsShellUtilities.ShowMessageBox(_package,
-                        $"Imported the solution to:\n{outDir}\n\nOpen {Path.GetFileName(producedSln)} now? (closes the current solution)", "RXDK",
+                    // Opening a solution replaces the current one, so only prompt if one is open.
+                    var hasOpen = dte.Solution != null && dte.Solution.IsOpen;
+                    var go = !hasOpen ? (int)VSConstants.MessageBoxResult.IDYES : VsShellUtilities.ShowMessageBox(_package,
+                        $"Imported the solution to:\n{outDir}\n\nOpen {Path.GetFileName(producedSln)} now? This closes the current solution.", "RXDK",
                         OLEMSGICON.OLEMSGICON_QUERY, OLEMSGBUTTON.OLEMSGBUTTON_YESNO, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
-                    if (open == (int)VSConstants.MessageBoxResult.IDYES)
+                    if (go == (int)VSConstants.MessageBoxResult.IDYES)
                     {
-                        try { dte.Solution.Open(producedSln); return; }
+                        try { dte.Solution.Open(producedSln); }
                         catch (Exception ex) { await ShowErrorAsync($"Imported OK but could not open the solution: {ex.Message}"); }
                     }
+                    return;
                 }
-                else
-                {
-                    await ShowInfoAsync($"Imported the solution to {outDir}.");
-                }
+                await ShowInfoAsync($"Imported the solution to {outDir}.");
+                return;
             }
-            else
+
+            // Single project: the importer writes exactly one .vcxproj at the output root.
+            var proj = Directory.GetFiles(outDir, "*.vcxproj", SearchOption.TopDirectoryOnly).FirstOrDefault();
+            if (proj != null && dte != null)
             {
-                // Locate the produced .vcxproj (the importer writes exactly one at the output root).
-                var vcxproj = Directory.GetFiles(outDir, "*.vcxproj", SearchOption.TopDirectoryOnly).FirstOrDefault();
-                var solution = dte?.Solution;
-                if (vcxproj != null && solution != null && solution.IsOpen)
+                var solution = dte.Solution;
+                if (solution != null && solution.IsOpen)
                 {
                     var add = VsShellUtilities.ShowMessageBox(_package,
-                        $"Imported {Path.GetFileName(vcxproj)}.\n\nAdd it to the current solution?", "RXDK",
+                        $"Imported {Path.GetFileName(proj)}.\n\nAdd it to the current solution?", "RXDK",
                         OLEMSGICON.OLEMSGICON_QUERY, OLEMSGBUTTON.OLEMSGBUTTON_YESNO, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
                     if (add == (int)VSConstants.MessageBoxResult.IDYES)
                     {
-                        try { solution.AddFromFile(vcxproj, false); return; }
+                        try { solution.AddFromFile(proj, false); }
                         catch (Exception ex) { await ShowErrorAsync($"Imported OK but could not add to the solution: {ex.Message}"); }
                     }
+                    return;
                 }
-                else if (vcxproj != null)
-                {
-                    await ShowInfoAsync($"Imported {Path.GetFileName(vcxproj)}.\nOpen it from {outDir}.");
-                }
+                // No solution open: open the project in VS (VS creates an implicit solution for it).
+                try { dte.ExecuteCommand("File.OpenProject", $"\"{proj}\""); }
+                catch (Exception ex) { await ShowErrorAsync($"Imported OK but could not open the project: {ex.Message}"); }
+                return;
             }
 
-            try
-            {
-                Process.Start(new ProcessStartInfo("explorer.exe", $"\"{outDir}\"") { UseShellExecute = true });
-            }
+            // VS automation unavailable — last-resort reveal in Explorer so the import isn't lost.
+            try { Process.Start(new ProcessStartInfo("explorer.exe", $"\"{outDir}\"") { UseShellExecute = true }); }
             catch { /* best effort */ }
         }
 
