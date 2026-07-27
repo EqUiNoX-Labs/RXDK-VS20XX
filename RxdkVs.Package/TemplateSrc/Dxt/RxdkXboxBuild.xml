@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  "Xbox Build" project property page. Holds the compile-time build settings for RXDK Xbox
+  projects. Currently: which Zig optimize mode the Release configuration uses (Debug is always
+  -O0 -g). Rxdk.Xbox.props maps Configuration + this property to $(RxdkOptimize), which the
+  Makefile build passes to Rxdk.Cli (--optimize). Per-configuration, listed before Xbox Image.
+-->
+<Rule Name="RxdkXboxBuild"
+      DisplayName="Xbox Build"
+      PageTemplate="generic"
+      Description="Compile/build settings for the Xbox title."
+      Order="190"
+      xmlns="http://schemas.microsoft.com/build/2009/properties">
+
+  <Rule.Categories>
+    <Category Name="General" DisplayName="General" Description="Build settings." />
+  </Rule.Categories>
+
+  <Rule.DataSource>
+    <DataSource Persistence="ProjectFile" HasConfigurationCondition="true" />
+  </Rule.DataSource>
+
+  <EnumProperty Name="RxdkReleaseOptimize" DisplayName="Release Optimization"
+                Category="General" Default="ReleaseFast"
+                Description="Zig optimize mode used for the Release configuration. Ignored for Debug (always -O0 with debug info).">
+    <EnumValue Name="ReleaseFast" DisplayName="ReleaseFast (fastest runtime)" />
+    <EnumValue Name="ReleaseSafe" DisplayName="ReleaseSafe (runtime safety checks)" />
+    <EnumValue Name="ReleaseSmall" DisplayName="ReleaseSmall (smallest size)" />
+  </EnumProperty>
+
+</Rule>
