@@ -108,12 +108,15 @@ public static class XboxBuild
 
         var result = await ProcessRunner.RunStreamedAsync(zig, toolArgs, log, ct: ct);
 
-        // C++ warnings in the title's own source are treated as errors (mirrors xboxBuild.ts).
+        // Surface (but don't fail on) warnings in the title's own source. Clean RXDK template
+        // code produces none, but imported/legacy code warns heavily — most notably -Wformat on
+        // DWORD-vs-%u, which is benign on this ILP32 target — while still compiling correctly.
+        // Failing the build on those would make importing real projects impractical.
         var combined = (result.StdOut + result.StdErr).Split('\n');
         var sourcePattern = new Regex(Regex.Escape(Path.GetFullPath(source)));
-        var warnLines = combined.Where(l => l.Contains(": warning:") && sourcePattern.IsMatch(l)).ToList();
-        if (warnLines.Count > 0 && isCpp)
-            throw new InvalidOperationException($"Compile reported {warnLines.Count} warning(s) in {source}");
+        var warnCount = combined.Count(l => l.Contains(": warning:") && sourcePattern.IsMatch(l));
+        if (warnCount > 0 && isCpp)
+            log?.Invoke($"Note: {warnCount} warning(s) in {Path.GetFileName(source)} (not fatal)");
         if (!result.Success)
             throw new InvalidOperationException($"Zig compile failed on {source} (exit {result.ExitCode})");
     }
