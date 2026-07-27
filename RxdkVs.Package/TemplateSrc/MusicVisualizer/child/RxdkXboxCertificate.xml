@@ -3,7 +3,7 @@
   "Certificate" project property page (mirrors the original XDK's Xbox Image > Certificate page).
   Sets the XBE certificate fields via imagebld /TEST* switches. Rxdk.Xbox.targets writes these
   Rxdk* properties into the build manifest; Rxdk.Cli passes them to imagebld.
-  Project-scoped: the certificate identifies the title, so it is the same across build configs.
+  Per-configuration (grouped under Configuration Properties with Xbox Image); usually the same across configs.
 -->
 <Rule Name="RxdkXboxCertificate"
       DisplayName="Certificate"
@@ -17,7 +17,7 @@
   </Rule.Categories>
 
   <Rule.DataSource>
-    <DataSource Persistence="ProjectFile" HasConfigurationCondition="false" />
+    <DataSource Persistence="ProjectFile" HasConfigurationCondition="true" />
   </Rule.DataSource>
 
   <StringProperty Name="RxdkTestId" DisplayName="Title ID"

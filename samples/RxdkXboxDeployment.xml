@@ -10,7 +10,7 @@
     - Create ISO Image (RxdkCreateIso)  -> pack an .iso with xdvdfs; turn off to stop at the .xbe.
 
   Rxdk.Xbox.targets reads these Rxdk* properties into the build manifest; Rxdk.Cli acts on them.
-  Project-scoped (not per-configuration): media and packaging are the same across build types.
+  Per-configuration (grouped under Configuration Properties with Xbox Image).
 -->
 <Rule Name="RxdkXboxDeployment"
       DisplayName="Xbox Deployment"
@@ -25,7 +25,7 @@
   </Rule.Categories>
 
   <Rule.DataSource>
-    <DataSource Persistence="ProjectFile" HasConfigurationCondition="false" />
+    <DataSource Persistence="ProjectFile" HasConfigurationCondition="true" />
   </Rule.DataSource>
 
   <StringListProperty Name="RxdkDeployPaths" DisplayName="Deployed Files"

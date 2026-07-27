@@ -2,7 +2,7 @@
 <!--
   "Title Info" project property page (mirrors the original XDK's Xbox Image > Title Info page).
   Sets the XBE title name/version and title/save images via imagebld switches. File paths are
-  project-relative and resolved by the engine. Project-scoped (title identity is config-agnostic).
+  project-relative and resolved by the engine. Per-configuration (grouped with Xbox Image).
 -->
 <Rule Name="RxdkXboxTitleInfo"
       DisplayName="Title Info"
@@ -16,7 +16,7 @@
   </Rule.Categories>
 
   <Rule.DataSource>
-    <DataSource Persistence="ProjectFile" HasConfigurationCondition="false" />
+    <DataSource Persistence="ProjectFile" HasConfigurationCondition="true" />
   </Rule.DataSource>
 
   <StringProperty Name="RxdkTestName" DisplayName="Title Name"
