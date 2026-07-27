@@ -84,7 +84,7 @@ namespace RxdkVs.Package.Commands
             Add(CommandIds.CmdOpenToolsFolder, () => OpenFolderAsync(ToolLocator.StagedToolsRoot));
             Add(CommandIds.CmdOpenDocsFolder, () => OpenFolderAsync(ToolLocator.StagedDocsRoot));
             Add(CommandIds.CmdOpenSdkDocs, () => OpenDocsAsync("sdk"));
-            Add(CommandIds.CmdOpenExtensionDocs, () => OpenDocsAsync("rxdk"));
+            Add(CommandIds.CmdOpenExtensionDocs, () => OpenDocsAsync("rxdk-vs"));
             Add(CommandIds.CmdFetchLatestSdk, () => RunCliAsync("install-sdk", requiresProject: false));
             Add(CommandIds.CmdInstallDotNet, InstallDotNetAsync);
             Add(CommandIds.CmdLaunchXbwatson, () => LaunchHostToolAsync("xbwatson"));
