@@ -116,6 +116,14 @@ public sealed class RxdkProjectManifest
     public List<string>? Sources { get; set; }
     public List<string>? Libraries { get; set; }
 
+    /// <summary>Extra directories to resolve <see cref="Libraries"/> names from, searched after
+    /// the SDK lib dir (project-relative or absolute). For linking your own prebuilt libs by name.</summary>
+    public List<string>? LibraryPaths { get; set; }
+
+    /// <summary>Explicit prebuilt static-library files linked verbatim (project-relative or absolute
+    /// .lib paths), in addition to the named <see cref="Libraries"/>.</summary>
+    public List<string>? AdditionalLibraries { get; set; }
+
     /// <summary>
     /// Project-relative paths to library projects (folders containing an rxdk.project.json with
     /// type:"library") this project links. Resolved transitively, built in dependency order to

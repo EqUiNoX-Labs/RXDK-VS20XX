@@ -54,6 +54,14 @@
   <!-- ===== Linker ===== -->
   <StringListProperty Name="RxdkLibraries" DisplayName="Libraries"
                       Category="Linker" Separator=";"
-                      Description="SDK libraries linked into the title (order matters; libkernel is forced last automatically). e.g. libd3d8;libd3dx8;libxapi;libc;libcpp;libkernel." />
+                      Description="SDK libraries linked into the title, by name (order matters; libkernel is forced last automatically). e.g. libd3d8;libd3dx8;libxapi;libc;libcpp;libkernel." />
+
+  <StringListProperty Name="RxdkLibraryPaths" DisplayName="Additional Library Directories"
+                      Subtype="folder" Category="Linker" Separator=";"
+                      Description="Extra directories to resolve Libraries names from, searched after the SDK lib dir (project-relative or absolute). For linking your own prebuilt .lib by name." />
+
+  <StringListProperty Name="RxdkAdditionalLibraries" DisplayName="Additional Dependencies"
+                      Category="Linker" Separator=";"
+                      Description="Explicit prebuilt static-library files to link, by path (project-relative or absolute .lib), in addition to the named Libraries above." />
 
 </Rule>

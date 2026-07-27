@@ -17,6 +17,8 @@
       <OutputDir ParameterType="System.String" />
       <Sources ParameterType="Microsoft.Build.Framework.ITaskItem[]" />
       <Libraries ParameterType="System.String" />
+      <LibraryPaths ParameterType="System.String" />
+      <AdditionalLibraries ParameterType="System.String" />
       <PublicIncludePaths ParameterType="System.String" />
       <IncludePaths ParameterType="System.String" />
       <Defines ParameterType="System.String" />
@@ -71,6 +73,10 @@
         sb.Append("  \"sources\": " + arr(srcs) + ",\n");
         var libs = split(Libraries);
         if (libs.Length > 0) sb.Append("  \"libraries\": " + arr(libs) + ",\n");
+        var libPaths = split(LibraryPaths);
+        if (libPaths.Length > 0) sb.Append("  \"libraryPaths\": " + arr(libPaths) + ",\n");
+        var addLibs = split(AdditionalLibraries);
+        if (addLibs.Length > 0) sb.Append("  \"additionalLibraries\": " + arr(addLibs) + ",\n");
         var pinc = split(PublicIncludePaths);
         if (pinc.Length > 0) sb.Append("  \"publicIncludePaths\": " + arr(pinc) + ",\n");
         var inc = split(IncludePaths);
@@ -140,6 +146,8 @@
       OutputDir="out"
       Sources="@(ClCompile)"
       Libraries="$(RxdkLibraries)"
+      LibraryPaths="$(RxdkLibraryPaths)"
+      AdditionalLibraries="$(RxdkAdditionalLibraries)"
       PublicIncludePaths="$(RxdkPublicIncludePaths)"
       IncludePaths="$(RxdkIncludePaths)"
       Defines="$(RxdkDefines)"

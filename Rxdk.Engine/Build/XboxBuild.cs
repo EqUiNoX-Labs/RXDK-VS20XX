@@ -260,10 +260,23 @@ public static class XboxBuild
             var configuration = manifest.EffectiveConfiguration;
             var sdkLibDir = SdkLayout.ResolveSdkLibVariantDir(sdkLib, configuration);
             log?.Invoke($"Linking SDK libraries (configuration: {configuration.ToString().ToLowerInvariant()})");
+            // Library search dirs: the SDK lib variant dir first, then any user libraryPaths.
+            var libSearchDirs = new List<string> { sdkLibDir };
+            foreach (var rel in manifest.LibraryPaths ?? new())
+            {
+                if (string.IsNullOrWhiteSpace(rel)) continue;
+                var dir = Path.GetFullPath(Path.Combine(projectRoot, rel.Replace('/', Path.DirectorySeparatorChar)));
+                if (Directory.Exists(dir)) libSearchDirs.Add(dir);
+                else log?.Invoke($"Warning: libraryPath not found: {dir}");
+            }
             string? ResolveLib(string name)
             {
-                var candidate = Path.Combine(sdkLibDir, name);
-                return File.Exists(candidate) ? candidate : null;
+                foreach (var dir in libSearchDirs)
+                {
+                    var candidate = Path.Combine(dir, name);
+                    if (File.Exists(candidate)) return candidate;
+                }
+                return null;
             }
 
             // Referenced library projects, in dependency order. If a dep's .lib is already
@@ -284,6 +297,15 @@ public static class XboxBuild
                 {
                     userLibs.Add(await BuildLibraryAsync(dep, zig, sdkInclude, optimize, log, ct, depManifest));
                 }
+            }
+
+            // Explicit prebuilt .lib files (additionalLibraries), linked verbatim alongside deps.
+            foreach (var rel in manifest.AdditionalLibraries ?? new())
+            {
+                if (string.IsNullOrWhiteSpace(rel)) continue;
+                var lib = Path.GetFullPath(Path.Combine(projectRoot, rel.Replace('/', Path.DirectorySeparatorChar)));
+                if (File.Exists(lib)) { log?.Invoke($"Linking additional library {lib}"); userLibs.Add(lib); }
+                else throw new FileNotFoundException($"additionalLibraries: not found: {lib}");
             }
 
             // A library root builds to a .lib and stops (no link / imagebld / deploy).
