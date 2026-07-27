@@ -142,7 +142,8 @@ namespace RxdkVs.Package.Services
                 await ShowAsync(package, "Build failed — see the Output / Error List.");
                 return;
             }
-            var manifest = Path.Combine(Path.GetDirectoryName(info.XbeOutput), "rxdk.manifest.json");
+            // The manifest lives at the stable out\ path (not the per-config out\<cfg>\ output dir).
+            var manifest = Path.Combine(info.ProjectDir, "out", "rxdk.manifest.json");
             if (await cli.RunAsync(new[] { "deploy", "--project-root", info.ProjectDir, "--manifest", manifest }, info.ProjectDir) != 0)
             {
                 await ShowAsync(package, "Deploy failed — is the devkit on and reachable? Fix it and run Deploy to Xbox again.");
@@ -191,7 +192,8 @@ namespace RxdkVs.Package.Services
                 await ShowAsync(package, "Build failed — see the Output / Error List.");
                 return;
             }
-            var manifest = Path.Combine(Path.GetDirectoryName(info.XbeOutput), "rxdk.manifest.json");
+            // The manifest lives at the stable out\ path (not the per-config out\<cfg>\ output dir).
+            var manifest = Path.Combine(info.ProjectDir, "out", "rxdk.manifest.json");
             if (await cli.RunAsync(new[] { "deploy", "--project-root", info.ProjectDir, "--manifest", manifest }, info.ProjectDir) != 0)
             {
                 await ShowAsync(package, "Deploy failed — is the devkit on and reachable?");

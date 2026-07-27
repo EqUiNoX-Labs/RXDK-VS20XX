@@ -29,7 +29,7 @@
   <PropertyGroup>
     <RxdkType>library</RxdkType>
     <RxdkPublicIncludePaths>include</RxdkPublicIncludePaths>
-    <NMakeOutput>$(MSBuildProjectDirectory)\out\$(MSBuildProjectName).lib</NMakeOutput>
+    <NMakeOutput>$(MSBuildProjectDirectory)\$(RxdkOutDir)\$(MSBuildProjectName).lib</NMakeOutput>
   </PropertyGroup>
   <ItemGroup>
     <ClCompile Include="src\mylib.cpp" />

@@ -30,7 +30,7 @@
     <RxdkType>dxt</RxdkType>
     <RxdkLibraries>libxbdm;libkernel;libc</RxdkLibraries>
     <RxdkConfig>release</RxdkConfig>
-    <NMakeOutput>$(MSBuildProjectDirectory)\out\$(MSBuildProjectName).dxt</NMakeOutput>
+    <NMakeOutput>$(MSBuildProjectDirectory)\$(RxdkOutDir)\$(MSBuildProjectName).dxt</NMakeOutput>
   </PropertyGroup>
   <ItemGroup>
     <ClCompile Include="src\main.c" />

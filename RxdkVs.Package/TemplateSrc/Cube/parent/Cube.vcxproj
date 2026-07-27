@@ -30,7 +30,7 @@
     <!-- Sibling mesh library, linked via projectReferences; VS builds it first (ProjectReference below). -->
     <RxdkProjectReferences>..\cubemesh</RxdkProjectReferences>
     <RxdkLibraries>libd3d8;libd3dx8;libxapi;libc;libcpp;libkernel</RxdkLibraries>
-    <NMakeOutput>$(MSBuildProjectDirectory)\out\$(MSBuildProjectName).xbe</NMakeOutput>
+    <NMakeOutput>$(MSBuildProjectDirectory)\$(RxdkOutDir)\$(MSBuildProjectName).xbe</NMakeOutput>
   </PropertyGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />

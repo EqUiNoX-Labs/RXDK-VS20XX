@@ -32,7 +32,7 @@
     <RxdkDeployPaths>media/test.xmv</RxdkDeployPaths>
     <!-- Baked into the XBE as a named section (path|name). -->
     <RxdkEmbed>media/dsstdfx.bin|dsstdfx</RxdkEmbed>
-    <NMakeOutput>$(MSBuildProjectDirectory)\out\$(MSBuildProjectName).xbe</NMakeOutput>
+    <NMakeOutput>$(MSBuildProjectDirectory)\$(RxdkOutDir)\$(MSBuildProjectName).xbe</NMakeOutput>
   </PropertyGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />

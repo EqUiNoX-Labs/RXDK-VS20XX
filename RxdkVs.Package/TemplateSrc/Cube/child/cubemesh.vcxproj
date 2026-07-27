@@ -30,7 +30,7 @@
     <!-- Static library (.lib) linked into the parent via projectReferences. -->
     <RxdkType>library</RxdkType>
     <RxdkPublicIncludePaths>include</RxdkPublicIncludePaths>
-    <NMakeOutput>$(MSBuildProjectDirectory)\out\$(MSBuildProjectName).lib</NMakeOutput>
+    <NMakeOutput>$(MSBuildProjectDirectory)\$(RxdkOutDir)\$(MSBuildProjectName).lib</NMakeOutput>
   </PropertyGroup>
   <ItemGroup>
     <ClCompile Include="src\cubemesh.cpp" />

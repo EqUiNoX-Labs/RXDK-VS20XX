@@ -28,7 +28,7 @@
   <Import Project="Rxdk.Xbox.props" />
   <PropertyGroup>
     <RxdkLibraries>libxfont;libd3d8;libxapi;libc;libcpp;libkernel</RxdkLibraries>
-    <NMakeOutput>$(MSBuildProjectDirectory)\out\$(MSBuildProjectName).xbe</NMakeOutput>
+    <NMakeOutput>$(MSBuildProjectDirectory)\$(RxdkOutDir)\$(MSBuildProjectName).xbe</NMakeOutput>
   </PropertyGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />

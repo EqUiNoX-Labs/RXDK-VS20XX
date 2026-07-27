@@ -32,7 +32,7 @@
     <RxdkLibraries>libd3d8;libdsound;libxapi;libc;libcpp;libkernel</RxdkLibraries>
     <!-- The media\ folder (music.ogg) is streamed at runtime and staged into the ISO. -->
     <RxdkDeployPaths>media</RxdkDeployPaths>
-    <NMakeOutput>$(MSBuildProjectDirectory)\out\$(MSBuildProjectName).xbe</NMakeOutput>
+    <NMakeOutput>$(MSBuildProjectDirectory)\$(RxdkOutDir)\$(MSBuildProjectName).xbe</NMakeOutput>
   </PropertyGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />

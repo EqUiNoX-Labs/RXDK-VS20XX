@@ -59,7 +59,16 @@
     <!-- Deployment: pack an .iso via xdvdfs after the .xbe (set false to stop at the .xbe). -->
     <RxdkCreateIso Condition="'$(RxdkCreateIso)' == ''">true</RxdkCreateIso>
 
-    <!-- Generated build manifest (into the gitignored out\). -->
+    <!-- Per-configuration output directory (out\Debug, out\Release, out\MyApp, ...) so builds of
+         different configs don't overwrite each other. Overridable. Artifacts (obj/xbe/lib/iso)
+         land here; the build manifest stays at the stable out\ path below so referenced library
+         projects are always found regardless of the active configuration. -->
+    <RxdkOutDir Condition="'$(RxdkOutDir)' == ''">out\$(Configuration)</RxdkOutDir>
+    <!-- Surface the same location on the built-in General page ($(OutDir)/$(IntDir)). -->
+    <OutDir>$(MSBuildProjectDirectory)\$(RxdkOutDir)\</OutDir>
+    <IntDir>$(MSBuildProjectDirectory)\$(RxdkOutDir)\</IntDir>
+
+    <!-- Generated build manifest (stable out\ location, gitignored). -->
     <RxdkManifestFile>$(MSBuildProjectDirectory)\out\rxdk.manifest.json</RxdkManifestFile>
   </PropertyGroup>
 

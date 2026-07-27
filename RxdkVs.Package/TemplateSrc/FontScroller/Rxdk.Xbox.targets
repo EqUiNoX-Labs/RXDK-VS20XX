@@ -143,7 +143,7 @@
       Name="$(MSBuildProjectName)"
       Type="$(RxdkType)"
       Configuration="$(RxdkConfig)"
-      OutputDir="out"
+      OutputDir="$(RxdkOutDir)"
       Sources="@(ClCompile)"
       Libraries="$(RxdkLibraries)"
       LibraryPaths="$(RxdkLibraryPaths)"

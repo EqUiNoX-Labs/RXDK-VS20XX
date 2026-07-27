@@ -30,7 +30,7 @@
     <RxdkProjectReferences>libs/vorbis</RxdkProjectReferences>
     <RxdkLibraries>libd3d8;libdsound;libxapi;libc;libcpp;libkernel</RxdkLibraries>
     <RxdkDeployPaths>media</RxdkDeployPaths>
-    <NMakeOutput>$(MSBuildProjectDirectory)\out\$(MSBuildProjectName).xbe</NMakeOutput>
+    <NMakeOutput>$(MSBuildProjectDirectory)\$(RxdkOutDir)\$(MSBuildProjectName).xbe</NMakeOutput>
   </PropertyGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
