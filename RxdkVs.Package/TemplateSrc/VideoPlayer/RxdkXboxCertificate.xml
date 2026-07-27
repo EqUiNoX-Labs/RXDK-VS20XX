@@ -6,7 +6,7 @@
   Per-configuration (grouped under Configuration Properties with Xbox Image); usually the same across configs.
 -->
 <Rule Name="RxdkXboxCertificate"
-      DisplayName="Certificate"
+      DisplayName="Xbox Certificate"
       PageTemplate="generic"
       Description="XBE certificate fields (imagebld /TEST* switches)."
       Order="210"
