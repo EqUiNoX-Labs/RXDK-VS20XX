@@ -218,7 +218,7 @@ namespace RxdkVs.Package.Commands
         {
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-            var (vcproj, outDir) = RxdkToolWindowControl.PromptForImport();
+            var (vcproj, outDir, copySources) = RxdkToolWindowControl.PromptForImport();
             if (string.IsNullOrEmpty(vcproj) || string.IsNullOrEmpty(outDir))
             {
                 return; // cancelled
@@ -234,7 +234,9 @@ namespace RxdkVs.Package.Commands
                 return;
             }
 
-            var args = new[] { "import-vcproj", "--in", vcproj, "--out", outDir, "--scaffold", scaffoldDir };
+            var argList = new List<string> { "import-vcproj", "--in", vcproj, "--out", outDir, "--scaffold", scaffoldDir };
+            if (copySources) argList.Add("--copy-sources");
+            var args = argList.ToArray();
             int rc;
             try
             {

@@ -10,7 +10,9 @@ namespace Rxdk.Engine.Import;
 /// Each VS2003 configuration is preserved; its compiler/linker/XboxImage/XboxDeployment settings
 /// are mapped onto the RXDK per-configuration properties the property pages drive.
 /// The RXDK scaffolding (Rxdk.Xbox.props/targets + the property-page rule XMLs) is copied from a
-/// scaffold directory. Source files are referenced in place (relative to the output directory).
+/// scaffold directory. By default source files are referenced in place (relative to the output
+/// directory); pass <paramref name="copySources"/> to mirror them into the output folder so the
+/// imported project is self-contained.
 /// </summary>
 public static class Vcproj2003Importer
 {
@@ -60,7 +62,8 @@ public static class Vcproj2003Importer
         public string? TitleId, TitleName, TitleImage, XbeVersion;
     }
 
-    public static ImportResult Import(string vcprojPath, string outDir, string? scaffoldDir, Action<string>? log = null)
+    public static ImportResult Import(string vcprojPath, string outDir, string? scaffoldDir,
+        bool copySources = false, Action<string>? log = null)
     {
         vcprojPath = Path.GetFullPath(vcprojPath);
         if (!File.Exists(vcprojPath)) throw new FileNotFoundException($"vcproj not found: {vcprojPath}");
@@ -88,9 +91,10 @@ public static class Vcproj2003Importer
         result.UnmappedLibraries = unmapped.OrderBy(x => x).ToList();
 
         // ---- files (with filter folders) ----
-        var sources = new List<(string include, string tag, string? filter)>();
+        var rawFiles = new List<(string abs, string tag, string? filter)>();
         var filters = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-        CollectFiles(root.Element("Files"), null, vcprojDir, outDir, sources, filters);
+        CollectFiles(root.Element("Files"), null, vcprojDir, rawFiles, filters);
+        var sources = ResolveSources(rawFiles, vcprojDir, outDir, copySources, result);
         result.SourceCount = sources.Count(s => s.tag == "ClCompile");
 
         // ---- write .vcxproj + .filters ----
@@ -206,8 +210,8 @@ public static class Vcproj2003Importer
 
     // ---- files ----
 
-    private static void CollectFiles(XElement? node, string? filterPath, string vcprojDir, string outDir,
-        List<(string include, string tag, string? filter)> sources, SortedSet<string> filters)
+    private static void CollectFiles(XElement? node, string? filterPath, string vcprojDir,
+        List<(string abs, string tag, string? filter)> files, SortedSet<string> filters)
     {
         if (node == null) return;
         foreach (var el in node.Elements())
@@ -217,21 +221,95 @@ public static class Vcproj2003Importer
                 var fn = (string?)el.Attribute("Name") ?? "";
                 var path = string.IsNullOrEmpty(filterPath) ? fn : filterPath + "\\" + fn;
                 if (!string.IsNullOrEmpty(path)) filters.Add(path);
-                CollectFiles(el, path, vcprojDir, outDir, sources, filters);
+                CollectFiles(el, path, vcprojDir, files, filters);
             }
             else if (el.Name.LocalName == "File")
             {
                 var rel = (string?)el.Attribute("RelativePath") ?? "";
                 if (string.IsNullOrWhiteSpace(rel)) continue;
                 var abs = Path.GetFullPath(Path.Combine(vcprojDir, rel.Replace("/", "\\")));
-                var include = MakeRelative(outDir, abs);
                 var ext = Path.GetExtension(abs).ToLowerInvariant();
                 var tag = ext is ".cpp" or ".cxx" or ".cc" or ".c" ? "ClCompile"
                         : ext is ".h" or ".hpp" or ".hxx" or ".inl" ? "ClInclude" : "None";
-                sources.Add((include, tag, filterPath));
+                files.Add((abs, tag, filterPath));
             }
         }
     }
+
+    // Turn raw absolute file references into the &lt;include&gt; paths written to the .vcxproj.
+    // Default: reference the originals in place (relative to outDir). With copySources: mirror each
+    // file into outDir, preserving its path relative to the source project (leading "..\" segments
+    // are collapsed so nothing escapes outDir), then reference the copy. Same-name clashes from
+    // different sources get a numeric suffix. Files already inside outDir are left untouched.
+    private static List<(string include, string tag, string? filter)> ResolveSources(
+        List<(string abs, string tag, string? filter)> raw, string vcprojDir, string outDir,
+        bool copySources, ImportResult result)
+    {
+        var sources = new List<(string include, string tag, string? filter)>();
+        if (!copySources)
+        {
+            foreach (var (abs, tag, filter) in raw)
+                sources.Add((MakeRelative(outDir, abs), tag, filter));
+            return sources;
+        }
+
+        var usedDest = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase); // destAbs -> srcAbs
+        var copied = 0;
+        foreach (var (abs, tag, filter) in raw)
+        {
+            var destRel = SafeDestRel(vcprojDir, abs);
+            var destAbs = Path.GetFullPath(Path.Combine(outDir, destRel));
+            if (usedDest.TryGetValue(destAbs, out var prevSrc) && !PathEquals(prevSrc, abs))
+                destRel = Disambiguate(destRel, outDir, usedDest, out destAbs);
+
+            if (!usedDest.ContainsKey(destAbs))
+            {
+                usedDest[destAbs] = abs;
+                if (!File.Exists(abs))
+                {
+                    result.Warnings.Add($"source not found, not copied: {abs}");
+                }
+                else if (!PathEquals(destAbs, abs)) // don't copy a file onto itself (outDir == source)
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(destAbs)!);
+                    File.Copy(abs, destAbs, overwrite: true);
+                    copied++;
+                }
+            }
+            sources.Add((destRel.Replace('/', '\\'), tag, filter));
+        }
+        result.Warnings.Add($"copied {copied} source file(s) into the output folder.");
+        return sources;
+    }
+
+    // File path relative to the source project, with leading "..\" (or a drive root) collapsed so the
+    // copy stays inside outDir. e.g. "..\..\common\util.cpp" -> "common\util.cpp".
+    private static string SafeDestRel(string vcprojDir, string abs)
+    {
+        var rel = Path.GetRelativePath(vcprojDir, abs);
+        if (Path.IsPathRooted(rel)) return Path.GetFileName(abs); // different drive: flatten to name
+        var parts = rel.Split(new[] { '/', '\\' }, StringSplitOptions.RemoveEmptyEntries)
+                       .Where(p => p != "..").ToArray();
+        return parts.Length == 0 ? Path.GetFileName(abs) : string.Join("\\", parts);
+    }
+
+    // Append _2, _3, ... before the extension until the destination is unused.
+    private static string Disambiguate(string destRel, string outDir,
+        Dictionary<string, string> usedDest, out string destAbs)
+    {
+        var dir = Path.GetDirectoryName(destRel) ?? "";
+        var stem = Path.GetFileNameWithoutExtension(destRel);
+        var ext = Path.GetExtension(destRel);
+        for (var i = 2; ; i++)
+        {
+            var cand = string.IsNullOrEmpty(dir) ? $"{stem}_{i}{ext}" : Path.Combine(dir, $"{stem}_{i}{ext}");
+            destAbs = Path.GetFullPath(Path.Combine(outDir, cand));
+            if (!usedDest.ContainsKey(destAbs)) return cand;
+        }
+    }
+
+    private static bool PathEquals(string a, string b) =>
+        string.Equals(Path.GetFullPath(a), Path.GetFullPath(b), StringComparison.OrdinalIgnoreCase);
 
     // ---- .vcxproj / .filters emit ----
 

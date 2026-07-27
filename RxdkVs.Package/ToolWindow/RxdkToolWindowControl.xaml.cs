@@ -176,10 +176,11 @@ namespace RxdkVs.Package.ToolWindow
         }
 
         /// <summary>
-        /// Modal wizard for importing a VS2003 XDK project: pick the .vcproj and an output folder.
-        /// Returns (vcprojPath, outputDir), or (null, null) if cancelled.
+        /// Modal wizard for importing a VS2003 XDK project: pick the .vcproj, an output folder, and
+        /// whether to copy the source files into it. Returns (vcprojPath, outputDir, copySources),
+        /// or (null, null, false) if cancelled.
         /// </summary>
-        public static (string vcproj, string outDir) PromptForImport()
+        public static (string vcproj, string outDir, bool copySources) PromptForImport()
         {
             var dialog = new Window
             {
@@ -209,9 +210,17 @@ namespace RxdkVs.Package.ToolWindow
             row2.Children.Add(outBox);
             root.Children.Add(row2);
 
+            var copyCheck = new CheckBox
+            {
+                Content = "Copy source files into the output folder (self-contained project)",
+                Margin = new Thickness(0, 12, 0, 0),
+            };
+            root.Children.Add(copyCheck);
+
             root.Children.Add(new TextBlock
             {
-                Text = "The RXDK project (.vcxproj + property pages) is written to the output folder next to your sources.",
+                Text = "The RXDK project (.vcxproj + property pages) is written to the output folder. " +
+                       "By default sources are referenced in place; check the box above to copy them in.",
                 TextWrapping = TextWrapping.Wrap, Opacity = 0.7, FontSize = 11, Margin = new Thickness(0, 8, 0, 0),
             });
 
@@ -262,7 +271,9 @@ namespace RxdkVs.Package.ToolWindow
                 dialog.DialogResult = true;
             };
 
-            return dialog.ShowDialog() == true && okd ? (vcprojBox.Text.Trim(), outBox.Text.Trim()) : (null, null);
+            return dialog.ShowDialog() == true && okd
+                ? (vcprojBox.Text.Trim(), outBox.Text.Trim(), copyCheck.IsChecked == true)
+                : (null, null, false);
         }
 
         /// <summary>

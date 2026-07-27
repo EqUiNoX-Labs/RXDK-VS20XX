@@ -30,7 +30,7 @@ if (args.Length == 0)
     Console.Error.WriteLine("  remove-dxt --project-root <dir> [--manifest <p>] [--console <ip>]   Delete the DXT from xe:\\dxt");
     Console.Error.WriteLine("  set-ip --address <ip>       Set the devkit IP/hostname (registry)");
     Console.Error.WriteLine("  xbox-ip                     Print the resolved devkit address");
-    Console.Error.WriteLine("  import-vcproj --in <file.vcproj> [--out <dir>] [--scaffold <dir>]   Import a VS2003 XDK project");
+    Console.Error.WriteLine("  import-vcproj --in <file.vcproj> [--out <dir>] [--scaffold <dir>] [--copy-sources]   Import a VS2003 XDK project");
     return 2;
 }
 
@@ -87,10 +87,11 @@ static int CmdImportVcproj(Dictionary<string, string> opts)
     }
     opts.TryGetValue("out", out var outDir);
     opts.TryGetValue("scaffold", out var scaffold);
+    var copySources = opts.ContainsKey("copy-sources");
     try
     {
         var r = Vcproj2003Importer.Import(input, outDir ?? "",
-            string.IsNullOrEmpty(scaffold) ? null : scaffold, msg => Console.WriteLine(msg));
+            string.IsNullOrEmpty(scaffold) ? null : scaffold, copySources, msg => Console.WriteLine(msg));
         Console.WriteLine($"OK: imported {r.ProjectName} ({r.ConfigurationCount} config(s), {r.SourceCount} source(s)) -> {r.VcxprojPath}");
         return 0;
     }
