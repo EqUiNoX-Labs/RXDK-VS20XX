@@ -1,6 +1,7 @@
 using Rxdk.Engine.Bootstrap;
 using Rxdk.Engine.Build;
 using Rxdk.Engine.Deploy;
+using Rxdk.Engine.Import;
 using Rxdk.Engine.Model;
 using Rxdk.Engine.Platform;
 
@@ -29,6 +30,7 @@ if (args.Length == 0)
     Console.Error.WriteLine("  remove-dxt --project-root <dir> [--manifest <p>] [--console <ip>]   Delete the DXT from xe:\\dxt");
     Console.Error.WriteLine("  set-ip --address <ip>       Set the devkit IP/hostname (registry)");
     Console.Error.WriteLine("  xbox-ip                     Print the resolved devkit address");
+    Console.Error.WriteLine("  import-vcproj --in <file.vcproj> [--out <dir>] [--scaffold <dir>]   Import a VS2003 XDK project");
     return 2;
 }
 
@@ -69,9 +71,34 @@ switch (command)
         return await CmdSetIp(opts);
     case "xbox-ip":
         return await CmdXboxIp();
+    case "import-vcproj":
+        return CmdImportVcproj(opts);
     default:
         Console.Error.WriteLine($"unknown command: {command}");
         return 2;
+}
+
+static int CmdImportVcproj(Dictionary<string, string> opts)
+{
+    if (!opts.TryGetValue("in", out var input) || string.IsNullOrEmpty(input))
+    {
+        Console.Error.WriteLine("missing required --in <file.vcproj>");
+        return 2;
+    }
+    opts.TryGetValue("out", out var outDir);
+    opts.TryGetValue("scaffold", out var scaffold);
+    try
+    {
+        var r = Vcproj2003Importer.Import(input, outDir ?? "",
+            string.IsNullOrEmpty(scaffold) ? null : scaffold, msg => Console.WriteLine(msg));
+        Console.WriteLine($"OK: imported {r.ProjectName} ({r.ConfigurationCount} config(s), {r.SourceCount} source(s)) -> {r.VcxprojPath}");
+        return 0;
+    }
+    catch (Exception ex)
+    {
+        Console.Error.WriteLine($"import-vcproj failed: {ex.Message}");
+        return 1;
+    }
 }
 
 static async Task<int> CmdInstallTools(Dictionary<string, string> opts)
