@@ -67,8 +67,9 @@
     <!-- Match the build's `-include picolibc.h` so IntelliSense sees the libc baseline (NULL,
          size_t, …); without it those cascade into "unresolved" squiggles even though the Zig
          build (the source of truth) compiles fine. -->
-    <NMakeForcedIncludes>picolibc.h;$(NMakeForcedIncludes)</NMakeForcedIncludes>
-    <AdditionalOptions>-std=c++23</AdditionalOptions>
+    <!-- IntelliSense parses with the MSVC front-end, so give it the MSVC standard switch
+         (/std:c++latest). The clang '-std=c++23' the real build uses is not understood here. -->
+    <AdditionalOptions>/std:c++latest</AdditionalOptions>
   </PropertyGroup>
 
   <!-- Relabel the green Run button / debug-target dropdown to "Xbox Debugger (RXDK)".
