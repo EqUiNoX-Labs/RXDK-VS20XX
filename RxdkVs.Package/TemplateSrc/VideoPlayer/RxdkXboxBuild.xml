@@ -13,19 +13,39 @@
       xmlns="http://schemas.microsoft.com/build/2009/properties">
 
   <Rule.Categories>
-    <Category Name="General" DisplayName="General" Description="Build settings." />
+    <Category Name="General" DisplayName="General" Description="Build flavor and optimization." />
+    <Category Name="Compiler" DisplayName="Compiler" Description="Preprocessor and compile settings." />
+    <Category Name="Linker" DisplayName="Linker" Description="Libraries linked into the title." />
   </Rule.Categories>
 
   <Rule.DataSource>
     <DataSource Persistence="ProjectFile" HasConfigurationCondition="true" />
   </Rule.DataSource>
 
+  <!-- ===== General ===== -->
+  <EnumProperty Name="RxdkBuildFlavor" DisplayName="Build Flavor"
+                Category="General"
+                Description="Whether this configuration builds Debug (unoptimized -O0, debug info, debug SDK libs) or Release (optimized, release SDK libs). Defaults from the configuration name; set it explicitly for a custom configuration.">
+    <EnumValue Name="Debug" DisplayName="Debug (unoptimized, debug libs)" />
+    <EnumValue Name="Release" DisplayName="Release (optimized, release libs)" />
+  </EnumProperty>
+
   <EnumProperty Name="RxdkReleaseOptimize" DisplayName="Release Optimization"
                 Category="General" Default="ReleaseFast"
-                Description="Zig optimize mode used for the Release configuration. Ignored for Debug (always -O0 with debug info).">
+                Description="Zig optimize mode used when the Build Flavor is Release. Ignored for Debug (always -O0 with debug info).">
     <EnumValue Name="ReleaseFast" DisplayName="ReleaseFast (fastest runtime)" />
     <EnumValue Name="ReleaseSafe" DisplayName="ReleaseSafe (runtime safety checks)" />
     <EnumValue Name="ReleaseSmall" DisplayName="ReleaseSmall (smallest size)" />
   </EnumProperty>
+
+  <!-- ===== Compiler ===== -->
+  <StringListProperty Name="RxdkDefines" DisplayName="Preprocessor Definitions"
+                      Category="Compiler" Separator=";"
+                      Description="Extra preprocessor macros passed to the compiler (in addition to the built-in _XBOX;XBOX). One per entry, e.g. MY_FLAG or NAME=VALUE." />
+
+  <!-- ===== Linker ===== -->
+  <StringListProperty Name="RxdkLibraries" DisplayName="Libraries"
+                      Category="Linker" Separator=";"
+                      Description="SDK libraries linked into the title (order matters; libkernel is forced last automatically). e.g. libd3d8;libd3dx8;libxapi;libc;libcpp;libkernel." />
 
 </Rule>

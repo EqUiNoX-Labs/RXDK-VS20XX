@@ -27,14 +27,19 @@
     <!-- Clean-room Zig SDK headers, for IntelliSense (the same dir the build compiles against). -->
     <RxdkSdkInclude>$(ProgramData)\RXDK\sdk\include</RxdkSdkInclude>
 
-    <!-- Two configurations (Debug / Release), like standard VS. Debug builds -O0 -g; Release
-         uses the Zig optimize mode chosen on the Xbox Build page (RxdkReleaseOptimize), default
-         ReleaseFast. RxdkOptimize is what the build passes to Rxdk.Cli (optimize switch). -->
+    <!-- Build flavor drives BOTH the SDK library variant (debug/release) and the optimize base.
+         Defaults by config name (the Debug config is Debug-flavored, any other config - including
+         a custom one like "my app" - is Release-flavored), but it's editable per-config on the
+         Xbox Build page (RxdkBuildFlavor), so a custom config can be set to either. -->
+    <RxdkBuildFlavor Condition="'$(RxdkBuildFlavor)' == '' and '$(Configuration)' == 'Debug'">Debug</RxdkBuildFlavor>
+    <RxdkBuildFlavor Condition="'$(RxdkBuildFlavor)' == ''">Release</RxdkBuildFlavor>
+    <!-- Debug flavor = -O0 -g; Release flavor = the mode chosen on the Xbox Build page
+         (RxdkReleaseOptimize, default ReleaseFast). RxdkOptimize is passed to Rxdk.Cli. -->
     <RxdkReleaseOptimize Condition="'$(RxdkReleaseOptimize)' == ''">ReleaseFast</RxdkReleaseOptimize>
-    <RxdkOptimize Condition="'$(Configuration)' == 'Debug'">Debug</RxdkOptimize>
+    <RxdkOptimize Condition="'$(RxdkBuildFlavor)' == 'Debug'">Debug</RxdkOptimize>
     <RxdkOptimize Condition="'$(RxdkOptimize)' == ''">$(RxdkReleaseOptimize)</RxdkOptimize>
-    <!-- SDK library variant: debug libs for the Debug config, release libs otherwise. -->
-    <RxdkConfig Condition="'$(Configuration)' == 'Debug'">debug</RxdkConfig>
+    <!-- SDK library variant: debug libs for a Debug-flavored config, release libs otherwise. -->
+    <RxdkConfig Condition="'$(RxdkBuildFlavor)' == 'Debug'">debug</RxdkConfig>
     <RxdkConfig Condition="'$(RxdkConfig)' == ''">release</RxdkConfig>
 
     <!-- Build-manifest defaults (a project overrides RxdkType/RxdkLibraries/etc. as needed). -->
