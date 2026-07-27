@@ -21,6 +21,27 @@ namespace RxdkVs.Package.ToolWindow
         public RxdkToolWindowControl()
         {
             InitializeComponent();
+            LoadLogo();
+        }
+
+        // Loads the extension icon (deployed next to the DLL as Resources\extension-icon.png)
+        // into the header. Best-effort: on any failure the header just shows the "RXDK" title.
+        private void LoadLogo()
+        {
+            try
+            {
+                var dir = System.IO.Path.GetDirectoryName(GetType().Assembly.Location);
+                var path = System.IO.Path.Combine(dir, "Resources", "extension-icon.png");
+                if (!System.IO.File.Exists(path)) return;
+                var bmp = new System.Windows.Media.Imaging.BitmapImage();
+                bmp.BeginInit();
+                bmp.CacheOption = System.Windows.Media.Imaging.BitmapCacheOption.OnLoad;
+                bmp.UriSource = new Uri(path, UriKind.Absolute);
+                bmp.EndInit();
+                bmp.Freeze();
+                LogoImage.Source = bmp;
+            }
+            catch { /* header shows the title without a logo */ }
         }
 
         public void Initialize(RxdkPackage package)
