@@ -72,6 +72,8 @@
     <Reference Include="System.Design" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+    <!-- FolderBrowserDialog for the Import Project wizard. -->
+    <Reference Include="System.Windows.Forms" />
     <!-- WPF, used by the tool window control. -->
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -121,6 +123,14 @@
     <Content Include="ProjectTemplates\*.zip">
       <IncludeInVSIX>true</IncludeInVSIX>
       <VSIXSubPath>ProjectTemplates</VSIXSubPath>
+    </Content>
+    <!-- Scaffold files (props/targets + property-page rules) staged by scripts/dev.ps1 templates
+         from samples\. The VS2003 importer copies these into each imported project; they ship
+         next to the DLL under <extension>\Scaffold. -->
+    <Content Include="Scaffold\*">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <VSIXSubPath>Scaffold</VSIXSubPath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="DebugAdapterHost.pkgdef">
       <IncludeInVSIX>true</IncludeInVSIX>

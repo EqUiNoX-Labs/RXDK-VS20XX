@@ -41,5 +41,6 @@ namespace RxdkVs.Package.Commands
         public const int CmdSetBuildType = 0x0117;       // rxdk.setBuildType
         public const int CmdOpenSettings = 0x0118;       // rxdk.openSettings
         public const int CmdDeployProject = 0x0119;      // rxdk.deployProject (project context menu)
+        public const int CmdImportProject = 0x011A;      // rxdk.importProject (VS2003 importer)
     }
 }

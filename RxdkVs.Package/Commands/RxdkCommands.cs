@@ -79,6 +79,7 @@ namespace RxdkVs.Package.Commands
             Add(CommandIds.CmdDebug, DebugAsync);
             Add(CommandIds.CmdDebugPrebuiltXbe, NewPrebuiltXbeAsync);
             Add(CommandIds.CmdNewProject, NewProjectAsync);
+            Add(CommandIds.CmdImportProject, ImportProjectAsync);
             Add(CommandIds.CmdShowToolWindow, ShowToolWindowAsync);
             Add(CommandIds.CmdOpenSdkFolder, () => OpenFolderAsync(ToolLocator.StagedSdkRoot));
             Add(CommandIds.CmdOpenToolsFolder, () => OpenFolderAsync(ToolLocator.StagedToolsRoot));
@@ -209,6 +210,89 @@ namespace RxdkVs.Package.Commands
         private async Task NewPrebuiltXbeAsync()
         {
             await ShowInfoAsync("New Prebuilt XBE project wizard is not yet implemented (Phase 3).");
+        }
+
+        // ---- VS2003 project import ----
+
+        private async Task ImportProjectAsync()
+        {
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+
+            var (vcproj, outDir) = RxdkToolWindowControl.PromptForImport();
+            if (string.IsNullOrEmpty(vcproj) || string.IsNullOrEmpty(outDir))
+            {
+                return; // cancelled
+            }
+
+            // The scaffold files (props/targets + property-page rules) ship next to this DLL under
+            // Scaffold\ (staged by scripts/dev.ps1 templates). The importer copies them into outDir.
+            var scaffoldDir = Path.Combine(
+                Path.GetDirectoryName(typeof(RxdkCommands).Assembly.Location), "Scaffold");
+            if (!Directory.Exists(scaffoldDir))
+            {
+                await ShowErrorAsync($"Scaffold files not found ({scaffoldDir}). Rebuild/reinstall the RXDK extension.");
+                return;
+            }
+
+            var args = new[] { "import-vcproj", "--in", vcproj, "--out", outDir, "--scaffold", scaffoldDir };
+            int rc;
+            try
+            {
+                rc = await _cli.RunAsync(args, outDir);
+            }
+            catch (Exception ex)
+            {
+                await ShowErrorAsync($"Import failed: {ex.Message}");
+                return;
+            }
+            if (rc != 0)
+            {
+                await ShowErrorAsync("Import failed — see the RXDK output window for details.");
+                return;
+            }
+
+            // Locate the produced .vcxproj (the importer writes exactly one at the output root).
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+            string vcxproj = null;
+            try
+            {
+                var found = Directory.GetFiles(outDir, "*.vcxproj", SearchOption.TopDirectoryOnly);
+                if (found.Length > 0) vcxproj = found[0];
+            }
+            catch { /* fall through to the folder-open path */ }
+
+            // If a solution is open, offer to add the imported project to it; otherwise just reveal
+            // the output folder so the user can open the .vcxproj themselves.
+            var dte = (EnvDTE.DTE)await _package.GetServiceAsync(typeof(EnvDTE.DTE));
+            var solution = dte?.Solution;
+            if (vcxproj != null && solution != null && solution.IsOpen)
+            {
+                var add = VsShellUtilities.ShowMessageBox(_package,
+                    $"Imported {Path.GetFileName(vcxproj)}.\n\nAdd it to the current solution?", "RXDK",
+                    OLEMSGICON.OLEMSGICON_QUERY, OLEMSGBUTTON.OLEMSGBUTTON_YESNO, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+                if (add == (int)VSConstants.MessageBoxResult.IDYES)
+                {
+                    try
+                    {
+                        solution.AddFromFile(vcxproj, false);
+                        return;
+                    }
+                    catch (Exception ex)
+                    {
+                        await ShowErrorAsync($"Imported OK but could not add to the solution: {ex.Message}");
+                    }
+                }
+            }
+            else if (vcxproj != null)
+            {
+                await ShowInfoAsync($"Imported {Path.GetFileName(vcxproj)}.\nOpen it from {outDir}.");
+            }
+
+            try
+            {
+                Process.Start(new ProcessStartInfo("explorer.exe", $"\"{outDir}\"") { UseShellExecute = true });
+            }
+            catch { /* best effort */ }
         }
 
         // ---- Tool window ----

@@ -167,6 +167,21 @@ function Invoke-Templates {
         Compress-Archive -Path (Join-Path $dir.FullName '*') -DestinationPath $zip
         Ok "  $($dir.Name) -> $display.zip"
     }
+
+    # Stage the canonical scaffold files (props/targets + property-page rules) into a Scaffold
+    # folder that the VSIX ships next to the DLL. The VS2003 importer copies these into each
+    # imported project (Rxdk.Cli import-vcproj --scaffold <this folder>).
+    $scaffoldOut = Join-Path $Repo 'RxdkVs.Package\Scaffold'
+    if (-not (Test-Path $scaffoldOut)) { New-Item -ItemType Directory -Path $scaffoldOut | Out-Null }
+    $scaffoldSrc = Join-Path $Repo 'samples'
+    $scaffoldFiles = @(
+        'Rxdk.Xbox.props', 'Rxdk.Xbox.targets', 'RxdkDebugger.xml', 'RxdkXboxBuild.xml',
+        'RxdkXboxImage.xml', 'RxdkXboxDeployment.xml', 'RxdkXboxCertificate.xml', 'RxdkXboxTitleInfo.xml'
+    )
+    foreach ($f in $scaffoldFiles) {
+        Copy-Item -Path (Join-Path $scaffoldSrc $f) -Destination (Join-Path $scaffoldOut $f) -Force
+    }
+    Ok "  scaffold ($($scaffoldFiles.Count) files) -> Scaffold\"
 }
 
 function Invoke-Vsix {

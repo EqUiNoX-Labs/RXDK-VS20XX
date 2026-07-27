@@ -108,6 +108,10 @@
             <Button Style="{StaticResource Act}" Content="Xbox Neighborhood (Explorer)"   Click="OnOpenXboxNeighborhood" />
             <Button Style="{StaticResource Act}" Content="Cycle Globals Visibility (Title / +Constants / All)" Click="OnCycleGlobals" />
 
+            <!-- Project -->
+            <TextBlock Text="PROJECT" Style="{StaticResource Section}" />
+            <Button Style="{StaticResource Act}" Content="Import VS2003 Project…" Click="OnImportProject" />
+
             <!-- Setup -->
             <TextBlock Text="SETUP" Style="{StaticResource Section}" />
             <Button Style="{StaticResource Act}" Content="Install Prerequisites"   Click="OnCompleteSetup" />

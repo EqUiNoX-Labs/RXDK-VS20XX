@@ -67,6 +67,8 @@ namespace RxdkVs.Package.ToolWindow
         private void OnLaunchNeighborhoodApp(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdLaunchXbNeighborhood);
         private void OnOpenXboxNeighborhood(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdOpenXboxNeighborhood);
         private void OnCycleGlobals(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdCycleGlobalsScope);
+        // Project
+        private void OnImportProject(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdImportProject);
         // Setup
         private void OnFetchSdk(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdFetchLatestSdk);
         private void OnInstallDotNet(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdInstallDotNet);
@@ -171,6 +173,96 @@ namespace RxdkVs.Package.ToolWindow
             input.SelectAll();
 
             return dialog.ShowDialog() == true ? result : null;
+        }
+
+        /// <summary>
+        /// Modal wizard for importing a VS2003 XDK project: pick the .vcproj and an output folder.
+        /// Returns (vcprojPath, outputDir), or (null, null) if cancelled.
+        /// </summary>
+        public static (string vcproj, string outDir) PromptForImport()
+        {
+            var dialog = new Window
+            {
+                Title = "Import VS2003 XDK Project",
+                Width = 560,
+                SizeToContent = SizeToContent.Height,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                ResizeMode = ResizeMode.NoResize,
+            };
+            var root = new StackPanel { Margin = new Thickness(12) };
+
+            root.Children.Add(new TextBlock { Text = "VS2003 project (.vcproj):", Margin = new Thickness(0, 0, 0, 4) });
+            var vcprojBox = new TextBox();
+            var vcprojBrowse = new Button { Content = "Browse…", Width = 78, Margin = new Thickness(6, 0, 0, 0) };
+            var row1 = new DockPanel { Margin = new Thickness(0, 0, 0, 10) };
+            DockPanel.SetDock(vcprojBrowse, Dock.Right);
+            row1.Children.Add(vcprojBrowse);
+            row1.Children.Add(vcprojBox);
+            root.Children.Add(row1);
+
+            root.Children.Add(new TextBlock { Text = "Output folder:", Margin = new Thickness(0, 0, 0, 4) });
+            var outBox = new TextBox();
+            var outBrowse = new Button { Content = "Browse…", Width = 78, Margin = new Thickness(6, 0, 0, 0) };
+            var row2 = new DockPanel();
+            DockPanel.SetDock(outBrowse, Dock.Right);
+            row2.Children.Add(outBrowse);
+            row2.Children.Add(outBox);
+            root.Children.Add(row2);
+
+            root.Children.Add(new TextBlock
+            {
+                Text = "The RXDK project (.vcxproj + property pages) is written to the output folder next to your sources.",
+                TextWrapping = TextWrapping.Wrap, Opacity = 0.7, FontSize = 11, Margin = new Thickness(0, 8, 0, 0),
+            });
+
+            var buttons = new StackPanel
+            {
+                Orientation = Orientation.Horizontal, HorizontalAlignment = HorizontalAlignment.Right,
+                Margin = new Thickness(0, 14, 0, 0),
+            };
+            var ok = new Button { Content = "Import", Width = 78, IsDefault = true, Margin = new Thickness(0, 0, 6, 0) };
+            var cancel = new Button { Content = "Cancel", Width = 78, IsCancel = true };
+            buttons.Children.Add(ok);
+            buttons.Children.Add(cancel);
+            root.Children.Add(buttons);
+            dialog.Content = root;
+
+            vcprojBrowse.Click += (_, __) =>
+            {
+                var ofd = new Microsoft.Win32.OpenFileDialog
+                {
+                    Filter = "VS2003 project (*.vcproj)|*.vcproj|All files (*.*)|*.*",
+                    Title = "Select the VS2003 .vcproj",
+                };
+                if (ofd.ShowDialog() == true)
+                {
+                    vcprojBox.Text = ofd.FileName;
+                    if (string.IsNullOrEmpty(outBox.Text))
+                        outBox.Text = System.IO.Path.GetDirectoryName(ofd.FileName);
+                }
+            };
+            outBrowse.Click += (_, __) =>
+            {
+                using (var fbd = new System.Windows.Forms.FolderBrowserDialog { Description = "Output folder for the RXDK project" })
+                {
+                    if (!string.IsNullOrEmpty(outBox.Text)) fbd.SelectedPath = outBox.Text;
+                    if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK) outBox.Text = fbd.SelectedPath;
+                }
+            };
+
+            bool okd = false;
+            ok.Click += (_, __) =>
+            {
+                if (string.IsNullOrWhiteSpace(vcprojBox.Text) || string.IsNullOrWhiteSpace(outBox.Text))
+                {
+                    System.Windows.MessageBox.Show(dialog, "Pick both a .vcproj and an output folder.", "RXDK");
+                    return;
+                }
+                okd = true;
+                dialog.DialogResult = true;
+            };
+
+            return dialog.ShowDialog() == true && okd ? (vcprojBox.Text.Trim(), outBox.Text.Trim()) : (null, null);
         }
 
         /// <summary>

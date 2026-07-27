@@ -20,3 +20,6 @@ out/
 
 # Generated VS project-template zips (packed from TemplateSrc by dev.ps1 templates)
 RxdkVs.Package/ProjectTemplates/*.zip
+
+# Scaffold files staged from samples\ by dev.ps1 templates (source of truth is samples\)
+RxdkVs.Package/Scaffold/
