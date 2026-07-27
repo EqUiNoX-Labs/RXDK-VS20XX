@@ -34,8 +34,6 @@ namespace RxdkVs.Package.ToolWindow
         // Console
         private void OnReboot(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdRebootConsole);
         private void OnSetIp(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdSetXboxIp, refreshAfter: true);
-        // Project
-        private void OnNewProject(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdNewProject);
         // Folders
         private void OnOpenSdkFolder(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdOpenSdkFolder);
         private void OnOpenToolsFolder(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdOpenToolsFolder);
@@ -45,6 +43,7 @@ namespace RxdkVs.Package.ToolWindow
         private void OnOpenExtensionDocs(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdOpenExtensionDocs);
         // Tools
         private void OnLaunchXbwatson(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdLaunchXbwatson);
+        private void OnLaunchNeighborhoodApp(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdLaunchXbNeighborhood);
         private void OnOpenXboxNeighborhood(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdOpenXboxNeighborhood);
         private void OnCycleGlobals(object sender, RoutedEventArgs e) => Exec(CommandIds.CmdCycleGlobalsScope);
         // Setup

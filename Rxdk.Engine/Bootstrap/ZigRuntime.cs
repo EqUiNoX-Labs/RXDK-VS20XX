@@ -78,6 +78,17 @@ public static class ZigRuntime
     /// </summary>
     public static async Task<string> InstallAsync(Action<string>? log = null, CancellationToken ct = default)
     {
+        // Idempotent: if the pinned Zig is already extracted in the managed root, reuse it
+        // instead of re-downloading (so "Complete Setup" is cheap to re-run).
+        foreach (var candidate in InstalledZigCandidates())
+        {
+            if (File.Exists(candidate))
+            {
+                log?.Invoke($"RXDK: Zig {ZigVersion} already installed at {candidate}");
+                return candidate;
+            }
+        }
+
         var url = $"{ZigDownloadPage}{ZigVersion}/{ArchiveFileName}";
         var installRoot = Path.Combine(RxdkPaths.GetZigInstallRoot(), ZigVersion);
         var extractDir = Path.Combine(installRoot, "extract");

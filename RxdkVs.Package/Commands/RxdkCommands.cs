@@ -230,7 +230,7 @@ namespace RxdkVs.Package.Commands
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
             if (string.IsNullOrEmpty(path) || !Directory.Exists(path))
             {
-                await ShowInfoAsync($"Folder does not exist yet: {path}\nRun RXDK > Complete Setup first.");
+                await ShowInfoAsync($"Folder does not exist yet: {path}\nRun Install Prerequisites (RXDK window) first.");
                 return;
             }
             Process.Start(new ProcessStartInfo("explorer.exe", $"\"{path}\"") { UseShellExecute = true });
@@ -257,7 +257,7 @@ namespace RxdkVs.Package.Commands
             }
             else
             {
-                await ShowInfoAsync($"Documentation not found under {tried}.\nRun RXDK > Complete Setup to clone RXDK-Docs.");
+                await ShowInfoAsync($"Documentation not found under {tried}.\nRun Install Prerequisites (RXDK window) to clone RXDK-Docs.");
             }
         }
 
@@ -340,7 +340,7 @@ namespace RxdkVs.Package.Commands
             }
             else
             {
-                await ShowInfoAsync($"{tool} not found at {exe}. Run RXDK > Complete Setup to download host tools.");
+                await ShowInfoAsync($"{tool} not found at {exe}. Run Install Prerequisites (RXDK window) to download host tools.");
             }
         }
 
@@ -364,11 +364,26 @@ namespace RxdkVs.Package.Commands
 
         private async Task SetupPrerequisitesAsync()
         {
-            // Sequentially runs the engine's bootstrap verbs. A richer setup UI is Phase 3.
-            await RunCliAsync("install-zig", requiresProject: false);
-            await RunCliAsync("install-tools", requiresProject: false);
-            await RunCliAsync("install-sdk", requiresProject: false);
-            await RunCliAsync("install-docs", requiresProject: false);
+            // Install only what's missing: check each *-status first and skip the download when the
+            // component is already present, so this is cheap to re-run (won't re-fetch Zig etc.).
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+            var cwd = Environment.CurrentDirectory;
+            var installed = 0;
+            async Task EnsureAsync(string statusVerb, string installVerb)
+            {
+                if (await _cli.RunAsync(new[] { statusVerb }, cwd) != 0)
+                {
+                    await _cli.RunAsync(new[] { installVerb }, cwd);
+                    installed++;
+                }
+            }
+            await EnsureAsync("zig-status", "install-zig");
+            await EnsureAsync("tools-status", "install-tools");
+            await EnsureAsync("sdk-status", "install-sdk");
+            await EnsureAsync("docs-status", "install-docs");
+            await ShowInfoAsync(installed == 0
+                ? "RXDK is already set up — SDK, host tools, Zig and docs are all present."
+                : $"RXDK setup finished — installed {installed} missing component(s). Use 'Fetch Latest RXDK-SDK' to update an existing SDK.");
         }
 
         private async Task SetBuildTypeAsync()

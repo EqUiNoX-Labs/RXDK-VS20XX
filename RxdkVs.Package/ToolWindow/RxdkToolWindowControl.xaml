@@ -7,63 +7,116 @@
              mc:Ignorable="d"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             d:DesignHeight="360" d:DesignWidth="240">
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="10">
-            <TextBlock Text="RXDK" FontSize="16" FontWeight="Bold" Margin="0,0,0,8" />
-            <TextBlock Text="Build, deploy and debug are native VS: press F5, or right-click the project and Build."
-                       TextWrapping="Wrap" Opacity="0.7" FontSize="11" Margin="0,0,0,8" />
+             d:DesignHeight="640" d:DesignWidth="300">
+    <UserControl.Resources>
+        <!-- Original-Xbox lime accent; reads on both light and dark themes. -->
+        <SolidColorBrush x:Key="Accent" Color="#84BD00" />
+        <SolidColorBrush x:Key="HoverFill" Color="#22808080" />
+        <SolidColorBrush x:Key="PressFill" Color="#40808080" />
 
-            <!-- Devkit IP -->
-            <TextBlock Text="Xbox console" FontWeight="SemiBold" Margin="0,4,0,2" />
-            <DockPanel Margin="0,0,0,8">
-                <Button x:Name="SetIpButton" Content="Set…" DockPanel.Dock="Right" Width="48" Margin="6,0,0,0" Click="OnSetIp" />
-                <TextBlock x:Name="IpText" Text="(unknown)" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
-            </DockPanel>
-            <Button Content="Warm Reboot Xbox"    Margin="0,2" Click="OnReboot" />
+        <Style x:Key="Section" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource Accent}" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Margin" Value="2,16,0,5" />
+        </Style>
 
-            <Separator Margin="0,8,0,8" />
+        <Style x:Key="Muted" TargetType="TextBlock">
+            <Setter Property="Opacity" Value="0.6" />
+            <Setter Property="FontSize" Value="11" />
+        </Style>
 
-            <!-- Project -->
-            <TextBlock Text="Project" FontWeight="SemiBold" Margin="0,0,0,2" />
-            <Button Content="New Project…" Margin="0,2" Click="OnNewProject" />
+        <!-- Full-width action button: rounded, left-aligned, highlights on hover. -->
+        <Style x:Key="Act" TargetType="Button">
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Margin" Value="0,2" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:EnvironmentColors.ToolWindowTextBrushKey}}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" CornerRadius="4" Padding="11,0" Background="Transparent"
+                                BorderThickness="1"
+                                BorderBrush="{DynamicResource {x:Static vsshell:EnvironmentColors.ToolWindowBorderBrushKey}}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="{StaticResource HoverFill}" />
+                                <Setter TargetName="bd" Property="BorderBrush" Value="{StaticResource Accent}" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="{StaticResource PressFill}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
-            <Separator Margin="0,8,0,8" />
+        <Style x:Key="Card" TargetType="Border">
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="{DynamicResource {x:Static vsshell:EnvironmentColors.ToolWindowBorderBrushKey}}" />
+            <Setter Property="Padding" Value="12" />
+        </Style>
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="12,12,12,16">
+        <StackPanel>
+            <!-- Header -->
+            <StackPanel Orientation="Horizontal">
+                <Border Width="4" Height="22" CornerRadius="2" Background="{StaticResource Accent}" Margin="0,0,8,0" />
+                <TextBlock Text="RXDK" FontSize="19" FontWeight="Bold" VerticalAlignment="Center" />
+            </StackPanel>
+            <TextBlock Style="{StaticResource Muted}" TextWrapping="Wrap" Margin="0,6,0,4"
+                       Text="Build, deploy and debug are native VS: press F5, or right-click the project and Build. Deploy to Xbox / Remove DXT are on the project's right-click menu." />
+
+            <!-- Xbox console card -->
+            <Border Style="{StaticResource Card}" Margin="0,10,0,0">
+                <StackPanel>
+                    <TextBlock Text="XBOX CONSOLE" Style="{StaticResource Section}" Margin="0,0,0,6" />
+                    <DockPanel Margin="0,0,0,10">
+                        <Button x:Name="SetIpButton" Style="{StaticResource Act}" Content="Set…" DockPanel.Dock="Right"
+                                Width="56" HorizontalContentAlignment="Center" Margin="8,0,0,0" Click="OnSetIp" />
+                        <TextBlock x:Name="IpText" Text="(unknown)" FontSize="15" VerticalAlignment="Center"
+                                   TextTrimming="CharacterEllipsis" />
+                    </DockPanel>
+                    <Button Style="{StaticResource Act}" Content="Warm Reboot Xbox" Click="OnReboot" />
+                </StackPanel>
+            </Border>
 
             <!-- Folders -->
-            <TextBlock Text="Folders" FontWeight="SemiBold" Margin="0,0,0,2" />
-            <Button Content="Open SDK Folder (include/lib)" Margin="0,2" Click="OnOpenSdkFolder" />
-            <Button Content="Open Host Tools Folder"        Margin="0,2" Click="OnOpenToolsFolder" />
-            <Button Content="Open Documentation Folder"     Margin="0,2" Click="OnOpenDocsFolder" />
-
-            <Separator Margin="0,8,0,8" />
+            <TextBlock Text="FOLDERS" Style="{StaticResource Section}" />
+            <Button Style="{StaticResource Act}" Content="Open SDK Folder (include/lib)" Click="OnOpenSdkFolder" />
+            <Button Style="{StaticResource Act}" Content="Open Host Tools Folder"        Click="OnOpenToolsFolder" />
+            <Button Style="{StaticResource Act}" Content="Open Documentation Folder"     Click="OnOpenDocsFolder" />
 
             <!-- Documentation -->
-            <TextBlock Text="Documentation" FontWeight="SemiBold" Margin="0,0,0,2" />
-            <Button Content="Xbox SDK Documentation"  Margin="0,2" Click="OnOpenSdkDocs" />
-            <Button Content="Extension Documentation" Margin="0,2" Click="OnOpenExtensionDocs" />
-
-            <Separator Margin="0,8,0,8" />
+            <TextBlock Text="DOCUMENTATION" Style="{StaticResource Section}" />
+            <Button Style="{StaticResource Act}" Content="Xbox SDK Documentation"  Click="OnOpenSdkDocs" />
+            <Button Style="{StaticResource Act}" Content="Extension Documentation" Click="OnOpenExtensionDocs" />
 
             <!-- Tools -->
-            <TextBlock Text="Tools" FontWeight="SemiBold" Margin="0,0,0,2" />
-            <Button Content="Launch xbWatson"        Margin="0,2" Click="OnLaunchXbwatson" />
-            <Button Content="Open Xbox Neighborhood" Margin="0,2" Click="OnOpenXboxNeighborhood" />
-            <Button Content="Cycle Globals Visibility (Title / +Constants / All)" Margin="0,2" Click="OnCycleGlobals" />
-
-            <Separator Margin="0,8,0,8" />
+            <TextBlock Text="TOOLS" Style="{StaticResource Section}" />
+            <Button Style="{StaticResource Act}" Content="Launch xbWatson"               Click="OnLaunchXbwatson" />
+            <Button Style="{StaticResource Act}" Content="Xbox Neighborhood (App)"        Click="OnLaunchNeighborhoodApp" />
+            <Button Style="{StaticResource Act}" Content="Xbox Neighborhood (Explorer)"   Click="OnOpenXboxNeighborhood" />
+            <Button Style="{StaticResource Act}" Content="Cycle Globals Visibility (Title / +Constants / All)" Click="OnCycleGlobals" />
 
             <!-- Setup -->
-            <TextBlock Text="Setup" FontWeight="SemiBold" Margin="0,0,0,2" />
-            <Button Content="Fetch Latest RXDK-SDK" Margin="0,2" Click="OnFetchSdk" />
-            <Button Content="Install .NET 8 Runtime" Margin="0,2" Click="OnInstallDotNet" />
-            <Button Content="Complete Setup"        Margin="0,2" Click="OnCompleteSetup" />
-            <Button Content="Settings"              Margin="0,2" Click="OnSettings" />
-            <Button Content="Refresh"               Margin="0,2" Click="OnRefresh" />
+            <TextBlock Text="SETUP" Style="{StaticResource Section}" />
+            <Button Style="{StaticResource Act}" Content="Install Prerequisites"   Click="OnCompleteSetup" />
+            <Button Style="{StaticResource Act}" Content="Fetch Latest RXDK-SDK"   Click="OnFetchSdk" />
+            <Button Style="{StaticResource Act}" Content="Install .NET 8 Runtime"  Click="OnInstallDotNet" />
+            <Button Style="{StaticResource Act}" Content="Settings"                Click="OnSettings" />
+            <Button Style="{StaticResource Act}" Content="Refresh"                 Click="OnRefresh" />
 
-            <Separator Margin="0,8,0,8" />
-
-            <TextBlock x:Name="StatusText" TextWrapping="Wrap" Opacity="0.8" FontSize="11" />
+            <Separator Margin="0,12,0,8" Opacity="0.4" />
+            <TextBlock x:Name="StatusText" TextWrapping="Wrap" Opacity="0.7" FontSize="11" />
         </StackPanel>
     </ScrollViewer>
 </UserControl>
