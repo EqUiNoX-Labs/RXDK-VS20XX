@@ -43,6 +43,14 @@
                       Category="Compiler" Separator=";"
                       Description="Extra preprocessor macros passed to the compiler (in addition to the built-in _XBOX;XBOX). One per entry, e.g. MY_FLAG or NAME=VALUE." />
 
+  <StringListProperty Name="RxdkIncludePaths" DisplayName="Additional Include Directories"
+                      Subtype="folder" Category="Compiler" Separator=";"
+                      Description="Extra project-relative directories searched for #include headers (added after sdk\include), e.g. src or third_party\include." />
+
+  <StringListProperty Name="RxdkPublicIncludePaths" DisplayName="Public Include Directories"
+                      Subtype="folder" Category="Compiler" Separator=";"
+                      Description="For library projects: include directories exported to projects that reference this one (also usable locally). e.g. include." />
+
   <!-- ===== Linker ===== -->
   <StringListProperty Name="RxdkLibraries" DisplayName="Libraries"
                       Category="Linker" Separator=";"

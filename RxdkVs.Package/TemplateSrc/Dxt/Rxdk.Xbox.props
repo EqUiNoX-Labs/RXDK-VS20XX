@@ -70,7 +70,7 @@
     <NMakeReBuildCommandLine>"$(RxdkCli)" build --project-root "$(MSBuildProjectDirectory)" --optimize $(RxdkOptimize) --manifest "$(RxdkManifestFile)"</NMakeReBuildCommandLine>
     <NMakeCleanCommandLine>if exist "$(MSBuildProjectDirectory)\out" rmdir /S /Q "$(MSBuildProjectDirectory)\out"</NMakeCleanCommandLine>
     <NMakePreprocessorDefinitions>_XBOX;XBOX;$(RxdkDefines);$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <NMakeIncludeSearchPath>$(RxdkSdkInclude);$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+    <NMakeIncludeSearchPath>$(RxdkSdkInclude);$(RxdkIncludePaths);$(RxdkPublicIncludePaths);$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
     <!-- Match the build's `-include picolibc.h` so IntelliSense sees the libc baseline (NULL,
          size_t, …); without it those cascade into "unresolved" squiggles even though the Zig
          build (the source of truth) compiles fine. -->
