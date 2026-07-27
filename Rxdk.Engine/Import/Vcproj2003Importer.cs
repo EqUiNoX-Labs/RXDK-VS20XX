@@ -20,11 +20,17 @@ public static class Vcproj2003Importer
     {
         public string VcxprojPath = "";
         public string ProjectName = "";
+        public string ProjectGuid = "";
+        public bool IsLibrary;
         public int ConfigurationCount;
         public int SourceCount;
+        public List<(string Name, string Flavor)> Configs = new();
         public List<string> UnmappedLibraries = new();
         public List<string> Warnings = new();
     }
+
+    /// <summary>A native &lt;ProjectReference&gt; to emit into the generated .vcxproj.</summary>
+    public sealed record ProjRef(string Name, string RelPath);
 
     // Scaffold files an RXDK project needs alongside the .vcxproj (copied from scaffoldDir).
     private static readonly string[] ScaffoldFiles =
@@ -63,7 +69,8 @@ public static class Vcproj2003Importer
     }
 
     public static ImportResult Import(string vcprojPath, string outDir, string? scaffoldDir,
-        bool copySources = false, Action<string>? log = null)
+        bool copySources = false, bool canonicalConfigs = false,
+        IReadOnlyList<ProjRef>? projectRefs = null, Action<string>? log = null)
     {
         vcprojPath = Path.GetFullPath(vcprojPath);
         if (!File.Exists(vcprojPath)) throw new FileNotFoundException($"vcproj not found: {vcprojPath}");
@@ -83,11 +90,25 @@ public static class Vcproj2003Importer
         var result = new ImportResult { ProjectName = name };
         var unmapped = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
+        result.IsLibrary = isLib;
+
         // ---- configurations ----
-        var configs = new List<Cfg>();
+        var allConfigs = new List<Cfg>();
         foreach (var c in root.Element("Configurations")?.Elements("Configuration") ?? Enumerable.Empty<XElement>())
-            configs.Add(ParseConfig(c, unmapped));
+            allConfigs.Add(ParseConfig(c, unmapped));
+
+        // Drop configs RXDK has no equivalent for (profiling / LTCG / non-Xbox platform variants).
+        var configs = allConfigs.Where(c => !IsUnsupportedConfig(c.Name)).ToList();
+        var dropped = allConfigs.Count - configs.Count;
+        if (dropped > 0) result.Warnings.Add($"dropped {dropped} unsupported config(s) (profile/LTCG/fastcap/non-Xbox).");
+        if (configs.Count == 0) { configs = allConfigs; result.Warnings.Add("all configs were unsupported; kept them as-is."); }
+
+        // For multi-project (solution) imports, collapse to a canonical {Debug, Release} set so every
+        // project shares config names and cross-project references build cleanly.
+        if (canonicalConfigs) configs = Canonicalize(configs);
+
         result.ConfigurationCount = configs.Count;
+        result.Configs = configs.Select(c => (c.Name, c.Flavor)).ToList();
         result.UnmappedLibraries = unmapped.OrderBy(x => x).ToList();
 
         // ---- files (with filter folders) ----
@@ -98,8 +119,10 @@ public static class Vcproj2003Importer
         result.SourceCount = sources.Count(s => s.tag == "ClCompile");
 
         // ---- write .vcxproj + .filters ----
+        var projectGuid = "{" + Guid.NewGuid().ToString().ToUpperInvariant() + "}";
+        result.ProjectGuid = projectGuid;
         var vcxprojPath = Path.Combine(outDir, name + ".vcxproj");
-        File.WriteAllText(vcxprojPath, BuildVcxproj(name, isLib, configs, sources), new UTF8Encoding(false));
+        File.WriteAllText(vcxprojPath, BuildVcxproj(name, isLib, projectGuid, configs, sources, projectRefs), new UTF8Encoding(false));
         File.WriteAllText(vcxprojPath + ".filters", BuildFilters(sources, filters), new UTF8Encoding(false));
         result.VcxprojPath = vcxprojPath;
 
@@ -181,6 +204,29 @@ public static class Vcproj2003Importer
         cfg.TitleImage = NonEmpty((string?)img?.Attribute("TitleImage"));
         cfg.XbeVersion = NonEmpty((string?)img?.Attribute("XBEVersion"));
         return cfg;
+    }
+
+    // Config names RXDK has no build equivalent for: profiling/instrumentation modes and non-Xbox
+    // platform variants encoded into the config name (the XDK uses "(Win32)"/"(SDL)" suffixes).
+    private static bool IsUnsupportedConfig(string name)
+    {
+        var n = name.ToLowerInvariant();
+        return n.Contains("profile") || n.Contains("ltcg") || n.Contains("fastcap") || n.Contains("fast cap")
+            || n.Contains("(win32)") || n.Contains("(win)") || n.Contains("(sdl)") || n.Contains("(pc)");
+    }
+
+    // Collapse a config list to a canonical {Debug, Release} set (first source config of each flavor
+    // wins its settings, renamed to the flavor). Used for multi-project imports so every project
+    // exposes the same config names and cross-project references resolve.
+    private static List<Cfg> Canonicalize(List<Cfg> configs)
+    {
+        var result = new List<Cfg>();
+        foreach (var flavor in new[] { "Debug", "Release" })
+        {
+            var first = configs.FirstOrDefault(c => c.Flavor == flavor);
+            if (first != null) { first.Name = flavor; result.Add(first); }
+        }
+        return result.Count > 0 ? result : configs;
     }
 
     private static string? MapLib(string token, out bool known)
@@ -313,8 +359,8 @@ public static class Vcproj2003Importer
 
     // ---- .vcxproj / .filters emit ----
 
-    private static string BuildVcxproj(string name, bool isLib, List<Cfg> configs,
-        List<(string include, string tag, string? filter)> sources)
+    private static string BuildVcxproj(string name, bool isLib, string projectGuid, List<Cfg> configs,
+        List<(string include, string tag, string? filter)> sources, IReadOnlyList<ProjRef>? projectRefs)
     {
         var ext = isLib ? "lib" : "xbe";
         var sb = new StringBuilder();
@@ -331,7 +377,7 @@ public static class Vcproj2003Importer
         sb.AppendLine("  </ItemGroup>");
         sb.AppendLine("  <PropertyGroup Label=\"Globals\">");
         sb.AppendLine("    <VCProjectVersion>16.0</VCProjectVersion>");
-        sb.AppendLine($"    <ProjectGuid>{{{Guid.NewGuid().ToString().ToUpperInvariant()}}}</ProjectGuid>");
+        sb.AppendLine($"    <ProjectGuid>{projectGuid}</ProjectGuid>");
         sb.AppendLine("    <RootNamespace>XboxNamespace</RootNamespace>");
         sb.AppendLine("    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>");
         sb.AppendLine($"    <ProjectName>{Esc(name)}</ProjectName>");
@@ -375,6 +421,15 @@ public static class Vcproj2003Importer
         EmitItems(sb, sources, "ClCompile");
         EmitItems(sb, sources, "ClInclude");
         EmitItems(sb, sources, "None");
+        // Native project references (build order); RXDK links each child .lib via the manifest
+        // projectReferences the targets derive from @(ProjectReference). The ItemDefinitionGroup in
+        // Rxdk.Xbox.props already marks these build-order-only, so no per-item metadata is needed.
+        if (projectRefs is { Count: > 0 })
+        {
+            sb.AppendLine("  <ItemGroup>");
+            foreach (var r in projectRefs) sb.AppendLine($"    <ProjectReference Include=\"{Esc(r.RelPath)}\" />");
+            sb.AppendLine("  </ItemGroup>");
+        }
         sb.AppendLine("  <ItemGroup>");
         foreach (var f in ScaffoldFiles) sb.AppendLine($"    <None Include=\"{f}\" />");
         sb.AppendLine("  </ItemGroup>");

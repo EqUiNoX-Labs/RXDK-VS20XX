@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
@@ -234,7 +235,10 @@ namespace RxdkVs.Package.Commands
                 return;
             }
 
-            var argList = new List<string> { "import-vcproj", "--in", vcproj, "--out", outDir, "--scaffold", scaffoldDir };
+            // A .sln imports the whole multi-project graph (import-sln); a .vcproj imports one project.
+            var isSolution = vcproj.EndsWith(".sln", StringComparison.OrdinalIgnoreCase);
+            var verb = isSolution ? "import-sln" : "import-vcproj";
+            var argList = new List<string> { verb, "--in", vcproj, "--out", outDir, "--scaffold", scaffoldDir };
             if (copySources) argList.Add("--copy-sources");
             var args = argList.ToArray();
             int rc;
@@ -253,41 +257,49 @@ namespace RxdkVs.Package.Commands
                 return;
             }
 
-            // Locate the produced .vcxproj (the importer writes exactly one at the output root).
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
-            string vcxproj = null;
-            try
-            {
-                var found = Directory.GetFiles(outDir, "*.vcxproj", SearchOption.TopDirectoryOnly);
-                if (found.Length > 0) vcxproj = found[0];
-            }
-            catch { /* fall through to the folder-open path */ }
-
-            // If a solution is open, offer to add the imported project to it; otherwise just reveal
-            // the output folder so the user can open the .vcxproj themselves.
             var dte = (EnvDTE.DTE)await _package.GetServiceAsync(typeof(EnvDTE.DTE));
-            var solution = dte?.Solution;
-            if (vcxproj != null && solution != null && solution.IsOpen)
+
+            if (isSolution)
             {
-                var add = VsShellUtilities.ShowMessageBox(_package,
-                    $"Imported {Path.GetFileName(vcxproj)}.\n\nAdd it to the current solution?", "RXDK",
-                    OLEMSGICON.OLEMSGICON_QUERY, OLEMSGBUTTON.OLEMSGBUTTON_YESNO, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
-                if (add == (int)VSConstants.MessageBoxResult.IDYES)
+                // A generated .sln ties the imported projects together; offer to open it.
+                var producedSln = Directory.GetFiles(outDir, "*.sln", SearchOption.TopDirectoryOnly).FirstOrDefault();
+                if (producedSln != null && dte != null)
                 {
-                    try
+                    var open = VsShellUtilities.ShowMessageBox(_package,
+                        $"Imported the solution to:\n{outDir}\n\nOpen {Path.GetFileName(producedSln)} now? (closes the current solution)", "RXDK",
+                        OLEMSGICON.OLEMSGICON_QUERY, OLEMSGBUTTON.OLEMSGBUTTON_YESNO, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+                    if (open == (int)VSConstants.MessageBoxResult.IDYES)
                     {
-                        solution.AddFromFile(vcxproj, false);
-                        return;
-                    }
-                    catch (Exception ex)
-                    {
-                        await ShowErrorAsync($"Imported OK but could not add to the solution: {ex.Message}");
+                        try { dte.Solution.Open(producedSln); return; }
+                        catch (Exception ex) { await ShowErrorAsync($"Imported OK but could not open the solution: {ex.Message}"); }
                     }
                 }
+                else
+                {
+                    await ShowInfoAsync($"Imported the solution to {outDir}.");
+                }
             }
-            else if (vcxproj != null)
+            else
             {
-                await ShowInfoAsync($"Imported {Path.GetFileName(vcxproj)}.\nOpen it from {outDir}.");
+                // Locate the produced .vcxproj (the importer writes exactly one at the output root).
+                var vcxproj = Directory.GetFiles(outDir, "*.vcxproj", SearchOption.TopDirectoryOnly).FirstOrDefault();
+                var solution = dte?.Solution;
+                if (vcxproj != null && solution != null && solution.IsOpen)
+                {
+                    var add = VsShellUtilities.ShowMessageBox(_package,
+                        $"Imported {Path.GetFileName(vcxproj)}.\n\nAdd it to the current solution?", "RXDK",
+                        OLEMSGICON.OLEMSGICON_QUERY, OLEMSGBUTTON.OLEMSGBUTTON_YESNO, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+                    if (add == (int)VSConstants.MessageBoxResult.IDYES)
+                    {
+                        try { solution.AddFromFile(vcxproj, false); return; }
+                        catch (Exception ex) { await ShowErrorAsync($"Imported OK but could not add to the solution: {ex.Message}"); }
+                    }
+                }
+                else if (vcxproj != null)
+                {
+                    await ShowInfoAsync($"Imported {Path.GetFileName(vcxproj)}.\nOpen it from {outDir}.");
+                }
             }
 
             try

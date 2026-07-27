@@ -110,7 +110,7 @@
 
             <!-- Project -->
             <TextBlock Text="PROJECT" Style="{StaticResource Section}" />
-            <Button Style="{StaticResource Act}" Content="Import VS2003 Project…" Click="OnImportProject" />
+            <Button Style="{StaticResource Act}" Content="Import VS2003 Project / Solution…" Click="OnImportProject" />
 
             <!-- Setup -->
             <TextBlock Text="SETUP" Style="{StaticResource Section}" />

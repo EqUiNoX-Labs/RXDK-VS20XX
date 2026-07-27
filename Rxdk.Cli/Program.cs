@@ -31,6 +31,7 @@ if (args.Length == 0)
     Console.Error.WriteLine("  set-ip --address <ip>       Set the devkit IP/hostname (registry)");
     Console.Error.WriteLine("  xbox-ip                     Print the resolved devkit address");
     Console.Error.WriteLine("  import-vcproj --in <file.vcproj> [--out <dir>] [--scaffold <dir>] [--copy-sources]   Import a VS2003 XDK project");
+    Console.Error.WriteLine("  import-sln --in <file.sln> [--out <dir>] [--scaffold <dir>] [--copy-sources]   Import a VS2003 XDK solution (multi-project)");
     return 2;
 }
 
@@ -73,6 +74,8 @@ switch (command)
         return await CmdXboxIp();
     case "import-vcproj":
         return CmdImportVcproj(opts);
+    case "import-sln":
+        return CmdImportSln(opts);
     default:
         Console.Error.WriteLine($"unknown command: {command}");
         return 2;
@@ -91,13 +94,37 @@ static int CmdImportVcproj(Dictionary<string, string> opts)
     try
     {
         var r = Vcproj2003Importer.Import(input, outDir ?? "",
-            string.IsNullOrEmpty(scaffold) ? null : scaffold, copySources, msg => Console.WriteLine(msg));
+            string.IsNullOrEmpty(scaffold) ? null : scaffold, copySources, log: msg => Console.WriteLine(msg));
         Console.WriteLine($"OK: imported {r.ProjectName} ({r.ConfigurationCount} config(s), {r.SourceCount} source(s)) -> {r.VcxprojPath}");
         return 0;
     }
     catch (Exception ex)
     {
         Console.Error.WriteLine($"import-vcproj failed: {ex.Message}");
+        return 1;
+    }
+}
+
+static int CmdImportSln(Dictionary<string, string> opts)
+{
+    if (!opts.TryGetValue("in", out var input) || string.IsNullOrEmpty(input))
+    {
+        Console.Error.WriteLine("missing required --in <file.sln>");
+        return 2;
+    }
+    opts.TryGetValue("out", out var outDir);
+    opts.TryGetValue("scaffold", out var scaffold);
+    var copySources = opts.ContainsKey("copy-sources");
+    try
+    {
+        var r = SolutionImporter.ImportSolution(input, outDir ?? "",
+            string.IsNullOrEmpty(scaffold) ? null : scaffold, copySources, msg => Console.WriteLine(msg));
+        Console.WriteLine($"OK: imported {r.Projects.Count} project(s) -> {r.SlnPath}");
+        return 0;
+    }
+    catch (Exception ex)
+    {
+        Console.Error.WriteLine($"import-sln failed: {ex.Message}");
         return 1;
     }
 }

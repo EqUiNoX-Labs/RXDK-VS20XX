@@ -184,7 +184,7 @@ namespace RxdkVs.Package.ToolWindow
         {
             var dialog = new Window
             {
-                Title = "Import VS2003 XDK Project",
+                Title = "Import VS2003 XDK Project / Solution",
                 Width = 560,
                 SizeToContent = SizeToContent.Height,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
@@ -192,7 +192,7 @@ namespace RxdkVs.Package.ToolWindow
             };
             var root = new StackPanel { Margin = new Thickness(12) };
 
-            root.Children.Add(new TextBlock { Text = "VS2003 project (.vcproj):", Margin = new Thickness(0, 0, 0, 4) });
+            root.Children.Add(new TextBlock { Text = "VS2003 project (.vcproj) or solution (.sln):", Margin = new Thickness(0, 0, 0, 4) });
             var vcprojBox = new TextBox();
             var vcprojBrowse = new Button { Content = "Browse…", Width = 78, Margin = new Thickness(6, 0, 0, 0) };
             var row1 = new DockPanel { Margin = new Thickness(0, 0, 0, 10) };
@@ -240,8 +240,9 @@ namespace RxdkVs.Package.ToolWindow
             {
                 var ofd = new Microsoft.Win32.OpenFileDialog
                 {
-                    Filter = "VS2003 project (*.vcproj)|*.vcproj|All files (*.*)|*.*",
-                    Title = "Select the VS2003 .vcproj",
+                    Filter = "VS2003 project or solution (*.vcproj;*.sln)|*.vcproj;*.sln|" +
+                             "VS2003 project (*.vcproj)|*.vcproj|VS2003 solution (*.sln)|*.sln|All files (*.*)|*.*",
+                    Title = "Select the VS2003 .vcproj or .sln",
                 };
                 if (ofd.ShowDialog() == true)
                 {
