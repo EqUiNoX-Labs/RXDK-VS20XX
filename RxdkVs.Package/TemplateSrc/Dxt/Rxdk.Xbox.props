@@ -41,6 +41,13 @@
     <RxdkImageDebug Condition="'$(RxdkImageDebug)' == ''">true</RxdkImageDebug>
     <RxdkNoLogo Condition="'$(RxdkNoLogo)' == ''">true</RxdkNoLogo>
     <RxdkNoLibWarn Condition="'$(RxdkNoLibWarn)' == ''">true</RxdkNoLibWarn>
+    <!-- imagebld toggles default off; set here (not just as rule Default=) so the Xbox Image
+         property page shows their effective value instead of a blank cell. -->
+    <RxdkLimitMemory Condition="'$(RxdkLimitMemory)' == ''">false</RxdkLimitMemory>
+    <RxdkDontModifyHardDisk Condition="'$(RxdkDontModifyHardDisk)' == ''">false</RxdkDontModifyHardDisk>
+    <RxdkDontMountUtilityDrive Condition="'$(RxdkDontMountUtilityDrive)' == ''">false</RxdkDontMountUtilityDrive>
+    <RxdkFormatUtilityDrive Condition="'$(RxdkFormatUtilityDrive)' == ''">false</RxdkFormatUtilityDrive>
+    <RxdkUtilityDriveClusterSize Condition="'$(RxdkUtilityDriveClusterSize)' == ''">0</RxdkUtilityDriveClusterSize>
 
     <!-- Deployment: pack an .iso via xdvdfs after the .xbe (set false to stop at the .xbe). -->
     <RxdkCreateIso Condition="'$(RxdkCreateIso)' == ''">true</RxdkCreateIso>
@@ -57,6 +64,10 @@
     <NMakeCleanCommandLine>if exist "$(MSBuildProjectDirectory)\out" rmdir /S /Q "$(MSBuildProjectDirectory)\out"</NMakeCleanCommandLine>
     <NMakePreprocessorDefinitions>_XBOX;XBOX;$(RxdkDefines);$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <NMakeIncludeSearchPath>$(RxdkSdkInclude);$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+    <!-- Match the build's `-include picolibc.h` so IntelliSense sees the libc baseline (NULL,
+         size_t, …); without it those cascade into "unresolved" squiggles even though the Zig
+         build (the source of truth) compiles fine. -->
+    <NMakeForcedIncludes>picolibc.h;$(NMakeForcedIncludes)</NMakeForcedIncludes>
     <AdditionalOptions>-std=c++23</AdditionalOptions>
   </PropertyGroup>
 
