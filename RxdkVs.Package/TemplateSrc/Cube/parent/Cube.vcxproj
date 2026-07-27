@@ -36,9 +36,16 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <!-- Native reference: VS builds the child .lib before this project. -->
+    <!-- Native reference for BUILD ORDER ONLY: VS builds the child .lib before this project.
+         RXDK links the child via projectReferences (manifest), so tell VS not to consume/link
+         the child's output itself (it's a Makefile project VS can't resolve as a lib) - that's
+         what the yellow-triangle warning is about. -->
     <ProjectReference Include="..\cubemesh\cubemesh.vcxproj">
       <Project>{C5555555-5555-4555-8555-555555555555}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+      <Private>false</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

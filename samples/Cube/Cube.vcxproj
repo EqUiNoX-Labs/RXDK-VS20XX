@@ -39,6 +39,10 @@
     <!-- Native reference: VS builds the child .lib before this project. -->
     <ProjectReference Include="libs\cubemesh\cubemesh.vcxproj">
       <Project>{C5555555-5555-4555-8555-555555555555}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+      <Private>false</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

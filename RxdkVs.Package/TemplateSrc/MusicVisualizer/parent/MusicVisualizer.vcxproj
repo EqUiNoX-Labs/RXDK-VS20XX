@@ -38,9 +38,14 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <!-- Native reference: VS builds the child .lib before this project. -->
+    <!-- Native reference for BUILD ORDER ONLY (RXDK links the child via projectReferences);
+         tell VS not to consume/link the Makefile child's output - clears the reference warning. -->
     <ProjectReference Include="..\vorbis\vorbis.vcxproj">
       <Project>{C7777777-7777-4777-8777-777777777777}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+      <Private>false</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
