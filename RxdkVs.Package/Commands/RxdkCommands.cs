@@ -235,6 +235,18 @@ namespace RxdkVs.Package.Commands
                 return;
             }
 
+            // Create the output folder up front: the CLI runs with outDir as its working directory,
+            // so it must exist before the process can even start (else "directory name is invalid").
+            try
+            {
+                Directory.CreateDirectory(outDir);
+            }
+            catch (Exception ex)
+            {
+                await ShowErrorAsync($"Could not create the output folder:\n{outDir}\n\n{ex.Message}");
+                return;
+            }
+
             // A .sln imports the whole multi-project graph (import-sln); a .vcproj imports one project.
             var isSolution = vcproj.EndsWith(".sln", StringComparison.OrdinalIgnoreCase);
             var verb = isSolution ? "import-sln" : "import-vcproj";
