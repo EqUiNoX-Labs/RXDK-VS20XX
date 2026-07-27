@@ -27,8 +27,6 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <Import Project="Rxdk.Xbox.props" />
   <PropertyGroup>
-    <!-- Sibling mesh library, linked via projectReferences; VS builds it first (ProjectReference below). -->
-    <RxdkProjectReferences>..\cubemesh</RxdkProjectReferences>
     <RxdkLibraries>libd3d8;libd3dx8;libxapi;libc;libcpp;libkernel</RxdkLibraries>
     <NMakeOutput>$(MSBuildProjectDirectory)\$(RxdkOutDir)\$(MSBuildProjectName).xbe</NMakeOutput>
   </PropertyGroup>
@@ -36,16 +34,11 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <!-- Native reference for BUILD ORDER ONLY: VS builds the child .lib before this project.
-         RXDK links the child via projectReferences (manifest), so tell VS not to consume/link
-         the child's output itself (it's a Makefile project VS can't resolve as a lib) - that's
-         what the yellow-triangle warning is about. -->
+    <!-- Reference the child library. Build order + RXDK linking are automatic: Rxdk.Xbox.props
+         defaults every reference to build-order-only (no warning), and the build derives the
+         link from it - so adding a library reference through VS needs no hand-editing. -->
     <ProjectReference Include="..\cubemesh\cubemesh.vcxproj">
       <Project>{C5555555-5555-4555-8555-555555555555}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-      <LinkLibraryDependencies>false</LinkLibraryDependencies>
-      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
-      <Private>false</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

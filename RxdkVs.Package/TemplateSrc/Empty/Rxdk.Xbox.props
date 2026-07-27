@@ -99,6 +99,19 @@
     <DebuggerFlavor>RxdkXboxDebugger</DebuggerFlavor>
   </PropertyGroup>
 
+  <!-- Every project reference is BUILD-ORDER-ONLY: a referenced library is a Makefile project
+       VS can't consume as a linkable output (RXDK links it via the manifest instead), so default
+       these off for ALL references - including ones a user adds through the VS "Add Reference" UI,
+       so they never see the reference warning or have to hand-edit metadata. -->
+  <ItemDefinitionGroup>
+    <ProjectReference>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+      <Private>false</Private>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+
   <!-- "Xbox Image" project property page: the imagebld settings that build the .xbe (like the
        original XDK's Xbox Image page). The Rxdk* properties it edits are read by
        Rxdk.Xbox.targets when it generates the build manifest. -->

@@ -151,7 +151,7 @@
       PublicIncludePaths="$(RxdkPublicIncludePaths)"
       IncludePaths="$(RxdkIncludePaths)"
       Defines="$(RxdkDefines)"
-      ProjectReferences="$(RxdkProjectReferences)"
+      ProjectReferences="$(RxdkProjectReferences);@(ProjectReference->'%(RelativeDir)')"
       DeployPaths="$(RxdkDeployPaths)"
       Embed="$(RxdkEmbed)"
       CreateIso="$(RxdkCreateIso)"

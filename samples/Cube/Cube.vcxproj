@@ -28,7 +28,6 @@
   <Import Project="..\Rxdk.Xbox.props" />
   <PropertyGroup>
     <!-- Child mesh library is linked via projectReferences; VS builds it first (ProjectReference below). -->
-    <RxdkProjectReferences>libs/cubemesh</RxdkProjectReferences>
     <RxdkLibraries>libd3d8;libd3dx8;libxapi;libc;libcpp;libkernel</RxdkLibraries>
     <NMakeOutput>$(MSBuildProjectDirectory)\$(RxdkOutDir)\$(MSBuildProjectName).xbe</NMakeOutput>
   </PropertyGroup>
@@ -39,10 +38,6 @@
     <!-- Native reference: VS builds the child .lib before this project. -->
     <ProjectReference Include="libs\cubemesh\cubemesh.vcxproj">
       <Project>{C5555555-5555-4555-8555-555555555555}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-      <LinkLibraryDependencies>false</LinkLibraryDependencies>
-      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
-      <Private>false</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

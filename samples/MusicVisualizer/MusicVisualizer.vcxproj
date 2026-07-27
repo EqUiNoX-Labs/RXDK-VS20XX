@@ -27,7 +27,6 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <Import Project="..\Rxdk.Xbox.props" />
   <PropertyGroup>
-    <RxdkProjectReferences>libs/vorbis</RxdkProjectReferences>
     <RxdkLibraries>libd3d8;libdsound;libxapi;libc;libcpp;libkernel</RxdkLibraries>
     <RxdkDeployPaths>media</RxdkDeployPaths>
     <NMakeOutput>$(MSBuildProjectDirectory)\$(RxdkOutDir)\$(MSBuildProjectName).xbe</NMakeOutput>
@@ -38,10 +37,6 @@
   <ItemGroup>
     <ProjectReference Include="libs\vorbis\vorbis.vcxproj">
       <Project>{C7777777-7777-4777-8777-777777777777}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-      <LinkLibraryDependencies>false</LinkLibraryDependencies>
-      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
-      <Private>false</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

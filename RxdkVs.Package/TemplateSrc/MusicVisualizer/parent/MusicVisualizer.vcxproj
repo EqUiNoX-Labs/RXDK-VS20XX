@@ -28,7 +28,6 @@
   <Import Project="Rxdk.Xbox.props" />
   <PropertyGroup>
     <!-- Sibling vorbis decoder library, linked via projectReferences (built first below). -->
-    <RxdkProjectReferences>..\vorbis</RxdkProjectReferences>
     <RxdkLibraries>libd3d8;libdsound;libxapi;libc;libcpp;libkernel</RxdkLibraries>
     <!-- The media\ folder (music.ogg) is streamed at runtime and staged into the ISO. -->
     <RxdkDeployPaths>media</RxdkDeployPaths>
@@ -38,14 +37,9 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <!-- Native reference for BUILD ORDER ONLY (RXDK links the child via projectReferences);
-         tell VS not to consume/link the Makefile child's output - clears the reference warning. -->
+    <!-- Reference the child library; build order + RXDK linking are automatic (Rxdk.Xbox.props). -->
     <ProjectReference Include="..\vorbis\vorbis.vcxproj">
       <Project>{C7777777-7777-4777-8777-777777777777}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-      <LinkLibraryDependencies>false</LinkLibraryDependencies>
-      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
-      <Private>false</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
