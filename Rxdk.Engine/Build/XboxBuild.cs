@@ -38,6 +38,9 @@ public static class XboxBuild
         "-Wno-pragma-pack", "-Wno-nonportable-include-path", "-Wno-main-return-type",
         "-Wno-missing-prototype-for-cc", "-Wno-ignored-pragma-intrinsic", "-Wno-multichar",
         "-Wno-comment", "-Wno-extra-tokens", "-Wno-unused-command-line-argument",
+        // Legacy XDK code narrows freely in braced initializers (e.g. STRING = {(USHORT)strlen(s),
+        // (USHORT)strlen(s)+1, s}); the C++11 narrowing rule makes those hard errors. Benign here.
+        "-Wno-c++11-narrowing",
     };
 
     // Resolve a project's manifest: hand-authored rxdk.project.json if present, else the
@@ -77,6 +80,9 @@ public static class XboxBuild
         {
             "-ffreestanding", "-fno-stack-protector", "-fms-extensions", "-fms-compatibility",
             "-nostdinc", "-include", "picolibc.h", "-march=pentium3",
+            // Every Xbox title is built with _XBOX/XBOX defined (the XDK did this); a lot of
+            // Xbox headers/code select their platform path on it.
+            "-D_XBOX", "-DXBOX",
             // Keep Clang from inline-expanding memmove/memcpy-shaped calls past picolibc's
             // -fno-builtin implementations, and pin the retail (_DEBUG-off) SDK link path.
             "-fno-builtin", "-U_DEBUG",
