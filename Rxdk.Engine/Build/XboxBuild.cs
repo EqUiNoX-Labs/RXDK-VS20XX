@@ -86,6 +86,24 @@ public static class XboxBuild
             // Keep Clang from inline-expanding memmove/memcpy-shaped calls past picolibc's
             // -fno-builtin implementations, and pin the retail (_DEBUG-off) SDK link path.
             "-fno-builtin", "-U_DEBUG",
+            // Thread-local storage: emulated TLS (a per-thread table reached via
+            // __emutls_get_address, backed by libc tss/emutls.c) instead of the native
+            // Windows __tls_index/TEB %fs model, which the RXDK runtime never sets up.
+            // Without this, any title `__thread`/`thread_local` (e.g. stb_image's
+            // stbi__g_failure_reason / vertically_flip_on_load) reads a wild fixed
+            // address and bugchecks. Matches how libcpp is built (xbox_target.zig
+            // cppFlags).
+            "-femulated-tls",
+            // -femulated-tls makes clang still emit a CodeView S_*THREAD32 debug record
+            // per thread_local, pointing at the native per-var symbol that emutls never
+            // defines -> undefined-symbol at link (xbox_target.zig cppFlags drops ALL
+            // debug with -g0 for the same reason). We keep file/line tables (needed for
+            // the PDB: F5 stepping + crash symbolization) but omit the per-variable
+            // symbol records -- which is exactly -gline-tables-only. It overrides the
+            // -g that the Debug/ReleaseSafe optimize modes add, at the cost of local-
+            // variable inspection in those modes (acceptable: title thread_locals link
+            // cleanly and line-level debugging still works).
+            "-gline-tables-only",
         });
         common.AddRange(includeArgs);
         common.AddRange(defineArgs);
