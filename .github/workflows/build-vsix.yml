@@ -1,0 +1,170 @@
+name: Build VSIX
+
+# Builds the RxdkVs.Package Visual Studio extension (.vsix) on every push to main
+# and republishes it as the repo's moving "latest" GitHub Release, so
+# .../RXDK-VS20XX/releases/latest always serves the newest build. A v* tag instead
+# makes a permanent, versioned release. Mirrors RXDK-VSCode's build-vsix.yml.
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      publish_release:
+        description: 'Publish the moving "latest" GitHub Release (same as a push to main)'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build VSIX
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      # Puts VS 2022's MSBuild on PATH. The extension is a classic (non-SDK) VSSDK
+      # csproj built with MSBuild -- NOT `dotnet build`. The VSSDK build targets and
+      # VS SDK reference assemblies are restored from NuGet (PackageReference:
+      # Microsoft.VSSDK.BuildTools + Microsoft.VisualStudio.SDK), so `-restore` below
+      # supplies them without needing the "VS extension development" workload preinstalled.
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      # Packs RxdkVs.Package\TemplateSrc\* into ProjectTemplates\*.zip and stages the
+      # scaffold props/targets from samples\ into Scaffold\ -- both are IncludeInVSIX
+      # content the package build expects to exist.
+      - name: Stage project templates + scaffold
+        run: ./scripts/dev.ps1 templates
+
+      - name: Build VSIX (Release)
+        run: >
+          msbuild RxdkVs.Package/RxdkVs.Package.csproj
+          -restore
+          -nologo -v:minimal
+          -p:Configuration=Release
+          -p:DeployExtension=false
+
+      - name: Locate VSIX
+        id: vsix
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $vsix = Get-ChildItem -Path RxdkVs.Package/bin/Release -Filter *.vsix -Recurse |
+            Sort-Object LastWriteTime -Descending | Select-Object -First 1
+          if (-not $vsix) { throw 'VSIX not found after build' }
+          "path=$($vsix.FullName)"  >> $env:GITHUB_OUTPUT
+          "name=$($vsix.Name)"      >> $env:GITHUB_OUTPUT
+          $mb = [math]::Round($vsix.Length / 1MB, 2)
+          @(
+            '### RXDK for Visual Studio -- VSIX build',
+            '',
+            "| Artifact | Size |",
+            "|----------|------|",
+            "| ``$($vsix.Name)`` | ${mb} MB |",
+            '',
+            'Install: download the `.vsix` and double-click it (VS 2022/2026), or `VSIXInstaller.exe <file>`.',
+            'The extension drives the pure-.NET RXDK engine (Rxdk.Cli/Rxdk.Engine/Rxdk.Dap) deployed to',
+            '`%ProgramData%\RXDK\engine`; Xbox headers/libs come from RXDK-SDK.'
+          ) | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Encoding utf8 -Append
+
+      - name: Upload VSIX artifact
+        uses: actions/upload-artifact@v5
+        with:
+          name: rxdk-vs20xx-vsix
+          path: ${{ steps.vsix.outputs.path }}
+          if-no-files-found: error
+          compression-level: 0
+
+  release:
+    name: Publish GitHub Release
+    needs: build
+    if: |
+      github.event_name != 'pull_request' && (
+        startsWith(github.ref, 'refs/tags/v') ||
+        github.ref == 'refs/heads/main' ||
+        (github.event_name == 'workflow_dispatch' && github.event.inputs.publish_release == 'true')
+      )
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Download VSIX artifact
+        uses: actions/download-artifact@v5
+        with:
+          name: rxdk-vs20xx-vsix
+          path: dist
+
+      - name: Resolve release tag
+        id: meta
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
+            # An explicit v* tag makes a permanent, versioned release.
+            tag="${GITHUB_REF#refs/tags/}"; moving=false
+          else
+            # Push to main (or a manual publish): move a single "latest" release to
+            # this build so /releases/latest always serves the newest VSIX.
+            tag="latest"; moving=true
+          fi
+          echo "tag=${tag}"     >> "$GITHUB_OUTPUT"
+          echo "moving=${moving}" >> "$GITHUB_OUTPUT"
+          echo "Release tag: ${tag} (moving=${moving})"
+
+      - name: Move the 'latest' tag/release to this build
+        if: steps.meta.outputs.moving == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        # Delete any prior "latest" release AND its git tag so the create step recreates
+        # both at this commit (gh won't move an existing tag). Non-fatal on first run.
+        run: gh release delete latest --repo "${{ github.repository }}" --cleanup-tag --yes || true
+
+      - name: Create GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          files=(dist/*.vsix)
+          if [[ ${#files[@]} -eq 0 ]]; then
+            echo "No VSIX in dist/" >&2
+            exit 1
+          fi
+          gh release create "${{ steps.meta.outputs.tag }}" \
+            --repo "${{ github.repository }}" \
+            --target "${GITHUB_SHA}" \
+            --title "RXDK for Visual Studio ${{ steps.meta.outputs.tag }}" \
+            --generate-notes \
+            --latest \
+            "${files[@]}"
+
+      - name: Write release summary
+        shell: bash
+        run: |
+          {
+            echo "### GitHub Release"
+            echo ""
+            echo "- Tag: \`${{ steps.meta.outputs.tag }}\`"
+            echo "- Moving latest: \`${{ steps.meta.outputs.moving }}\`"
+            echo "- Asset: \`*.vsix\` (double-click to install in VS 2022/2026)"
+          } >> "$GITHUB_STEP_SUMMARY"
