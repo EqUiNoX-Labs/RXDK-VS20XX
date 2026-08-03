@@ -104,6 +104,17 @@ public static class Vcproj2003Importer
         }
         var allConfigs = xboxElems.Select(c => ParseConfig(c, unmapped)).ToList();
 
+        // The generated .vcxproj lives one directory deeper than the source .vcproj (in a
+        // <name>\ subfolder), so path-valued settings copied verbatim from the .vcproj --
+        // which are relative to the .vcproj -- must be rebased to the .vcxproj dir, exactly
+        // like the source files are (ResolveSources below). Without this a sample's
+        // "..\..\Common\include" / deploy media point one level too shallow and aren't found.
+        foreach (var c in allConfigs)
+        {
+            c.IncludePaths = RebasePathList(c.IncludePaths, vcprojDir, outDir);
+            c.DeployPaths  = RebasePathList(c.DeployPaths, vcprojDir, outDir);
+        }
+
         // Drop configs RXDK has no equivalent for (profiling / LTCG / SDL / Win32 name variants),
         // then dedupe by name so the generated project can never carry duplicate configurations.
         var configs = allConfigs.Where(c => !IsUnsupportedConfig(c.Name))
@@ -520,6 +531,20 @@ public static class Vcproj2003Importer
     {
         var rel = Path.GetRelativePath(baseDir, path);
         return rel.Replace('/', '\\');
+    }
+
+    // Rebase a ';'-separated list of paths that were relative to `fromDir` (the source
+    // .vcproj) so they are relative to `toDir` (the generated .vcxproj). Absolute paths
+    // and entries containing MSBuild macros ($(...)) pass through untouched.
+    private static string RebasePathList(string list, string fromDir, string toDir)
+    {
+        if (string.IsNullOrWhiteSpace(list)) return list;
+        var rebased = list
+            .Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            .Select(p => (p.Contains('$') || Path.IsPathRooted(p))
+                ? p
+                : MakeRelative(toDir, Path.GetFullPath(Path.Combine(fromDir, p))));
+        return string.Join(";", rebased);
     }
 
     private static string Esc(string s) =>
