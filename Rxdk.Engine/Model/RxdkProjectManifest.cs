@@ -116,6 +116,14 @@ public sealed class RxdkProjectManifest
     public List<string>? Sources { get; set; }
     public List<string>? Libraries { get; set; }
 
+    /// <summary>
+    /// Project-relative paths to .rdf resource-description files compiled by the bundler tool
+    /// before the C/C++ sources (each produces a Resource.h consumed at compile time and a
+    /// packed .xpr loaded at runtime, written to the paths named inside the .rdf). Omitted =
+    /// auto-discover every *.rdf under the project root.
+    /// </summary>
+    public List<string>? Resources { get; set; }
+
     /// <summary>Extra directories to resolve <see cref="Libraries"/> names from, searched after
     /// the SDK lib dir (project-relative or absolute). For linking your own prebuilt libs by name.</summary>
     public List<string>? LibraryPaths { get; set; }

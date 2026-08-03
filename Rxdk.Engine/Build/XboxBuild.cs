@@ -157,6 +157,52 @@ public static class XboxBuild
             throw new InvalidOperationException($"Zig compile failed on {source} (exit {result.ExitCode})");
     }
 
+    /// <summary>
+    /// Runs the bundler on the project's .rdf resource files. Uses the explicit
+    /// <see cref="RxdkProjectManifest.Resources"/> list if present, otherwise auto-discovers
+    /// every *.rdf under the project root. The bundler resolves out_header / out_packedresource
+    /// paths relative to each .rdf, so outputs land in the project tree (Resource.h next to the
+    /// sources, the .xpr under the media/deploy path named in the .rdf).
+    /// </summary>
+    private static async Task CompileResourcesAsync(
+        string projectRoot, RxdkProjectManifest manifest, Action<string>? log, CancellationToken ct)
+    {
+        var rdfs = new List<string>();
+        if (manifest.Resources is { Count: > 0 })
+        {
+            foreach (var rel in manifest.Resources)
+            {
+                if (string.IsNullOrWhiteSpace(rel)) continue;
+                var p = Path.GetFullPath(Path.Combine(projectRoot, rel.Replace('/', Path.DirectorySeparatorChar)));
+                if (!File.Exists(p))
+                    throw new FileNotFoundException($"resources: .rdf not found: {p}");
+                rdfs.Add(p);
+            }
+        }
+        else
+        {
+            rdfs.AddRange(Directory.EnumerateFiles(projectRoot, "*.rdf", SearchOption.AllDirectories));
+        }
+
+        if (rdfs.Count == 0)
+            return;
+
+        var bundler = RxdkPaths.ResolveHostTool("bundler");
+        if (!File.Exists(bundler))
+            throw new FileNotFoundException(
+                $"bundler host tool not found: {bundler}. Update the RXDK tools (the resource pipeline needs the bundler).");
+
+        foreach (var rdf in rdfs)
+        {
+            log?.Invoke($"Compiling resources: {Path.GetFileName(rdf)}");
+            var result = await ProcessRunner.RunStreamedAsync(
+                bundler, new[] { rdf, "-q" }, log, Path.GetDirectoryName(rdf), ct);
+            if (!result.Success)
+                throw new InvalidOperationException(
+                    $"bundler failed on {Path.GetFileName(rdf)} (exit {result.ExitCode})");
+        }
+    }
+
     // ---- multi-project (library reference) support ----
 
     private static List<string> GetProjectReferences(string projectRoot, RxdkProjectManifest m)
@@ -299,6 +345,11 @@ public static class XboxBuild
             var outDir = SdkLayout.GetProjectOutDir(projectRoot, manifest);
             Directory.CreateDirectory(outDir);
             var optimize = opts.Optimize;
+
+            // Resource pipeline: compile any .rdf files with the bundler BEFORE the C/C++
+            // sources, so the generated Resource.h exists at compile time and the packed .xpr
+            // is written (to the out_packedresource path named in the .rdf) for deploy.
+            await CompileResourcesAsync(projectRoot, manifest, log, ct);
 
             var sdkInclude = SdkLayout.GetSdkIncludeDir();
             var sdkLib = SdkLayout.GetSdkLibDir();
