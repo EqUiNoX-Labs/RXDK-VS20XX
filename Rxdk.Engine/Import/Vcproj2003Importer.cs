@@ -45,9 +45,11 @@ public static class Vcproj2003Importer
     {
         ["d3d8"] = "libd3d8", ["d3dx8"] = "libd3dx8", ["dsound"] = "libdsound",
         ["xapilib"] = "libxapi", ["xgraphics"] = "libxgraphics", ["xmv"] = "libxmv",
-        ["xbdm"] = "libxbdm", ["xboxkrnl"] = "libkernel", ["xonline"] = "libxnet",
+        ["xbdm"] = "libxbdm", ["xboxkrnl"] = "libkernel",
+        ["xonline"] = "libxonline", ["xnet"] = "libxnet",
+        ["xact"] = "libxact", ["xacteng"] = "libxact",
         // No RXDK equivalent yet (audio middleware / perf):
-        ["dmusic"] = null, ["xacteng"] = null, ["xsndtrk"] = null, ["xvoice"] = null, ["xperf"] = null,
+        ["dmusic"] = null, ["xsndtrk"] = null, ["xvoice"] = null, ["xperf"] = null,
     };
 
     // Defines RXDK provides itself; dropped from the imported per-config define list.
