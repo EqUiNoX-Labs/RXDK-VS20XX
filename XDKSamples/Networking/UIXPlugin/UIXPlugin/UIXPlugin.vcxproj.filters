@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Common Files">
+      <UniqueIdentifier>{EA25AAF1-074A-4EA4-9FB7-4714B6835583}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common Files\Header Files">
+      <UniqueIdentifier>{54CA0C5A-21C5-4DDB-BA5D-D6B4029666BA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common Files\Source Files">
+      <UniqueIdentifier>{62EE65D5-DF55-4892-8FED-61E90FD7EBD5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{08270F14-283F-464C-812E-C239FC203B01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{3DBDC6ED-6C4D-4984-8556-750E92098B59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{7B6B47BF-6C7E-4776-9E9D-47B96FD7CFF1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\UIXPlugin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CustomPlugin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Common\src\XBApp.cpp">
+      <Filter>Common Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Common\src\XBFont.cpp">
+      <Filter>Common Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Common\src\XBHelp.cpp">
+      <Filter>Common Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Common\src\XBInput.cpp">
+      <Filter>Common Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Common\src\XBMesh.cpp">
+      <Filter>Common Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Common\src\XBProfiling.cpp">
+      <Filter>Common Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Common\src\XBResource.cpp">
+      <Filter>Common Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Common\src\XBUtil.cpp">
+      <Filter>Common Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Common\src\XbNet.cpp">
+      <Filter>Common Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Common\src\XbOnline.cpp">
+      <Filter>Common Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Common\src\XbStopWatch.cpp">
+      <Filter>Common Files\Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\CustomPlugin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Common\include\XBApp.h">
+      <Filter>Common Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Common\include\XBFont.h">
+      <Filter>Common Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Common\include\XBHelp.h">
+      <Filter>Common Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Common\include\XBInput.h">
+      <Filter>Common Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Common\include\XBMesh.h">
+      <Filter>Common Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Common\include\XBProfiling.h">
+      <Filter>Common Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Common\include\XBResource.h">
+      <Filter>Common Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Common\include\XBUtil.h">
+      <Filter>Common Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Common\include\XbNet.h">
+      <Filter>Common Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Common\include\XbOnline.h">
+      <Filter>Common Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Common\include\XbStopWatch.h">
+      <Filter>Common Files\Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Font.rdf">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\Font_cht.rdf">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\Font_jpn.rdf">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\Font_kor.rdf">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\Gamepad.rdf">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\OnlineIconsFont.rdf">
+      <Filter>Resources</Filter>
+    </None>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,21 @@
+// List of resources to bundle.
+//
+// The output will be a header file (.h) used at compile time,
+// and a packed resource file (.xpr) used at runtime.
+
+out_packedresource Media\OnlineFont.xpr
+out_error          OnlineFont.err
+
+
+Texture Font
+{
+   Source      ..\..\Common\Media\Fonts\Arial_Narrow_14.tga
+   Format      D3DFMT_A4R4G4B4
+   Levels      1
+}
+
+UserData FontData
+{
+   DataFile ..\..\Common\Media\Fonts\Arial_Narrow_14.abc
+}
+

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Title TitleID="ffedaaab" UnitLeaderboardDecayConstant="7" Version="3.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.xboxlive.com" Default_Locale="en-US">
+	<LeaderboardContainer type="individual">
+		<Leaderboard ID="3">
+			<Reset>0</Reset>
+			<TopOneHundred>false</TopOneHundred>
+			<DecayDays>7</DecayDays>
+			<TeamsLeaderboard>true</TeamsLeaderboard>
+			<Arbitrate>false</Arbitrate>
+			<Attachments>
+				<Uploads>0</Uploads>
+				<Size>0</Size>
+			</Attachments>
+			<Names>
+				<LocalizedName>
+					<Name>Leaderboard</Name>
+					<Locale>en-US</Locale>
+				</LocalizedName>
+			</Names>
+			<FormattedValues/>
+			<RawAttributes/>
+		</Leaderboard>
+		<Leaderboard ID="2">
+			<Reset>0</Reset>
+			<TopOneHundred>false</TopOneHundred>
+			<DecayDays>7</DecayDays>
+			<TeamsLeaderboard>false</TeamsLeaderboard>
+			<Arbitrate>true</Arbitrate>
+			<Names>
+				<LocalizedName>
+					<Name>Leaderboard</Name>
+					<Locale>en-US</Locale>
+				</LocalizedName>
+			</Names>
+			<FormattedValues/>
+			<RawAttributes/>
+		</Leaderboard>
+	</LeaderboardContainer>
+	<LeaderboardContainer type="units"/>
+	<LeaderboardContainer type="competitions">
+		<LeaderboardTemplate ID="1">
+			<TopOneHundred>false</TopOneHundred>
+			<DecayDays>0</DecayDays>
+			<TeamsLeaderboard>true</TeamsLeaderboard>
+			<Arbitrate>true</Arbitrate>
+		</LeaderboardTemplate>
+	</LeaderboardContainer>
+</Title>

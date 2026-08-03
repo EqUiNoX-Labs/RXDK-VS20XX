@@ -1,0 +1,7 @@
+ps.1.0
+
+
+; Output the diffuse color
+mov r0, v0
+
+

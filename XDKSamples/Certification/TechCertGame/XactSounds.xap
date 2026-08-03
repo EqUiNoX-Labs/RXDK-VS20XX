@@ -1,0 +1,244 @@
+Signature = XACT;
+Version = 9;
+
+Options
+{
+    Project Header File = XACTSounds.h;
+    Cue List File = XACTSounds.txt;
+}
+
+Wave Bank
+{
+    Name = game;
+    Bank File = media\sounds\XactSounds_memory.xwb;
+    Bank Last Modified Low = 4259575517;
+    Bank Last Modified High = 29537119;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
+
+    Entry
+    {
+        Name = honka;
+        File = media\sounds\honka.wav;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 22050;
+        Bits Per Sample = 1;
+        Play Region Offset = 44;
+        Play Region Length = 15950;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 2414017256;
+        Last Modified High = 29534142;
+    }
+
+    Entry
+    {
+        Name = Crash3;
+        File = Media\Sounds\Crash3.wav;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 44;
+        Play Region Length = 180788;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 3470427953;
+        Last Modified High = 29537110;
+    }
+
+    Entry
+    {
+        Name = Crash1;
+        File = Media\Sounds\Crash1.wav;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 44;
+        Play Region Length = 137958;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 3423083294;
+        Last Modified High = 29537110;
+    }
+
+    Entry
+    {
+        Name = Crash2;
+        File = Media\Sounds\Crash2.wav;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 44;
+        Play Region Length = 180788;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 3369801021;
+        Last Modified High = 29537110;
+    }
+}
+
+Sound Category
+{
+    Name = SFX;
+}
+
+Sound Category
+{
+    Name = BGMUSIC;
+}
+
+Sound Bank
+{
+    Name = game;
+    Bank File = media\sounds\XactSounds.xsb;
+    Bank Last Modified Low = 4259575517;
+    Bank Last Modified High = 29537119;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
+
+    Sound
+    {
+        Name = honk;
+        3D = 1;
+        Category = SFX;
+
+        3D
+        {
+            Mode = 0;
+            Inside Cone Angle = 360;
+            Outside Cone Angle = 360;
+            Cone Outside Volume = 0;
+            Minimum Distance = 1.000000;
+            Maximum Distance = 1000000000.000000;
+            Distance Factor = 1.000000;
+            Rolloff Factor = 1.000000;
+            Doppler Factor = 1.000000;
+        }
+
+        Track
+        {
+            Play with Pitch and Volume Variation
+            {
+                Pitch Low = 0;
+                Pitch High = 0;
+                Volume Low = 0;
+                Volume High = 0;
+
+                Registered Wave
+                {
+                    Wave Bank = game;
+                    Wave Entry = honka;
+                    Wave Entry Index = 0;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = music;
+        Category = BGMUSIC;
+        Comment = This is a placeholder sound for the background music cue.  It doesn't really matter that it is associated with the same audio file as honk;
+
+        Track
+        {
+            Play with Pitch and Volume Variation
+            {
+                Pitch Low = 0;
+                Pitch High = 0;
+                Volume Low = 0;
+                Volume High = 0;
+
+                Registered Wave
+                {
+                    Wave Bank = game;
+                    Wave Entry = honka;
+                    Wave Entry Index = 0;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = Crash;
+        Volume = -1500;
+        Category = SFX;
+
+        Track
+        {
+            Play with Pitch and Volume Variation
+            {
+                Pitch Low = -500;
+                Pitch High = 500;
+                Volume Low = -1000;
+                Volume High = 1000;
+
+                Registered Wave
+                {
+                    Wave Bank = game;
+                    Wave Entry = Crash1;
+                    Wave Entry Index = 2;
+                    Weight = 7500;
+                }
+
+                Registered Wave
+                {
+                    Wave Bank = game;
+                    Wave Entry = Crash2;
+                    Wave Entry Index = 3;
+                }
+
+                Registered Wave
+                {
+                    Wave Bank = game;
+                    Wave Entry = Crash3;
+                    Wave Entry Index = 1;
+                    Weight = 2500;
+                }
+            }
+        }
+    }
+
+    Cue
+    {
+        Name = music;
+        Comment = This is a placeholder cue for background music;
+
+        Sound
+        {
+            Sound = music;
+            Sound Index = 1;
+        }
+    }
+
+    Cue
+    {
+        Name = honk;
+
+        Sound
+        {
+            Sound = honk;
+            Sound Index = 0;
+        }
+    }
+
+    Cue
+    {
+        Name = Crash;
+
+        Sound
+        {
+            Sound = Crash;
+            Sound Index = 2;
+        }
+    }
+}

@@ -1,0 +1,22 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.0.0
+MinimumVisualStudioVersion = 10.0.0.0
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Notifier", "Notifier\Notifier.vcxproj", "{E8CF74EB-2E7C-4240-B57A-01C281F5B6C3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E8CF74EB-2E7C-4240-B57A-01C281F5B6C3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E8CF74EB-2E7C-4240-B57A-01C281F5B6C3}.Debug|Win32.Build.0 = Debug|Win32
+		{E8CF74EB-2E7C-4240-B57A-01C281F5B6C3}.Release|Win32.ActiveCfg = Release|Win32
+		{E8CF74EB-2E7C-4240-B57A-01C281F5B6C3}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

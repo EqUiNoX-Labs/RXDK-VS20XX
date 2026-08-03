@@ -1,0 +1,22 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.0.0
+MinimumVisualStudioVersion = 10.0.0.0
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WMAInMemory", "WMAInMemory\WMAInMemory.vcxproj", "{CB076C2C-0188-424A-8FCD-EF507CA254F0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CB076C2C-0188-424A-8FCD-EF507CA254F0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CB076C2C-0188-424A-8FCD-EF507CA254F0}.Debug|Win32.Build.0 = Debug|Win32
+		{CB076C2C-0188-424A-8FCD-EF507CA254F0}.Release|Win32.ActiveCfg = Release|Win32
+		{CB076C2C-0188-424A-8FCD-EF507CA254F0}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

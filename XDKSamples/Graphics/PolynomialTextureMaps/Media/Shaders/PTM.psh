@@ -1,0 +1,28 @@
+;------------------------------------------------------------------------------
+; Pixel shader for polynomial texture mapping
+;------------------------------------------------------------------------------
+xps.1.1
+
+; t0 = a0, a1, a2
+; t1 = a3, a4, a5
+; t2 = r, g, b
+;
+; c0 = b0, b1, b2
+; c1 = b3, b4, b5
+; c2 = lu^2, lv^2, lu*lv
+; c3 = lu, lv, 1
+
+tex t0
+tex t1
+tex t2
+
+; Apply bias
+add t0.rgb, t0, -c0
+add t1.rgb, t1, -c1
+
+; Compute polynomial & scale
+xdd r0.rgb, r1.rgb, t0, c2_bx2, t1, c3_bx2
+add_x2 r0.rgb, r0, r1
+
+; Output = modulate with color
+xfc r0, t2, zero, zero, zero, zero, 1-zero

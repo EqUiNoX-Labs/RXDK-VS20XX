@@ -1,0 +1,496 @@
+
+out_packedresource media\marketplacemedia.xpr
+out_error marketplacemedia.err
+
+
+Texture Marketplace
+{
+	Source media\images\mp_marketplace.tga	
+	Format D3DFMT_A8R8G8B8
+}
+
+Texture Podium
+{
+	Source media\images\podium.tga
+	AlphaSource media\images\podium_a.tga
+	Format D3DFMT_A8R8G8B8
+}
+
+Texture Fountain
+{
+	Source media\images\mp_fountain.tga
+	AlphaSource media\images\mp_fountain_a.tga
+	Format D3DFMT_A8R8G8B8
+}
+
+
+Texture Plants
+{
+	Source media\images\mp_plants.tga
+	AlphaSource media\images\mp_plants_a.tga
+	Format D3DFMT_A8R8G8B8
+}
+
+Texture Tree
+{
+	Source media\images\mp_tree.tga
+	AlphaSource media\images\mp_tree_a.tga
+	Format D3DFMT_A8R8G8B8
+}
+
+//-------------------------
+
+Texture Girl_Idle_Facing1_Frame3
+{
+    Source media\images\idles\idle3_1.tga
+    Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing1_Frame1
+{
+   Source media\images\walks\walk1_1.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing1_Frame2
+{
+   Source media\images\walks\walk1_2.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing1_Frame3
+{
+   Source media\images\walks\walk1_3.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing1_Frame4
+{
+   Source media\images\walks\walk1_4.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing1_Frame5
+{
+   Source media\images\walks\walk1_5.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing1_Frame6
+{
+   Source media\images\walks\walk1_6.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing1_Frame7
+{
+   Source media\images\walks\walk1_7.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing1_Frame8
+{
+   Source media\images\walks\walk1_8.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+//----------------------------------------
+
+
+Texture Girl_Idle_Facing2_Frame3
+{
+    Source media\images\idles\idle3_2.tga
+    Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing2_Frame1
+{
+   Source media\images\walks\walk2_1.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing2_Frame2
+{
+   Source media\images\walks\walk2_2.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing2_Frame3
+{
+   Source media\images\walks\walk2_3.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing2_Frame4
+{
+   Source media\images\walks\walk2_4.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing2_Frame5
+{
+   Source media\images\walks\walk2_5.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing2_Frame6
+{
+   Source media\images\walks\walk2_6.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing2_Frame7
+{
+   Source media\images\walks\walk2_7.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing2_Frame8
+{
+   Source media\images\walks\walk2_8.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+//----------------------------------------
+
+
+Texture Girl_Idle_Facing3_Frame3
+{
+    Source media\images\idles\idle3_3.tga
+    Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing3_Frame1
+{
+   Source media\images\walks\walk3_1.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing3_Frame2
+{
+   Source media\images\walks\walk3_2.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing3_Frame3
+{
+   Source media\images\walks\walk3_3.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing3_Frame4
+{
+   Source media\images\walks\walk3_4.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing3_Frame5
+{
+   Source media\images\walks\walk3_5.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing3_Frame6
+{
+   Source media\images\walks\walk3_6.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing3_Frame7
+{
+   Source media\images\walks\walk3_7.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing3_Frame8
+{
+   Source media\images\walks\walk3_8.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+//----------------------------------------
+
+
+Texture Girl_Idle_Facing4_Frame3
+{
+    Source media\images\idles\idle3_4.tga
+    Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing4_Frame1
+{
+   Source media\images\walks\walk4_1.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing4_Frame2
+{
+   Source media\images\walks\walk4_2.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing4_Frame3
+{
+   Source media\images\walks\walk4_3.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing4_Frame4
+{
+   Source media\images\walks\walk4_4.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing4_Frame5
+{
+   Source media\images\walks\walk4_5.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing4_Frame6
+{
+   Source media\images\walks\walk4_6.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing4_Frame7
+{
+   Source media\images\walks\walk4_7.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing4_Frame8
+{
+   Source media\images\walks\walk4_8.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+//----------------------------------------
+
+
+
+Texture Girl_Idle_Facing5_Frame3
+{
+    Source media\images\idles\idle3_5.tga
+    Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing5_Frame1
+{
+   Source media\images\walks\walk5_1.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing5_Frame2
+{
+   Source media\images\walks\walk5_2.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing5_Frame3
+{
+   Source media\images\walks\walk5_3.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing5_Frame4
+{
+   Source media\images\walks\walk5_4.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing5_Frame5
+{
+   Source media\images\walks\walk5_5.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing5_Frame6
+{
+   Source media\images\walks\walk5_6.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing5_Frame7
+{
+   Source media\images\walks\walk5_7.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing5_Frame8
+{
+   Source media\images\walks\walk5_8.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+//----------------------------------------
+
+
+Texture Girl_Idle_Facing6_Frame3
+{
+    Source media\images\idles\idle3_6.tga
+    Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing6_Frame1
+{
+   Source media\images\walks\walk6_1.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing6_Frame2
+{
+   Source media\images\walks\walk6_2.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing6_Frame3
+{
+   Source media\images\walks\walk6_3.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing6_Frame4
+{
+   Source media\images\walks\walk6_4.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing6_Frame5
+{
+   Source media\images\walks\walk6_5.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing6_Frame6
+{
+   Source media\images\walks\walk6_6.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing6_Frame7
+{
+   Source media\images\walks\walk6_7.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing6_Frame8
+{
+   Source media\images\walks\walk6_8.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+//----------------------------------------
+
+
+
+Texture Girl_Idle_Facing7_Frame3
+{
+    Source media\images\idles\idle3_7.tga
+    Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing7_Frame1
+{
+   Source media\images\walks\walk7_1.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing7_Frame2
+{
+   Source media\images\walks\walk7_2.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing7_Frame3
+{
+   Source media\images\walks\walk7_3.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing7_Frame4
+{
+   Source media\images\walks\walk7_4.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing7_Frame5
+{
+   Source media\images\walks\walk7_5.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing7_Frame6
+{
+   Source media\images\walks\walk7_6.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing7_Frame7
+{
+   Source media\images\walks\walk7_7.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing7_Frame8
+{
+   Source media\images\walks\walk7_8.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+//----------------------------------------
+
+
+Texture Girl_Idle_Facing8_Frame3
+{
+    Source media\images\idles\idle3_8.tga
+    Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing8_Frame1
+{
+   Source media\images\walks\walk8_1.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing8_Frame2
+{
+   Source media\images\walks\walk8_2.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing8_Frame3
+{
+   Source media\images\walks\walk8_3.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing8_Frame4
+{
+   Source media\images\walks\walk8_4.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing8_Frame5
+{
+   Source media\images\walks\walk8_5.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing8_Frame6
+{
+   Source media\images\walks\walk8_6.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing8_Frame7
+{
+   Source media\images\walks\walk8_7.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Girl_Walk_Facing8_Frame8
+{
+   Source media\images\walks\walk8_8.tga
+   Format D3DFMT_A8R8G8B8
+}

@@ -1,0 +1,139 @@
+Signature = XACT;
+Version = 8;
+
+Options
+{
+}
+
+Wave Bank
+{
+    Name = SampleWaveBank;
+    Bank File = media\sounds\XactSounds_streaming.xwb;
+    Alignment = 512;
+    Streaming = 1;
+    Entry Names = 1;
+    Bank Last Modified Low = 770339660;
+    Bank Last Modified High = 29564525;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
+
+    Entry
+    {
+        Name = MusicMonoLooping;
+        File = media\sounds\MusicMonoLooping.wav;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 44;
+        Play Region Length = 768770;
+        Loop Region Offset = 264600;
+        Loop Region Length = 274026;
+        File Type = 0;
+        Last Modified Low = 447149252;
+        Last Modified High = 29564523;
+    }
+
+    Entry
+    {
+        Name = DockingMono;
+        File = media\sounds\DockingMono.wav;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 44;
+        Play Region Length = 157442;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 1505245452;
+        Last Modified High = 29558864;
+    }
+
+    Entry
+    {
+        Name = Dolphin4;
+        File = media\sounds\Dolphin4.wav;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 58;
+        Play Region Length = 165600;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 1505714136;
+        Last Modified High = 29558864;
+    }
+
+    Entry
+    {
+        Name = EngineStartMono;
+        File = media\sounds\EngineStartMono.wav;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 44;
+        Play Region Length = 350208;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 1506495276;
+        Last Modified High = 29558864;
+    }
+
+    Entry
+    {
+        Name = heli;
+        File = media\sounds\heli.wav;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 58;
+        Play Region Length = 126284;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 1256218020;
+        Last Modified High = 29558864;
+    }
+
+    Entry
+    {
+        Name = MaleDialog1;
+        File = media\sounds\MaleDialog1.wav;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 44;
+        Play Region Length = 141312;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 1507276416;
+        Last Modified High = 29558864;
+    }
+
+    Entry
+    {
+        Name = MiningMono;
+        File = media\sounds\MiningMono.wav;
+        ADPCM Filter = 1;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 44;
+        Play Region Length = 507390;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 1508057556;
+        Last Modified High = 29558864;
+    }
+}

@@ -1,0 +1,19 @@
+xps.1.1
+
+;
+; T0 = Color map
+; C0 = Ambient brightness
+; V0.b = Diffuse brightness
+; V0.a = Specular brightness
+;
+
+; default ambeint
+def c0,0.1,0.1,0.1,1.0
+
+tex t0
+
+; Modulate diffuse and ambient with color
+xmma discard.rgb,discard.rgb,r0.rgb,v0.b,t0,c0,t0
+
+; Add specular
+add	r0.rgb,r0.rgb,v0.a

@@ -1,0 +1,26 @@
+// List of resources to bundle.
+//
+// The output will be a header file (.h) used at compile time,
+// and a packed resource file (.xpr) used at runtime.
+
+out_version        XPR1
+out_packedresource Media\Resource.xpr
+out_error          Resource.err
+
+Texture Seafloor
+{
+   Name   Seafloor.bmp
+   Source Media\Textures\Seafloor.bmp
+}
+
+Texture BiHull
+{
+   Name   BiHull.bmp
+   Source Media\Textures\BiHull.bmp
+}
+
+Texture Wings
+{
+   Name   Wings.bmp
+   Source Media\Textures\Wings.bmp
+}

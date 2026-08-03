@@ -1,0 +1,16 @@
+xps.1.1
+
+def c0, 0.0f, 0.0f, 1.0f, 0.0f;
+def c1, 0.0f, 1.0f, 1.0f, 0.0f;
+def c2, 1.0f, 0.5f, 0.5f, 0.0f;
+
+tex t0;                     // sample Distortion
+tex t1;                     // sample depth
+
+mul r0.a, t1.b, t1.b        // move square of high 8 bits of Z to r0.a 
+mul r0.a, r0.a, r0.a        // r0.a = z^4
++mov t0.rgb, t0_bias
+
+// prod = Zhigh^4 * distortion_bias
+// bias result, and set out.r to 1
+xfc prod, c1, zero, c2, r0_sat.a, t0.rgb, 1-zero

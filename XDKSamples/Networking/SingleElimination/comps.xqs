@@ -1,0 +1,634 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<querysim ver="1.0" hexver="0x1000000000000">
+	<title id="0xffff4005" name="comps">
+		<dataset id="1" quota="3" name="SE competitions" typeid="0">
+			<schema>
+				<attribute name="att_reg_open" hexid="0x80010001" kind="int"/>
+				<attribute name="att_reg_close" hexid="0x80010002" kind="int"/>
+				<attribute name="att_comp_start" hexid="0x80010003" kind="int"/>
+				<attribute name="att_comp_cleanup" hexid="0x80010004" kind="int" default="0x00000007"/>
+				<attribute name="att_round_frequency" hexid="0x80010005" kind="int"/>
+				<attribute name="att_round_interval" hexid="0x80010006" kind="int"/>
+				<attribute name="att_round_day_mask" hexid="0x80010007" kind="int"/>
+				<attribute name="att_round_one_start" hexid="0x8001000C" kind="int"/>
+				<attribute name="att_round_one_end" hexid="0x8001000D" kind="int"/>
+				<attribute name="att_is_team_comp" hexid="0x80010010" kind="int"/>
+				<attribute name="att_team_size" hexid="0x80010011" kind="int"/>
+				<attribute name="att_max_public_slots" hexid="0x80010012" kind="int"/>
+				<attribute name="att_max_private_slots" hexid="0x80010013" kind="int"/>
+				<attribute name="att_min_slots" hexid="0x80010014" kind="int"/>
+				<attribute name="att_reminder_min" hexid="0x8001001A" kind="int" default="0x00000000"/>
+				<attribute name="att_comp_name" hexid="0x8011000E" kind="string" default="" maxlen="32"/>
+				<attribute name="att_rounds" hexid="0x80010008" kind="int" default="0x00000000"/>
+				<attribute name="att_current_round" hexid="0x80010009" kind="int" default="0x00000000"/>
+				<attribute name="att_current_round_start" hexid="0x8001000A" kind="int" default="0x00000000"/>
+				<attribute name="att_current_round_end" hexid="0x8001000B" kind="int" default="0x00000000"/>
+				<attribute name="att_public_entrants" hexid="0x80010018" kind="int" default="0x00000000"/>
+				<attribute name="att_private_entrants" hexid="0x80010019" kind="int" default="0x00000000"/>
+				<attribute name="att_status" hexid="0x8001001D" kind="int" default="0x00000000"/>
+				<attribute name="att_leaderboard_id0" hexid="0x80010020" kind="int" default="0x00000000"/>
+				<attribute name="att_leaderboard_id1" hexid="0x80010021" kind="int" default="0x00000000"/>
+				<attribute name="att_leaderboard_id2" hexid="0x80010022" kind="int" default="0x00000000"/>
+				<attribute name="att_comp_description" hexid="0x8011001E" kind="string" default="" maxlen="400"/>
+				<attribute name="att_comp_url" hexid="0x8011001F" kind="string" default="" maxlen="400"/>
+				<attribute name="att_map" hexid="0x00010001" kind="int" default="0x00000000"/>
+				<attribute name="att_name" hexid="0x00110002" kind="string" default="" maxlen="200"/>
+				<attribute name="att_icon" hexid="0x00210003" kind="blob" default="00" maxlen="400"/>
+			</schema>
+			<constants>
+				<constant name="c_status_pre_init" hexid="0x04010000" kind="int" value="0x00000000"/>
+				<constant name="c_status_active" hexid="0x04010001" kind="int" value="0x00000001"/>
+				<constant name="c_status_complete" hexid="0x04010002" kind="int" value="0x00000002"/>
+				<constant name="c_status_cancelled" hexid="0x0401000F" kind="int" value="0xFFFFFFFF"/>
+			</constants>
+			<queries>
+				<query hexid="0x1" op="search" name="Available Competitions">
+					<params>
+						<param name="p_current_time" hexid="0x82000003" kind="int"/>
+					</params>
+					<filters>
+						<filter left="0x80010001" op="&lt;=" right="0x82000003"/>
+						<filter left="0x80010002" op="&gt;=" right="0x82000003"/>
+						<filter left="0x8001001D" op="&lt;&gt;" right="0x0401000F"/>
+						<filter left="0x80010018" op="&lt;" right="0x80010012"/>
+					</filters>
+					<sortops>
+						<sortop hexid="0x8001000C" dir="ascending"/>
+					</sortops>
+					<returns>
+						<return name="att_comp_start" hexid="0x80010003"/>
+						<return name="att_round_frequency" hexid="0x80010005"/>
+						<return name="att_round_interval" hexid="0x80010006"/>
+						<return name="att_round_day_mask" hexid="0x80010007"/>
+						<return name="att_round_one_start" hexid="0x8001000C"/>
+						<return name="att_round_one_end" hexid="0x8001000D"/>
+						<return name="att_is_team_comp" hexid="0x80010010"/>
+						<return name="att_team_size" hexid="0x80010011"/>
+						<return name="att_max_public_slots" hexid="0x80010012"/>
+						<return name="att_max_private_slots" hexid="0x80010013"/>
+						<return name="att_public_entrants" hexid="0x80010018"/>
+						<return name="att_private_entrants" hexid="0x80010019"/>
+						<return name="att_status" hexid="0x8001001D"/>
+						<return name="att_map" hexid="0x00010001"/>
+						<return name="att_name" hexid="0x00110002"/>
+						<return name="att_icon" hexid="0x00210003"/>
+					</returns>
+				</query>
+				<query hexid="0x2" op="search" name="Competitions I Created">
+					<params>
+						<param name="p_owner_id" hexid="0x82000001" kind="int"/>
+						<param name="p_status" hexid="0x8201001D" kind="int"/>
+					</params>
+					<filters>
+						<filter left="0x80000001" op="==" right="0x82000001"/>
+						<filter left="0x8001001D" op="==" right="0x8201001D"/>
+					</filters>
+					<sortops>
+						<sortop hexid="0x8001000A" dir="ascending"/>
+					</sortops>
+					<returns>
+						<return name="att_comp_start" hexid="0x80010003"/>
+						<return name="att_round_frequency" hexid="0x80010005"/>
+						<return name="att_round_interval" hexid="0x80010006"/>
+						<return name="att_round_day_mask" hexid="0x80010007"/>
+						<return name="att_round_one_start" hexid="0x8001000C"/>
+						<return name="att_round_one_end" hexid="0x8001000D"/>
+						<return name="att_is_team_comp" hexid="0x80010010"/>
+						<return name="att_team_size" hexid="0x80010011"/>
+						<return name="att_max_public_slots" hexid="0x80010012"/>
+						<return name="att_max_private_slots" hexid="0x80010013"/>
+						<return name="att_public_entrants" hexid="0x80010018"/>
+						<return name="att_private_entrants" hexid="0x80010019"/>
+						<return name="att_status" hexid="0x8001001D"/>
+						<return name="att_map" hexid="0x00010001"/>
+						<return name="att_name" hexid="0x00110002"/>
+						<return name="att_icon" hexid="0x00210003"/>
+					</returns>
+				</query>
+				<query hexid="0x1" op="findids" name="Competition Details">
+					<returns>
+						<return name="owner_id" hexid="0x80000001"/>
+						<return name="owner_gamertag" hexid="0x81000001"/>
+						<return name="att_comp_start" hexid="0x80010003"/>
+						<return name="att_comp_cleanup" hexid="0x80010004"/>
+						<return name="att_round_frequency" hexid="0x80010005"/>
+						<return name="att_round_interval" hexid="0x80010006"/>
+						<return name="att_round_day_mask" hexid="0x80010007"/>
+						<return name="att_is_team_comp" hexid="0x80010010"/>
+						<return name="att_team_size" hexid="0x80010011"/>
+						<return name="att_reminder_min" hexid="0x8001001A"/>
+						<return name="att_rounds" hexid="0x80010008"/>
+						<return name="att_current_round" hexid="0x80010009"/>
+						<return name="att_current_round_start" hexid="0x8001000A"/>
+						<return name="att_current_round_end" hexid="0x8001000B"/>
+						<return name="att_public_entrants" hexid="0x80010018"/>
+						<return name="att_private_entrants" hexid="0x80010019"/>
+						<return name="att_status" hexid="0x8001001D"/>
+						<return name="att_leaderboard_id0" hexid="0x80010020"/>
+						<return name="att_leaderboard_id1" hexid="0x80010021"/>
+						<return name="att_leaderboard_id2" hexid="0x80010022"/>
+						<return name="att_map" hexid="0x00010001"/>
+						<return name="att_name" hexid="0x00110002"/>
+						<return name="att_icon" hexid="0x00210003"/>
+					</returns>
+				</query>
+				<query hexid="0x1" op="updateid" name="Update Title Attributes">
+					<params>
+						<param name="p_map" hexid="0x02010001" kind="int"/>
+						<param name="p_name" hexid="0x02110002" kind="string"/>
+						<param name="p_icon" hexid="0x02210003" kind="blob"/>
+					</params>
+				</query>
+				<query hexid="0x10001" op="custom" name="Adjust Entrant Counts">
+					<params>
+						<param name="p_entrants" hexid="0x82010018" kind="int"/>
+						<param name="p_private_entrants" hexid="0x82010019" kind="int"/>
+						<param name="p_reg_close" hexid="0x82010002" kind="int"/>
+						<param name="p_is_team_comp" hexid="0x82010010" kind="int"/>
+					</params>
+					<custom>
+						<![CDATA[update t_query_dataset_ffff4005_1
+set att_80010018 = att_80010018 + @att_82010018,
+att_80010019 = att_80010019 + @att_82010019
+where bi_entity_id = @bi_entity_id
+    and (att_80010018 + @att_82010018) <= att_80010012     -- XONLINE_COMP_ATTR_PUBLIC_ENTRANTS <= XONLINE_COMP_ATTR_MAX_PUBLIC_SLOTS
+    and (att_80010019 + @att_82010019) <= att_80010013     -- XONLINE_COMP_ATTR_PRIVATE_ENTRANTS <= XONLINE_COMP_ATTR_MAX_PRIVATE_SLOTS
+    and att_80010002 >= @att_82010002                      -- XONLINE_COMP_ATTR_REG_CLOSE >= current time
+    and (att_80010001-1799062968) <= @att_82010002         -- XONLINE_COMP_ATTR_REG_OPEN - (3 minutes) <= current time
+    and att_8001001D =  0                                  -- XONLINE_COMP_ATTR_STATUS == XONLINE_COMP_STATUS_PRE_INIT
+    and att_80010010 = @att_82010010                       -- XONLINE_COMP_ATTR_IS_TEAM_COMP == @XONLINE_COMP_ATTR_IS_TEAM_COMP
+if (@@rowcount <> 1)
+begin
+  -- update failed, figure out why
+  --
+  if not exists (select * from t_query_dataset_ffff4005_1 where @bi_entity_id = @bi_entity_id)
+      return 0x80156102                               -- XONLINE_E_QUERY_ENTITY_NOT_FOUND
+  if not exists (select * from t_query_dataset_ffff4005_1
+      where bi_entity_id = @bi_entity_id
+          and att_8001001D <> 0xFFFFFFFF)               -- XONLINE_COMP_ATTR_STATUS == XONLINE_COMP_STATUS_ACTIVE
+      return 0x80156206                               -- XONLINE_E_COMP_CANCELLED
+  if not exists (select * from t_query_dataset_ffff4005_1
+      where bi_entity_id = @bi_entity_id
+          and att_80010010 = @att_82010010)             -- XONLINE_COMP_ATTR_IS_TEAM_COMP == @XONLINE_COMP_ATTR_IS_TEAM_COMP
+      return 0x8015621A                               -- XONLINE_E_COMP_INVALID_ENTRANT_TYPE
+  if not exists (select * from t_query_dataset_ffff4005_1
+      where bi_entity_id = @bi_entity_id
+          and att_80010002 >= @att_82010002             -- XONLINE_COMP_ATTR_REG_CLOSE >= current time
+          and (att_80010001-1799062968) <= @att_82010002 -- XONLINE_COMP_ATTR_REG_OPEN - (3 minutes) <= current time
+          and att_8001001D =  0)                        -- XONLINE_COMP_ATTR_STATUS == XONLINE_COMP_STATUS_PRE_INIT
+      return 0x80156203                               -- XONLINE_E_COMP_REGISTRATION_CLOSED
+  return 0x80156204                                   -- XONLINE_E_COMP_FULL
+end
+return 0x0
+]]>
+					</custom>
+				</query>
+				<query hexid="0x1000a" op="custom" name="Adjust Time Fields">
+					<params>
+						<param name="p_debug_adjust_time" hexid="0x82010023" kind="int"/>
+					</params>
+					<custom>
+						<![CDATA[update t_query_dataset_ffff4005_1
+set att_80010001 = att_80010001 + @att_82010023,        -- XONLINE_COMP_ATTR_REG_OPEN
+    att_80010002 = att_80010002 + @att_82010023,        -- XONLINE_COMP_ATTR_REG_CLOSE
+    att_80010003 = att_80010003 + @att_82010023,        -- XONLINE_COMP_ATTR_COMP_START
+    att_8001000A = att_8001000A + @att_82010023,        -- XONLINE_COMP_ATTR_CURRENT_ROUND_START
+    att_8001000B = att_8001000B + @att_82010023,        -- XONLINE_COMP_ATTR_CURRENT_ROUND_END
+    att_8001000C = att_8001000C + @att_82010023,        -- XONLINE_COMP_ATTR_ROUND_ONE_START
+    att_8001000D = att_8001000D + @att_82010023         -- XONLINE_COMP_ATTR_ROUND_ONE_END
+where bi_entity_id = @bi_entity_id
+if (@@rowcount <> 1)
+begin
+    -- update failed, figure out why
+    --
+    if not exists (select * from t_query_dataset_ffff4005_1 where @bi_entity_id = @bi_entity_id)
+        return 0x80156102                               -- XONLINE_E_QUERY_ENTITY_NOT_FOUND
+end
+return 0x0
+]]>
+					</custom>
+				</query>
+				<query hexid="0x10001" op="findids" name="Find Progression Data">
+					<returns>
+						<return name="att_round_frequency" hexid="0x80010005"/>
+						<return name="att_round_interval" hexid="0x80010006"/>
+						<return name="att_round_day_mask" hexid="0x80010007"/>
+						<return name="att_rounds" hexid="0x80010008"/>
+						<return name="att_current_round" hexid="0x80010009"/>
+						<return name="att_current_round_start" hexid="0x8001000A"/>
+						<return name="att_current_round_end" hexid="0x8001000B"/>
+						<return name="att_reminder_min" hexid="0x8001001A"/>
+						<return name="att_comp_cleanup" hexid="0x80010004"/>
+						<return name="att_status" hexid="0x8001001D"/>
+					</returns>
+				</query>
+				<query hexid="0x10002" op="findids" name="Find Slotting Data">
+					<returns>
+						<return name="att_min_slots" hexid="0x80010014"/>
+						<return name="att_public_entrants" hexid="0x80010018"/>
+						<return name="att_private_entrants" hexid="0x80010019"/>
+						<return name="att_comp_start" hexid="0x80010003"/>
+						<return name="att_round_frequency" hexid="0x80010005"/>
+						<return name="att_round_interval" hexid="0x80010006"/>
+						<return name="att_round_day_mask" hexid="0x80010007"/>
+						<return name="att_round_one_start" hexid="0x8001000C"/>
+						<return name="att_round_one_end" hexid="0x8001000D"/>
+						<return name="att_reminder_min" hexid="0x8001001A"/>
+						<return name="att_status" hexid="0x8001001D"/>
+					</returns>
+				</query>
+				<query hexid="0x10003" op="findids" name="Find Checkin Data">
+					<returns>
+						<return name="att_current_round" hexid="0x80010009"/>
+						<return name="att_current_round_start" hexid="0x8001000A"/>
+						<return name="att_current_round_end" hexid="0x8001000B"/>
+						<return name="att_reminder_min" hexid="0x8001001A"/>
+						<return name="att_is_team_comp" hexid="0x80010010"/>
+						<return name="att_status" hexid="0x8001001D"/>
+						<return name="att_comp_start" hexid="0x80010003"/>
+						<return name="owner_id" hexid="0x80000001"/>
+						<return name="att_comp_name" hexid="0x8011000E"/>
+					</returns>
+				</query>
+				<query hexid="0x10004" op="findids" name="Find Leaderboards">
+					<returns>
+						<return name="att_leaderboard_id0" hexid="0x80010020"/>
+						<return name="att_leaderboard_id1" hexid="0x80010021"/>
+						<return name="att_leaderboard_id2" hexid="0x80010022"/>
+					</returns>
+				</query>
+				<query hexid="0x10001" op="updateid" name="Update Round">
+					<params>
+						<param name="p_rounds" hexid="0x82010008" kind="int"/>
+						<param name="p_current_round" hexid="0x82010009" kind="int"/>
+						<param name="p_current_round_start" hexid="0x8201000A" kind="int"/>
+						<param name="p_current_round_end" hexid="0x8201000B" kind="int"/>
+						<param name="p_status" hexid="0x8201001D" kind="int"/>
+					</params>
+				</query>
+				<query hexid="0x10002" op="updateid" name="Update Status">
+					<params>
+						<param name="p_status" hexid="0x8201001D" kind="int"/>
+					</params>
+				</query>
+				<query hexid="0x10003" op="updateid" name="Update Slotting">
+					<params>
+						<param name="p_rounds" hexid="0x82010008" kind="int"/>
+						<param name="p_current_round" hexid="0x82010009" kind="int"/>
+						<param name="p_current_round_start" hexid="0x8201000A" kind="int"/>
+						<param name="p_current_round_end" hexid="0x8201000B" kind="int"/>
+						<param name="p_status" hexid="0x8201001D" kind="int"/>
+						<param name="p_leaderboard_id1" hexid="0x82010020" kind="int"/>
+						<param name="p_leaderboard_id2" hexid="0x82010021" kind="int"/>
+						<param name="p_leaderboard_id3" hexid="0x82010022" kind="int"/>
+					</params>
+				</query>
+			</queries>
+			<plugins>
+				<plugin order="0" assembly="CompPlugins.dll" class="XBOX.Online.Competitions.Elimination.Competitions">
+					<contextlist>
+						<context name="publisherOnly" kind="int">0</context>
+						<context name="checkinSeconds" kind="int">300</context>
+						<context name="leaderboardTemplateID" kind="int">0</context>
+						<context name="leaderboards" kind="int">3</context>
+					</contextlist>
+				</plugin>
+			</plugins>
+		</dataset>
+		<dataset id="2" quota="-1" name="SE entrants" typeid="0">
+			<schema>
+				<attribute name="att_comp_id" hexid="0x80010000" kind="int" default="0x00000000"/>
+				<attribute name="att_comp_status" hexid="0x8001001D" kind="int" default="0x00000000"/>
+				<attribute name="att_puid" hexid="0x80020000" kind="int" default="0x00000000"/>
+				<attribute name="att_status" hexid="0x80020001" kind="int" default="0x00000000"/>
+				<attribute name="att_current_round" hexid="0x80020003" kind="int" default="0x00000000"/>
+				<attribute name="att_current_event" hexid="0x80020007" kind="int" default="0x00000000"/>
+				<attribute name="att_current_start" hexid="0x80020008" kind="int" default="0x00000000"/>
+				<attribute name="att_sort" hexid="0x80020009" kind="int" default="0x00000000"/>
+				<attribute name="att_private_slot" hexid="0x80020004" kind="int" default="0x00000000"/>
+				<attribute name="att_seed" hexid="0x80020005" kind="int" default="0x00000000"/>
+			</schema>
+			<constants>
+				<constant name="c_status_pre_init" hexid="0x04010000" kind="int" value="0x00000000"/>
+				<constant name="c_status_active" hexid="0x04010001" kind="int" value="0x00000001"/>
+				<constant name="c_status_complete" hexid="0x04010002" kind="int" value="0x00000002"/>
+				<constant name="c_status_cancelled" hexid="0x0401000F" kind="int" value="0xFFFFFFFF"/>
+				<constant name="c_status_entrant_registered" hexid="0x04020000" kind="int" value="0x00000000"/>
+				<constant name="c_status_entrant_playing" hexid="0x04020001" kind="int" value="0x00000001"/>
+				<constant name="c_status_entrant_forfeit" hexid="0x04020002" kind="int" value="0x00000002"/>
+				<constant name="c_status_entrant_ejected" hexid="0x04020003" kind="int" value="0x00000003"/>
+				<constant name="c_status_entrant_eliminated" hexid="0x0402000F" kind="int" value="0xFFFFFFFF"/>
+			</constants>
+			<queries>
+				<query hexid="0x1" op="search" name="My Competitions">
+					<params>
+						<param name="p_puid" hexid="0x82020000" kind="int"/>
+						<param name="p_comp_status" hexid="0x8201001D" kind="int"/>
+					</params>
+					<filters>
+						<filter left="0x80020000" op="==" right="0x82020000"/>
+						<filter left="0x8001001D" op="==" right="0x8201001D"/>
+					</filters>
+					<sortops>
+						<sortop hexid="0x80020009" dir="ascending"/>
+					</sortops>
+					<returns>
+						<return name="att_comp_id" hexid="0x80010000"/>
+						<return name="att_comp_status" hexid="0x8001001D"/>
+						<return name="att_status" hexid="0x80020001"/>
+						<return name="att_current_round" hexid="0x80020003"/>
+						<return name="att_current_event" hexid="0x80020007"/>
+						<return name="att_current_start" hexid="0x80020008"/>
+						<return name="att_sort" hexid="0x80020009"/>
+					</returns>
+				</query>
+				<query hexid="0x2" op="search" name="Competition Standings">
+					<params>
+						<param name="p_comp_id" hexid="0x82010000" kind="int"/>
+					</params>
+					<filters>
+						<filter left="0x80010000" op="==" right="0x82010000"/>
+						<filter left="0x8001001D" op="==" right="0x04010002"/>
+					</filters>
+					<sortops>
+						<sortop hexid="0x80020003" dir="descending"/>
+					</sortops>
+					<returns>
+						<return name="att_puid" hexid="0x80020000"/>
+						<return name="gamertag" hexid="0x81020000"/>
+						<return name="att_status" hexid="0x80020001"/>
+						<return name="att_current_round" hexid="0x80020003"/>
+						<return name="att_current_event" hexid="0x80020007"/>
+						<return name="att_current_start" hexid="0x80020008"/>
+						<return name="att_sort" hexid="0x80020009"/>
+					</returns>
+				</query>
+				<query hexid="0x10001" op="remove" name="Remove All">
+					<params>
+						<param name="p_comp_id" hexid="0x82010000" kind="int"/>
+					</params>
+					<filters>
+						<filter left="0x80010000" op="==" right="0x82010000"/>
+					</filters>
+				</query>
+				<query hexid="0x10001" op="search" name="Check Private Slot">
+					<params>
+						<param name="p_comp_id" hexid="0x82010000" kind="int"/>
+						<param name="p_entrant_puid" hexid="0x82020000" kind="int"/>
+					</params>
+					<filters>
+						<filter left="0x80010000" op="==" right="0x82010000"/>
+						<filter left="0x80020000" op="==" right="0x82020000"/>
+					</filters>
+					<returns>
+						<return name="att_private_slot" hexid="0x80020004"/>
+					</returns>
+				</query>
+				<query hexid="0x10002" op="search" name="Get Sorted Seeds">
+					<params>
+						<param name="p_comp_id" hexid="0x82010000" kind="int"/>
+					</params>
+					<filters>
+						<filter left="0x80010000" op="==" right="0x82010000"/>
+						<filter left="0x80020001" op="==" right="0x04020000"/>
+					</filters>
+					<sortops>
+						<sortop hexid="0x80020005" dir="ascending"/>
+					</sortops>
+					<returns>
+						<return name="att_puid" hexid="0x80020000"/>
+						<return name="att_seed" hexid="0x80020005"/>
+					</returns>
+				</query>
+				<query hexid="0x10001" op="update" name="Update Match Results">
+					<params>
+						<param name="p_comp_id" hexid="0x82010000" kind="int"/>
+						<param name="p_puid" hexid="0x82020000" kind="int"/>
+						<param name="p_status" hexid="0x82020001" kind="int"/>
+						<param name="p_current_round" hexid="0x82020003" kind="int"/>
+						<param name="p_current_event" hexid="0x82020007" kind="int"/>
+						<param name="p_current_start" hexid="0x82020008" kind="int"/>
+					</params>
+					<updates>
+						<update name="att_status" hexid="0x80020001" param="0x82020001"/>
+						<update name="att_current_round" hexid="0x80020003" param="0x82020003"/>
+						<update name="att_current_event" hexid="0x80020007" param="0x82020007"/>
+						<update name="att_current_start" hexid="0x80020008" param="0x82020008"/>
+					</updates>
+					<filters>
+						<filter left="0x80010000" op="==" right="0x82010000"/>
+						<filter left="0x80020000" op="==" right="0x82020000"/>
+					</filters>
+				</query>
+				<query hexid="0x10002" op="update" name="Update Status">
+					<params>
+						<param name="p_comp_id" hexid="0x82010000" kind="int"/>
+						<param name="p_comp_status" hexid="0x8201001D" kind="int"/>
+					</params>
+					<updates>
+						<update name="att_comp_status" hexid="0x8001001D" param="0x8201001D"/>
+					</updates>
+					<filters>
+						<filter left="0x80010000" op="==" right="0x82010000"/>
+					</filters>
+				</query>
+				<query hexid="0x1000a" op="custom" name="Adjust Time Fields">
+					<params>
+						<param name="p_comp_id" hexid="0x82010000" kind="int"/>
+						<param name="p_debug_advance_time" hexid="0x82010023" kind="int"/>
+					</params>
+					<custom>
+						<![CDATA[update t_query_dataset_ffff4005_2
+set att_80020008 = att_80020008 + @att_82010023        -- XONLINE_COMP_ATTR_ENTRANT_CURRENT_START
+where att_80010000 = @att_82010000
+return 0x0
+]]>
+					</custom>
+				</query>
+			</queries>
+			<plugins>
+				<plugin order="0" assembly="CompPlugins.dll" class="XBOX.Online.Competitions.Elimination.Entrants"/>
+			</plugins>
+		</dataset>
+		<dataset id="3" quota="-1" name="SE events" typeid="0">
+			<schema>
+				<attribute name="comp_id" hexid="0x80010000" kind="int" index="unique_events"/>
+				<attribute name="topology_id" hexid="0x80030001" kind="int" index="unique_events"/>
+				<attribute name="round" hexid="0x80030002" kind="int"/>
+				<attribute name="start" hexid="0x80030003" kind="int"/>
+				<attribute name="next_entity" hexid="0x80030006" kind="int"/>
+				<attribute name="next_start" hexid="0x80030007" kind="int"/>
+				<attribute name="player1" hexid="0x80030008" kind="int"/>
+				<attribute name="p1_checkin" hexid="0x80030009" kind="int" default="0x00000000"/>
+				<attribute name="p1_data" hexid="0x8023000A" kind="blob" default="0x00000000" maxlen="4"/>
+				<attribute name="player2" hexid="0x8003000B" kind="int"/>
+				<attribute name="p2_checkin" hexid="0x8003000C" kind="int" default="0x00000000"/>
+				<attribute name="p2_data" hexid="0x8023000D" kind="blob" default="0x00000000" maxlen="4"/>
+				<attribute name="winner" hexid="0x8003000E" kind="int" default="0x00000000"/>
+				<attribute name="loser" hexid="0x8003000F" kind="int" default="0x00000000"/>
+				<attribute name="att_map" hexid="0x00030001" kind="int" default="0x00000000"/>
+				<attribute name="att_name" hexid="0x00130002" kind="string" default="" maxlen="200"/>
+				<attribute name="att_icon" hexid="0x00230003" kind="blob" default="00" maxlen="400"/>
+			</schema>
+			<indexes>
+				<index name="unique_events" unique="true"/>
+			</indexes>
+			<constants/>
+			<queries>
+				<query hexid="0x1" op="search" name="Topology">
+					<params>
+						<param name="p_comp_id" hexid="0x82010000" kind="int"/>
+						<param name="p_minimum_topology_id" hexid="0x82030010" kind="int"/>
+						<param name="p_maximum_topology_id" hexid="0x82030011" kind="int"/>
+					</params>
+					<filters>
+						<filter left="0x80010000" op="==" right="0x82010000"/>
+						<filter left="0x80030001" op="&gt;=" right="0x82030010"/>
+						<filter left="0x80030001" op="&lt;=" right="0x82030011"/>
+					</filters>
+					<sortops>
+						<sortop hexid="0x80030001" dir="ascending"/>
+					</sortops>
+					<returns>
+						<return name="topology_id" hexid="0x80030001"/>
+						<return name="round" hexid="0x80030002"/>
+						<return name="start" hexid="0x80030003"/>
+						<return name="next_entity" hexid="0x80030006"/>
+						<return name="next_start" hexid="0x80030007"/>
+						<return name="player1" hexid="0x80030008"/>
+						<return name="p1_gamertag" hexid="0x81030008"/>
+						<return name="player2" hexid="0x8003000B"/>
+						<return name="p2_gamertag" hexid="0x8103000B"/>
+						<return name="winner" hexid="0x8003000E"/>
+						<return name="loser" hexid="0x8003000F"/>
+						<return name="att_map" hexid="0x00030001"/>
+						<return name="att_name" hexid="0x00130002"/>
+						<return name="att_icon" hexid="0x00230003"/>
+					</returns>
+				</query>
+				<query hexid="0x10001" op="findids" name="Find Event">
+					<returns>
+						<return name="topology_id" hexid="0x80030001"/>
+						<return name="round" hexid="0x80030002"/>
+						<return name="next_entity" hexid="0x80030006"/>
+						<return name="next_start" hexid="0x80030007"/>
+						<return name="player1" hexid="0x80030008"/>
+						<return name="p1_checkin" hexid="0x80030009"/>
+						<return name="p1_data" hexid="0x8023000A"/>
+						<return name="player2" hexid="0x8003000B"/>
+						<return name="p2_checkin" hexid="0x8003000C"/>
+						<return name="p2_data" hexid="0x8023000D"/>
+						<return name="winner" hexid="0x8003000E"/>
+						<return name="loser" hexid="0x8003000F"/>
+					</returns>
+				</query>
+				<query hexid="0x10001" op="remove" name="Remove All">
+					<params>
+						<param name="p_comp_id" hexid="0x82010000" kind="int"/>
+					</params>
+					<filters>
+						<filter left="0x80010000" op="==" right="0x82010000"/>
+					</filters>
+				</query>
+				<query hexid="0x10001" op="search" name="Select All">
+					<params>
+						<param name="p_comp_id" hexid="0x82010000" kind="int"/>
+					</params>
+					<filters>
+						<filter left="0x80010000" op="==" right="0x82010000"/>
+					</filters>
+					<returns>
+						<return name="topology_id" hexid="0x80030001"/>
+						<return name="round" hexid="0x80030002"/>
+						<return name="start" hexid="0x80030003"/>
+						<return name="next_entity" hexid="0x80030006"/>
+						<return name="player1" hexid="0x80030008"/>
+						<return name="p1_checkin" hexid="0x80030009"/>
+						<return name="p1_data" hexid="0x8023000A"/>
+						<return name="player2" hexid="0x8003000B"/>
+						<return name="p2_checkin" hexid="0x8003000C"/>
+						<return name="p2_data" hexid="0x8023000D"/>
+						<return name="winner" hexid="0x8003000E"/>
+						<return name="loser" hexid="0x8003000F"/>
+					</returns>
+				</query>
+				<query hexid="0x10002" op="search" name="Select Round">
+					<params>
+						<param name="p_comp_id" hexid="0x82010000" kind="int"/>
+						<param name="p_round" hexid="0x82030002" kind="int"/>
+					</params>
+					<filters>
+						<filter left="0x80010000" op="==" right="0x82010000"/>
+						<filter left="0x80030002" op="==" right="0x82030002"/>
+					</filters>
+					<sortops>
+						<sortop hexid="0x80030001" dir="ascending"/>
+					</sortops>
+					<returns>
+						<return name="topology_id" hexid="0x80030001"/>
+						<return name="next_entity" hexid="0x80030006"/>
+						<return name="start" hexid="0x80030003"/>
+						<return name="player1" hexid="0x80030008"/>
+						<return name="p1_checkin" hexid="0x80030009"/>
+						<return name="p1_data" hexid="0x8023000A"/>
+						<return name="player2" hexid="0x8003000B"/>
+						<return name="p2_checkin" hexid="0x8003000C"/>
+						<return name="p2_data" hexid="0x8023000D"/>
+						<return name="winner" hexid="0x8003000E"/>
+						<return name="loser" hexid="0x8003000F"/>
+					</returns>
+				</query>
+				<query hexid="0x10001" op="updateid" name="Checkin">
+					<params>
+						<param name="p_p1_checkin" hexid="0x82030009" kind="int"/>
+						<param name="p_p1_data" hexid="0x8223000A" kind="blob"/>
+						<param name="p_p2_checkin" hexid="0x8203000C" kind="int"/>
+						<param name="p_p2_data" hexid="0x8223000D" kind="blob"/>
+					</params>
+				</query>
+				<query hexid="0x10002" op="updateid" name="Update Results">
+					<params>
+						<param name="p_winner" hexid="0x8203000E" kind="int"/>
+						<param name="p_loser" hexid="0x8203000F" kind="int"/>
+						<param name="p_map" hexid="0x02030001" kind="int"/>
+						<param name="p_name" hexid="0x02130002" kind="string"/>
+						<param name="p_icon" hexid="0x02230003" kind="blob"/>
+					</params>
+				</query>
+				<query hexid="0x10003" op="updateid" name="Update Players">
+					<params>
+						<param name="p_player1" hexid="0x82030008" kind="int"/>
+						<param name="p_player2" hexid="0x8203000B" kind="int"/>
+					</params>
+				</query>
+				<query hexid="0x10004" op="updateid" name="Update Player 1">
+					<params>
+						<param name="p_player1" hexid="0x82030008" kind="int"/>
+					</params>
+				</query>
+				<query hexid="0x10005" op="updateid" name="Update Player 2">
+					<params>
+						<param name="p_player2" hexid="0x8203000B" kind="int"/>
+					</params>
+				</query>
+				<query hexid="0x1000a" op="custom" name="Adjust Time Fields">
+					<params>
+						<param name="p_comp_id" hexid="0x82010000" kind="int"/>
+						<param name="p_debug_adjust_time" hexid="0x82010023" kind="int"/>
+					</params>
+					<custom>
+						<![CDATA[update t_query_dataset_ffff4005_3
+set att_80030003 = att_80030003 + @att_82010023,        -- XONLINE_COMP_ATTR_EVENT_START
+    att_80030007 = att_80030007 + @att_82010023         -- XONLINE_COMP_ATTR_EVENT_NEXT_START
+where att_80010000 = @att_82010000
+return 0x0
+]]>
+					</custom>
+				</query>
+			</queries>
+			<plugins>
+				<plugin order="0" assembly="CompPlugins.dll" class="XBOX.Online.Competitions.Elimination.Events"/>
+			</plugins>
+		</dataset>
+	</title>
+</querysim>

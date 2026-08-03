@@ -1,0 +1,14 @@
+;------------------------------------------------------------------------------
+; Filter to get extract "hot" parts of the image
+;
+; Copyright (C) 2002 Microsoft Corporation
+; All rights reserved.
+;------------------------------------------------------------------------------
+xps.1.1
+
+; source textures
+tex t0
+
+mov r0, t0_bx2
+
+xfc zero, zero, zero, r0, zero, zero, r0.a	

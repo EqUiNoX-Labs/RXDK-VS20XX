@@ -1,0 +1,87 @@
+Signature = XACT;
+Version = 9;
+
+Options
+{
+    Project Header File = XactSounds.h;
+}
+
+Wave Bank
+{
+    Name = sample;
+    Bank File = media\sounds\XactSounds_streaming.xwb;
+    Alignment = 512;
+    Streaming = 1;
+    Bank Last Modified Low = 0;
+    Bank Last Modified High = 0;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
+
+    Entry
+    {
+        Name = small;
+        File = media\sounds\small.wav;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 22050;
+        Bits Per Sample = 0;
+        Play Region Offset = 58;
+        Play Region Length = 11026;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 1057544443;
+        Last Modified High = 29495879;
+    }
+}
+
+Sound Category
+{
+    Name = BGMUSIC;
+}
+
+Sound Bank
+{
+    Name = sample;
+    Bank File = media\sounds\XactSounds.xsb;
+    Bank Last Modified Low = 0;
+    Bank Last Modified High = 0;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
+
+    Sound
+    {
+        Name = small;
+        LFE Level = -10000;
+        Category = BGMUSIC;
+
+        Track
+        {
+            Play with Pitch and Volume Variation
+            {
+                Pitch Low = 0;
+                Pitch High = 0;
+                Volume Low = 0;
+                Volume High = 0;
+
+                Registered Wave
+                {
+                    Wave Bank = sample;
+                    Wave Entry = small;
+                    Wave Entry Index = 0;
+                }
+            }
+        }
+    }
+
+    Cue
+    {
+        Name = Cue1;
+
+        Sound
+        {
+            Sound = small;
+            Sound Index = 0;
+        }
+    }
+}

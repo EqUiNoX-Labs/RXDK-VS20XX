@@ -1,0 +1,22 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.0.0
+MinimumVisualStudioVersion = 10.0.0.0
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Billboard", "Billboard\Billboard.vcxproj", "{0816C94B-3489-44E5-AA49-26E861906863}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0816C94B-3489-44E5-AA49-26E861906863}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0816C94B-3489-44E5-AA49-26E861906863}.Debug|Win32.Build.0 = Debug|Win32
+		{0816C94B-3489-44E5-AA49-26E861906863}.Release|Win32.ActiveCfg = Release|Win32
+		{0816C94B-3489-44E5-AA49-26E861906863}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

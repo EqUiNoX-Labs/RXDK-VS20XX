@@ -1,0 +1,10 @@
+; Shadowbuffer pixel shader
+xps.1.1
+
+tex t0              ; Get texture
+tex t1              ; Get shadow from light
+
+mad r0, v0, t1, c0  ; Light  = diffuse * shadow + ambient
+mul r0, t0, r0      ; Output = texture * light
+
+xfc 1-zero, r0, zero, zero, zero, zero, zero

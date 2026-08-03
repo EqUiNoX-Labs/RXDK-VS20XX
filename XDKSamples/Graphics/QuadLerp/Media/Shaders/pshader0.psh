@@ -1,0 +1,40 @@
+xps.1.1              // use Xbox extensions
+
+def c0, 1.0f, 0.0f, 0.0f, 0.0f
+def c1, 0.0f, 1.0f, 0.0f, 0.0f
+
+#define	RED	c0
+#define	GREEN c1
+
+//--- Texture Stages ---
+tex t0
+tex t1
+tex t2
+tex t3
+
+// ORIGINAL_SHADER
+
+//--- Combiner Stage 0 ---
+mul r0.rgb, t3.rgb, v1.a
++ mov r0.a, v1.b
+
+//--- Combiner Stage 1 ---
+mad r0, t2, r0.a, r0
+
+//--- Combiner Stage 2 ---
+dp3 r1, v1, GREEN
+
+//--- Combiner Stage 3 ---
+mad r0, t1, r1, r0
+
+//--- Combiner Stage 4 ---
+dp3 r1, v1, RED
+
+//--- Combiner Stage 5 ---
+mad r0, t0, r1, r0
+
+//--- Combiner Stage 6 ---
+mul_x2 r0, r0, v0
+
+//--- Final Combiner ---
+xfc zero, zero, r0, zero, zero, zero, r0.a

@@ -1,0 +1,788 @@
+Signature = XACT;
+Version = 9;
+
+Options
+{
+}
+
+Wave Bank
+{
+    Name = HaloMusic;
+    Bank File = media\sounds\XactSounds_streaming.xwb;
+    Alignment = 512;
+    Streaming = 1;
+    Bank Last Modified Low = 0;
+    Bank Last Modified High = 0;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
+
+    Entry
+    {
+        Name = media\sounds\anfast_lp\strings_track1\alt_loop\altlp1;
+        File = media\sounds\anfast_lp\strings_track1\alt_loop\altlp1.aif;
+        ADPCM Filter = 1;
+        Format Tag = 0;
+        Channels = 2;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 106;
+        Play Region Length = 3529092;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 1;
+        Last Modified Low = 3189114368;
+        Last Modified High = 29440867;
+    }
+
+    Entry
+    {
+        Name = media\sounds\anfast_lp\strings_track1\alt_loop\altlp2;
+        File = media\sounds\anfast_lp\strings_track1\alt_loop\altlp2.aif;
+        ADPCM Filter = 1;
+        Format Tag = 0;
+        Channels = 2;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 106;
+        Play Region Length = 4751652;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 1;
+        Last Modified Low = 3209114368;
+        Last Modified High = 29440867;
+    }
+
+    Entry
+    {
+        Name = media\sounds\anfast_lp\strings_track1\alt_loop\altlp3;
+        File = media\sounds\anfast_lp\strings_track1\alt_loop\altlp3.aif;
+        ADPCM Filter = 1;
+        Format Tag = 0;
+        Channels = 2;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 106;
+        Play Region Length = 793448;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 1;
+        Last Modified Low = 3229114368;
+        Last Modified High = 29440867;
+    }
+
+    Entry
+    {
+        Name = media\sounds\anfast_lp\strings_track1\alt_out\altend;
+        File = media\sounds\anfast_lp\strings_track1\alt_out\altend.aif;
+        ADPCM Filter = 1;
+        Format Tag = 0;
+        Channels = 2;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 106;
+        Play Region Length = 2111252;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 1;
+        Last Modified Low = 3229114368;
+        Last Modified High = 29440867;
+    }
+
+    Entry
+    {
+        Name = media\sounds\anfast_lp\strings_track1\in\in;
+        File = media\sounds\anfast_lp\strings_track1\in\in.aif;
+        ADPCM Filter = 1;
+        Format Tag = 0;
+        Channels = 2;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 106;
+        Play Region Length = 2305748;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 1;
+        Last Modified Low = 3249114368;
+        Last Modified High = 29440867;
+    }
+
+    Entry
+    {
+        Name = media\sounds\anfast_lp\strings_track1\loop\lp1;
+        File = media\sounds\anfast_lp\strings_track1\loop\lp1.aif;
+        ADPCM Filter = 1;
+        Format Tag = 0;
+        Channels = 2;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 106;
+        Play Region Length = 2882224;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 1;
+        Last Modified Low = 3289114368;
+        Last Modified High = 29440867;
+    }
+
+    Entry
+    {
+        Name = media\sounds\anfast_lp\strings_track1\loop\lp2;
+        File = media\sounds\anfast_lp\strings_track1\loop\lp2.aif;
+        ADPCM Filter = 1;
+        Format Tag = 0;
+        Channels = 2;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 106;
+        Play Region Length = 2157468;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 1;
+        Last Modified Low = 3309114368;
+        Last Modified High = 29440867;
+    }
+
+    Entry
+    {
+        Name = media\sounds\anfast_lp\strings_track1\loop\lp3;
+        File = media\sounds\anfast_lp\strings_track1\loop\lp3.aif;
+        ADPCM Filter = 1;
+        Format Tag = 0;
+        Channels = 2;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 106;
+        Play Region Length = 2376436;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 1;
+        Last Modified Low = 3309114368;
+        Last Modified High = 29440867;
+    }
+
+    Entry
+    {
+        Name = media\sounds\anfast_lp\strings_track1\out\end;
+        File = media\sounds\anfast_lp\strings_track1\out\end.aif;
+        ADPCM Filter = 1;
+        Format Tag = 0;
+        Channels = 2;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 106;
+        Play Region Length = 1286280;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 1;
+        Last Modified Low = 3329114368;
+        Last Modified High = 29440867;
+    }
+
+    Entry
+    {
+        Name = media\sounds\battle\altlp1;
+        File = media\sounds\battle\altlp1.aif;
+        ADPCM Filter = 1;
+        Format Tag = 0;
+        Channels = 2;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 150;
+        Play Region Length = 1129952;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 1;
+        Last Modified Low = 1792519936;
+        Last Modified High = 29470784;
+    }
+
+    Entry
+    {
+        Name = media\sounds\battle\altlp2;
+        File = media\sounds\battle\altlp2.aif;
+        ADPCM Filter = 1;
+        Format Tag = 0;
+        Channels = 2;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 150;
+        Play Region Length = 5509320;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 1;
+        Last Modified Low = 1892519936;
+        Last Modified High = 29470784;
+    }
+
+    Entry
+    {
+        Name = media\sounds\battle\altlp3;
+        File = media\sounds\battle\altlp3.aif;
+        ADPCM Filter = 1;
+        Format Tag = 0;
+        Channels = 2;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 150;
+        Play Region Length = 1129952;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 1;
+        Last Modified Low = 1972519936;
+        Last Modified High = 29470784;
+    }
+
+    Entry
+    {
+        Name = media\sounds\battle\in;
+        File = media\sounds\battle\in.aif;
+        ADPCM Filter = 1;
+        Format Tag = 0;
+        Channels = 2;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 144;
+        Play Region Length = 1137360;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 1;
+        Last Modified Low = 2052519936;
+        Last Modified High = 29470784;
+    }
+
+    Entry
+    {
+        Name = media\sounds\battle\lp1;
+        File = media\sounds\battle\lp1.aif;
+        ADPCM Filter = 1;
+        Format Tag = 0;
+        Channels = 2;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 148;
+        Play Region Length = 2258376;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 1;
+        Last Modified Low = 2112519936;
+        Last Modified High = 29470784;
+    }
+
+    Entry
+    {
+        Name = media\sounds\battle\lp2;
+        File = media\sounds\battle\lp2.aif;
+        ADPCM Filter = 1;
+        Format Tag = 0;
+        Channels = 2;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 148;
+        Play Region Length = 2257952;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 1;
+        Last Modified Low = 2152519936;
+        Last Modified High = 29470784;
+    }
+
+    Entry
+    {
+        Name = media\sounds\battle\lp3;
+        File = media\sounds\battle\lp3.aif;
+        ADPCM Filter = 1;
+        Format Tag = 0;
+        Channels = 2;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 148;
+        Play Region Length = 2258376;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 1;
+        Last Modified Low = 2232519936;
+        Last Modified High = 29470784;
+    }
+}
+
+Sound Layer
+{
+    Name = Music;
+}
+
+Sound Bank
+{
+    Name = IADemo;
+    Bank File = media\sounds\XactSounds.xsb;
+    Bank Last Modified Low = 0;
+    Bank Last Modified High = 0;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
+
+    Sound
+    {
+        Name = media\sounds\anfast_lp\strings_track1\in\in;
+        Linger = 1;
+        Layer = Music;
+
+        Track
+        {
+            Play with Pitch and Volume Variation
+            {
+                Pitch Low = 0;
+                Pitch High = 0;
+                Volume Low = 0;
+                Volume High = 0;
+
+                Registered Wave
+                {
+                    Wave Bank = HaloMusic;
+                    Wave Entry = media\sounds\anfast_lp\strings_track1\in\in;
+                    Wave Entry Index = 4;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = media\sounds\anfast_lp\strings_track1\loop\lps;
+        Linger = 1;
+        Layer = Music;
+
+        Track
+        {
+            Play with Pitch and Volume Variation
+            {
+                New Variation on Loop = 1;
+                Loop Count = 65535;
+                Pitch Low = 0;
+                Pitch High = 0;
+                Volume Low = 0;
+                Volume High = 0;
+
+                Registered Wave
+                {
+                    Wave Bank = HaloMusic;
+                    Wave Entry = media\sounds\anfast_lp\strings_track1\loop\lp1;
+                    Wave Entry Index = 5;
+                }
+
+                Registered Wave
+                {
+                    Wave Bank = HaloMusic;
+                    Wave Entry = media\sounds\anfast_lp\strings_track1\loop\lp2;
+                    Wave Entry Index = 6;
+                }
+
+                Registered Wave
+                {
+                    Wave Bank = HaloMusic;
+                    Wave Entry = media\sounds\anfast_lp\strings_track1\loop\lp3;
+                    Wave Entry Index = 7;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = media\sounds\anfast_lp\strings_track1\out\end;
+        Linger = 1;
+        Layer = Music;
+
+        Track
+        {
+            Play with Pitch and Volume Variation
+            {
+                Pitch Low = 0;
+                Pitch High = 0;
+                Volume Low = 0;
+                Volume High = 0;
+
+                Registered Wave
+                {
+                    Wave Bank = HaloMusic;
+                    Wave Entry = media\sounds\anfast_lp\strings_track1\out\end;
+                    Wave Entry Index = 8;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = media\sounds\anfast_lp\strings_track1\alt_loop\altlps;
+        Linger = 1;
+        Layer = Music;
+
+        Track
+        {
+            Play with Pitch and Volume Variation
+            {
+                New Variation on Loop = 1;
+                Loop Count = 65535;
+                Pitch Low = 0;
+                Pitch High = 0;
+                Volume Low = 0;
+                Volume High = 0;
+
+                Registered Wave
+                {
+                    Wave Bank = HaloMusic;
+                    Wave Entry = media\sounds\anfast_lp\strings_track1\alt_loop\altlp1;
+                    Wave Entry Index = 0;
+                }
+
+                Registered Wave
+                {
+                    Wave Bank = HaloMusic;
+                    Wave Entry = media\sounds\anfast_lp\strings_track1\alt_loop\altlp2;
+                    Wave Entry Index = 1;
+                }
+
+                Registered Wave
+                {
+                    Wave Bank = HaloMusic;
+                    Wave Entry = media\sounds\anfast_lp\strings_track1\alt_loop\altlp3;
+                    Wave Entry Index = 2;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = media\sounds\battle\in;
+        Linger = 1;
+        Layer = Music;
+
+        Track
+        {
+            Play with Pitch and Volume Variation
+            {
+                Pitch Low = 0;
+                Pitch High = 0;
+                Volume Low = 0;
+                Volume High = 0;
+
+                Registered Wave
+                {
+                    Wave Bank = HaloMusic;
+                    Wave Entry = media\sounds\battle\in;
+                    Wave Entry Index = 12;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = media\sounds\battle\lps;
+        Linger = 1;
+        Layer = Music;
+
+        Track
+        {
+            Play with Pitch and Volume Variation
+            {
+                New Variation on Loop = 1;
+                Loop Count = 65535;
+                Pitch Low = 0;
+                Pitch High = 0;
+                Volume Low = 0;
+                Volume High = 0;
+
+                Registered Wave
+                {
+                    Wave Bank = HaloMusic;
+                    Wave Entry = media\sounds\battle\lp1;
+                    Wave Entry Index = 13;
+                }
+
+                Registered Wave
+                {
+                    Wave Bank = HaloMusic;
+                    Wave Entry = media\sounds\battle\lp2;
+                    Wave Entry Index = 14;
+                }
+
+                Registered Wave
+                {
+                    Wave Bank = HaloMusic;
+                    Wave Entry = media\sounds\battle\lp3;
+                    Wave Entry Index = 15;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = media\sounds\battle\altlps;
+        Linger = 1;
+        Layer = Music;
+
+        Track
+        {
+            Play with Pitch and Volume Variation
+            {
+                New Variation on Loop = 1;
+                Loop Count = 65535;
+                Pitch Low = 0;
+                Pitch High = 0;
+                Volume Low = 0;
+                Volume High = 0;
+
+                Registered Wave
+                {
+                    Wave Bank = HaloMusic;
+                    Wave Entry = media\sounds\battle\altlp1;
+                    Wave Entry Index = 9;
+                }
+
+                Registered Wave
+                {
+                    Wave Bank = HaloMusic;
+                    Wave Entry = media\sounds\battle\altlp2;
+                    Wave Entry Index = 10;
+                }
+
+                Registered Wave
+                {
+                    Wave Bank = HaloMusic;
+                    Wave Entry = media\sounds\battle\altlp3;
+                    Wave Entry Index = 11;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = media\sounds\anfast_lp\strings_track1\alt_out\altend;
+        Linger = 1;
+        Layer = Music;
+
+        Track
+        {
+            Play with Pitch and Volume Variation
+            {
+                Pitch Low = 0;
+                Pitch High = 0;
+                Volume Low = 0;
+                Volume High = 0;
+
+                Registered Wave
+                {
+                    Wave Bank = HaloMusic;
+                    Wave Entry = media\sounds\anfast_lp\strings_track1\alt_out\altend;
+                    Wave Entry Index = 3;
+                }
+            }
+        }
+    }
+
+    Cue
+    {
+        Name = IACue;
+        Transition Table = 1;
+        Transition Variable = 0;
+        Playlist Type = 3;
+
+        Sound
+        {
+            Sound = media\sounds\battle\altlps;
+            Sound Index = 6;
+            Weight = 10000;
+            Weight Min = 7500;
+        }
+
+        Sound
+        {
+            Sound = media\sounds\battle\lps;
+            Sound Index = 5;
+            Weight = 7500;
+            Weight Min = 5000;
+        }
+
+        Sound
+        {
+            Sound = media\sounds\anfast_lp\strings_track1\alt_loop\altlps;
+            Sound Index = 3;
+            Weight = 4999;
+            Weight Min = 2500;
+        }
+
+        Sound
+        {
+            Sound = media\sounds\anfast_lp\strings_track1\loop\lps;
+            Sound Index = 1;
+            Weight = 3000;
+            Weight Min = 500;
+        }
+
+        Transition
+        {
+            To Sound = media\sounds\battle\altlps;
+            How Flags = Crossfade;
+            Fade-in Duration = 3000;
+            Fade-out Duration = 3000;
+        }
+
+        Transition
+        {
+            To Sound = media\sounds\battle\lps;
+            Transition Sound = media\sounds\battle\in;
+            How Flags = Sound;
+        }
+
+        Transition
+        {
+            To Sound = media\sounds\anfast_lp\strings_track1\alt_loop\altlps;
+            Transition Sound = media\sounds\anfast_lp\strings_track1\in\in;
+            How Flags = Sound;
+        }
+
+        Transition
+        {
+            To Sound = media\sounds\anfast_lp\strings_track1\loop\lps;
+            Transition Sound = media\sounds\anfast_lp\strings_track1\in\in;
+            How Flags = Sound;
+        }
+
+        Transition
+        {
+            From Sound = media\sounds\battle\altlps;
+            How Flags = Crossfade;
+            Fade-in Duration = 4000;
+            Fade-out Duration = 4000;
+        }
+
+        Transition
+        {
+            From Sound = media\sounds\battle\altlps;
+            To Sound = media\sounds\battle\lps;
+            From Flags = End of Loop;
+        }
+
+        Transition
+        {
+            From Sound = media\sounds\battle\altlps;
+            To Sound = media\sounds\anfast_lp\strings_track1\alt_loop\altlps;
+            How Flags = Crossfade;
+            Fade-in Duration = 4000;
+            Fade-out Duration = 4000;
+        }
+
+        Transition
+        {
+            From Sound = media\sounds\battle\altlps;
+            To Sound = media\sounds\anfast_lp\strings_track1\loop\lps;
+            How Flags = Crossfade;
+            Fade-in Duration = 4000;
+            Fade-out Duration = 4000;
+        }
+
+        Transition
+        {
+            From Sound = media\sounds\battle\lps;
+            How Flags = Crossfade;
+            Fade-in Duration = 4000;
+            Fade-out Duration = 4000;
+        }
+
+        Transition
+        {
+            From Sound = media\sounds\battle\lps;
+            To Sound = media\sounds\battle\altlps;
+            From Flags = End of Loop;
+        }
+
+        Transition
+        {
+            From Sound = media\sounds\battle\lps;
+            To Sound = media\sounds\anfast_lp\strings_track1\alt_loop\altlps;
+            How Flags = Crossfade;
+            Fade-in Duration = 4000;
+            Fade-out Duration = 4000;
+        }
+
+        Transition
+        {
+            From Sound = media\sounds\battle\lps;
+            To Sound = media\sounds\anfast_lp\strings_track1\loop\lps;
+            How Flags = Crossfade;
+            Fade-in Duration = 4000;
+            Fade-out Duration = 4000;
+        }
+
+        Transition
+        {
+            From Sound = media\sounds\anfast_lp\strings_track1\alt_loop\altlps;
+            Transition Sound = media\sounds\anfast_lp\strings_track1\alt_out\altend;
+            From Flags = End of Loop;
+            How Flags = Sound;
+        }
+
+        Transition
+        {
+            From Sound = media\sounds\anfast_lp\strings_track1\alt_loop\altlps;
+            To Sound = media\sounds\battle\altlps;
+            Transition Sound = media\sounds\battle\in;
+            How Flags = Crossfade;
+            How Flags = Sound;
+            Fade-in Duration = 3000;
+            Fade-out Duration = 3000;
+        }
+
+        Transition
+        {
+            From Sound = media\sounds\anfast_lp\strings_track1\alt_loop\altlps;
+            To Sound = media\sounds\battle\lps;
+            Transition Sound = media\sounds\battle\in;
+            How Flags = Crossfade;
+            How Flags = Sound;
+            Fade-in Duration = 0;
+            Fade-out Duration = 0;
+        }
+
+        Transition
+        {
+            From Sound = media\sounds\anfast_lp\strings_track1\alt_loop\altlps;
+            To Sound = media\sounds\anfast_lp\strings_track1\loop\lps;
+            From Flags = End of Loop;
+        }
+
+        Transition
+        {
+            From Sound = media\sounds\anfast_lp\strings_track1\loop\lps;
+            Transition Sound = media\sounds\anfast_lp\strings_track1\out\end;
+            From Flags = End of Loop;
+            How Flags = Sound;
+        }
+
+        Transition
+        {
+            From Sound = media\sounds\anfast_lp\strings_track1\loop\lps;
+            To Sound = media\sounds\battle\altlps;
+            Transition Sound = media\sounds\battle\in;
+            How Flags = Sound;
+        }
+
+        Transition
+        {
+            From Sound = media\sounds\anfast_lp\strings_track1\loop\lps;
+            To Sound = media\sounds\battle\lps;
+            Transition Sound = media\sounds\battle\in;
+            How Flags = Sound;
+        }
+
+        Transition
+        {
+            From Sound = media\sounds\anfast_lp\strings_track1\loop\lps;
+            To Sound = media\sounds\anfast_lp\strings_track1\alt_loop\altlps;
+            From Flags = End of Loop;
+        }
+    }
+}

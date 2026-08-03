@@ -1,0 +1,35 @@
+xps.1.1              // use Xbox extensions
+
+def c0, 1.0f, 0.0f, 0.0f, 0.0f
+def c1, 0.0f, 1.0f, 0.0f, 0.0f
+
+#define	RED	c0
+#define	GREEN c1
+
+//--- Texture Stages ---
+tex t0
+tex t1
+tex t2
+tex t3
+
+// THREE_STAGE_VERSION_OVERSATURATE
+// This version does the multiply by two early, which causes
+// clipping - oversaturation - which changes the result on bright
+// areas.
+
+; Calculate r0 = v1 dot c0, r1 = v1 dot c1
+xdd r0.rgb, r1.rgb, v1.rgb, RED.rgb, v1.rgb, GREEN.rgb
++mov r0.a, v1.b
+
+; Calculate r0 = 2 * (t0 * r0 + t1 * r1)
+; This gives us r0 = 2 * (t0 * (v1 dot c0) + t1 * (v1 dot c1))
+xmma_x2 discard.rgb, discard.rgb, r0.rgb, t0.rgb, r0.rgb, t1.rgb, r1.rgb
+
+; Calculate r1 = 2 * (t2 * v1.b + t3.rgb * v1.a)
+xmma_x2 discard.rgb, discard.rgb, r1.rgb, t2.rgb, r0.a, t3.rgb, v1.a
+
+; Use the final combiner to finish up.
+; This implements result = v0 * r0 + prod, where prod = v0 * r1
+; Thus, this implements result = v0 * r0 + v0 * r1,
+; or result = v0 * (r0 + r1)
+xfc v0, r0, zero, prod, v0, r1, zero

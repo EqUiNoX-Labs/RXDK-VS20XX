@@ -1,0 +1,56 @@
+// List of resources to bundle.
+//
+// The output will be a header file (.h) used at compile time,
+// and a packed resource file (.xpr) used at runtime.
+
+out_version        XPR1
+out_packedresource Media\Resource.xpr
+out_error          Resource.err
+
+Texture M0CM0
+{
+   Name   M0CM0.bmp
+   Source Media\Textures\M0CM0.bmp
+   Format D3DFMT_X8R8G8B8
+   Levels 0
+}
+
+Texture M0BM0
+{
+   Name   M0BM0.bmp
+   Source Media\Textures\M0BM0.bmp
+   Format D3DFMT_X8R8G8B8
+   Levels 0
+}
+
+Texture M1CM0
+{
+   Name   M1CM0.bmp
+   Source Media\Textures\M1CM0.bmp
+   Format D3DFMT_X8R8G8B8
+   Levels 0
+}
+
+Texture M1BM0
+{
+   Name   M1BM0.bmp
+   Source Media\Textures\M1BM0.bmp
+   Format D3DFMT_X8R8G8B8
+   Levels 0
+}
+
+Texture M2CM0
+{
+   Name   M2CM0.bmp
+   Source Media\Textures\M2CM0.bmp
+   Format D3DFMT_X8R8G8B8
+   Levels 0
+}
+
+Texture M2BM0
+{
+   Name   M2BM0.bmp
+   Source Media\Textures\M2BM0.bmp
+   Format D3DFMT_X8R8G8B8
+   Levels 0
+}

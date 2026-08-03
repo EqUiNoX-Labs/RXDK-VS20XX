@@ -1,0 +1,17 @@
+// List of resources to bundle.
+//
+// The output will be a header file (.h) used at compile time,
+// and a packed resource file (.xpr) used at runtime.
+
+out_header         WaterFog.h
+out_packedresource WaterFog.xpr
+out_error          WaterFog.err
+
+
+Texture WaterFog
+{
+   Source WaterFog.tga
+   Format D3DFMT_A8R8G8B8
+   Levels 3
+}
+

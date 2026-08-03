@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<XboxLiveSubmissionProject Version="1.0">
+	<Statsv3Project clsid="{27470528-071B-49AB-8728-5876DA0CBA64}" ProjectName="Integrated" TitleID="FFEDAAAB" WebEnabled="true" Default_Locale="13160" EnabledLocales="13160," LargestLeaderboardID="3" DecayDays="7">
+		<IndividualLeaderboardContainer clsid="{4AAC0619-9B1A-415D-A62C-E4CDB73BC7D5}">
+			<IndividualLeaderboard clsid="{718B40F7-B594-4CB9-A108-515D9BB1D520}" LeaderboardName="Leaderboard 3" ID="3" ResetType="0" MaxAttachments="0" MaxAttachmentSize="0" EntryExpiration="7" OnlyTopEntries="false" Arbitrate="true" UsesELO="true" TeamsLeaderboard="true" InitialPlayerRating="32000" RatingScaleFactor="1000" ExponentialBase="0" RatingRangeWeights="0,500;" WebVisibleAttributeIndices="" AttributeIndicesContainingPUIDs="" NamesForLocales="13160=Leaderboard&amp;&amp;&amp;" WebEnabled="true" LargestAttributeID="64"/>
+			<IndividualLeaderboard clsid="{718B40F7-B594-4CB9-A108-515D9BB1D520}" LeaderboardName="Leaderboard 2" ID="2" ResetType="0" MaxAttachments="0" MaxAttachmentSize="0" EntryExpiration="7" OnlyTopEntries="false" Arbitrate="true" UsesELO="false" TeamsLeaderboard="false" InitialPlayerRating="32000" RatingScaleFactor="1000" ExponentialBase="0" RatingRangeWeights="0,500;" WebVisibleAttributeIndices="" AttributeIndicesContainingPUIDs="" NamesForLocales="13160=Leaderboard&amp;&amp;&amp;" WebEnabled="true" LargestAttributeID="64"/>
+		</IndividualLeaderboardContainer>
+		<UnitLeaderboardContainer clsid="{6A3AB7C2-CFC1-4219-99D7-269F6B15C959}"/>
+		<CompetitionLeaderboardContainer clsid="{8A6BC689-B203-4C1B-9EBD-3725BE673E42}">
+			<CompetitionLeaderboard clsid="{234609B8-6DDF-430C-A71B-497D140C1945}" LeaderboardName="Leaderboard 1" ID="1" MaxAttachments="0" MaxAttachmentSize="0" EntryExpiration="0" OnlyTopEntries="false" Arbitrate="true" UsesELO="false" TeamsLeaderboard="true" InitialPlayerRating="32000" RatingScaleFactor="1000" ExponentialBase="0" RatingRangeWeights="0,500;" WebVisibleAttributeIndices="" AttributeIndicesContainingPUIDs="" NamesForLocales="13160=&amp;&amp;&amp;" WebEnabled="false" LargestAttributeID="64"/>
+		</CompetitionLeaderboardContainer>
+	</Statsv3Project>
+</XboxLiveSubmissionProject>

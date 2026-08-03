@@ -1,0 +1,248 @@
+Signature = XACT;
+Version = 9;
+
+Options
+{
+    Project Header File = ressound.h;
+    Cue List File = audio.txt;
+}
+
+Wave Bank
+{
+    Name = UIXKeyboard;
+    Bank File = Media\UIXKeyboard.xwb;
+    Entry Names = 1;
+    Bank Last Modified Low = 2648645660;
+    Bank Last Modified High = 29602958;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
+
+    Entry
+    {
+        Name = KeyPress;
+        File = UIXMedia\Click.wav;
+        ADPCM Filter = 1;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 44;
+        Play Region Length = 17152;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 4116889600;
+        Last Modified High = 29602400;
+    }
+
+    Entry
+    {
+        Name = SteelDrumDing;
+        File = UIXMedia\SteelDrumDing.wav;
+        ADPCM Filter = 1;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 22050;
+        Bits Per Sample = 1;
+        Play Region Offset = 44;
+        Play Region Length = 15330;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 4116889600;
+        Last Modified High = 29602400;
+    }
+
+    Entry
+    {
+        Name = Bling;
+        File = UIXMedia\Bling.wav;
+        ADPCM Filter = 1;
+        Format Tag = 0;
+        Channels = 2;
+        Sampling Rate = 48000;
+        Bits Per Sample = 1;
+        Play Region Offset = 44;
+        Play Region Length = 85744;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 4116889600;
+        Last Modified High = 29602400;
+    }
+
+    Entry
+    {
+        Name = Chuw;
+        File = UIXMedia\Chuw.wav;
+        ADPCM Filter = 1;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 48000;
+        Bits Per Sample = 1;
+        Play Region Offset = 44;
+        Play Region Length = 19840;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 4116889600;
+        Last Modified High = 29602400;
+    }
+}
+
+Sound Group
+{
+    Name = Mixing;
+}
+
+Sound Layer
+{
+    Name = menu;
+}
+
+Sound Bank
+{
+    Name = UIXKeyboard;
+    Bank File = Media\UIXKeyboard.xsb;
+    Bank Last Modified Low = 2648801519;
+    Bank Last Modified High = 29602958;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
+
+    Sound
+    {
+        Name = KeyPress;
+
+        Track
+        {
+            Play with Pitch and Volume Variation
+            {
+                Pitch Low = 0;
+                Pitch High = 0;
+                Volume Low = 0;
+                Volume High = 0;
+
+                Registered Wave
+                {
+                    Wave Bank = UIXKeyboard;
+                    Wave Entry = KeyPress;
+                    Wave Entry Index = 0;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = SteelDrumDing;
+
+        Track
+        {
+            Play with Pitch and Volume Variation
+            {
+                Pitch Low = 0;
+                Pitch High = 0;
+                Volume Low = 0;
+                Volume High = 0;
+
+                Registered Wave
+                {
+                    Wave Bank = UIXKeyboard;
+                    Wave Entry = SteelDrumDing;
+                    Wave Entry Index = 1;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = Bling;
+
+        Track
+        {
+            Play with Pitch and Volume Variation
+            {
+                Pitch Low = 0;
+                Pitch High = 0;
+                Volume Low = 0;
+                Volume High = 0;
+
+                Registered Wave
+                {
+                    Wave Bank = UIXKeyboard;
+                    Wave Entry = Bling;
+                    Wave Entry Index = 2;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = Chuw;
+
+        Track
+        {
+            Play with Pitch and Volume Variation
+            {
+                Pitch Low = 0;
+                Pitch High = 0;
+                Volume Low = 0;
+                Volume High = 0;
+
+                Registered Wave
+                {
+                    Wave Bank = UIXKeyboard;
+                    Wave Entry = Chuw;
+                    Wave Entry Index = 3;
+                }
+            }
+        }
+    }
+
+    Cue
+    {
+        Name = KEYBOARD_KEYPRESS;
+        Comment = Play this cue when "a" button pressed;
+
+        Sound
+        {
+            Sound = KeyPress;
+            Sound Index = 0;
+        }
+    }
+
+    Cue
+    {
+        Name = KEYBOARD_DONE;
+
+        Sound
+        {
+            Sound = SteelDrumDing;
+            Sound Index = 1;
+        }
+    }
+
+    Cue
+    {
+        Name = KEYBOARD_ACTION;
+
+        Sound
+        {
+            Sound = Bling;
+            Sound Index = 2;
+        }
+    }
+
+    Cue
+    {
+        Name = KEYBOARD_BACK;
+
+        Sound
+        {
+            Sound = Chuw;
+            Sound Index = 3;
+        }
+    }
+}

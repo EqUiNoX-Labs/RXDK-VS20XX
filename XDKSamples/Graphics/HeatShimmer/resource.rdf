@@ -1,0 +1,106 @@
+// List of resources to bundle.
+//
+// The output will be a header file (.h) used at compile time,
+// and a packed resource file (.xpr) used at runtime.
+
+out_version        XPR1
+out_packedresource Media\Resource.xpr
+out_error          Resource.err
+
+Texture Shimmer0
+{
+   Source Media\Textures\Shimmer0.bmp
+   Format D3DFMT_DXT1
+   Filter TRIANGLE|WRAP
+   Width  128
+   Height 128
+   Levels 1
+}
+Texture Shimmer1
+{
+   Source Media\Textures\Shimmer1.bmp
+   Format D3DFMT_DXT1
+   Filter TRIANGLE|WRAP
+   Width  128
+   Height 128
+   Levels 1
+}
+Texture Shimmer2
+{
+   Source Media\Textures\Shimmer2.bmp
+   Format D3DFMT_DXT1
+   Filter TRIANGLE|WRAP
+   Width  128
+   Height 128
+   Levels 1
+}
+Texture DesertSky_front
+{
+   Name   DesertSky_front.bmp
+   Source Media\Textures\DesertSky_front.bmp
+   Format D3DFMT_X8R8G8B8
+   Levels 1
+}
+Texture DesertSky_back
+{
+   Name   DesertSky_back.bmp
+   Source Media\Textures\DesertSky_back.bmp
+   Format D3DFMT_X8R8G8B8
+   Levels 1
+}
+Texture DesertSky_left
+{
+   Name   DesertSky_left.bmp
+   Source Media\Textures\DesertSky_left.bmp
+   Format D3DFMT_X8R8G8B8
+   Levels 1
+}
+Texture DesertSky_right
+{
+   Name   DesertSky_right.bmp
+   Source Media\Textures\DesertSky_right.bmp
+   Format D3DFMT_X8R8G8B8
+   Levels 1
+}
+Texture DesertSky_up
+{
+   Name   DesertSky_up.bmp
+   Source Media\Textures\DesertSky_up.bmp
+   Format D3DFMT_X8R8G8B8
+   Levels 1
+}
+Texture Cactus
+{
+   Name   Cactus.bmp
+   Source Media\Textures\Cactus.bmp
+   Format D3DFMT_A8R8G8B8
+   Levels 0
+}
+Texture Clump
+{
+   Name   Clump.bmp
+   Source Media\Textures\Clump.bmp
+   Format D3DFMT_A8R8G8B8
+   Levels 0
+}
+Texture Desert_Color
+{
+   Name   Desert_Color.bmp
+   Source Media\Textures\Desert_Color.bmp
+   Format D3DFMT_A8R8G8B8
+   Levels 0
+}
+Texture Rock
+{
+   Name   Rock.bmp
+   Source Media\Textures\Rock.bmp
+   Format D3DFMT_A8R8G8B8
+   Levels 0
+}
+Texture Tower
+{
+   Name   Tower.bmp
+   Source Media\Textures\Tower.bmp
+   Format D3DFMT_A8R8G8B8
+   Levels 0
+}

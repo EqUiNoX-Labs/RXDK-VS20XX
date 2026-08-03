@@ -1,0 +1,824 @@
+Signature = XACT;
+Version = 8;
+
+Options
+{
+    Project Header File = XactSounds.h;
+    Cue List File = XactSounds.txt;
+}
+
+Wave Bank
+{
+    Name = ParamControl;
+    Bank File = media\sounds\XactSounds_memory.xwb;
+    Entry Names = 1;
+    Bank Last Modified Low = 3231751168;
+    Bank Last Modified High = 29530692;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
+
+    Entry
+    {
+        Name = 01_Idle;
+        File = media\sounds\01_Idle.wav;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 1024;
+        Play Region Length = 250050;
+        Loop Region Offset = 0;
+        Loop Region Length = 250050;
+        File Type = 0;
+        Last Modified Low = 2726326016;
+        Last Modified High = 29530679;
+    }
+
+    Entry
+    {
+        Name = 02_RPM;
+        File = media\sounds\02_RPM.wav;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 1024;
+        Play Region Length = 207360;
+        Loop Region Offset = 0;
+        Loop Region Length = 207302;
+        File Type = 0;
+        Last Modified Low = 2726326016;
+        Last Modified High = 29530679;
+    }
+
+    Entry
+    {
+        Name = 03_RPM;
+        File = media\sounds\03_RPM.wav;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 1024;
+        Play Region Length = 193902;
+        Loop Region Offset = 0;
+        Loop Region Length = 193902;
+        File Type = 0;
+        Last Modified Low = 2726326016;
+        Last Modified High = 29530679;
+    }
+
+    Entry
+    {
+        Name = 04_RPM;
+        File = media\sounds\04_RPM.wav;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 1024;
+        Play Region Length = 183810;
+        Loop Region Offset = 0;
+        Loop Region Length = 183810;
+        File Type = 0;
+        Last Modified Low = 2726326016;
+        Last Modified High = 29530679;
+    }
+
+    Entry
+    {
+        Name = 05_RPM;
+        File = media\sounds\05_RPM.wav;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 1024;
+        Play Region Length = 151714;
+        Loop Region Offset = 0;
+        Loop Region Length = 151714;
+        File Type = 0;
+        Last Modified Low = 2726326016;
+        Last Modified High = 29530679;
+    }
+}
+
+Sound Layer
+{
+    Name = Engine RPMS;
+}
+
+Sound Bank
+{
+    Name = ParamControl;
+    Bank File = media\sounds\XactSounds.xsb;
+    Bank Last Modified Low = 3231751168;
+    Bank Last Modified High = 29530692;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
+
+    Sound
+    {
+        Name = 01_Idle;
+        Headroom Boost = 1;
+        Layer = Engine RPMS;
+
+        Track
+        {
+            Play with Pitch and Volume Variation
+            {
+                Loop Count = 65535;
+                Pitch Low = 0;
+                Pitch High = 0;
+                Volume Low = 0;
+                Volume High = 0;
+
+                Registered Wave
+                {
+                    Wave Bank = ParamControl;
+                    Wave Entry = 01_Idle;
+                    Wave Entry Index = 0;
+                }
+            }
+        }
+
+        Parameter Control
+        {
+            Name = RPM;
+
+            Mapping
+            {
+                Type = 0;
+                Track Index = 0;
+                Deviation = 0;
+                Deviation = 0;
+                Deviation = 0;
+
+                Coordinates
+                {
+                    X = 0;
+                    Y = -826;
+                }
+
+                Coordinates
+                {
+                    X = 15897;
+                    Y = -1084;
+                }
+
+                Coordinates
+                {
+                    X = 48989;
+                    Y = -362;
+                }
+
+                Coordinates
+                {
+                    X = 65535;
+                    Y = -207;
+                }
+            }
+
+            Mapping
+            {
+                Type = 1;
+                Track Index = 0;
+                Deviation = 0;
+                Deviation = 0;
+                Deviation = 0;
+
+                Coordinates
+                {
+                    X = 0;
+                    Y = 500;
+                }
+
+                Coordinates
+                {
+                    X = 11030;
+                    Y = 116;
+                }
+
+                Coordinates
+                {
+                    X = 28225;
+                    Y = 1277;
+                }
+
+                Coordinates
+                {
+                    X = 46394;
+                    Y = 1625;
+                }
+            }
+
+            Mapping
+            {
+                Type = 2;
+                Track Index = 0;
+                Deviation = 0;
+                Deviation = 0;
+                Deviation = 0;
+
+                Coordinates
+                {
+                    X = 0;
+                    Y = 7597;
+                }
+
+                Coordinates
+                {
+                    X = 24657;
+                    Y = 7267;
+                }
+
+                Coordinates
+                {
+                    X = 48340;
+                    Y = 7002;
+                }
+
+                Coordinates
+                {
+                    X = 65535;
+                    Y = 6474;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = 02_RPM;
+        Volume = -301;
+        Layer = Engine RPMS;
+
+        Track
+        {
+            Play with Pitch and Volume Variation
+            {
+                Loop Count = 65535;
+                Pitch Low = 0;
+                Pitch High = 0;
+                Volume Low = 0;
+                Volume High = 0;
+
+                Registered Wave
+                {
+                    Wave Bank = ParamControl;
+                    Wave Entry = 02_RPM;
+                    Wave Entry Index = 1;
+                }
+            }
+        }
+
+        Parameter Control
+        {
+            Name = RPM;
+
+            Mapping
+            {
+                Type = 0;
+                Track Index = 0;
+                Deviation = 0;
+                Deviation = 0;
+                Deviation = 0;
+
+                Coordinates
+                {
+                    X = 0;
+                    Y = -1188;
+                }
+
+                Coordinates
+                {
+                    X = 17195;
+                    Y = -1497;
+                }
+
+                Coordinates
+                {
+                    X = 48989;
+                    Y = -413;
+                }
+
+                Coordinates
+                {
+                    X = 64562;
+                    Y = -310;
+                }
+            }
+
+            Mapping
+            {
+                Type = 1;
+                Track Index = 0;
+                Deviation = 0;
+                Deviation = 0;
+                Deviation = 0;
+
+                Coordinates
+                {
+                    X = 0;
+                    Y = -271;
+                }
+
+                Coordinates
+                {
+                    X = 14924;
+                    Y = -388;
+                }
+
+                Coordinates
+                {
+                    X = 37958;
+                    Y = 658;
+                }
+
+                Coordinates
+                {
+                    X = 54505;
+                    Y = 967;
+                }
+            }
+
+            Mapping
+            {
+                Type = 2;
+                Track Index = 0;
+                Deviation = 0;
+                Deviation = 0;
+                Deviation = 0;
+
+                Coordinates
+                {
+                    X = 0;
+                    Y = 8192;
+                }
+
+                Coordinates
+                {
+                    X = 31794;
+                    Y = 8059;
+                }
+
+                Coordinates
+                {
+                    X = 47367;
+                    Y = 7993;
+                }
+
+                Coordinates
+                {
+                    X = 65535;
+                    Y = 7795;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = 03_RPM;
+        Volume = -376;
+        Layer = Engine RPMS;
+
+        Track
+        {
+            Play with Pitch and Volume Variation
+            {
+                Loop Count = 65535;
+                Pitch Low = 0;
+                Pitch High = 0;
+                Volume Low = 0;
+                Volume High = 0;
+
+                Registered Wave
+                {
+                    Wave Bank = ParamControl;
+                    Wave Entry = 03_RPM;
+                    Wave Entry Index = 2;
+                }
+            }
+        }
+
+        Parameter Control
+        {
+            Name = RPM;
+
+            Mapping
+            {
+                Type = 0;
+                Track Index = 0;
+                Deviation = 0;
+                Deviation = 0;
+                Deviation = 0;
+
+                Coordinates
+                {
+                    X = 324;
+                    Y = -1188;
+                }
+
+                Coordinates
+                {
+                    X = 16870;
+                    Y = -1755;
+                }
+
+                Coordinates
+                {
+                    X = 46394;
+                    Y = -671;
+                }
+
+                Coordinates
+                {
+                    X = 64562;
+                    Y = -465;
+                }
+            }
+
+            Mapping
+            {
+                Type = 1;
+                Track Index = 0;
+                Deviation = 0;
+                Deviation = 0;
+                Deviation = 0;
+
+                Coordinates
+                {
+                    X = 0;
+                    Y = -349;
+                }
+
+                Coordinates
+                {
+                    X = 11355;
+                    Y = -620;
+                }
+
+                Coordinates
+                {
+                    X = 35039;
+                    Y = 387;
+                }
+
+                Coordinates
+                {
+                    X = 53207;
+                    Y = 851;
+                }
+            }
+
+            Mapping
+            {
+                Type = 2;
+                Track Index = 0;
+                Deviation = 0;
+                Deviation = 0;
+                Deviation = 0;
+
+                Coordinates
+                {
+                    X = 0;
+                    Y = 8192;
+                }
+
+                Coordinates
+                {
+                    X = 29199;
+                    Y = 7993;
+                }
+
+                Coordinates
+                {
+                    X = 47043;
+                    Y = 7861;
+                }
+
+                Coordinates
+                {
+                    X = 65535;
+                    Y = 7597;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = 04_RPM;
+        Volume = -452;
+        Layer = Engine RPMS;
+
+        Track
+        {
+            Play with Pitch and Volume Variation
+            {
+                Loop Count = 65535;
+                Pitch Low = 0;
+                Pitch High = 0;
+                Volume Low = 0;
+                Volume High = 0;
+
+                Registered Wave
+                {
+                    Wave Bank = ParamControl;
+                    Wave Entry = 04_RPM;
+                    Wave Entry Index = 3;
+                }
+            }
+        }
+
+        Parameter Control
+        {
+            Name = RPM;
+
+            Mapping
+            {
+                Type = 0;
+                Track Index = 0;
+                Deviation = 0;
+                Deviation = 0;
+                Deviation = 0;
+
+                Coordinates
+                {
+                    X = 0;
+                    Y = -1394;
+                }
+
+                Coordinates
+                {
+                    X = 16546;
+                    Y = -1807;
+                }
+
+                Coordinates
+                {
+                    X = 47692;
+                    Y = -568;
+                }
+
+                Coordinates
+                {
+                    X = 65535;
+                    Y = -310;
+                }
+            }
+
+            Mapping
+            {
+                Type = 1;
+                Track Index = 0;
+                Deviation = 0;
+                Deviation = 0;
+                Deviation = 0;
+
+                Coordinates
+                {
+                    X = 0;
+                    Y = -697;
+                }
+
+                Coordinates
+                {
+                    X = 12652;
+                    Y = -891;
+                }
+
+                Coordinates
+                {
+                    X = 36012;
+                    Y = -78;
+                }
+
+                Coordinates
+                {
+                    X = 51585;
+                    Y = 348;
+                }
+            }
+
+            Mapping
+            {
+                Type = 2;
+                Track Index = 0;
+                Deviation = 0;
+                Deviation = 0;
+                Deviation = 0;
+
+                Coordinates
+                {
+                    X = 0;
+                    Y = 8192;
+                }
+
+                Coordinates
+                {
+                    X = 23683;
+                    Y = 8059;
+                }
+
+                Coordinates
+                {
+                    X = 45096;
+                    Y = 7795;
+                }
+
+                Coordinates
+                {
+                    X = 65535;
+                    Y = 7531;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = 05_RPM;
+        Volume = -527;
+        Layer = Engine RPMS;
+
+        Track
+        {
+            Play with Pitch and Volume Variation
+            {
+                Loop Count = 65535;
+                Pitch Low = 0;
+                Pitch High = 0;
+                Volume Low = 0;
+                Volume High = 0;
+
+                Registered Wave
+                {
+                    Wave Bank = ParamControl;
+                    Wave Entry = 05_RPM;
+                    Wave Entry Index = 4;
+                }
+            }
+        }
+
+        Parameter Control
+        {
+            Name = RPM;
+
+            Mapping
+            {
+                Type = 0;
+                Track Index = 0;
+                Deviation = 0;
+                Deviation = 0;
+                Deviation = 0;
+
+                Coordinates
+                {
+                    X = 0;
+                    Y = -1084;
+                }
+
+                Coordinates
+                {
+                    X = 15248;
+                    Y = -1497;
+                }
+
+                Coordinates
+                {
+                    X = 47043;
+                    Y = -517;
+                }
+
+                Coordinates
+                {
+                    X = 65535;
+                    Y = -207;
+                }
+            }
+
+            Mapping
+            {
+                Type = 1;
+                Track Index = 0;
+                Deviation = 0;
+                Deviation = 0;
+                Deviation = 0;
+
+                Coordinates
+                {
+                    X = 0;
+                    Y = -426;
+                }
+
+                Coordinates
+                {
+                    X = 15572;
+                    Y = -697;
+                }
+
+                Coordinates
+                {
+                    X = 39581;
+                    Y = 77;
+                }
+
+                Coordinates
+                {
+                    X = 65535;
+                    Y = 580;
+                }
+            }
+
+            Mapping
+            {
+                Type = 2;
+                Track Index = 0;
+                Deviation = 0;
+                Deviation = 0;
+                Deviation = 0;
+
+                Coordinates
+                {
+                    X = 0;
+                    Y = 8192;
+                }
+
+                Coordinates
+                {
+                    X = 23359;
+                    Y = 8059;
+                }
+
+                Coordinates
+                {
+                    X = 42501;
+                    Y = 7663;
+                }
+
+                Coordinates
+                {
+                    X = 63913;
+                    Y = 7333;
+                }
+            }
+        }
+    }
+
+    Cue
+    {
+        Name = 01_Idle;
+
+        Sound
+        {
+            Sound = 01_Idle;
+            Sound Index = 0;
+        }
+    }
+
+    Cue
+    {
+        Name = 02_RPM;
+
+        Sound
+        {
+            Sound = 02_RPM;
+            Sound Index = 1;
+        }
+    }
+
+    Cue
+    {
+        Name = 03_RPM;
+
+        Sound
+        {
+            Sound = 03_RPM;
+            Sound Index = 2;
+        }
+    }
+
+    Cue
+    {
+        Name = 04_RPM;
+
+        Sound
+        {
+            Sound = 04_RPM;
+            Sound Index = 3;
+        }
+    }
+
+    Cue
+    {
+        Name = 05_RPM;
+
+        Sound
+        {
+            Sound = 05_RPM;
+            Sound Index = 4;
+        }
+    }
+}

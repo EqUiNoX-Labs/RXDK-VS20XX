@@ -1,0 +1,19 @@
+;------------------------------------------------------------------------------
+; Blends new "Hot" image with previous "hot" image that has been cooled a bit.
+;
+; Copyright (C) 2002 Microsoft Corporation
+; All rights reserved.
+;------------------------------------------------------------------------------
+xps.1.1
+
+def c0, 0.95f, 0.95f, 0.95f, 0.95f  ; Rate at which cooling occurs
+def c1, 0.08f, 0.08f, 0.08f, 0.08f  ; Blend factor of current image
+
+; source textures
+tex t0		;Previous "hot" image
+tex t1		;Current "hot" image
+
+xmma discard, discard, r0, t0, c0, t1, c1
+
+xfc zero, zero, zero, r0, zero, zero, r0.a	
+

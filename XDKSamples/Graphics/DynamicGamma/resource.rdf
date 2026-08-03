@@ -1,0 +1,124 @@
+// List of resources to bundle.
+//
+// The output will be a header file (.h) used at compile time,
+// and a packed resource file (.xpr) used at runtime.
+
+out_version        XPR1
+out_packedresource Media\Resource.xpr
+out_error          Resource.err
+out_prefix         resource
+
+
+Texture Crypt_skybox_back
+{
+   Name   Crypt_skybox_back.bmp
+   Source Media\Textures\Crypt_skybox_back.bmp
+   Format D3DFMT_X8R8G8B8
+   Levels 1
+}
+
+Texture Crypt_skybox_front
+{
+   Name   Crypt_skybox_front.bmp
+   Source Media\Textures\Crypt_skybox_front.bmp
+   Format D3DFMT_X8R8G8B8
+   Levels 1
+}
+
+Texture Crypt_skybox_left
+{
+   Name   Crypt_skybox_left.bmp
+   Source Media\Textures\Crypt_skybox_left.bmp
+   Format D3DFMT_X8R8G8B8
+   Levels 1
+}
+
+Texture Crypt_skybox_right
+{
+   Name   Crypt_skybox_right.bmp
+   Source Media\Textures\Crypt_skybox_right.bmp
+   Format D3DFMT_X8R8G8B8
+   Levels 1
+}
+
+Texture Crypt_skybox_up
+{
+   Name   Crypt_skybox_up.bmp
+   Source Media\Textures\Crypt_skybox_up.bmp
+   Format D3DFMT_X8R8G8B8
+   Levels 1
+}
+
+Texture DesertMap
+{
+   Name   DesertMap.bmp
+   Source Media\Textures\DesertMap.bmp
+   Format D3DFMT_DXT1
+   Levels 0
+}
+
+Texture DoorShuttersInside
+{
+   Name   DoorShuttersInside.bmp
+   Source Media\Textures\DoorShuttersInside.bmp
+   Format D3DFMT_DXT1
+   Levels 0
+}
+
+Texture DoorShuttersOutside
+{
+   Name   DoorShuttersOutside.bmp
+   Source Media\Textures\DoorShuttersOutside.bmp
+   Format D3DFMT_DXT1
+   Levels 0
+}
+
+Texture Exterior_Crypt
+{
+   Name   Exterior_Crypt.bmp
+   Source Media\Textures\Exterior_Crypt.bmp
+   Format D3DFMT_DXT1
+   Levels 0
+}
+
+Texture FirePit
+{
+   Name   FirePit.bmp
+   Source Media\Textures\FirePit.bmp
+   Format D3DFMT_DXT1
+   Levels 0
+}
+
+Texture Floor
+{
+   Name   Floor.bmp
+   Source Media\Textures\Floor.bmp
+   Format D3DFMT_DXT1
+   Levels 0
+}
+
+Texture Interior
+{
+   Name   Interior.bmp
+   Source Media\Textures\Interior.bmp
+   Format D3DFMT_DXT1
+   Levels 0
+}
+
+Texture Trogmap3
+{
+   Name   Trogmap3.bmp
+   Source Media\Textures\Trogmap3.bmp
+   Format D3DFMT_DXT1
+   Levels 0
+}
+
+Texture Hud
+{
+   Name   Hud.tga
+   Source Media\Textures\Hud.bmp
+   AlphaSource Media\Textures\Huda.bmp
+   Format D3DFMT_A8R8G8B8
+   Levels 1
+}
+

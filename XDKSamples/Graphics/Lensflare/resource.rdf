@@ -1,0 +1,63 @@
+// List of resources to bundle.
+//
+// The output will be a header file (.h) used at compile time,
+// and a packed resource file (.xpr) used at runtime.
+
+out_version        XPR1
+out_packedresource Media\Resource.xpr
+out_error          Resource.err
+
+
+Texture stonehengeground512
+{
+
+   Source Media\Textures\stonehengeground512.bmp
+   Format D3DFMT_A8R8G8B8
+   Filter TRIANGLE|WRAP
+   Levels 0
+}
+
+Texture leaf
+{
+   Source Media\Textures\leaf.tga
+   Format D3DFMT_A8R8G8B8
+   Filter TRIANGLE
+   Levels 0
+}
+
+Texture sun
+{
+   Source Media\Textures\sun.tga
+   Format D3DFMT_A8
+   Levels 1
+}
+
+Texture flare1
+{
+   Source Media\Textures\flare1.tga
+   Format D3DFMT_A8
+   Levels 1
+}
+
+Texture flare2
+{
+   Source Media\Textures\flare2.tga
+   Format D3DFMT_A8
+   Levels 1
+}
+
+Texture flare3
+{
+   Source Media\Textures\flare3.tga
+   Format D3DFMT_A8
+   Levels 1
+}
+
+Texture flare4
+{
+   Source Media\Textures\flare4.tga
+   Format D3DFMT_A8
+   Levels 1
+}
+
+

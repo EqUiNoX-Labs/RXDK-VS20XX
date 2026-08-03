@@ -1,0 +1,238 @@
+Signature = XACT;
+Version = 8;
+
+Options
+{
+    Project Header File = XactSounds.h;
+    Cue List File = XactSounds.txt;
+}
+
+Wave Bank
+{
+    Name = Markers;
+    Bank File = media\sounds\XactSounds_memory.xwb;
+    Entry Names = 1;
+    Bank Last Modified Low = 3905248464;
+    Bank Last Modified High = 29550614;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
+
+    Entry
+    {
+        Name = XACT_marker;
+        File = media\sounds\XACT_marker.wav;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 1024;
+        Play Region Length = 733494;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 1043056640;
+        Last Modified High = 29546785;
+    }
+}
+
+Sound Layer
+{
+    Name = Markers;
+}
+
+Sound Bank
+{
+    Name = Markers;
+    Bank File = media\sounds\XactSounds.xsb;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
+
+    Sound
+    {
+        Name = XACT_marker;
+        Headroom Boost = 1;
+        Pitch = -50;
+        Layer = Markers;
+
+        Track
+        {
+            Play with Pitch and Volume Variation
+            {
+                Pitch Low = 0;
+                Pitch High = 0;
+                Volume Low = 0;
+                Volume High = 0;
+
+                Registered Wave
+                {
+                    Wave Bank = Markers;
+                    Wave Entry = XACT_marker;
+                    Wave Entry Index = 0;
+                }
+            }
+
+            Marker
+            {
+                Name = and_0;
+                Timestamp = 1010;
+                Value = 0;
+                Duration = 0;
+            }
+
+            Marker
+            {
+                Name = the_1;
+                Timestamp = 1160;
+                Value = 1;
+                Duration = 5;
+            }
+
+            Marker
+            {
+                Name = receiving_2;
+                Timestamp = 1310;
+                Value = 2;
+                Duration = 5;
+            }
+
+            Marker
+            {
+                Name = team_3;
+                Timestamp = 1760;
+                Value = 3;
+                Duration = 5;
+            }
+
+            Marker
+            {
+                Name = comes_4;
+                Timestamp = 2060;
+                Value = 4;
+                Duration = 5;
+            }
+
+            Marker
+            {
+                Name = up_5;
+                Timestamp = 2310;
+                Value = 6;
+                Duration = 5;
+            }
+
+            Marker
+            {
+                Name = with_6;
+                Timestamp = 2410;
+                Value = 6;
+                Duration = 5;
+            }
+
+            Marker
+            {
+                Name = the_7;
+                Timestamp = 2510;
+                Value = 7;
+                Duration = 5;
+            }
+
+            Marker
+            {
+                Name = football_8;
+                Timestamp = 2660;
+                Value = 8;
+                Duration = 5;
+            }
+
+            Marker
+            {
+                Name = that_9;
+                Timestamp = 3810;
+                Value = 9;
+                Duration = 5;
+            }
+
+            Marker
+            {
+                Name = should_10;
+                Timestamp = 4060;
+                Value = 10;
+                Duration = 5;
+            }
+
+            Marker
+            {
+                Name = do_11;
+                Timestamp = 4260;
+                Value = 11;
+                Duration = 5;
+            }
+
+            Marker
+            {
+                Name = it_12;
+                Timestamp = 4310;
+                Value = 12;
+                Duration = 5;
+            }
+
+            Marker
+            {
+                Name = they_13;
+                Timestamp = 4610;
+                Value = 13;
+                Duration = 5;
+            }
+
+            Marker
+            {
+                Name = didnt_14;
+                Timestamp = 4710;
+                Value = 14;
+                Duration = 5;
+            }
+
+            Marker
+            {
+                Name = recover_15;
+                Timestamp = 4910;
+                Value = 15;
+                Duration = 5;
+            }
+
+            Marker
+            {
+                Name = the_16;
+                Timestamp = 5260;
+                Value = 16;
+                Duration = 5;
+            }
+
+            Marker
+            {
+                Name = onside_17;
+                Timestamp = 5510;
+                Value = 17;
+                Duration = 5;
+            }
+
+            Marker
+            {
+                Name = attempt_18;
+                Timestamp = 5860;
+                Value = 18;
+                Duration = 5;
+            }
+        }
+    }
+
+    Cue
+    {
+        Name = XACT_marker;
+
+        Sound
+        {
+            Sound = XACT_marker;
+            Sound Index = 0;
+        }
+    }
+}

@@ -1,0 +1,53 @@
+<matchsim ver="1.0.5788.1" hexver="0x10000169c0001">
+    <title id="0xffff010d" name="XDK Matchmaking Sample" sessionexpiration="86400">
+        <schema>
+            <attribute id="GameType" hexid="0x1" kind="int"/>
+            <attribute id="PlayerLevel" hexid="0x2" kind="int"/>
+            <attribute id="SessionName" hexid="0x100003" kind="string" maxlen="11"/>
+            <attribute id="GameStyle" hexid="0x4" kind="int"/>
+            <attribute id="OwnerName" hexid="0x100005" kind="string" maxlen="32"/>
+            <attribute id="ConfigInfo" hexid="0x200006" kind="blob" maxlen="32"/>
+        </schema>
+
+        <queries>
+            <query id="0x1" name="OptiMatch" maxresults="25" type="normal" qosprobe="1">
+                <params>
+                    <param id="GameType" hexid="0x2000000" order="0" kind="int" nullok="1"/>
+                    <param id="PlayerLevel" hexid="0x2000001" order="1" kind="int" nullok="1"/>
+                    <param id="GameStyle" hexid="0x2000002" order="2" kind="int" nullok="1"/>
+                </params>
+                <filters>
+                    <filter left="0x1" op="==" right="0x2000000"/>
+                </filters>
+                <sortops>
+                    <sortop id="0x1" type="ascending"/>
+                    <sortop id="0x83000006" type="ascending"/>
+                </sortops>
+                <returns>
+                    <return id="0x1" type="normal"/>
+                    <return id="0x4" type="normal"/>
+                    <return id="0x2" type="normal"/>
+                    <return id="0x100003" type="normal"/>
+                    <return id="0x100005" type="normal"/>
+                    <return id="0x200006" type="normal"/>
+                </returns>
+            </query>
+
+            <query id="0x2" name="FindSessionByID" maxresults="1" type="findfromid" qosprobe="0">
+                <params>
+                    <param id="SessionID" hexid="0x2000000" order="0" kind="int" nullok="0"/>
+                </params>
+                <filters>
+                    <filter left="0x2000000" op="==" right="0x83000001"/>
+                </filters>
+                <sortops>
+                    <sortop id="0x83000006" type="ascending"/>
+                </sortops>
+                <returns/>
+            </query>
+        </queries></title>
+    
+
+    
+    
+</matchsim>

@@ -1,0 +1,82 @@
+Signature = XACT;
+Version = 8;
+
+Options
+{
+    Project Header File = XactSounds.h;
+    Cue List File = XactSounds.txt;
+}
+
+Wave Bank
+{
+    Name = WaveBank;
+    Bank File = media\sounds\XactSounds_streaming.xwb;
+    Alignment = 512;
+    Streaming = 1;
+    Entry Names = 1;
+    Bank Last Modified Low = 1211272448;
+    Bank Last Modified High = 29532512;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
+
+    Entry
+    {
+        Name = MusicMono;
+        File = media\sounds\MusicMono.wav;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 44;
+        Play Region Length = 768770;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 3298783232;
+        Last Modified High = 29532283;
+    }
+}
+
+Sound Bank
+{
+    Name = SoundBank;
+    Bank File = media\sounds\XactSounds.xsb;
+    Bank Last Modified Low = 1211272448;
+    Bank Last Modified High = 29532512;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
+
+    Sound
+    {
+        Name = MusicMono;
+
+        Track
+        {
+            Play with Pitch and Volume Variation
+            {
+                Pitch Low = 0;
+                Pitch High = 0;
+                Volume Low = 0;
+                Volume High = 0;
+
+                Registered Wave
+                {
+                    Wave Bank = WaveBank;
+                    Wave Entry = MusicMono;
+                    Wave Entry Index = 0;
+                }
+            }
+        }
+    }
+
+    Cue
+    {
+        Name = MusicMono;
+
+        Sound
+        {
+            Sound = MusicMono;
+            Sound Index = 0;
+        }
+    }
+}

@@ -1,0 +1,21 @@
+// List of resources to bundle.
+//
+// The output will be a header file (.h) used at compile time,
+// and a packed resource file (.xpr) used at runtime.
+
+out_packedresource Media\IconFont.xpr
+out_error          IconFont.err
+
+
+Texture Font
+{
+   Source      Media\fonts\MarketplaceGlyph.tga
+   Format      D3DFMT_A4R4G4B4
+   Levels      1
+}
+
+UserData FontData
+{
+   DataFile Media\fonts\MarketplaceGlyph.abc
+}
+

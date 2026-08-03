@@ -1,0 +1,20 @@
+// List of resources to bundle.
+//
+// The output will be a header file (.h) used at compile time,
+// and a packed resource file (.xpr) used at runtime.
+
+out_version        XPR1
+out_packedresource Media\Resource.xpr
+out_error          Resource.err
+
+Texture Flat
+{
+   Source      Media\Textures\Flat.bmp
+   Format      D3DFMT_A8R8G8B8
+}
+
+Texture BumpMap
+{
+   Source      Media\Textures\BumpMap.tga
+   Format      D3DFMT_A8R8G8B8
+}

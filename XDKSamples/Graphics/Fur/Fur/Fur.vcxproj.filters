@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Common Files">
+      <UniqueIdentifier>{BA68DEFC-1B55-4328-B8D2-08E6263E16D9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common Files\Header Files">
+      <UniqueIdentifier>{F2D01293-806B-422E-95F2-2D96248D31DC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common Files\Source Files">
+      <UniqueIdentifier>{8119D822-6777-4D68-AEAF-D6E85890F90B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{DE91D316-AFF9-4FC4-90D5-5386F2F2E02E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pixel Shaders">
+      <UniqueIdentifier>{F232DCC2-802E-4F2C-83FC-D9EA19FED48F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{75B167F9-15A3-42E7-ABC6-0F78BD58D1AF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{C5B05A57-924E-4249-AEF9-F31100B76BD0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vertex Shaders">
+      <UniqueIdentifier>{DDC7A755-9FA2-45A9-8B67-246943866F0B}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Fur.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Mipmap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\OctoSphere.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\XBFur.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\XBFurMesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Common\src\XBApp.cpp">
+      <Filter>Common Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Common\src\XBFont.cpp">
+      <Filter>Common Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Common\src\XBHelp.cpp">
+      <Filter>Common Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Common\src\XBInput.cpp">
+      <Filter>Common Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Common\src\XBMesh.cpp">
+      <Filter>Common Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Common\src\XBProfiling.cpp">
+      <Filter>Common Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Common\src\XBResource.cpp">
+      <Filter>Common Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Common\src\XBUtil.cpp">
+      <Filter>Common Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Common\src\XBSound.cpp">
+      <Filter>Common Files\Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Mipmap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\OctoSphere.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clip.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\XBFur.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\XBFurMesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Common\include\XBApp.h">
+      <Filter>Common Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Common\include\XBFont.h">
+      <Filter>Common Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Common\include\XBHelp.h">
+      <Filter>Common Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Common\include\XBInput.h">
+      <Filter>Common Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Common\include\XBMesh.h">
+      <Filter>Common Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Common\include\XBProfiling.h">
+      <Filter>Common Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Common\include\XBResource.h">
+      <Filter>Common Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Common\include\XBUtil.h">
+      <Filter>Common Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Common\include\XBSound.h">
+      <Filter>Common Files\Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\font.rdf">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\gamepad.rdf">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\Media\Shaders\fur.vsh">
+      <Filter>Vertex Shaders</Filter>
+    </None>
+    <None Include="..\Media\Shaders\fur_wind1_local1_self1.vsh">
+      <Filter>Vertex Shaders</Filter>
+    </None>
+    <None Include="..\Media\Shaders\fur_wind1_local1_self0.vsh">
+      <Filter>Vertex Shaders</Filter>
+    </None>
+    <None Include="..\Media\Shaders\fur_wind1_local0_self1.vsh">
+      <Filter>Vertex Shaders</Filter>
+    </None>
+    <None Include="..\Media\Shaders\fur_wind1_local0_self0.vsh">
+      <Filter>Vertex Shaders</Filter>
+    </None>
+    <None Include="..\Media\Shaders\fur_wind0_local1_self1.vsh">
+      <Filter>Vertex Shaders</Filter>
+    </None>
+    <None Include="..\Media\Shaders\fur_wind0_local1_self0.vsh">
+      <Filter>Vertex Shaders</Filter>
+    </None>
+    <None Include="..\Media\Shaders\fur_wind0_local0_self1.vsh">
+      <Filter>Vertex Shaders</Filter>
+    </None>
+    <None Include="..\Media\Shaders\fur_wind0_local0_self0.vsh">
+      <Filter>Vertex Shaders</Filter>
+    </None>
+    <None Include="..\Media\Shaders\fin.vsh">
+      <Filter>Vertex Shaders</Filter>
+    </None>
+    <None Include="..\Media\Shaders\fin_wind1_local1_self1.vsh">
+      <Filter>Vertex Shaders</Filter>
+    </None>
+    <None Include="..\Media\Shaders\fin_wind1_local1_self0.vsh">
+      <Filter>Vertex Shaders</Filter>
+    </None>
+    <None Include="..\Media\Shaders\fin_wind1_local0_self1.vsh">
+      <Filter>Vertex Shaders</Filter>
+    </None>
+    <None Include="..\Media\Shaders\fin_wind1_local0_self0.vsh">
+      <Filter>Vertex Shaders</Filter>
+    </None>
+    <None Include="..\Media\Shaders\fin_wind0_local1_self1.vsh">
+      <Filter>Vertex Shaders</Filter>
+    </None>
+    <None Include="..\Media\Shaders\fin_wind0_local1_self0.vsh">
+      <Filter>Vertex Shaders</Filter>
+    </None>
+    <None Include="..\Media\Shaders\fin_wind0_local0_self1.vsh">
+      <Filter>Vertex Shaders</Filter>
+    </None>
+    <None Include="..\Media\Shaders\fin_wind0_local0_self0.vsh">
+      <Filter>Vertex Shaders</Filter>
+    </None>
+    <None Include="..\Media\Shaders\Mipmap.psh">
+      <Filter>Pixel Shaders</Filter>
+    </None>
+    <None Include="..\Media\Shaders\comp2.psh">
+      <Filter>Pixel Shaders</Filter>
+    </None>
+    <None Include="..\Media\Shaders\comp3.psh">
+      <Filter>Pixel Shaders</Filter>
+    </None>
+    <None Include="..\Media\Shaders\furfade0.psh">
+      <Filter>Pixel Shaders</Filter>
+    </None>
+    <None Include="..\Media\Shaders\furfade1.psh">
+      <Filter>Pixel Shaders</Filter>
+    </None>
+    <None Include="..\Media\Shaders\furfade2.psh">
+      <Filter>Pixel Shaders</Filter>
+    </None>
+  </ItemGroup>
+</Project>

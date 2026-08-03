@@ -1,0 +1,38 @@
+// List of resources to bundle.
+//
+// The output will be a header file (.h) used at compile time,
+// and a packed resource file (.xpr) used at runtime.
+
+out_version        XPR1
+out_packedresource Media\resource.xpr
+out_error          resource.err
+
+Texture MoonPoly1
+{
+   Source      Media\Textures\MoonPoly1.bmp
+   AlphaSource Media\Textures\MoonAlpha.bmp
+   Format      D3DFMT_A8R8G8B8
+   Width       256
+   Height      256
+   Levels      0
+}
+
+Texture MoonPoly2
+{
+   Source      Media\Textures\MoonPoly2.bmp
+   AlphaSource Media\Textures\MoonAlpha.bmp
+   Format      D3DFMT_A8R8G8B8
+   Width       256
+   Height      256
+   Levels      0
+}
+
+Texture MoonColor
+{
+   Source      Media\Textures\MoonColor.bmp
+   AlphaSource Media\Textures\MoonAlpha.bmp
+   Format      D3DFMT_A8R8G8B8
+   Width       512
+   Height      512
+   Levels      0
+}

@@ -1,0 +1,17 @@
+<matchsim ver="1.0.4822.1" hexver="0x1000012d60001">
+    <title id="0xffff0115" name="QualityOfService" sessionexpiration="86400" maxresults="6">
+        <schema/>
+
+        <queries>
+            <query id="1" name="Default" maxresults="6" nopubok="0">
+                <params/>
+                <filters/>
+                <sortops/>
+                <returns/>
+            </query>
+        </queries>
+    </title>
+
+    
+    
+</matchsim>

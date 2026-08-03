@@ -1,0 +1,260 @@
+Signature = XACT;
+Version = 8;
+
+Options
+{
+    Project Header File = XactSounds.h;
+}
+
+Wave Bank
+{
+    Name = Sounds;
+    Bank File = media\sounds\XactSounds_memory.xwb;
+    Entry Names = 1;
+    Bank Last Modified Low = 707499798;
+    Bank Last Modified High = 29551060;
+    Header Last Modified Low = 707656451;
+    Header Last Modified High = 29551060;
+
+    Entry
+    {
+        Name = M_Select;
+        File = media\sounds\select.wav;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 44;
+        Play Region Length = 50682;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 822817711;
+        Last Modified High = 29541133;
+    }
+
+    Entry
+    {
+        Name = S_Construct8bit;
+        File = media\sounds\ConstructionStereo8bit.wav;
+        Format Tag = 0;
+        Channels = 2;
+        Sampling Rate = 22050;
+        Bits Per Sample = 0;
+        Play Region Offset = 44;
+        Play Region Length = 113096;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 811530991;
+        Last Modified High = 29541133;
+    }
+
+    Entry
+    {
+        Name = M_Docking;
+        File = media\sounds\DockingMono.wav;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 44;
+        Play Region Length = 157442;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 811844511;
+        Last Modified High = 29541133;
+    }
+
+    Entry
+    {
+        Name = M_Dolphin4;
+        File = media\sounds\Dolphin4.wav;
+        ADPCM Filter = 1;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 58;
+        Play Region Length = 165600;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 812158031;
+        Last Modified High = 29541133;
+    }
+
+    Entry
+    {
+        Name = M_Engine;
+        File = media\sounds\EngineStartMono.wav;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 44;
+        Play Region Length = 350208;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 812785071;
+        Last Modified High = 29541133;
+    }
+
+    Entry
+    {
+        Name = S_Explosion;
+        File = media\sounds\ExplosionShockwave.wav;
+        Format Tag = 0;
+        Channels = 2;
+        Sampling Rate = 48000;
+        Bits Per Sample = 1;
+        Play Region Offset = 44;
+        Play Region Length = 1185888;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 814666191;
+        Last Modified High = 29541133;
+    }
+
+    Entry
+    {
+        Name = M_Heli;
+        File = media\sounds\heli.wav;
+        ADPCM Filter = 1;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 58;
+        Play Region Length = 126284;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 814979711;
+        Last Modified High = 29541133;
+    }
+
+    Entry
+    {
+        Name = M_Invest;
+        File = media\sounds\Invest.wav;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 44;
+        Play Region Length = 312870;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 815449991;
+        Last Modified High = 29541133;
+    }
+
+    Entry
+    {
+        Name = M_Weapon;
+        File = media\sounds\LargeEnergyWeapon.wav;
+        ADPCM Filter = 1;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 44;
+        Play Region Length = 464170;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 816233791;
+        Last Modified High = 29541133;
+    }
+
+    Entry
+    {
+        Name = M_Dialog1;
+        File = media\sounds\MaleDialog1.wav;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 44;
+        Play Region Length = 141312;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 816547311;
+        Last Modified High = 29541133;
+    }
+
+    Entry
+    {
+        Name = M_Mining;
+        File = media\sounds\MiningMono.wav;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 44;
+        Play Region Length = 507390;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 817331111;
+        Last Modified High = 29541133;
+    }
+
+    Entry
+    {
+        Name = M_Music;
+        File = media\sounds\MusicMono.wav;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 44100;
+        Bits Per Sample = 1;
+        Play Region Offset = 44;
+        Play Region Length = 768770;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 3511957756;
+        Last Modified High = 29551020;
+    }
+
+    Entry
+    {
+        Name = M_Click8bit;
+        File = media\sounds\Click8bit.wav;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 22050;
+        Bits Per Sample = 0;
+        Play Region Offset = 44;
+        Play Region Length = 22845;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 811374231;
+        Last Modified High = 29541133;
+    }
+
+    Entry
+    {
+        Name = S_Music;
+        File = media\sounds\MusicStereo.wav;
+        ADPCM Filter = 1;
+        Format Tag = 0;
+        Channels = 2;
+        Sampling Rate = 32000;
+        Bits Per Sample = 1;
+        Play Region Offset = 44;
+        Play Region Length = 2233972;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 822504191;
+        Last Modified High = 29541133;
+    }
+}

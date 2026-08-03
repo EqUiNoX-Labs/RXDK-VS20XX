@@ -1,0 +1,93 @@
+// List of resources to bundle.
+//
+// The output will be a header file (.h) used at compile time,
+// and a packed resource file (.xpr) used at runtime.
+
+out_version        XPR1
+out_header         Textures.h
+out_packedresource Textures.xpr
+out_error          Textures.err
+
+Texture Bigmap
+{
+   Name   fromMax:Bigmap.tga
+   Source Bigmap.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Fish
+{
+   Name   fromMax:Fish.bmp
+   Source Fish.bmp
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Frond
+{
+   Name   fromMax:Frond.bmp
+   Source Frond.bmp
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture House
+{
+   Name   fromMax:House.bmp
+   Source House.bmp
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture PeninsulaMap
+{
+   Name   fromMax:PeninsulaMap.bmp
+   Source PeninsulaMap.bmp
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Pier
+{
+   Name   fromMax:Pier.bmp
+   Source Pier.bmp
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture ShipBurn2
+{
+   Name   fromMax:ShipBurn2.tga
+   Source ShipBurn2.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture TallRock
+{
+   Name   fromMax:TallRock.bmp
+   Source TallRock.bmp
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture TeeRexMap
+{
+   Name   fromMax:TeeRexMap.tga
+   Source TeeRexMap.tga
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Tower
+{
+   Name   fromMax:Tower.bmp
+   Source Tower.bmp
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Trunk
+{
+   Name   fromMax:Trunk.bmp
+   Source Trunk.bmp
+   Format D3DFMT_A8R8G8B8
+}
+
+Texture Weapons
+{
+   Name   fromMax:Weapons.tga
+   Source Weapons.tga
+   Format D3DFMT_A8R8G8B8
+}

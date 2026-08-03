@@ -1,0 +1,8 @@
+ps.1.1
+
+tex t0
+texkill t1
+
+mov r0.rgb, t0
+mov r0.rgb, t0
++mov r0.a, c0.a

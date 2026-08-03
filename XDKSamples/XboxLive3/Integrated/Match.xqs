@@ -1,0 +1,48 @@
+<querysim ver="1.0" hexver="0x1000000000000">
+    <title id="0xFFEDAAAB" name="Integrated Competition Search">
+
+        <dataset id="0xA1" quota="-1" name="Team match host" typeid="0">
+            <schema>
+                <attribute hexid="0x00000001" kind="int" default="0" name="MATCH_EVENT_ENTITY_ID" index="a"/>
+                <attribute hexid="0x00000002" kind="int" default="0" name="MATCH_ATTEMPT"         index="a"/>
+                <attribute hexid="0x00000003" kind="int" default="0" name="MATCH_HOST_USER_ID" />
+            </schema>
+
+            <indexes>
+                <index name="a" clustered="true" unique="true" />
+            </indexes>
+
+            <queries>
+                <query hexid="0xA101" op="search" name="FIND_EVENT_HOST">
+                    <params>
+                        <param hexid="0x02000001" kind="int" name="EVENT_ENTITY_ID" />
+                    </params>
+                    <filters>
+                        <filter left="0x00000001" op="==" right="0x02000001" />
+                    </filters>
+                    <returns>
+                        <return hexid="0x00000002" name="ATTEMPT" />
+                        <return hexid="0x00000003" name="HOST_USER_ID" />
+                    </returns>
+                    <sortops>
+                        <sortop hexid="0x00000002" dir="descending" />
+                    </sortops>
+
+                </query>
+                
+                <query hexid="0xA102" op="remove" name="REMOVE_HOSTED_EVENTS">
+                    <params>
+                        <param hexid="0x02000003" kind="int" name="HOST_USER_ID" />
+                    </params>
+                    <filters>
+                        <filter left="0x00000003" op="==" right="0x02000003" />
+                    </filters>
+                </query>
+
+            </queries>
+
+        </dataset>
+    </title>
+</querysim>
+
+

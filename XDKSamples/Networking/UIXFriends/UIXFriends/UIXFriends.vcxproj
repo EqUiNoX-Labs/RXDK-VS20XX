@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{63ACE5DC-4B3E-4768-87CF-939CA686F09D}</ProjectGuid>
+    <RootNamespace>XboxNamespace</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>UIXFriends</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '17.0'">v143</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '18.0'">v145</PlatformToolset>
+    <PlatformToolset Condition="'$(PlatformToolset)' == ''">v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="Rxdk.Xbox.props" />
+  <PropertyGroup>
+    <NMakeOutput>$(MSBuildProjectDirectory)\$(RxdkOutDir)\$(MSBuildProjectName).xbe</NMakeOutput>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <RxdkBuildFlavor>Debug</RxdkBuildFlavor>
+    <RxdkDefines>_USE_XGMATH;XBOX_SAMPLE</RxdkDefines>
+    <RxdkIncludePaths>..\..\..\Common\include</RxdkIncludePaths>
+    <RxdkLibraries>libxbdm;libxapi;libd3d8;libd3dx8;libxgraphics;libdsound;libkernel;libxnet;libc;libcpp</RxdkLibraries>
+    <RxdkDeployPaths>..\media</RxdkDeployPaths>
+    <RxdkStackSize>65536</RxdkStackSize>
+    <RxdkImageDebug>true</RxdkImageDebug>
+    <RxdkDontMountUtilityDrive>true</RxdkDontMountUtilityDrive>
+    <RxdkNoLibWarn>true</RxdkNoLibWarn>
+    <RxdkTestId>0xFFEDBC77</RxdkTestId>
+    <RxdkTestName>UIXFriends</RxdkTestName>
+    <RxdkTestVersion>4096</RxdkTestVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <RxdkBuildFlavor>Release</RxdkBuildFlavor>
+    <RxdkReleaseOptimize>ReleaseFast</RxdkReleaseOptimize>
+    <RxdkDefines>_USE_XGMATH;XBOX_SAMPLE</RxdkDefines>
+    <RxdkIncludePaths>..\..\..\Common\include</RxdkIncludePaths>
+    <RxdkLibraries>libxapi;libd3d8;libd3dx8;libxgraphics;libdsound;libkernel;libxnet;libc;libcpp</RxdkLibraries>
+    <RxdkDeployPaths>..\media</RxdkDeployPaths>
+    <RxdkStackSize>65536</RxdkStackSize>
+    <RxdkImageDebug>true</RxdkImageDebug>
+    <RxdkDontMountUtilityDrive>true</RxdkDontMountUtilityDrive>
+    <RxdkTestId>0xFFEDBC77</RxdkTestId>
+    <RxdkTestName>UIXFriends</RxdkTestName>
+    <RxdkTestVersion>4096</RxdkTestVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <ClCompile Include="..\UIXFriends.cpp" />
+    <ClCompile Include="..\UIXSupport.cpp" />
+    <ClCompile Include="..\XHVVoiceManager.cpp" />
+    <ClCompile Include="..\..\..\Common\src\XBApp.cpp" />
+    <ClCompile Include="..\..\..\Common\src\XBFont.cpp" />
+    <ClCompile Include="..\..\..\Common\src\XBHelp.cpp" />
+    <ClCompile Include="..\..\..\Common\src\XBInput.cpp" />
+    <ClCompile Include="..\..\..\Common\src\XBMesh.cpp" />
+    <ClCompile Include="..\..\..\Common\src\XBProfiling.cpp" />
+    <ClCompile Include="..\..\..\Common\src\XBResource.cpp" />
+    <ClCompile Include="..\..\..\Common\src\XBUtil.cpp" />
+    <ClCompile Include="..\..\..\Common\src\XbNet.cpp" />
+    <ClCompile Include="..\..\..\Common\src\XbStopWatch.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\UIXFriends.h" />
+    <ClInclude Include="..\XHVVoiceManager.h" />
+    <ClInclude Include="..\..\..\Common\include\XBApp.h" />
+    <ClInclude Include="..\..\..\Common\include\XBFont.h" />
+    <ClInclude Include="..\..\..\Common\include\XBHelp.h" />
+    <ClInclude Include="..\..\..\Common\include\XBInput.h" />
+    <ClInclude Include="..\..\..\Common\include\XBMesh.h" />
+    <ClInclude Include="..\..\..\Common\include\XBProfiling.h" />
+    <ClInclude Include="..\..\..\Common\include\XBResource.h" />
+    <ClInclude Include="..\..\..\Common\include\XBUtil.h" />
+    <ClInclude Include="..\..\..\Common\include\XbNet.h" />
+    <ClInclude Include="..\..\..\Common\include\XbOnline.h" />
+    <ClInclude Include="..\..\..\Common\include\XbStopWatch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\font.rdf" />
+    <None Include="..\font_cht.rdf" />
+    <None Include="..\font_jpn.rdf" />
+    <None Include="..\font_kor.rdf" />
+    <None Include="..\gamepad.rdf" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Rxdk.Xbox.props" />
+    <None Include="Rxdk.Xbox.targets" />
+    <None Include="RxdkDebugger.xml" />
+    <None Include="RxdkXboxBuild.xml" />
+    <None Include="RxdkXboxImage.xml" />
+    <None Include="RxdkXboxDeployment.xml" />
+    <None Include="RxdkXboxCertificate.xml" />
+    <None Include="RxdkXboxTitleInfo.xml" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

@@ -1,0 +1,29 @@
+// List of resources to bundle.
+//
+// The output will be a header file (.h) used at compile time,
+// and a packed resource file (.xpr) used at runtime.
+
+out_version        XPR1
+out_packedresource Media\resource.xpr
+out_error          resource.err
+
+Texture SkyBoxColorLookupTable
+{
+   Source Media\Textures\SkyColors.bmp
+   Format D3DFMT_X8R8G8B8
+   Levels 1
+}
+
+Cubemap SkyBoxLuminanceCubeMap
+{
+   SourceZP Media\Textures\Cube1bw.bmp
+   SourceXP Media\Textures\Cube2bw.bmp
+   SourceZN Media\Textures\Cube3bw.bmp
+   SourceXN Media\Textures\Cube4bw.bmp
+   SourceYN Media\Textures\Cube5bw.bmp
+   SourceYP Media\Textures\Cube6bw.bmp
+   Filter   TRIANGLE|CLAMP
+   Format   D3DFMT_L8
+   Size     512
+   Levels   1
+}

@@ -1,0 +1,22 @@
+// List of resources to bundle.
+//
+// The output will be a header file (.h) used at compile time,
+// and a packed resource file (.xpr) used at runtime.
+
+out_header         Sky.h
+out_packedresource Sky.xpr
+out_error          Sky.err
+
+
+Cubemap Sky
+{
+   SourceXP SkyXP.bmp
+   SourceXN SkyXN.bmp
+   SourceYP SkyYP.bmp
+   SourceYN SkyYN.bmp
+   SourceZP SkyZP.bmp
+   SourceZN SkyZN.bmp
+   Format   D3DFMT_A8R8G8B8
+   Size     512
+}
+

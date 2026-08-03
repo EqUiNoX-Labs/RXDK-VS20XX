@@ -1,0 +1,90 @@
+// List of resources to bundle.
+//
+// The output will be a header file (.h) used at compile time,
+// and a packed resource file (.xpr) used at runtime.
+
+out_version        XPR1
+out_packedresource Media\Resource.xpr
+out_error          Resource.err
+
+
+Cubemap EnvMap
+{
+   SourceXP Media\Textures\LobbyXP.bmp
+   SourceXN Media\Textures\LobbyXN.bmp
+   SourceYP Media\Textures\LobbyYP.bmp
+   SourceYN Media\Textures\LobbyYN.bmp
+   SourceZP Media\Textures\LobbyZP.bmp
+   SourceZN Media\Textures\LobbyZN.bmp
+   Format   D3DFMT_A8R8G8B8
+   Size     512
+}
+
+Texture LobbyXP
+{
+   Name   LobbyXP.bmp
+   Source Media\Textures\LobbyXP.bmp
+   Format D3DFMT_X8R8G8B8
+   Filter TRIANGLE|CLAMP
+   Width  256
+   Height 256
+   Levels 1
+}
+
+Texture LobbyXN
+{
+   Name   LobbyXN.bmp
+   Source Media\Textures\LobbyXN.bmp
+   Format D3DFMT_X8R8G8B8
+   Filter TRIANGLE|CLAMP
+   Width  256
+   Height 256
+   Levels 1
+}
+
+Texture LobbyYP
+{
+   Name   LobbyYP.bmp
+   Source Media\Textures\LobbyYP.bmp
+   Format D3DFMT_X8R8G8B8
+   Filter TRIANGLE|CLAMP
+   Width  256
+   Height 256
+   Levels 1
+}
+
+Texture LobbyYN
+{
+   Name   LobbyYN.bmp
+   Source Media\Textures\LobbyYN.bmp
+   Format D3DFMT_X8R8G8B8
+   Filter TRIANGLE|CLAMP
+   Width  256
+   Height 256
+   Levels 1
+}
+
+Texture LobbyZP
+{
+   Name   LobbyZP.bmp
+   Source Media\Textures\LobbyZP.bmp
+   Format D3DFMT_X8R8G8B8
+   Filter TRIANGLE|CLAMP
+   Width  256
+   Height 256
+   Levels 1
+}
+
+Texture LobbyZN
+{
+   Name   LobbyZN.bmp
+   Source Media\Textures\LobbyZN.bmp
+   Format D3DFMT_X8R8G8B8
+   Filter TRIANGLE|CLAMP
+   Width  256
+   Height 256
+   Levels 1
+}
+
+
+

@@ -175,7 +175,14 @@ public static class XboxBuild
                 if (string.IsNullOrWhiteSpace(rel)) continue;
                 var p = Path.GetFullPath(Path.Combine(projectRoot, rel.Replace('/', Path.DirectorySeparatorChar)));
                 if (!File.Exists(p))
-                    throw new FileNotFoundException($"resources: .rdf not found: {p}");
+                {
+                    // Imported XDK vcprojs often list stale .rdf references (e.g. a shared
+                    // Font.rdf/Gamepad.rdf that isn't shipped with the sample). Skip rather
+                    // than fail — if the resource is truly needed, the compile fails on the
+                    // missing generated header, which is the accurate error.
+                    log?.Invoke($"Warning: resource .rdf not found, skipping: {p}");
+                    continue;
+                }
                 rdfs.Add(p);
             }
         }

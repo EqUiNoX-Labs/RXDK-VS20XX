@@ -1,0 +1,138 @@
+// List of resources to bundle.
+//
+// The output will be a header file (.h) used at compile time,
+// and a packed resource file (.xpr) used at runtime.
+
+out_version        XPR1
+out_packedresource Media\Resource2.xpr
+out_error          Resource2.err
+
+Texture T0
+{
+   Source Media\Textures\robot1024.tga
+   Format D3DFMT_A8R8G8B8
+   Filter TRIANGLE
+   Levels 0
+}
+
+Texture T1
+{
+   Source Media\Textures\robot1024.tga
+   Format D3DFMT_A8R8G8B8
+   Filter TRIANGLE
+   Levels 0
+}
+
+Texture T2
+{
+   Source Media\Textures\robot1024.tga
+   Format D3DFMT_A8R8G8B8
+   Filter TRIANGLE
+   Levels 0
+}
+
+Texture T3
+{
+   Source Media\Textures\robot1024.tga
+   Format D3DFMT_A8R8G8B8
+   Filter TRIANGLE
+   Levels 0
+}
+
+Texture T4
+{
+   Source Media\Textures\robot1024.tga
+   Format D3DFMT_A8R8G8B8
+   Filter TRIANGLE
+   Levels 0
+}
+
+Texture T5
+{
+   Source Media\Textures\robot1024.tga
+   Format D3DFMT_A8R8G8B8
+   Filter TRIANGLE
+   Levels 0
+}
+
+Texture T6
+{
+   Source Media\Textures\robot1024.tga
+   Format D3DFMT_A8R8G8B8
+   Filter TRIANGLE
+   Levels 0
+}
+
+Texture T7
+{
+   Source Media\Textures\robot1024.tga
+   Format D3DFMT_A8R8G8B8
+   Filter TRIANGLE
+   Levels 0
+}
+
+Texture T8
+{
+   Source Media\Textures\robot1024.tga
+   Format D3DFMT_A8R8G8B8
+   Filter TRIANGLE
+   Levels 0
+}
+
+Texture T9
+{
+   Source Media\Textures\robot1024.tga
+   Format D3DFMT_A8R8G8B8
+   Filter TRIANGLE
+   Levels 0
+}
+
+
+VertexBuffer QuadsVB
+{
+    VertexFormat {D3DVSDT_FLOAT3 D3DVSDT_FLOAT2}
+    VertexData 
+    { 
+	  19.5826   -2.0944    2.0000    0.0000    1.0000
+	  19.5826    2.0944    2.0000    0.0000    0.0000
+	  23.7714    2.0944    2.0000    1.0000    0.0000
+	  23.7714   -2.0944    2.0000    1.0000    1.0000
+	  14.7655   -2.0944    2.0000    0.0000    1.0000
+	  14.7655    2.0944    2.0000    0.0000    0.0000
+	  18.9543    2.0944    2.0000    1.0000    0.0000
+	  18.9543   -2.0944    2.0000    1.0000    1.0000
+	   9.9484   -2.0944    2.0000    0.0000    1.0000
+	   9.9484    2.0944    2.0000    0.0000    0.0000
+	  14.1372    2.0944    2.0000    1.0000    0.0000
+	  14.1372   -2.0944    2.0000    1.0000    1.0000
+	   5.1313   -2.0944    2.0000    0.0000    1.0000
+	   5.1313    2.0944    2.0000    0.0000    0.0000
+	   9.3201    2.0944    2.0000    1.0000    0.0000
+	   9.3201   -2.0944    2.0000    1.0000    1.0000
+	   0.3142   -2.0944    2.0000    0.0000    1.0000
+	   0.3142    2.0944    2.0000    0.0000    0.0000
+	   4.5029    2.0944    2.0000    1.0000    0.0000
+	   4.5029   -2.0944    2.0000    1.0000    1.0000
+	  -4.5030   -2.0944    2.0000    0.0000    1.0000
+	  -4.5030    2.0944    2.0000    0.0000    0.0000
+	  -0.3142    2.0944    2.0000    1.0000    0.0000
+	  -0.3142   -2.0944    2.0000    1.0000    1.0000
+	  -9.3201   -2.0944    2.0000    0.0000    1.0000
+	  -9.3201    2.0944    2.0000    0.0000    0.0000
+	  -5.1313    2.0944    2.0000    1.0000    0.0000
+	  -5.1313   -2.0944    2.0000    1.0000    1.0000
+	 -14.1372   -2.0944    2.0000    0.0000    1.0000
+	 -14.1372    2.0944    2.0000    0.0000    0.0000
+	  -9.9484    2.0944    2.0000    1.0000    0.0000
+	  -9.9484   -2.0944    2.0000    1.0000    1.0000
+	 -18.9543   -2.0944    2.0000    0.0000    1.0000
+	 -18.9543    2.0944    2.0000    0.0000    0.0000
+	 -14.7655    2.0944    2.0000    1.0000    0.0000
+	 -14.7655   -2.0944    2.0000    1.0000    1.0000
+	 -23.7714   -2.0944    2.0000    0.0000    1.0000
+	 -23.7714    2.0944    2.0000    0.0000    0.0000
+	 -19.5826    2.0944    2.0000    1.0000    0.0000
+	 -19.5826   -2.0944    2.0000    1.0000    1.0000
+
+    }
+}

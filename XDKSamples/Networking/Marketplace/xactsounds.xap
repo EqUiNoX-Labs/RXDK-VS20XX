@@ -1,0 +1,359 @@
+Signature = XACT;
+Version = 9;
+
+Options
+{
+}
+
+Wave Bank
+{
+    Name = Marketplace;
+    Bank File = media\sounds\xactsounds_memory.xwb;
+    Bank Last Modified Low = 3030008502;
+    Bank Last Modified High = 29577181;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
+
+    Entry
+    {
+        Name = Fountain - Internal ES;
+        File = media\sounds\Fountain.wav;
+        Format Tag = 1;
+        Channels = 1;
+        Sampling Rate = 44100;
+        Bits Per Sample = 0;
+        Play Region Offset = 60;
+        Play Region Length = 182052;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 4261865104;
+        Last Modified High = 29577165;
+    }
+
+    Entry
+    {
+        Name = chimes;
+        File = media\sounds\chimes.wav;
+        Format Tag = 0;
+        Channels = 2;
+        Sampling Rate = 22050;
+        Bits Per Sample = 1;
+        Play Region Offset = 44;
+        Play Region Length = 55684;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 578560000;
+        Last Modified High = 29436875;
+    }
+
+    Entry
+    {
+        Name = walla;
+        File = media\sounds\walla.wav;
+        Format Tag = 0;
+        Channels = 1;
+        Sampling Rate = 22050;
+        Bits Per Sample = 0;
+        Play Region Offset = 58;
+        Play Region Length = 62055;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 2927237457;
+        Last Modified High = 29575753;
+    }
+
+    Entry
+    {
+        Name = crowdpeopletalk;
+        File = media\sounds\marketcrowd.wav;
+        Format Tag = 1;
+        Channels = 2;
+        Sampling Rate = 44100;
+        Bits Per Sample = 0;
+        Play Region Offset = 60;
+        Play Region Length = 824760;
+        Loop Region Offset = 0;
+        Loop Region Length = 0;
+        File Type = 0;
+        Last Modified Low = 2613162896;
+        Last Modified High = 29577173;
+    }
+}
+
+Sound Category
+{
+    Name = MarketplaceAmbient;
+}
+
+Sound Layer
+{
+    Name = AmbientAccents;
+}
+
+Sound Layer
+{
+    Name = Fountain;
+}
+
+Sound Layer
+{
+    Name = MarketplaceAmbient;
+}
+
+Sound Layer
+{
+    Name = MiningAmbient;
+}
+
+Sound Layer
+{
+    Name = MusicAmbient;
+}
+
+Sound Layer
+{
+    Name = Chimes;
+}
+
+Sound Layer
+{
+    Name = Walla;
+}
+
+Sound Bank
+{
+    Name = Marketplace;
+    Bank File = media\sounds\XactSounds.xsb;
+    Bank Last Modified Low = 3030164763;
+    Bank Last Modified High = 29577181;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
+
+    Sound
+    {
+        Name = Fountain - Internal ES;
+        3D = 1;
+        Volume = -375;
+        Layer = Fountain;
+
+        3D
+        {
+            Mode = 0;
+            Inside Cone Angle = 360;
+            Outside Cone Angle = 360;
+            Cone Outside Volume = 0;
+            Minimum Distance = 1.000000;
+            Maximum Distance = 100000.000000;
+            Distance Factor = 1.000000;
+            Rolloff Factor = 1.000000;
+            Doppler Factor = 1.000000;
+        }
+
+        Track
+        {
+            Play with Pitch and Volume Variation
+            {
+                Loop Count = 65535;
+                Pitch Low = 0;
+                Pitch High = 0;
+                Volume Low = 0;
+                Volume High = 0;
+
+                Registered Wave
+                {
+                    Wave Bank = Marketplace;
+                    Wave Entry = Fountain - Internal ES;
+                    Wave Entry Index = 0;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = chimes;
+        Layer = Chimes;
+
+        Track
+        {
+            Play with Pitch and Volume Variation
+            {
+                Pitch Low = 0;
+                Pitch High = 0;
+                Volume Low = 0;
+                Volume High = 0;
+
+                Registered Wave
+                {
+                    Wave Bank = Marketplace;
+                    Wave Entry = chimes;
+                    Wave Entry Index = 1;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = walla;
+        3D = 1;
+        I3DL2 Level = -6400;
+        Layer = Walla;
+
+        3D
+        {
+            Mode = 0;
+            Inside Cone Angle = 360;
+            Outside Cone Angle = 360;
+            Cone Outside Volume = 0;
+            Minimum Distance = 10.000000;
+            Maximum Distance = 100000.000000;
+            Distance Factor = 5.000000;
+            Rolloff Factor = 1.000000;
+            Doppler Factor = 0.000000;
+        }
+
+        Track
+        {
+            Play with Pitch and Volume Variation
+            {
+                Loop Count = 65535;
+                Pitch Low = -267;
+                Pitch High = 267;
+                Volume Low = 0;
+                Volume High = 0;
+
+                Registered Wave
+                {
+                    Wave Bank = Marketplace;
+                    Wave Entry = walla;
+                    Wave Entry Index = 2;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = MarketplaceAmbience;
+        Layer = MarketplaceAmbient;
+        Category = MarketplaceAmbient;
+
+        Track
+        {
+            Set MixBins
+            {
+                MixBin
+                {
+                    MixBin = 0;
+                    Volume = 0;
+                }
+
+                MixBin
+                {
+                    MixBin = 1;
+                    Volume = 0;
+                }
+
+                MixBin
+                {
+                    MixBin = 4;
+                    Volume = -600;
+                }
+
+                MixBin
+                {
+                    MixBin = 5;
+                    Volume = -600;
+                }
+
+                MixBin
+                {
+                    MixBin = 65535;
+                    Volume = 0;
+                }
+
+                MixBin
+                {
+                    MixBin = 65535;
+                    Volume = 0;
+                }
+
+                MixBin
+                {
+                    MixBin = 65535;
+                    Volume = 0;
+                }
+
+                MixBin
+                {
+                    MixBin = 65535;
+                    Volume = 0;
+                }
+            }
+
+            Play with Pitch and Volume Variation
+            {
+                Loop Count = 65535;
+                Pitch Low = 0;
+                Pitch High = 0;
+                Volume Low = 0;
+                Volume High = 0;
+
+                Registered Wave
+                {
+                    Wave Bank = Marketplace;
+                    Wave Entry = crowdpeopletalk;
+                    Wave Entry Index = 3;
+                }
+            }
+        }
+    }
+
+    Cue
+    {
+        Name = MarketplaceAmbience;
+
+        Sound
+        {
+            Sound = MarketplaceAmbience;
+            Sound Index = 3;
+        }
+    }
+
+    Cue
+    {
+        Name = Fountain;
+
+        Sound
+        {
+            Sound = Fountain - Internal ES;
+            Sound Index = 0;
+        }
+    }
+
+    Cue
+    {
+        Name = chimes;
+
+        Sound
+        {
+            Sound = chimes;
+            Sound Index = 1;
+        }
+    }
+
+    Cue
+    {
+        Name = walla;
+
+        Sound
+        {
+            Sound = walla;
+            Sound Index = 2;
+        }
+    }
+}

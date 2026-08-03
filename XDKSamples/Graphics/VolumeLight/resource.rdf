@@ -1,0 +1,84 @@
+// List of resources to bundle.
+//
+// The output will be a header file (.h) used at compile time,
+// and a packed resource file (.xpr) used at runtime.
+
+out_version        XPR1
+out_packedresource Media\Resource.xpr
+out_error          Resource.err
+out_prefix         resource
+
+Texture Light
+{
+   Name   Light.bmp
+   Source Media\Textures\Light.bmp
+   Width  32
+   Height 32
+   Format D3DFMT_A1R5G5B5
+   Levels 0
+}
+
+Texture SkyBoxXP
+{
+   Name   SkyBoxXP.bmp
+   Source Media\Textures\SkyBoxXP.bmp
+   Format D3DFMT_X8R8G8B8
+   Levels 1
+}
+
+Texture SkyBoxXN
+{
+   Name   SkyBoxXN.bmp
+   Source Media\Textures\SkyBoxXN.bmp
+   Format D3DFMT_X8R8G8B8
+   Levels 1
+}
+
+Texture SkyBoxYP
+{
+   Name   SkyBoxYP.bmp
+   Source Media\Textures\SkyBoxYP.bmp
+   Format D3DFMT_X8R8G8B8
+   Levels 1
+}
+
+Texture SkyBoxYN
+{
+   Name   SkyBoxYN.bmp
+   Source Media\Textures\SkyBoxYN.bmp
+   Format D3DFMT_X8R8G8B8
+   Levels 1
+}
+
+Texture SkyBoxZP
+{
+   Name   SkyBoxZP.bmp
+   Source Media\Textures\SkyBoxZP.bmp
+   Format D3DFMT_X8R8G8B8
+   Levels 1
+}
+
+Texture SkyBoxZN
+{
+   Name   SkyBoxZN.bmp
+   Source Media\Textures\SkyBoxZN.bmp
+   Format D3DFMT_X8R8G8B8
+   Levels 1
+}
+
+Texture StoneHen
+{
+   Name   StoneHen.bmp
+   Source Media\Textures\StoneHen.bmp
+   Format D3DFMT_DXT1
+   Levels 0
+}
+
+Texture StoneHea
+{
+   Name   StoneHea.bmp
+   Source Media\Textures\StoneHea.bmp
+   Format D3DFMT_DXT1
+   Levels 0
+}
+

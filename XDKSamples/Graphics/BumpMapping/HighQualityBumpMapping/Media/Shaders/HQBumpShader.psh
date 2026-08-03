@@ -1,0 +1,35 @@
+;------------------------------------------------------------------------------
+; Pixel shader to do high quality bump mapping.
+;------------------------------------------------------------------------------
+xps.1.1
+
+;------------------------------------------------------------------------------
+;
+; Inputs: t0 - 2d cordinates for normal map.
+;         t1 - H vector
+;         t2 - H vector
+;         t3 - H vector
+;         v0 - L vector
+;         c0 - diffuse color
+;         c1 - specular color
+;
+;------------------------------------------------------------------------------
+
+def c0, 0.5f, 0.5f, 0.75f, 1.0f
+def c1, 1.0f, 1.0f, 1.0f, 1.0f
+
+tex t0					; N
+tex t1					; H/|H|
+texm3x2pad t2, t0_bx2	; N dot H
+texm3x2tex t3, t1_hemi	; H dot (H/|H|) = |H|*|H|/|H| = |H|
+						; 2D Lookup (N dot H, |H|)
+
+; re-normalization approximation for L
+dp3 r0.rgb, v0_bx2, v0_bx2
+xmma discard.rgb, discard.rgb, v0.rgb, v0_bx2, 1-zero, v0_bias, 1-r0
+
+; N dot L
+dp3 r0.rgb, t0_bx2, v0
+
+; modulate diffuse and specular with color and add them together.
+xmma discard.rgb, discard.rgb, r0.rgb, r0_sat, c0, t3, c1

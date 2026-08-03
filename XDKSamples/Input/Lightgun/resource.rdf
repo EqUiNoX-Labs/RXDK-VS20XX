@@ -1,0 +1,66 @@
+// List of resources to bundle.
+//
+// The output will be a header file (.h) used at compile time,
+// and a packed resource file (.xpr) used at runtime.
+
+out_version        XPR1
+out_packedresource Media\Resource.xpr
+out_error          Media\Resource.err
+
+Texture Target
+{
+   Source      Media\Textures\Target.bmp
+   AlphaSource Media\Textures\Target_a.bmp
+   Format      D3DFMT_A8R8G8B8
+   Levels      1
+}
+
+Texture BulletHole
+{
+   Source      Media\Textures\Hole.bmp
+   AlphaSource Media\Textures\Hole_a.bmp
+   Format      D3DFMT_A8R8G8B8
+   Levels      1
+}
+
+Texture MatteBlack
+{
+   Source      Media\Textures\MatteBlack.bmp
+   Levels      1
+}
+
+Texture ShinyBlack
+{
+   Source      Media\Textures\ShinyBlack.bmp
+   Levels      1
+}
+
+Texture GreenGlass
+{
+   Source      Media\Textures\GreenGlass.bmp
+   Levels      1
+}
+
+Texture WhiteGlass
+{
+   Source      Media\Textures\WhiteGlass.bmp
+   Levels      1
+}
+
+Texture RedGlass
+{
+   Source      Media\Textures\RedGlass.bmp
+   Levels      1
+}
+
+Texture BlueGlass
+{
+   Source      Media\Textures\BlueGlass.bmp
+   Levels      1
+}
+
+Texture YellowGlass
+{
+   Source      Media\Textures\YellowGlass.bmp
+   Levels      1
+}

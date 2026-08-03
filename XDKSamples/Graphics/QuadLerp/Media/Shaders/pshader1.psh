@@ -1,0 +1,36 @@
+xps.1.1              // use Xbox extensions
+
+def c0, 1.0f, 0.0f, 0.0f, 0.0f
+def c1, 0.0f, 1.0f, 0.0f, 0.0f
+
+#define	RED	c0
+#define	GREEN c1
+
+//--- Texture Stages ---
+tex t0
+tex t1
+tex t2
+tex t3
+
+// FOUR_STAGE_VERSION
+
+; Calculate r0 = v1 dot c0, r1 = v1 dot c1
+xdd r0, r1, v1, RED, v1, GREEN
+
+; Calculate r0 = t0 * r0 + t1 * r1
+; This gives us r0 = t0 * (v1 dot c0) + t1 * (v1 dot c1)
+; It also copies f1.b to r1.a, for easier use in the
+; next stage. Note that this means that r0.a will
+; not receive any alpha from t1 or t0.
+xmma discard.rgb, discard.rgb, r0.rgb, t0.rgb, r0.rgb, t1.rgb, r1.rgb
++mov r1.a, v1.b
+
+; Calculate r1 = t2 * v1.b + t3 * v1.a
+; Note that v1.b is now stored in r1.a
+xmma discard, discard, r1, t2, r1.a, t3, v1.a
+
+; Now calculate r0 = 2 * (v0 * r0 + v0 * r1)
+xmma_x2 discard, discard, r0, v0, r0, v0, r1
+
+; This implements result = r0
+xfc zero, zero, r0, zero, zero, zero, r0.a
