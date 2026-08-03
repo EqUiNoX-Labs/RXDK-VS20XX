@@ -158,11 +158,12 @@ public static class XboxBuild
     }
 
     /// <summary>
-    /// Runs the bundler on the project's .rdf resource files. Uses the explicit
-    /// <see cref="RxdkProjectManifest.Resources"/> list if present, otherwise auto-discovers
-    /// every *.rdf under the project root. The bundler resolves out_header / out_packedresource
-    /// paths relative to each .rdf, so outputs land in the project tree (Resource.h next to the
-    /// sources, the .xpr under the media/deploy path named in the .rdf).
+    /// Runs the bundler on the project's .rdf resource files, then xactbld on any .xap XACT
+    /// projects. Uses the explicit <see cref="RxdkProjectManifest.Resources"/> list if present,
+    /// otherwise auto-discovers every *.rdf under the project root. The bundler resolves
+    /// out_header / out_packedresource paths relative to each .rdf, so outputs land in the
+    /// project tree (Resource.h next to the sources, the .xpr under the media/deploy path named
+    /// in the .rdf). See <see cref="CompileXactProjectsAsync"/> for the .xap step.
     /// </summary>
     private static async Task CompileResourcesAsync(
         string projectRoot, RxdkProjectManifest manifest, Action<string>? log, CancellationToken ct)
@@ -173,6 +174,7 @@ public static class XboxBuild
             foreach (var rel in manifest.Resources)
             {
                 if (string.IsNullOrWhiteSpace(rel)) continue;
+                if (!rel.EndsWith(".rdf", StringComparison.OrdinalIgnoreCase)) continue;
                 var p = Path.GetFullPath(Path.Combine(projectRoot, rel.Replace('/', Path.DirectorySeparatorChar)));
                 if (!File.Exists(p))
                 {
@@ -191,22 +193,74 @@ public static class XboxBuild
             rdfs.AddRange(Directory.EnumerateFiles(projectRoot, "*.rdf", SearchOption.AllDirectories));
         }
 
-        if (rdfs.Count == 0)
+        if (rdfs.Count > 0)
+        {
+            var bundler = RxdkPaths.ResolveHostTool("bundler");
+            if (!File.Exists(bundler))
+                throw new FileNotFoundException(
+                    $"bundler host tool not found: {bundler}. Update the RXDK tools (the resource pipeline needs the bundler).");
+
+            foreach (var rdf in rdfs)
+            {
+                log?.Invoke($"Compiling resources: {Path.GetFileName(rdf)}");
+                var result = await ProcessRunner.RunStreamedAsync(
+                    bundler, new[] { rdf, "-q" }, log, Path.GetDirectoryName(rdf), ct);
+                if (!result.Success)
+                    throw new InvalidOperationException(
+                        $"bundler failed on {Path.GetFileName(rdf)} (exit {result.ExitCode})");
+            }
+        }
+
+        await CompileXactProjectsAsync(projectRoot, manifest, log, ct);
+    }
+
+    /// <summary>
+    /// Runs the xactbld tool on the project's .xap XACT-project files. Each .xap produces the
+    /// generated C header (XactSounds.h, next to the .xap so the sources can #include it) plus
+    /// a wave bank (.xwb) and sound bank (.xsb) written to the media paths named inside it (for
+    /// deploy). Uses the manifest's .xap resources if listed, otherwise auto-discovers *.xap
+    /// under the project root and its immediate parent — XDK sound samples keep the .xap at the
+    /// sample root next to the .cpp, one level above the .vcxproj/manifest directory.
+    /// </summary>
+    private static async Task CompileXactProjectsAsync(
+        string projectRoot, RxdkProjectManifest manifest, Action<string>? log, CancellationToken ct)
+    {
+        var xaps = new List<string>();
+
+        // Explicit .xap entries carried in the manifest resources list.
+        foreach (var rel in manifest.Resources ?? new())
+        {
+            if (string.IsNullOrWhiteSpace(rel)) continue;
+            if (!rel.EndsWith(".xap", StringComparison.OrdinalIgnoreCase)) continue;
+            var p = Path.GetFullPath(Path.Combine(projectRoot, rel.Replace('/', Path.DirectorySeparatorChar)));
+            if (File.Exists(p)) xaps.Add(p);
+        }
+
+        // Auto-discover: project tree (recursive) + the sample root one level up (non-recursive).
+        foreach (var f in Directory.EnumerateFiles(projectRoot, "*.xap", SearchOption.AllDirectories))
+            xaps.Add(Path.GetFullPath(f));
+        var parent = Path.GetDirectoryName(projectRoot.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+        if (parent is not null && Directory.Exists(parent))
+            foreach (var f in Directory.EnumerateFiles(parent, "*.xap", SearchOption.TopDirectoryOnly))
+                xaps.Add(Path.GetFullPath(f));
+
+        var unique = xaps.Distinct(StringComparer.OrdinalIgnoreCase).ToList();
+        if (unique.Count == 0)
             return;
 
-        var bundler = RxdkPaths.ResolveHostTool("bundler");
-        if (!File.Exists(bundler))
+        var xactbld = RxdkPaths.ResolveHostTool("xactbld");
+        if (!File.Exists(xactbld))
             throw new FileNotFoundException(
-                $"bundler host tool not found: {bundler}. Update the RXDK tools (the resource pipeline needs the bundler).");
+                $"xactbld host tool not found: {xactbld}. Update the RXDK tools (the XACT audio pipeline needs xactbld).");
 
-        foreach (var rdf in rdfs)
+        foreach (var xap in unique)
         {
-            log?.Invoke($"Compiling resources: {Path.GetFileName(rdf)}");
+            log?.Invoke($"Compiling XACT project: {Path.GetFileName(xap)}");
             var result = await ProcessRunner.RunStreamedAsync(
-                bundler, new[] { rdf, "-q" }, log, Path.GetDirectoryName(rdf), ct);
+                xactbld, new[] { xap, "-q" }, log, Path.GetDirectoryName(xap), ct);
             if (!result.Success)
                 throw new InvalidOperationException(
-                    $"bundler failed on {Path.GetFileName(rdf)} (exit {result.ExitCode})");
+                    $"xactbld failed on {Path.GetFileName(xap)} (exit {result.ExitCode})");
         }
     }
 

@@ -141,10 +141,11 @@
 
   <!-- Runs before the Makefile build so the generated manifest exists when Rxdk.Cli reads it. -->
   <Target Name="RxdkGenerateManifest" BeforeTargets="Build;Rebuild">
-    <!-- .rdf resource-description files (carried as None items) are compiled by the bundler
-         before the C/C++ sources; select them so they land in the manifest's "resources". -->
+    <!-- .rdf resource-description files (compiled by the bundler) and .xap XACT projects
+         (compiled by xactbld) are carried as None items and run before the C/C++ sources;
+         select them so they land in the manifest's "resources". -->
     <ItemGroup>
-      <RxdkResourceFile Include="@(None)" Condition="'%(Extension)' == '.rdf'" />
+      <RxdkResourceFile Include="@(None)" Condition="'%(Extension)' == '.rdf' or '%(Extension)' == '.xap'" />
     </ItemGroup>
     <RxdkWriteManifest
       OutputFile="$(RxdkManifestFile)"
