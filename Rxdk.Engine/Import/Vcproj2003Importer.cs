@@ -41,16 +41,17 @@ public static class Vcproj2003Importer
     };
 
     // XDK link library (base name, variant suffix stripped) -> RXDK libraries, semicolon
-    // separated. null = no equivalent. One XDK library can map to several: retail keeps XFONT
-    // inside xgraphics.lib, where RXDK has it in its own libxfont.
+    // separated. null = no equivalent. The list form is there for one-to-many mappings; XFONT
+    // used to need it, but its objects now live in libxgraphics.lib exactly as they do in the
+    // retail XDK, so xgraphics maps straight across again.
     private static readonly Dictionary<string, string?> LibMap = new(StringComparer.OrdinalIgnoreCase)
     {
         ["d3d8"] = "libd3d8", ["d3dx8"] = "libd3dx8", ["dsound"] = "libdsound",
-        ["xapilib"] = "libxapi", ["xgraphics"] = "libxgraphics;libxfont", ["xmv"] = "libxmv",
+        ["xapilib"] = "libxapi", ["xgraphics"] = "libxgraphics", ["xmv"] = "libxmv",
         ["xbdm"] = "libxbdm", ["xboxkrnl"] = "libkernel",
         ["xonline"] = "libxonline", ["xnet"] = "libxnet",
         ["xact"] = "libxact", ["xacteng"] = "libxact", ["dmusic"] = "libdmusic",
-        ["xvoice"] = "libxvoice", ["xfont"] = "libxfont", ["uix"] = "libxonline",
+        ["xvoice"] = "libxvoice", ["xfont"] = "libxgraphics", ["uix"] = "libxonline",
         // No RXDK equivalent (soundtrack API / the instrumented perf build):
         ["xsndtrk"] = null, ["xperf"] = null,
     };

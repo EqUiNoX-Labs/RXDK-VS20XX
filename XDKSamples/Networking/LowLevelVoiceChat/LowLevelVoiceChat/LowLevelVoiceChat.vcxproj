@@ -33,7 +33,7 @@
     <RxdkBuildFlavor>Debug</RxdkBuildFlavor>
     <RxdkDefines>_USE_XGMATH;XBOX_SAMPLE</RxdkDefines>
     <RxdkIncludePaths>..\..\..\Common\include</RxdkIncludePaths>
-    <RxdkLibraries>libxbdm;libxapi;libd3d8;libd3dx8;libxgraphics;libxfont;libdsound;libkernel;libxonline;libxnet;libxvoice;libc;libcpp</RxdkLibraries>
+    <RxdkLibraries>libxbdm;libxapi;libd3d8;libd3dx8;libxgraphics;libdsound;libkernel;libxonline;libxnet;libxvoice;libc;libcpp</RxdkLibraries>
     <RxdkDeployPaths>..\media</RxdkDeployPaths>
     <RxdkStackSize>65536</RxdkStackSize>
     <RxdkImageDebug>true</RxdkImageDebug>
@@ -48,7 +48,7 @@
     <RxdkReleaseOptimize>ReleaseFast</RxdkReleaseOptimize>
     <RxdkDefines>_USE_XGMATH;XBOX_SAMPLE</RxdkDefines>
     <RxdkIncludePaths>..\..\..\Common\include</RxdkIncludePaths>
-    <RxdkLibraries>libxapi;libd3d8;libd3dx8;libxgraphics;libxfont;libdsound;libkernel;libxonline;libxnet;libxvoice;libc;libcpp</RxdkLibraries>
+    <RxdkLibraries>libxapi;libd3d8;libd3dx8;libxgraphics;libdsound;libkernel;libxonline;libxnet;libxvoice;libc;libcpp</RxdkLibraries>
     <RxdkDeployPaths>..\media</RxdkDeployPaths>
     <RxdkStackSize>65536</RxdkStackSize>
     <RxdkImageDebug>true</RxdkImageDebug>
