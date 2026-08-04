@@ -318,7 +318,8 @@ HRESULT CXBoxSample::InitObjectData()
 
     // Fill in the grid
     m_pvbGrid->Lock( 0, 0, (BYTE **)&pVertices, 0 );
-    for( LONG i = ZMIN, j = 0; i <= ZMAX; i++, j++ )
+    LONG j = 0;  // RXDK: hoisted out of the for-init (MSVC for-scope leak; the 2nd loop reuses j)
+    for( LONG i = ZMIN; i <= ZMAX; i++, j++ )
     {
         pVertices[ j * 2 ].p     = D3DXVECTOR3( XMIN, 0, (FLOAT)i ); pVertices[ j * 2 ].c     = 0xFF00A000;
         pVertices[ j * 2 + 1 ].p = D3DXVECTOR3( XMAX, 0, (FLOAT)i ); pVertices[ j * 2 + 1 ].c = 0xFF00A000;
