@@ -46,7 +46,8 @@ class ContentInfo
     DWORD                     m_dwBitFlags;   
     FILETIME                  m_ftCreationDate;
     XOFFERING_ID        m_ID;
-    std::basic_string< BYTE > m_Data;       // Title-specific data
+    // RXDK: was basic_string<BYTE> (libc++ has no char_traits<unsigned char>)
+    std::vector< BYTE > m_Data;             // Title-specific data
 
 public:
 
@@ -73,7 +74,7 @@ public:
         m_ftCreationDate( xOnInfo.ftActivationDate ),
         m_ID            ( xOnInfo.OfferingId ),
         m_Data          ( xOnInfo.pbTitleSpecificData,
-                          xOnInfo.dwTitleSpecificData )
+                          xOnInfo.pbTitleSpecificData + xOnInfo.dwTitleSpecificData )
     {
     }
 

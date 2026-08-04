@@ -55,8 +55,9 @@ class ContentInfo
                                                    // activated
     FILETIME                    m_ftDownloadDate;  // When this content was
                                                    // downloaded
-    std::basic_string< BYTE >   m_EnumBlob;        // Title-specific enum data
-    std::basic_string< BYTE >   m_DetailsBlob;     // Title-specific details data
+    // RXDK: was basic_string<BYTE> (libc++ has no char_traits<unsigned char>)
+    std::vector< BYTE >         m_EnumBlob;        // Title-specific enum data
+    std::vector< BYTE >         m_DetailsBlob;     // Title-specific details data
     DWORD                       m_dwNumInstances;  // Number of instances already owned
     XONLINE_PRICE               m_Price;
     DWORD                       m_dwFreeMonths;     // free months before charge
@@ -112,7 +113,7 @@ public:
         m_dwRating         = xOnInfo.dwRating; 
         m_ftActivationDate = xOnInfo.ftActivationDate; 
         m_ID               = xOnInfo.OfferingId; 
-        m_EnumBlob.assign( xOnInfo.pbTitleSpecificData, xOnInfo.dwTitleSpecificData);
+        m_EnumBlob.assign( xOnInfo.pbTitleSpecificData, xOnInfo.pbTitleSpecificData + xOnInfo.dwTitleSpecificData);
     }
 
     VOID InitFromDetails( const XONLINEOFFERING_DETAILS& xOnDetails)
@@ -122,7 +123,7 @@ public:
         m_dwFreeMonths   = xOnDetails.dwFreeMonthsBeforeCharge;
         m_dwDuration     = xOnDetails.dwDuration;
         m_Frequency      = xOnDetails.Frequency;
-        m_DetailsBlob.assign( xOnDetails.pbDetailsBuffer, xOnDetails.dwDetailsBuffer);
+        m_DetailsBlob.assign( xOnDetails.pbDetailsBuffer, xOnDetails.pbDetailsBuffer + xOnDetails.dwDetailsBuffer);
     }
     
 

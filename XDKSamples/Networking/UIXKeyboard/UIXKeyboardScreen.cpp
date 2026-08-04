@@ -200,7 +200,8 @@ VOID CUIXKeyboardScreen::Output()
         IconInfo.IconResID       = IMG_CURSOR;
         IconInfo.Flags           = UIX_ICON_CURSOR;
 
-        WCHAR* strText = m_pKeyboardData->strBuffer[0] ? m_pKeyboardData->strBuffer : L" ";
+        // RXDK: const-correct (a WCHAR* cannot bind the L" " literal in standard C++)
+        const WCHAR* strText = m_pKeyboardData->strBuffer[0] ? m_pKeyboardData->strBuffer : L" ";
 
         // Set the text with or without the cursor icon 
         if( fmod( GetTimeInSeconds(), CARET_BLINK_RATE ) < CARET_ON_RATIO )
