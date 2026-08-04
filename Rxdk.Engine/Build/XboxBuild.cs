@@ -114,6 +114,10 @@ public static class XboxBuild
         if (isCpp)
         {
             toolArgs.AddRange(new[] { "c++", "-std=c++23", "-nostdinc++", "-fno-exceptions", "-frtti" });
+            // Ported XDK-era C++ predates C++17 and still uses std::auto_ptr (removed in C++17,
+            // which -std=c++23 selects). libc++ keeps the implementation behind this macro, so
+            // opt legacy titles back in rather than forcing them off a modern standard.
+            toolArgs.Add("-D_LIBCPP_ENABLE_CXX17_REMOVED_AUTO_PTR");
             // C++ standard library: RXDK ships libc++ (built against picolibc) with headers staged
             // at sdk/include/c++/v1. Add it *before* the C include dir so libc++'s C-header wrappers
             // (ctype.h/wchar.h/...) win and include_next into picolibc. -fms-compatibility-version
