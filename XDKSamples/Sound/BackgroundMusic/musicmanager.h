@@ -65,6 +65,11 @@ public:
 
 
 
+// RXDK: the friend declaration below does not introduce this name at namespace scope, and it was
+// `friend static`, which is ill-formed. Declare it properly here; it is defined in the .cpp.
+void CALLBACK StreamCallback( LPVOID pStreamContext, LPVOID pPacketContext, DWORD dwStatus );
+
+
 //-----------------------------------------------------------------------------
 // Name: class CMusicManager
 // Desc: Background music engine class.  Spawns its own worker thread when
@@ -113,7 +118,7 @@ private:
     HRESULT ProcessStream( DWORD dwPacket, XMEDIAPACKET * pxmp );   // Submit packet to stream
 
     // Stream callback routine for updating playback position
-    friend static void CALLBACK StreamCallback( LPVOID pStreamContext, LPVOID pPacketContext, DWORD dwStatus );
+    friend void CALLBACK StreamCallback( LPVOID pStreamContext, LPVOID pPacketContext, DWORD dwStatus );
 
     // State variables
     BOOL                    m_bGlobal;                          // TRUE to loop/randomize globally
