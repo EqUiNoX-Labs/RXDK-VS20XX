@@ -653,7 +653,9 @@ HRESULT CXBoxSample::FrameMove()
         static UINT nStrokeCount = sizeof(rStrokeOffset) / sizeof(UINT);
         
         // Find current stroke texture
-        for( UINT iStroke = 0; iStroke < nStrokeCount; iStroke++ )
+        // RXDK: hoisted out of the for-init (MSVC's old for-scope leaked it past the loop)
+        UINT iStroke;
+        for( iStroke = 0; iStroke < nStrokeCount; iStroke++ )
             if( m_Paint.m_pStrokeTexture == m_xprResource.GetTexture( rStrokeOffset[iStroke] ) )
                 break;
         

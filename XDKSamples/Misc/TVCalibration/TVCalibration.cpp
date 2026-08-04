@@ -226,7 +226,9 @@ HRESULT CXBoxSample::Initialize()
     // Fill the VB for the grid
     D3DVERTEX* pGridVertices;
     m_pGridVB->Lock( 0, 0, (BYTE **)&pGridVertices, 0 );
-    for( int i = ZMIN, j = 0; i <= ZMAX; i++, j++ )
+    // RXDK: hoisted out of the for-init (MSVC's old for-scope leaked it past the loop)
+    int i, j;
+    for( i = ZMIN, j = 0; i <= ZMAX; i++, j++ )
     {
         pGridVertices[j*2+0].p = D3DXVECTOR3( XMIN, 0, (FLOAT)i ); pGridVertices[j*2+0].c = 0xff00a000;
         pGridVertices[j*2+1].p = D3DXVECTOR3( XMAX, 0, (FLOAT)i ); pGridVertices[j*2+1].c = 0xff00a000;

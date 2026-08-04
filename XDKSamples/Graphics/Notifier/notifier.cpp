@@ -286,7 +286,9 @@ HRESULT CXBoxSample::Render()
     m_pd3dDevice->SetTextureStageState( 1, D3DTSS_COLOROP,   D3DTOP_DISABLE );
 
     // Render some spheres
-    for( DWORD i=0; i<MAX_SPHERE/4; i++ )
+    // RXDK: hoisted out of the for-init (MSVC's old for-scope leaked it past the loop)
+    DWORD i;
+    for( i = 0; i<MAX_SPHERE/4; i++ )
     {
         m_pd3dDevice->SetTransform( D3DTS_WORLD, &m_matSphere[i] );
         m_Sphere.Render();

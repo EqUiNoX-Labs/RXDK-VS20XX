@@ -494,7 +494,9 @@ HRESULT DrawBox( FLOAT x1, FLOAT y1, FLOAT x2, FLOAT y2,
 HRESULT CXBoxSample::RenderStreaks()
 {
     // Update the streaks' main particles
-    for( DWORD k=0; k<NUM_STREAKS; k++ )
+    // RXDK: hoisted out of the for-init (MSVC's old for-scope leaked it past the loop)
+    DWORD k;
+    for( k =0; k<NUM_STREAKS; k++ )
     {
         FLOAT fTime = m_fStreakTimeScale[k]*m_fTime;
         FLOAT fX = fabsf( 2 * ( (fTime/2) - floorf(fTime/2) ) - 1 );
@@ -512,7 +514,9 @@ HRESULT CXBoxSample::RenderStreaks()
         if( j>=NUM_PARTICLES_PER_STREAK )
             j -= NUM_PARTICLES_PER_STREAK;
 
-        for( DWORD k=0; k<NUM_STREAKS; k++ )
+        // RXDK: hoisted out of the for-init (MSVC's old for-scope leaked it past the loop)
+        DWORD k;
+        for( k = 0; k<NUM_STREAKS; k++ )
             m_vParticleStreak[k][j].color = (0x00010101*i) & m_dwStreakColor[k];
     }
 

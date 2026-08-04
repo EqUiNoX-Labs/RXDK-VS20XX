@@ -137,7 +137,9 @@ HRESULT CLightgun::InitCalibrationData()
     D3DDISPLAYMODE mode;
     D3DDevice::GetDisplayMode( &mode );
 
-    for( WORD i=0; i<NUM_SUPPORTED_LIGHTGUN_DISPLAY_MODES; i++ )
+    // RXDK: hoisted out of the for-init (MSVC's old for-scope leaked it past the loop)
+    WORD i;
+    for( i = 0; i<NUM_SUPPORTED_LIGHTGUN_DISPLAY_MODES; i++ )
     {
         if( m_CalibrationData.CalibrationPts[i].wScreenWidth  == mode.Width &&
             m_CalibrationData.CalibrationPts[i].wScreenHeight == mode.Height )

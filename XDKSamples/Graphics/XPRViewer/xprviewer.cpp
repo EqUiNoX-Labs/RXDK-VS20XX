@@ -369,7 +369,9 @@ HRESULT CXBoxSample::Render()
             case D3DCOMMON_TYPE_TEXTURE:
                 pRes  = (DWORD *)m_ppResources[m_nCurrent];
                 dwFmt = (*(pRes+3) & D3DFORMAT_FORMAT_MASK) >> D3DFORMAT_FORMAT_SHIFT;
-                for(UINT x=0; g_TextureFormats[x].id != 0; x++)
+                // RXDK: hoisted out of the for-init (MSVC's old for-scope leaked it past the loop)
+                UINT x;
+                for( x = 0; g_TextureFormats[x].id != 0; x++)
                     if(g_TextureFormats[x].id == dwFmt)
                         break;
                 if( g_TextureFormats[x].id != 0 )
@@ -447,7 +449,9 @@ HRESULT CXBoxSample::Render()
         {
             pRes  = (DWORD *)m_ppResources[m_nCurrent];
             dwFmt = (*(pRes+3) & D3DFORMAT_FORMAT_MASK) >> D3DFORMAT_FORMAT_SHIFT;
-            for(UINT x=0; g_TextureFormats[x].id != 0; x++)
+            // RXDK: hoisted out of the for-init (MSVC's old for-scope leaked it past the loop)
+            UINT x;
+            for( x =0; g_TextureFormats[x].id != 0; x++)
                 if(g_TextureFormats[x].id == dwFmt)
                     break;
             if( g_TextureFormats[x].id != 0 )
@@ -694,7 +698,9 @@ HRESULT CXBoxSample::OnIOComplete()
 
     // Loop over resources, calling Register()
     pbCurrent = m_pbHeaders;
-    for( int i = 0; i < MAX_NUM_RESOURCES; i++ )
+    // RXDK: hoisted out of the for-init (MSVC's old for-scope leaked it past the loop)
+    int i;
+    for( i = 0; i < MAX_NUM_RESOURCES; i++ )
     {
         DWORD type = *((DWORD *)pbCurrent) & D3DCOMMON_TYPE_MASK;
 

@@ -266,7 +266,9 @@ HRESULT CXBoxSample::InitLights()
     // Set the new lights, keeping a count of the number of lights
     m_dwNumLights = 0;
 
-    for( int i = 0; i < m_dwNumDirectionalLights; i++ )
+    // RXDK: hoisted out of the for-init (MSVC's old for-scope leaked it past the loop)
+    int i;
+    for( i = 0; i < m_dwNumDirectionalLights; i++ )
     {
         D3DLIGHT8 light;
         ZeroMemory( &light, sizeof(light) );
@@ -368,7 +370,9 @@ HRESULT CXBoxSample::InitVBs()
     m_pRibbon2VB->Lock( 0, 0, (BYTE**)&pRibbon2Vertices, 0L );
 
     // Populate with vertices
-    for( DWORD y = 0; y <= g_dwSubsInLength; y++ )
+    // RXDK: hoisted out of the for-init (MSVC's old for-scope leaked it past the loop)
+    DWORD y;
+    for( y = 0; y <= g_dwSubsInLength; y++ )
     {
         for( DWORD x = 0; x <= g_dwSubsInWidth; x++ )
         {
@@ -744,7 +748,9 @@ HRESULT CXBoxSample::Render()
     m_pd3dDevice->SetIndices( m_pIndexBuffer, 0 );
 
     // Draw outsides of ribbons
-    for( DWORD i = 0; i < g_dwRibbonCount; i++ )
+    // RXDK: hoisted out of the for-init (MSVC's old for-scope leaked it past the loop)
+    DWORD i;
+    for( i = 0; i < g_dwRibbonCount; i++ )
     {
         // Position and rotation of ribbon
         FLOAT y      = 0.75f * g_fRibbonPitch * ( ((FLOAT)i)/(g_dwRibbonCount-1) - 0.5f );

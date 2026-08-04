@@ -178,7 +178,9 @@ HRESULT CXBoxSample::Initialize()
 
     CUSTOMVERTEX* v;
     m_pQuadVB->Lock( 0, 0, (BYTE**)&v, 0 );
-    for( DWORD i=0; i<4; i++ )
+    // RXDK: hoisted out of the for-init (MSVC's old for-scope leaked it past the loop)
+    DWORD i;
+    for( i = 0; i<4; i++ )
     {
         FLOAT x = i<2 ? 1.0f : -1.0f;
         FLOAT y = i%2 ? 1.0f : -1.0f;

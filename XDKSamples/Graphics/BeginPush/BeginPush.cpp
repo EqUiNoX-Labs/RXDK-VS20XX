@@ -550,7 +550,9 @@ VOID UpdateFlock()
     FLOAT fDist;
 
     // First update the dist array 0.0..1.0 with 0.0 being furthest away
-    for( WORD i = 0; i < NUM_STREAKS; i++ )
+    // RXDK: hoisted out of the for-init (MSVC's old for-scope leaked it past the loop)
+    WORD i;
+    for( i = 0; i < NUM_STREAKS; i++ )
     {
         for( WORD j = i + 1; j < NUM_STREAKS; j++ )
         {
@@ -702,7 +704,9 @@ VOID UpdateFlock()
     // Update the streaks tails
     for( WORD i=0; i<NUM_STREAKS; i++)
     {
-        for( DWORD j=0; j<TRAIL_SIZE-1; j++ )
+        // RXDK: hoisted out of the for-init (MSVC's old for-scope leaked it past the loop)
+        DWORD j;
+        for( j =0; j<TRAIL_SIZE-1; j++ )
             g_pStreaks[i].vLastPositions[j] = g_pStreaks[i].vLastPositions[j+1];
 
         g_pStreaks[i].vLastPositions[j] = g_pStreaks[i].vPos;

@@ -92,7 +92,9 @@ VOID SkinningTest()
     for( UINT i = 0; i < NUM_VERTS; i++ )
     {
         UINT NumWeights = 1 + i/(NUM_VERTS/4);
-        for( UINT j = 0; j < NumWeights; j++ )
+        // RXDK: hoisted out of the for-init (MSVC's old for-scope leaked it past the loop)
+        UINT j;
+        for( j = 0; j < NumWeights; j++ )
         {
             pSkinInfo[i].Indices[j] = (rand() % NUM_PALLETTE_MATRICES) * 64;
             pSkinInfo[i].Weights[j] = 1.0f / NumWeights;

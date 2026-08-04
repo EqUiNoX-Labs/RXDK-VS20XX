@@ -944,7 +944,9 @@ VOID PrintQuads( DWORD dwNumQuads )
     vQuad[2] = D3DXVECTOR3( fSize,  fSize, fRadius + 1 );
     vQuad[3] = D3DXVECTOR3( fSize, -fSize, fRadius + 1 );
     
-    for( DWORD i = 0; i < dwNumQuads; i++ )
+    // RXDK: hoisted out of the for-init (MSVC's old for-scope leaked it past the loop)
+    DWORD i;
+    for( i = 0; i < dwNumQuads; i++ )
     {
         FLOAT fAngle = 2*D3DX_PI * i / FLOAT(dwNumQuads);
         D3DXMATRIX mat;

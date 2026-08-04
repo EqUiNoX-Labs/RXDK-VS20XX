@@ -155,7 +155,9 @@ HRESULT CXBoxSample::Initialize()
         FLOAT fMinX =  1e10f;
         FLOAT fMaxX = -1e10f;
 
-        for( DWORD i=0; i<dwNumVertices; i++ )
+        // RXDK: hoisted out of the for-init (MSVC's old for-scope leaked it past the loop)
+        DWORD i;
+        for( i = 0; i<dwNumVertices; i++ )
         {
             if( pVertices[i].v.x < fMinX ) 
                 fMinX = pVertices[i].v.x;

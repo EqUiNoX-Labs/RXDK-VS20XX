@@ -1045,7 +1045,9 @@ HRESULT CXBoxSample::RenderButtonQuantizationPage()
     // Display quantized button values
     m_Font12.DrawText( 150, 100, 0xffffffff, L"Buttons", XBFONT_CENTER_X );
 
-    for( DWORD x=0; x<8; x++ )
+    // RXDK: hoisted out of the for-init (MSVC's old for-scope leaked it past the loop)
+    DWORD x;
+    for( x = 0; x<8; x++ )
     {
         // Draw gray bar
         DrawBox( 20.0f*x+78.0f, 120.0f, 20.0f*x+82.0f, 376.0f, 0xff404040, 0xff404040 );

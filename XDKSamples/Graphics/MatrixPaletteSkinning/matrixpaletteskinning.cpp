@@ -486,7 +486,9 @@ HRESULT CXBoxSample::CreateMeshBasisVectors( XBMESH_DATA& MeshData )
     MeshData.m_VB.Lock( 0, 0, (BYTE**)&pVertices, D3DLOCK_READONLY );
 
     // Clear the basis vectors
-    for( DWORD i = 0; i < MeshData.m_dwNumVertices; i++ )
+    // RXDK: hoisted out of the for-init (MSVC's old for-scope leaked it past the loop)
+    DWORD i;
+    for( i = 0; i < MeshData.m_dwNumVertices; i++ )
     {
         pBasis[i].S = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
         pBasis[i].T = D3DXVECTOR3(0.0f, 0.0f, 0.0f);

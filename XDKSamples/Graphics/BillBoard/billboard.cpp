@@ -468,7 +468,9 @@ HRESULT CXBoxSample::Render()
         // First, render front-to-back the opaque pixels
         m_pd3dDevice->SetRenderState( D3DRS_ALPHABLENDENABLE, FALSE );
         m_pd3dDevice->SetRenderState( D3DRS_ALPHAREF,  0x80 );
-        for( DWORD i=0; i<NUM_TREES; i++ )
+        // RXDK: hoisted out of the for-init (MSVC's old for-scope leaked it past the loop)
+        DWORD i;
+        for( i = 0; i<NUM_TREES; i++ )
         {
             Tree* pTree = m_pTreeArray[(NUM_TREES-1)-i];
             m_pd3dDevice->SetVertexShaderConstant( 0, &pTree->vPosition, 1 );

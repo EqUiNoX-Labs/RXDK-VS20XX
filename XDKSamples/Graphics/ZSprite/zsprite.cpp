@@ -361,7 +361,9 @@ HRESULT CXBoxSample::RenderToZSprite()
     };
     
     // Render each teapot
-    for( DWORD i = 0; i < 4; i++ )
+    // RXDK: hoisted out of the for-init (MSVC's old for-scope leaked it past the loop)
+    DWORD i;
+    for( i = 0; i < 4; i++ )
     {
         light.Diffuse.r = (i==0||i==2) ? 1.0f : 0.0f;
         light.Diffuse.g = (i==1||i==2) ? 1.0f : 0.0f;

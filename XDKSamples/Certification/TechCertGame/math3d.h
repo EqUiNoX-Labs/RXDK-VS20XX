@@ -11,7 +11,9 @@
 #define TECHCERTGAME_MATH_H
 #include "Common.h"
 #pragma inline_depth(255)
-#define inline __forceinline
+// RXDK: dropped `#define inline __forceinline` -- it leaks into the C++
+// standard headers included after this point and breaks libc++'s
+// `inline namespace` declarations.  Plain `inline` inlines fine here.
 #include <cfloat>
 
 

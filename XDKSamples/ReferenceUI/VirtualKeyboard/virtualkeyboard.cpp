@@ -2490,7 +2490,9 @@ VOID CXBVirtualKeyboard::RenderKeyboardJapan() const
 
     // Determine color and direction values
     DWORD dwColor[16];
-    for( INT i = 0; i < 16; i++ )
+    // RXDK: hoisted out of the for-init (MSVC's old for-scope leaked it past the loop)
+    INT i;
+    for( i = 0; i < 16; i++ )
         dwColor[i] = 0xffffffff;
 
     INT nDirection; // 0 - 8
