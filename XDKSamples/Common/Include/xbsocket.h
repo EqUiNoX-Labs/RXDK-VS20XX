@@ -12,6 +12,7 @@
 #define XBSOCKET_H
 
 #include <xtl.h>
+#include <winsockx.h>  // RXDK: this socket wrapper uses SOCKET/winsock; the XDK's <xtl.h> pulled it
 
 
 
