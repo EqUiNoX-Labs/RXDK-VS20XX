@@ -541,7 +541,8 @@ HRESULT DebugSetFrustum()
     // Get bounding box of inverse frustum in view coords
     D3DXVECTOR3 vMin(FLT_MAX, FLT_MAX, FLT_MAX), vMax(-FLT_MAX, -FLT_MAX, -FLT_MAX);
     FrustumVertex rVertex[8];
-    for (UINT i = 0; i < 8; i++)
+    UINT i;   // RXDK: MSVC for-scope leak -- reused after the loop
+    for( i= 0; i < 8; i++)
     {
         D3DXVec3TransformCoord((D3DXVECTOR3 *)&rVertex[i].xyz, (D3DXVECTOR3 *)&rFrustumVertex[i].xyz, &g_matDebugFrustumSaveInv);
         UnionBox(&vMin, &vMax, rVertex[i].xyz, rVertex[i].xyz);
