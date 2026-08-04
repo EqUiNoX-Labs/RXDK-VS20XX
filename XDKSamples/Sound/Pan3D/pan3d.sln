@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Pan3D", "Pan3D\Pan3D.vcxpro
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D2AED2F0-2219-4BFD-8FA6-BD91EFA67022}.Debug|Win32.ActiveCfg = Debug|Win32
-		{D2AED2F0-2219-4BFD-8FA6-BD91EFA67022}.Debug|Win32.Build.0 = Debug|Win32
-		{D2AED2F0-2219-4BFD-8FA6-BD91EFA67022}.Release|Win32.ActiveCfg = Release|Win32
-		{D2AED2F0-2219-4BFD-8FA6-BD91EFA67022}.Release|Win32.Build.0 = Release|Win32
+		{D2AED2F0-2219-4BFD-8FA6-BD91EFA67022}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{D2AED2F0-2219-4BFD-8FA6-BD91EFA67022}.Debug|Xbox.Build.0 = Debug|Xbox
+		{D2AED2F0-2219-4BFD-8FA6-BD91EFA67022}.Release|Xbox.ActiveCfg = Release|Xbox
+		{D2AED2F0-2219-4BFD-8FA6-BD91EFA67022}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

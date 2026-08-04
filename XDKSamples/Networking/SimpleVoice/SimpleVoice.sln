@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleVoice", "SimpleVoice\
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7B03F325-D1BF-4AD1-9E6A-123E955C96B5}.Debug|Win32.ActiveCfg = Debug|Win32
-		{7B03F325-D1BF-4AD1-9E6A-123E955C96B5}.Debug|Win32.Build.0 = Debug|Win32
-		{7B03F325-D1BF-4AD1-9E6A-123E955C96B5}.Release|Win32.ActiveCfg = Release|Win32
-		{7B03F325-D1BF-4AD1-9E6A-123E955C96B5}.Release|Win32.Build.0 = Release|Win32
+		{7B03F325-D1BF-4AD1-9E6A-123E955C96B5}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{7B03F325-D1BF-4AD1-9E6A-123E955C96B5}.Debug|Xbox.Build.0 = Debug|Xbox
+		{7B03F325-D1BF-4AD1-9E6A-123E955C96B5}.Release|Xbox.ActiveCfg = Release|Xbox
+		{7B03F325-D1BF-4AD1-9E6A-123E955C96B5}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

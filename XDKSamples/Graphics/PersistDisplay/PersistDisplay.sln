@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PersistDisplay", "PersistDi
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{56624338-5E9A-4D51-8FEA-B05803920CD9}.Debug|Win32.ActiveCfg = Debug|Win32
-		{56624338-5E9A-4D51-8FEA-B05803920CD9}.Debug|Win32.Build.0 = Debug|Win32
-		{56624338-5E9A-4D51-8FEA-B05803920CD9}.Release|Win32.ActiveCfg = Release|Win32
-		{56624338-5E9A-4D51-8FEA-B05803920CD9}.Release|Win32.Build.0 = Release|Win32
+		{56624338-5E9A-4D51-8FEA-B05803920CD9}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{56624338-5E9A-4D51-8FEA-B05803920CD9}.Debug|Xbox.Build.0 = Debug|Xbox
+		{56624338-5E9A-4D51-8FEA-B05803920CD9}.Release|Xbox.ActiveCfg = Release|Xbox
+		{56624338-5E9A-4D51-8FEA-B05803920CD9}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

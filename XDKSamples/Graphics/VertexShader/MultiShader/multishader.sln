@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MultiShader", "MultiShader\
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DE1DAC7F-85DA-46CA-B0ED-5CC0A44D9EBD}.Debug|Win32.ActiveCfg = Debug|Win32
-		{DE1DAC7F-85DA-46CA-B0ED-5CC0A44D9EBD}.Debug|Win32.Build.0 = Debug|Win32
-		{DE1DAC7F-85DA-46CA-B0ED-5CC0A44D9EBD}.Release|Win32.ActiveCfg = Release|Win32
-		{DE1DAC7F-85DA-46CA-B0ED-5CC0A44D9EBD}.Release|Win32.Build.0 = Release|Win32
+		{DE1DAC7F-85DA-46CA-B0ED-5CC0A44D9EBD}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{DE1DAC7F-85DA-46CA-B0ED-5CC0A44D9EBD}.Debug|Xbox.Build.0 = Debug|Xbox
+		{DE1DAC7F-85DA-46CA-B0ED-5CC0A44D9EBD}.Release|Xbox.ActiveCfg = Release|Xbox
+		{DE1DAC7F-85DA-46CA-B0ED-5CC0A44D9EBD}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

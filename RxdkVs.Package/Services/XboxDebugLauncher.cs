@@ -76,7 +76,7 @@ namespace RxdkVs.Package.Services
                 try { dir = Path.GetDirectoryName(proj.FullName); }
                 catch { return false; }
 
-                var fullConfig = "Debug|Win32";
+                var fullConfig = "Debug|Xbox";
                 try
                 {
                     var cfg = proj.ConfigurationManager?.ActiveConfiguration;
@@ -283,7 +283,7 @@ namespace RxdkVs.Package.Services
             catch { return null; }
 
             var configName = "Debug";
-            string fullConfig = "Debug|Win32";
+            string fullConfig = "Debug|Xbox";
             try
             {
                 var cfg = proj.ConfigurationManager?.ActiveConfiguration;

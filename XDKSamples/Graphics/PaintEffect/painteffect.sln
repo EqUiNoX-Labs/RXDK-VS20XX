@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PaintEffect", "PaintEffect\
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{359EA008-0B71-496B-A7E4-2A95F674480F}.Debug|Win32.ActiveCfg = Debug|Win32
-		{359EA008-0B71-496B-A7E4-2A95F674480F}.Debug|Win32.Build.0 = Debug|Win32
-		{359EA008-0B71-496B-A7E4-2A95F674480F}.Release|Win32.ActiveCfg = Release|Win32
-		{359EA008-0B71-496B-A7E4-2A95F674480F}.Release|Win32.Build.0 = Release|Win32
+		{359EA008-0B71-496B-A7E4-2A95F674480F}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{359EA008-0B71-496B-A7E4-2A95F674480F}.Debug|Xbox.Build.0 = Debug|Xbox
+		{359EA008-0B71-496B-A7E4-2A95F674480F}.Release|Xbox.ActiveCfg = Release|Xbox
+		{359EA008-0B71-496B-A7E4-2A95F674480F}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

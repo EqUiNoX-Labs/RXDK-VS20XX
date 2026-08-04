@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Play3DSound", "Play3DSound\
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2664B2C8-3A8B-4F33-A752-8D5C038C8512}.Debug|Win32.ActiveCfg = Debug|Win32
-		{2664B2C8-3A8B-4F33-A752-8D5C038C8512}.Debug|Win32.Build.0 = Debug|Win32
-		{2664B2C8-3A8B-4F33-A752-8D5C038C8512}.Release|Win32.ActiveCfg = Release|Win32
-		{2664B2C8-3A8B-4F33-A752-8D5C038C8512}.Release|Win32.Build.0 = Release|Win32
+		{2664B2C8-3A8B-4F33-A752-8D5C038C8512}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{2664B2C8-3A8B-4F33-A752-8D5C038C8512}.Debug|Xbox.Build.0 = Debug|Xbox
+		{2664B2C8-3A8B-4F33-A752-8D5C038C8512}.Release|Xbox.ActiveCfg = Release|Xbox
+		{2664B2C8-3A8B-4F33-A752-8D5C038C8512}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

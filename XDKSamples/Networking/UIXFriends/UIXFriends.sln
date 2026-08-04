@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UIXFriends", "UIXFriends\UI
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{63ACE5DC-4B3E-4768-87CF-939CA686F09D}.Debug|Win32.ActiveCfg = Debug|Win32
-		{63ACE5DC-4B3E-4768-87CF-939CA686F09D}.Debug|Win32.Build.0 = Debug|Win32
-		{63ACE5DC-4B3E-4768-87CF-939CA686F09D}.Release|Win32.ActiveCfg = Release|Win32
-		{63ACE5DC-4B3E-4768-87CF-939CA686F09D}.Release|Win32.Build.0 = Release|Win32
+		{63ACE5DC-4B3E-4768-87CF-939CA686F09D}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{63ACE5DC-4B3E-4768-87CF-939CA686F09D}.Debug|Xbox.Build.0 = Debug|Xbox
+		{63ACE5DC-4B3E-4768-87CF-939CA686F09D}.Release|Xbox.ActiveCfg = Release|Xbox
+		{63ACE5DC-4B3E-4768-87CF-939CA686F09D}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

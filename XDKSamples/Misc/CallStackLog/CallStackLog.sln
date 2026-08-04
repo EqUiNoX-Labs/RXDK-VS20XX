@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CallStackLog", "CallStackLo
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0BE557D9-61BE-4C8C-AED4-45DC9004C904}.Debug|Win32.ActiveCfg = Debug|Win32
-		{0BE557D9-61BE-4C8C-AED4-45DC9004C904}.Debug|Win32.Build.0 = Debug|Win32
-		{0BE557D9-61BE-4C8C-AED4-45DC9004C904}.Release|Win32.ActiveCfg = Release|Win32
-		{0BE557D9-61BE-4C8C-AED4-45DC9004C904}.Release|Win32.Build.0 = Release|Win32
+		{0BE557D9-61BE-4C8C-AED4-45DC9004C904}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{0BE557D9-61BE-4C8C-AED4-45DC9004C904}.Debug|Xbox.Build.0 = Debug|Xbox
+		{0BE557D9-61BE-4C8C-AED4-45DC9004C904}.Release|Xbox.ActiveCfg = Release|Xbox
+		{0BE557D9-61BE-4C8C-AED4-45DC9004C904}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

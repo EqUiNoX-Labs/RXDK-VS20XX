@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Swizzle", "Swizzle\Swizzle.
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{23C914DD-9258-4EBD-B11E-A317EC26EC40}.Debug|Win32.ActiveCfg = Debug|Win32
-		{23C914DD-9258-4EBD-B11E-A317EC26EC40}.Debug|Win32.Build.0 = Debug|Win32
-		{23C914DD-9258-4EBD-B11E-A317EC26EC40}.Release|Win32.ActiveCfg = Release|Win32
-		{23C914DD-9258-4EBD-B11E-A317EC26EC40}.Release|Win32.Build.0 = Release|Win32
+		{23C914DD-9258-4EBD-B11E-A317EC26EC40}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{23C914DD-9258-4EBD-B11E-A317EC26EC40}.Debug|Xbox.Build.0 = Debug|Xbox
+		{23C914DD-9258-4EBD-B11E-A317EC26EC40}.Release|Xbox.ActiveCfg = Release|Xbox
+		{23C914DD-9258-4EBD-B11E-A317EC26EC40}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

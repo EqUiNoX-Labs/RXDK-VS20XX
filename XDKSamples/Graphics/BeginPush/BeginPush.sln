@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BeginPush", "BeginPush\Begi
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4A2646DE-0FCF-403D-AA30-7E554277CC35}.Debug|Win32.ActiveCfg = Debug|Win32
-		{4A2646DE-0FCF-403D-AA30-7E554277CC35}.Debug|Win32.Build.0 = Debug|Win32
-		{4A2646DE-0FCF-403D-AA30-7E554277CC35}.Release|Win32.ActiveCfg = Release|Win32
-		{4A2646DE-0FCF-403D-AA30-7E554277CC35}.Release|Win32.Build.0 = Release|Win32
+		{4A2646DE-0FCF-403D-AA30-7E554277CC35}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{4A2646DE-0FCF-403D-AA30-7E554277CC35}.Debug|Xbox.Build.0 = Debug|Xbox
+		{4A2646DE-0FCF-403D-AA30-7E554277CC35}.Release|Xbox.ActiveCfg = Release|Xbox
+		{4A2646DE-0FCF-403D-AA30-7E554277CC35}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

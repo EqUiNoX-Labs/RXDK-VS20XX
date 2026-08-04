@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CustomSTLAllocators", "Cust
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CE0C423D-C774-40CC-B044-AADDF71DC55F}.Debug|Win32.ActiveCfg = Debug|Win32
-		{CE0C423D-C774-40CC-B044-AADDF71DC55F}.Debug|Win32.Build.0 = Debug|Win32
-		{CE0C423D-C774-40CC-B044-AADDF71DC55F}.Release|Win32.ActiveCfg = Release|Win32
-		{CE0C423D-C774-40CC-B044-AADDF71DC55F}.Release|Win32.Build.0 = Release|Win32
+		{CE0C423D-C774-40CC-B044-AADDF71DC55F}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{CE0C423D-C774-40CC-B044-AADDF71DC55F}.Debug|Xbox.Build.0 = Debug|Xbox
+		{CE0C423D-C774-40CC-B044-AADDF71DC55F}.Release|Xbox.ActiveCfg = Release|Xbox
+		{CE0C423D-C774-40CC-B044-AADDF71DC55F}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

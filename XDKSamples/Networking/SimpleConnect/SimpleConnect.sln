@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleConnect", "SimpleConn
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{ACD8A205-DA95-4BA0-814C-5FDBA630244E}.Debug|Win32.ActiveCfg = Debug|Win32
-		{ACD8A205-DA95-4BA0-814C-5FDBA630244E}.Debug|Win32.Build.0 = Debug|Win32
-		{ACD8A205-DA95-4BA0-814C-5FDBA630244E}.Release|Win32.ActiveCfg = Release|Win32
-		{ACD8A205-DA95-4BA0-814C-5FDBA630244E}.Release|Win32.Build.0 = Release|Win32
+		{ACD8A205-DA95-4BA0-814C-5FDBA630244E}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{ACD8A205-DA95-4BA0-814C-5FDBA630244E}.Debug|Xbox.Build.0 = Debug|Xbox
+		{ACD8A205-DA95-4BA0-814C-5FDBA630244E}.Release|Xbox.ActiveCfg = Release|Xbox
+		{ACD8A205-DA95-4BA0-814C-5FDBA630244E}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

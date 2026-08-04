@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WaveBankStream", "WaveBankS
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D350FAB5-069B-4E92-BC7E-35DB03856869}.Debug|Win32.ActiveCfg = Debug|Win32
-		{D350FAB5-069B-4E92-BC7E-35DB03856869}.Debug|Win32.Build.0 = Debug|Win32
-		{D350FAB5-069B-4E92-BC7E-35DB03856869}.Release|Win32.ActiveCfg = Release|Win32
-		{D350FAB5-069B-4E92-BC7E-35DB03856869}.Release|Win32.Build.0 = Release|Win32
+		{D350FAB5-069B-4E92-BC7E-35DB03856869}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{D350FAB5-069B-4E92-BC7E-35DB03856869}.Debug|Xbox.Build.0 = Debug|Xbox
+		{D350FAB5-069B-4E92-BC7E-35DB03856869}.Release|Xbox.ActiveCfg = Release|Xbox
+		{D350FAB5-069B-4E92-BC7E-35DB03856869}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

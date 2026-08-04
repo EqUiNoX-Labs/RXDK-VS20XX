@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleMessaging", "SimpleMe
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{95DE4246-59AB-439D-B942-A2FB024143D6}.Debug|Win32.ActiveCfg = Debug|Win32
-		{95DE4246-59AB-439D-B942-A2FB024143D6}.Debug|Win32.Build.0 = Debug|Win32
-		{95DE4246-59AB-439D-B942-A2FB024143D6}.Release|Win32.ActiveCfg = Release|Win32
-		{95DE4246-59AB-439D-B942-A2FB024143D6}.Release|Win32.Build.0 = Release|Win32
+		{95DE4246-59AB-439D-B942-A2FB024143D6}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{95DE4246-59AB-439D-B942-A2FB024143D6}.Debug|Xbox.Build.0 = Debug|Xbox
+		{95DE4246-59AB-439D-B942-A2FB024143D6}.Release|Xbox.ActiveCfg = Release|Xbox
+		{95DE4246-59AB-439D-B942-A2FB024143D6}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

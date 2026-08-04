@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TEAMS", "TEAMS\TEAMS.vcxpro
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F78EC2DE-85F5-4A96-9409-37494349B41C}.Debug|Win32.ActiveCfg = Debug|Win32
-		{F78EC2DE-85F5-4A96-9409-37494349B41C}.Debug|Win32.Build.0 = Debug|Win32
-		{F78EC2DE-85F5-4A96-9409-37494349B41C}.Release|Win32.ActiveCfg = Release|Win32
-		{F78EC2DE-85F5-4A96-9409-37494349B41C}.Release|Win32.Build.0 = Release|Win32
+		{F78EC2DE-85F5-4A96-9409-37494349B41C}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{F78EC2DE-85F5-4A96-9409-37494349B41C}.Debug|Xbox.Build.0 = Debug|Xbox
+		{F78EC2DE-85F5-4A96-9409-37494349B41C}.Release|Xbox.ActiveCfg = Release|Xbox
+		{F78EC2DE-85F5-4A96-9409-37494349B41C}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

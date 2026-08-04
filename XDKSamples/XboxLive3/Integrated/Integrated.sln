@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "INTEGRATED", "INTEGRATED\IN
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5B85010E-609A-49F8-BDCC-793BE7B34984}.Debug|Win32.ActiveCfg = Debug|Win32
-		{5B85010E-609A-49F8-BDCC-793BE7B34984}.Debug|Win32.Build.0 = Debug|Win32
-		{5B85010E-609A-49F8-BDCC-793BE7B34984}.Release|Win32.ActiveCfg = Release|Win32
-		{5B85010E-609A-49F8-BDCC-793BE7B34984}.Release|Win32.Build.0 = Release|Win32
+		{5B85010E-609A-49F8-BDCC-793BE7B34984}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{5B85010E-609A-49F8-BDCC-793BE7B34984}.Debug|Xbox.Build.0 = Debug|Xbox
+		{5B85010E-609A-49F8-BDCC-793BE7B34984}.Release|Xbox.ActiveCfg = Release|Xbox
+		{5B85010E-609A-49F8-BDCC-793BE7B34984}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

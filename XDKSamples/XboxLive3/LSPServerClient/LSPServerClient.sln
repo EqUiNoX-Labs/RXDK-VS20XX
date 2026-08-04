@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LSPSERVERCLIENT", "LSPSERVE
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{077257C0-D575-4AE1-9512-4FB311FB49BF}.Debug|Win32.ActiveCfg = Debug|Win32
-		{077257C0-D575-4AE1-9512-4FB311FB49BF}.Debug|Win32.Build.0 = Debug|Win32
-		{077257C0-D575-4AE1-9512-4FB311FB49BF}.Release|Win32.ActiveCfg = Release|Win32
-		{077257C0-D575-4AE1-9512-4FB311FB49BF}.Release|Win32.Build.0 = Release|Win32
+		{077257C0-D575-4AE1-9512-4FB311FB49BF}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{077257C0-D575-4AE1-9512-4FB311FB49BF}.Debug|Xbox.Build.0 = Debug|Xbox
+		{077257C0-D575-4AE1-9512-4FB311FB49BF}.Release|Xbox.ActiveCfg = Release|Xbox
+		{077257C0-D575-4AE1-9512-4FB311FB49BF}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

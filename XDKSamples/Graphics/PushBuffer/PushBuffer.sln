@@ -9,18 +9,18 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PushBuffer", "PushBuffer\Pu
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D34AB860-7FA2-443E-9D16-4B6AADC8EF36}.Debug|Win32.ActiveCfg = Debug|Win32
-		{D34AB860-7FA2-443E-9D16-4B6AADC8EF36}.Debug|Win32.Build.0 = Debug|Win32
-		{D34AB860-7FA2-443E-9D16-4B6AADC8EF36}.Release|Win32.ActiveCfg = Release|Win32
-		{D34AB860-7FA2-443E-9D16-4B6AADC8EF36}.Release|Win32.Build.0 = Release|Win32
-		{5026E695-721B-4077-A9D2-D8BC16948DAA}.Debug|Win32.ActiveCfg = Debug|Win32
-		{5026E695-721B-4077-A9D2-D8BC16948DAA}.Debug|Win32.Build.0 = Debug|Win32
-		{5026E695-721B-4077-A9D2-D8BC16948DAA}.Release|Win32.ActiveCfg = Release|Win32
-		{5026E695-721B-4077-A9D2-D8BC16948DAA}.Release|Win32.Build.0 = Release|Win32
+		{D34AB860-7FA2-443E-9D16-4B6AADC8EF36}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{D34AB860-7FA2-443E-9D16-4B6AADC8EF36}.Debug|Xbox.Build.0 = Debug|Xbox
+		{D34AB860-7FA2-443E-9D16-4B6AADC8EF36}.Release|Xbox.ActiveCfg = Release|Xbox
+		{D34AB860-7FA2-443E-9D16-4B6AADC8EF36}.Release|Xbox.Build.0 = Release|Xbox
+		{5026E695-721B-4077-A9D2-D8BC16948DAA}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{5026E695-721B-4077-A9D2-D8BC16948DAA}.Debug|Xbox.Build.0 = Debug|Xbox
+		{5026E695-721B-4077-A9D2-D8BC16948DAA}.Release|Xbox.ActiveCfg = Release|Xbox
+		{5026E695-721B-4077-A9D2-D8BC16948DAA}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

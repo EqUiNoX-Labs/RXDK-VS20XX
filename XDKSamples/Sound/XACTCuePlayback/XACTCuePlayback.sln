@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XActCuePlayback", "XActCueP
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FA20B2D0-9DDC-4D6A-847A-850615F43AC6}.Debug|Win32.ActiveCfg = Debug|Win32
-		{FA20B2D0-9DDC-4D6A-847A-850615F43AC6}.Debug|Win32.Build.0 = Debug|Win32
-		{FA20B2D0-9DDC-4D6A-847A-850615F43AC6}.Release|Win32.ActiveCfg = Release|Win32
-		{FA20B2D0-9DDC-4D6A-847A-850615F43AC6}.Release|Win32.Build.0 = Release|Win32
+		{FA20B2D0-9DDC-4D6A-847A-850615F43AC6}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{FA20B2D0-9DDC-4D6A-847A-850615F43AC6}.Debug|Xbox.Build.0 = Debug|Xbox
+		{FA20B2D0-9DDC-4D6A-847A-850615F43AC6}.Release|Xbox.ActiveCfg = Release|Xbox
+		{FA20B2D0-9DDC-4D6A-847A-850615F43AC6}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

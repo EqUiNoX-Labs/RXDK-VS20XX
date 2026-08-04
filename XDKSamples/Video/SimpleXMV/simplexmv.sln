@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleXMV", "SimpleXMV\Simp
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DE77D440-CCCD-43B1-90F1-BCF7D5570C9D}.Debug|Win32.ActiveCfg = Debug|Win32
-		{DE77D440-CCCD-43B1-90F1-BCF7D5570C9D}.Debug|Win32.Build.0 = Debug|Win32
-		{DE77D440-CCCD-43B1-90F1-BCF7D5570C9D}.Release|Win32.ActiveCfg = Release|Win32
-		{DE77D440-CCCD-43B1-90F1-BCF7D5570C9D}.Release|Win32.Build.0 = Release|Win32
+		{DE77D440-CCCD-43B1-90F1-BCF7D5570C9D}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{DE77D440-CCCD-43B1-90F1-BCF7D5570C9D}.Debug|Xbox.Build.0 = Debug|Xbox
+		{DE77D440-CCCD-43B1-90F1-BCF7D5570C9D}.Release|Xbox.ActiveCfg = Release|Xbox
+		{DE77D440-CCCD-43B1-90F1-BCF7D5570C9D}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

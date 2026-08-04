@@ -381,9 +381,9 @@ public static class Vcproj2003Importer
         sb.AppendLine("  <ItemGroup Label=\"ProjectConfigurations\">");
         foreach (var c in configs)
         {
-            sb.AppendLine($"    <ProjectConfiguration Include=\"{Esc(c.Name)}|Win32\">");
+            sb.AppendLine($"    <ProjectConfiguration Include=\"{Esc(c.Name)}|Xbox\">");
             sb.AppendLine($"      <Configuration>{Esc(c.Name)}</Configuration>");
-            sb.AppendLine("      <Platform>Win32</Platform>");
+            sb.AppendLine("      <Platform>Xbox</Platform>");
             sb.AppendLine("    </ProjectConfiguration>");
         }
         sb.AppendLine("  </ItemGroup>");
@@ -410,7 +410,7 @@ public static class Vcproj2003Importer
 
         foreach (var c in configs)
         {
-            sb.AppendLine($"  <PropertyGroup Condition=\"'$(Configuration)|$(Platform)'=='{Esc(c.Name)}|Win32'\">");
+            sb.AppendLine($"  <PropertyGroup Condition=\"'$(Configuration)|$(Platform)'=='{Esc(c.Name)}|Xbox'\">");
             sb.AppendLine($"    <RxdkBuildFlavor>{c.Flavor}</RxdkBuildFlavor>");
             if (c.ReleaseOptimize != null) sb.AppendLine($"    <RxdkReleaseOptimize>{c.ReleaseOptimize}</RxdkReleaseOptimize>");
             Prop(sb, "RxdkDefines", c.Defines);

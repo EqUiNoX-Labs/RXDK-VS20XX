@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BumpEarth", "BumpEarth\Bump
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{38C2A3AC-9AE7-41EF-B9AC-3C0CA12AB654}.Debug|Win32.ActiveCfg = Debug|Win32
-		{38C2A3AC-9AE7-41EF-B9AC-3C0CA12AB654}.Debug|Win32.Build.0 = Debug|Win32
-		{38C2A3AC-9AE7-41EF-B9AC-3C0CA12AB654}.Release|Win32.ActiveCfg = Release|Win32
-		{38C2A3AC-9AE7-41EF-B9AC-3C0CA12AB654}.Release|Win32.Build.0 = Release|Win32
+		{38C2A3AC-9AE7-41EF-B9AC-3C0CA12AB654}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{38C2A3AC-9AE7-41EF-B9AC-3C0CA12AB654}.Debug|Xbox.Build.0 = Debug|Xbox
+		{38C2A3AC-9AE7-41EF-B9AC-3C0CA12AB654}.Release|Xbox.ActiveCfg = Release|Xbox
+		{38C2A3AC-9AE7-41EF-B9AC-3C0CA12AB654}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

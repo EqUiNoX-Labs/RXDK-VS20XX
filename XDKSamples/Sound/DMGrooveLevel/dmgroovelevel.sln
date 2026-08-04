@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DMGrooveLevel", "DMGrooveLe
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{558CEE87-5D08-4A53-B81E-2291C67AF713}.Debug|Win32.ActiveCfg = Debug|Win32
-		{558CEE87-5D08-4A53-B81E-2291C67AF713}.Debug|Win32.Build.0 = Debug|Win32
-		{558CEE87-5D08-4A53-B81E-2291C67AF713}.Release|Win32.ActiveCfg = Release|Win32
-		{558CEE87-5D08-4A53-B81E-2291C67AF713}.Release|Win32.Build.0 = Release|Win32
+		{558CEE87-5D08-4A53-B81E-2291C67AF713}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{558CEE87-5D08-4A53-B81E-2291C67AF713}.Debug|Xbox.Build.0 = Debug|Xbox
+		{558CEE87-5D08-4A53-B81E-2291C67AF713}.Release|Xbox.ActiveCfg = Release|Xbox
+		{558CEE87-5D08-4A53-B81E-2291C67AF713}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

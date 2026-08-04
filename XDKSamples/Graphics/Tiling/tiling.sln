@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tiling", "Tiling\Tiling.vcx
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D90BBDE5-C373-46D7-BF39-DA263A91D0AB}.Debug|Win32.ActiveCfg = Debug|Win32
-		{D90BBDE5-C373-46D7-BF39-DA263A91D0AB}.Debug|Win32.Build.0 = Debug|Win32
-		{D90BBDE5-C373-46D7-BF39-DA263A91D0AB}.Release|Win32.ActiveCfg = Release|Win32
-		{D90BBDE5-C373-46D7-BF39-DA263A91D0AB}.Release|Win32.Build.0 = Release|Win32
+		{D90BBDE5-C373-46D7-BF39-DA263A91D0AB}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{D90BBDE5-C373-46D7-BF39-DA263A91D0AB}.Debug|Xbox.Build.0 = Debug|Xbox
+		{D90BBDE5-C373-46D7-BF39-DA263A91D0AB}.Release|Xbox.ActiveCfg = Release|Xbox
+		{D90BBDE5-C373-46D7-BF39-DA263A91D0AB}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

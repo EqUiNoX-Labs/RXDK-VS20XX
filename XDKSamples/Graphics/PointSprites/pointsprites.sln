@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PointSprites", "PointSprite
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C9C76F34-A291-4559-ABFC-FD94DF5A6029}.Debug|Win32.ActiveCfg = Debug|Win32
-		{C9C76F34-A291-4559-ABFC-FD94DF5A6029}.Debug|Win32.Build.0 = Debug|Win32
-		{C9C76F34-A291-4559-ABFC-FD94DF5A6029}.Release|Win32.ActiveCfg = Release|Win32
-		{C9C76F34-A291-4559-ABFC-FD94DF5A6029}.Release|Win32.Build.0 = Release|Win32
+		{C9C76F34-A291-4559-ABFC-FD94DF5A6029}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{C9C76F34-A291-4559-ABFC-FD94DF5A6029}.Debug|Xbox.Build.0 = Debug|Xbox
+		{C9C76F34-A291-4559-ABFC-FD94DF5A6029}.Release|Xbox.ActiveCfg = Release|Xbox
+		{C9C76F34-A291-4559-ABFC-FD94DF5A6029}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

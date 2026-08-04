@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Water", "Water\Water.vcxpro
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{15E5A5C6-51E3-4389-9047-8D91BEDFFF25}.Debug|Win32.ActiveCfg = Debug|Win32
-		{15E5A5C6-51E3-4389-9047-8D91BEDFFF25}.Debug|Win32.Build.0 = Debug|Win32
-		{15E5A5C6-51E3-4389-9047-8D91BEDFFF25}.Release|Win32.ActiveCfg = Release|Win32
-		{15E5A5C6-51E3-4389-9047-8D91BEDFFF25}.Release|Win32.Build.0 = Release|Win32
+		{15E5A5C6-51E3-4389-9047-8D91BEDFFF25}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{15E5A5C6-51E3-4389-9047-8D91BEDFFF25}.Debug|Xbox.Build.0 = Debug|Xbox
+		{15E5A5C6-51E3-4389-9047-8D91BEDFFF25}.Release|Xbox.ActiveCfg = Release|Xbox
+		{15E5A5C6-51E3-4389-9047-8D91BEDFFF25}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

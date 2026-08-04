@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "STORAGE", "STORAGE\STORAGE.
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{621C5E4A-FAAC-40F9-AE51-ABE0086E7F3A}.Debug|Win32.ActiveCfg = Debug|Win32
-		{621C5E4A-FAAC-40F9-AE51-ABE0086E7F3A}.Debug|Win32.Build.0 = Debug|Win32
-		{621C5E4A-FAAC-40F9-AE51-ABE0086E7F3A}.Release|Win32.ActiveCfg = Release|Win32
-		{621C5E4A-FAAC-40F9-AE51-ABE0086E7F3A}.Release|Win32.Build.0 = Release|Win32
+		{621C5E4A-FAAC-40F9-AE51-ABE0086E7F3A}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{621C5E4A-FAAC-40F9-AE51-ABE0086E7F3A}.Debug|Xbox.Build.0 = Debug|Xbox
+		{621C5E4A-FAAC-40F9-AE51-ABE0086E7F3A}.Release|Xbox.ActiveCfg = Release|Xbox
+		{621C5E4A-FAAC-40F9-AE51-ABE0086E7F3A}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

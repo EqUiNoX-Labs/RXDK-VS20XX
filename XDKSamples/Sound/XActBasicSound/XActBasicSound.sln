@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XActBasicSound", "XActBasic
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AADA6E89-9076-43B9-8DA4-2ADDF3E6986F}.Debug|Win32.ActiveCfg = Debug|Win32
-		{AADA6E89-9076-43B9-8DA4-2ADDF3E6986F}.Debug|Win32.Build.0 = Debug|Win32
-		{AADA6E89-9076-43B9-8DA4-2ADDF3E6986F}.Release|Win32.ActiveCfg = Release|Win32
-		{AADA6E89-9076-43B9-8DA4-2ADDF3E6986F}.Release|Win32.Build.0 = Release|Win32
+		{AADA6E89-9076-43B9-8DA4-2ADDF3E6986F}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{AADA6E89-9076-43B9-8DA4-2ADDF3E6986F}.Debug|Xbox.Build.0 = Debug|Xbox
+		{AADA6E89-9076-43B9-8DA4-2ADDF3E6986F}.Release|Xbox.ActiveCfg = Release|Xbox
+		{AADA6E89-9076-43B9-8DA4-2ADDF3E6986F}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

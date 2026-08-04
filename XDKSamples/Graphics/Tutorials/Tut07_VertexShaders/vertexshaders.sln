@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VertexShaders", "VertexShad
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F096006A-162E-4A6E-9B2D-4A7B2437B36A}.Debug|Win32.ActiveCfg = Debug|Win32
-		{F096006A-162E-4A6E-9B2D-4A7B2437B36A}.Debug|Win32.Build.0 = Debug|Win32
-		{F096006A-162E-4A6E-9B2D-4A7B2437B36A}.Release|Win32.ActiveCfg = Release|Win32
-		{F096006A-162E-4A6E-9B2D-4A7B2437B36A}.Release|Win32.Build.0 = Release|Win32
+		{F096006A-162E-4A6E-9B2D-4A7B2437B36A}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{F096006A-162E-4A6E-9B2D-4A7B2437B36A}.Debug|Xbox.Build.0 = Debug|Xbox
+		{F096006A-162E-4A6E-9B2D-4A7B2437B36A}.Release|Xbox.ActiveCfg = Release|Xbox
+		{F096006A-162E-4A6E-9B2D-4A7B2437B36A}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

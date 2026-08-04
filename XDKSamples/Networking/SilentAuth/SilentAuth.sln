@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SilentAuth", "SilentAuth\Si
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C3D816B1-B185-4818-976E-A3AEC54625FC}.Debug|Win32.ActiveCfg = Debug|Win32
-		{C3D816B1-B185-4818-976E-A3AEC54625FC}.Debug|Win32.Build.0 = Debug|Win32
-		{C3D816B1-B185-4818-976E-A3AEC54625FC}.Release|Win32.ActiveCfg = Release|Win32
-		{C3D816B1-B185-4818-976E-A3AEC54625FC}.Release|Win32.Build.0 = Release|Win32
+		{C3D816B1-B185-4818-976E-A3AEC54625FC}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{C3D816B1-B185-4818-976E-A3AEC54625FC}.Debug|Xbox.Build.0 = Debug|Xbox
+		{C3D816B1-B185-4818-976E-A3AEC54625FC}.Release|Xbox.ActiveCfg = Release|Xbox
+		{C3D816B1-B185-4818-976E-A3AEC54625FC}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

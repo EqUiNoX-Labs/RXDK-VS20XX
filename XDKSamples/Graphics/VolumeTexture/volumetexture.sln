@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VolumeTexture", "VolumeText
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{01B0AF11-0017-4404-BB55-A07295FBE4D7}.Debug|Win32.ActiveCfg = Debug|Win32
-		{01B0AF11-0017-4404-BB55-A07295FBE4D7}.Debug|Win32.Build.0 = Debug|Win32
-		{01B0AF11-0017-4404-BB55-A07295FBE4D7}.Release|Win32.ActiveCfg = Release|Win32
-		{01B0AF11-0017-4404-BB55-A07295FBE4D7}.Release|Win32.Build.0 = Release|Win32
+		{01B0AF11-0017-4404-BB55-A07295FBE4D7}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{01B0AF11-0017-4404-BB55-A07295FBE4D7}.Debug|Xbox.Build.0 = Debug|Xbox
+		{01B0AF11-0017-4404-BB55-A07295FBE4D7}.Release|Xbox.ActiveCfg = Release|Xbox
+		{01B0AF11-0017-4404-BB55-A07295FBE4D7}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

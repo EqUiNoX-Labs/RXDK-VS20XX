@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lensflare", "Lensflare\Lens
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DC12031B-F1B8-40CD-A99A-91AACA24318C}.Debug|Win32.ActiveCfg = Debug|Win32
-		{DC12031B-F1B8-40CD-A99A-91AACA24318C}.Debug|Win32.Build.0 = Debug|Win32
-		{DC12031B-F1B8-40CD-A99A-91AACA24318C}.Release|Win32.ActiveCfg = Release|Win32
-		{DC12031B-F1B8-40CD-A99A-91AACA24318C}.Release|Win32.Build.0 = Release|Win32
+		{DC12031B-F1B8-40CD-A99A-91AACA24318C}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{DC12031B-F1B8-40CD-A99A-91AACA24318C}.Debug|Xbox.Build.0 = Debug|Xbox
+		{DC12031B-F1B8-40CD-A99A-91AACA24318C}.Release|Xbox.ActiveCfg = Release|Xbox
+		{DC12031B-F1B8-40CD-A99A-91AACA24318C}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Gamepad", "Gamepad\Gamepad.
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{402C7BF3-550F-408A-AC73-C06B82C5830C}.Debug|Win32.ActiveCfg = Debug|Win32
-		{402C7BF3-550F-408A-AC73-C06B82C5830C}.Debug|Win32.Build.0 = Debug|Win32
-		{402C7BF3-550F-408A-AC73-C06B82C5830C}.Release|Win32.ActiveCfg = Release|Win32
-		{402C7BF3-550F-408A-AC73-C06B82C5830C}.Release|Win32.Build.0 = Release|Win32
+		{402C7BF3-550F-408A-AC73-C06B82C5830C}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{402C7BF3-550F-408A-AC73-C06B82C5830C}.Debug|Xbox.Build.0 = Debug|Xbox
+		{402C7BF3-550F-408A-AC73-C06B82C5830C}.Release|Xbox.ActiveCfg = Release|Xbox
+		{402C7BF3-550F-408A-AC73-C06B82C5830C}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

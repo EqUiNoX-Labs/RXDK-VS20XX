@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XActWMAPlayList", "XActWMAP
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A95C3FB2-90B8-442C-A01A-BA985F54FA5D}.Debug|Win32.ActiveCfg = Debug|Win32
-		{A95C3FB2-90B8-442C-A01A-BA985F54FA5D}.Debug|Win32.Build.0 = Debug|Win32
-		{A95C3FB2-90B8-442C-A01A-BA985F54FA5D}.Release|Win32.ActiveCfg = Release|Win32
-		{A95C3FB2-90B8-442C-A01A-BA985F54FA5D}.Release|Win32.Build.0 = Release|Win32
+		{A95C3FB2-90B8-442C-A01A-BA985F54FA5D}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{A95C3FB2-90B8-442C-A01A-BA985F54FA5D}.Debug|Xbox.Build.0 = Debug|Xbox
+		{A95C3FB2-90B8-442C-A01A-BA985F54FA5D}.Release|Xbox.ActiveCfg = Release|Xbox
+		{A95C3FB2-90B8-442C-A01A-BA985F54FA5D}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

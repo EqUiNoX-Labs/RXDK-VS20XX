@@ -189,7 +189,7 @@ public static class SolutionImporter
 
         sb.AppendLine("Global");
         sb.AppendLine("\tGlobalSection(SolutionConfigurationPlatforms) = preSolution");
-        foreach (var c in solutionConfigs) sb.AppendLine($"\t\t{c}|Win32 = {c}|Win32");
+        foreach (var c in solutionConfigs) sb.AppendLine($"\t\t{c}|Xbox = {c}|Xbox");
         sb.AppendLine("\tEndGlobalSection");
 
         sb.AppendLine("\tGlobalSection(ProjectConfigurationPlatforms) = postSolution");
@@ -200,8 +200,8 @@ public static class SolutionImporter
             foreach (var sc in solutionConfigs)
             {
                 var mapped = MapProjectConfig(cfgs, sc);
-                sb.AppendLine($"\t\t{guid}.{sc}|Win32.ActiveCfg = {mapped}|Win32");
-                sb.AppendLine($"\t\t{guid}.{sc}|Win32.Build.0 = {mapped}|Win32");
+                sb.AppendLine($"\t\t{guid}.{sc}|Xbox.ActiveCfg = {mapped}|Xbox");
+                sb.AppendLine($"\t\t{guid}.{sc}|Xbox.Build.0 = {mapped}|Xbox");
             }
         }
         sb.AppendLine("\tEndGlobalSection");

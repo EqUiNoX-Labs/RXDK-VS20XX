@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SkyBox", "SkyBox\SkyBox.vcx
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8F9B84C9-5497-47F5-8C49-91551D02B37F}.Debug|Win32.ActiveCfg = Debug|Win32
-		{8F9B84C9-5497-47F5-8C49-91551D02B37F}.Debug|Win32.Build.0 = Debug|Win32
-		{8F9B84C9-5497-47F5-8C49-91551D02B37F}.Release|Win32.ActiveCfg = Release|Win32
-		{8F9B84C9-5497-47F5-8C49-91551D02B37F}.Release|Win32.Build.0 = Release|Win32
+		{8F9B84C9-5497-47F5-8C49-91551D02B37F}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{8F9B84C9-5497-47F5-8C49-91551D02B37F}.Debug|Xbox.Build.0 = Debug|Xbox
+		{8F9B84C9-5497-47F5-8C49-91551D02B37F}.Release|Xbox.ActiveCfg = Release|Xbox
+		{8F9B84C9-5497-47F5-8C49-91551D02B37F}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZSprite", "ZSprite\ZSprite.
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9AC2ABDD-7A03-4426-BBD0-2A6E7D29D37C}.Debug|Win32.ActiveCfg = Debug|Win32
-		{9AC2ABDD-7A03-4426-BBD0-2A6E7D29D37C}.Debug|Win32.Build.0 = Debug|Win32
-		{9AC2ABDD-7A03-4426-BBD0-2A6E7D29D37C}.Release|Win32.ActiveCfg = Release|Win32
-		{9AC2ABDD-7A03-4426-BBD0-2A6E7D29D37C}.Release|Win32.Build.0 = Release|Win32
+		{9AC2ABDD-7A03-4426-BBD0-2A6E7D29D37C}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{9AC2ABDD-7A03-4426-BBD0-2A6E7D29D37C}.Debug|Xbox.Build.0 = Debug|Xbox
+		{9AC2ABDD-7A03-4426-BBD0-2A6E7D29D37C}.Release|Xbox.ActiveCfg = Release|Xbox
+		{9AC2ABDD-7A03-4426-BBD0-2A6E7D29D37C}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

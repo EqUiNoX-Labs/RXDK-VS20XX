@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HostMigration", "HostMigrat
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CD7CF396-5A49-4D19-BC9B-3DDC9DC6D414}.Debug|Win32.ActiveCfg = Debug|Win32
-		{CD7CF396-5A49-4D19-BC9B-3DDC9DC6D414}.Debug|Win32.Build.0 = Debug|Win32
-		{CD7CF396-5A49-4D19-BC9B-3DDC9DC6D414}.Release|Win32.ActiveCfg = Release|Win32
-		{CD7CF396-5A49-4D19-BC9B-3DDC9DC6D414}.Release|Win32.Build.0 = Release|Win32
+		{CD7CF396-5A49-4D19-BC9B-3DDC9DC6D414}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{CD7CF396-5A49-4D19-BC9B-3DDC9DC6D414}.Debug|Xbox.Build.0 = Debug|Xbox
+		{CD7CF396-5A49-4D19-BC9B-3DDC9DC6D414}.Release|Xbox.ActiveCfg = Release|Xbox
+		{CD7CF396-5A49-4D19-BC9B-3DDC9DC6D414}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

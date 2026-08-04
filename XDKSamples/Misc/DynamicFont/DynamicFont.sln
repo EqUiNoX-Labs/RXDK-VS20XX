@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DynamicFont", "DynamicFont\
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{80FC7E24-C297-4D97-A551-34B7C7E9CB03}.Debug|Win32.ActiveCfg = Debug|Win32
-		{80FC7E24-C297-4D97-A551-34B7C7E9CB03}.Debug|Win32.Build.0 = Debug|Win32
-		{80FC7E24-C297-4D97-A551-34B7C7E9CB03}.Release|Win32.ActiveCfg = Release|Win32
-		{80FC7E24-C297-4D97-A551-34B7C7E9CB03}.Release|Win32.Build.0 = Release|Win32
+		{80FC7E24-C297-4D97-A551-34B7C7E9CB03}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{80FC7E24-C297-4D97-A551-34B7C7E9CB03}.Debug|Xbox.Build.0 = Debug|Xbox
+		{80FC7E24-C297-4D97-A551-34B7C7E9CB03}.Release|Xbox.ActiveCfg = Release|Xbox
+		{80FC7E24-C297-4D97-A551-34B7C7E9CB03}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CrashDump", "CrashDump\Cras
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E44AE7B0-5487-4FD3-878A-A9493AD9522F}.Debug|Win32.ActiveCfg = Debug|Win32
-		{E44AE7B0-5487-4FD3-878A-A9493AD9522F}.Debug|Win32.Build.0 = Debug|Win32
-		{E44AE7B0-5487-4FD3-878A-A9493AD9522F}.Release|Win32.ActiveCfg = Release|Win32
-		{E44AE7B0-5487-4FD3-878A-A9493AD9522F}.Release|Win32.Build.0 = Release|Win32
+		{E44AE7B0-5487-4FD3-878A-A9493AD9522F}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{E44AE7B0-5487-4FD3-878A-A9493AD9522F}.Debug|Xbox.Build.0 = Debug|Xbox
+		{E44AE7B0-5487-4FD3-878A-A9493AD9522F}.Release|Xbox.ActiveCfg = Release|Xbox
+		{E44AE7B0-5487-4FD3-878A-A9493AD9522F}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

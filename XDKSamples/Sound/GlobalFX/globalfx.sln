@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GlobalFX", "GlobalFX\Global
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D5EA7B28-FC2D-48F6-82DD-213D1E00B6F0}.Debug|Win32.ActiveCfg = Debug|Win32
-		{D5EA7B28-FC2D-48F6-82DD-213D1E00B6F0}.Debug|Win32.Build.0 = Debug|Win32
-		{D5EA7B28-FC2D-48F6-82DD-213D1E00B6F0}.Release|Win32.ActiveCfg = Release|Win32
-		{D5EA7B28-FC2D-48F6-82DD-213D1E00B6F0}.Release|Win32.Build.0 = Release|Win32
+		{D5EA7B28-FC2D-48F6-82DD-213D1E00B6F0}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{D5EA7B28-FC2D-48F6-82DD-213D1E00B6F0}.Debug|Xbox.Build.0 = Debug|Xbox
+		{D5EA7B28-FC2D-48F6-82DD-213D1E00B6F0}.Release|Xbox.ActiveCfg = Release|Xbox
+		{D5EA7B28-FC2D-48F6-82DD-213D1E00B6F0}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

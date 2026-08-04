@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Matrices", "Matrices\Matric
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3EC89A6C-5061-41E9-AF53-CF21EDA8D079}.Debug|Win32.ActiveCfg = Debug|Win32
-		{3EC89A6C-5061-41E9-AF53-CF21EDA8D079}.Debug|Win32.Build.0 = Debug|Win32
-		{3EC89A6C-5061-41E9-AF53-CF21EDA8D079}.Release|Win32.ActiveCfg = Release|Win32
-		{3EC89A6C-5061-41E9-AF53-CF21EDA8D079}.Release|Win32.Build.0 = Release|Win32
+		{3EC89A6C-5061-41E9-AF53-CF21EDA8D079}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{3EC89A6C-5061-41E9-AF53-CF21EDA8D079}.Debug|Xbox.Build.0 = Debug|Xbox
+		{3EC89A6C-5061-41E9-AF53-CF21EDA8D079}.Release|Xbox.ActiveCfg = Release|Xbox
+		{3EC89A6C-5061-41E9-AF53-CF21EDA8D079}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

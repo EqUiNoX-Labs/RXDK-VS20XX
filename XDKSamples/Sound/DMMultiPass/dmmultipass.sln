@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DMMultiPass", "DMMultiPass\
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D21C31B3-1229-4CEB-8844-43EA2F7A071D}.Debug|Win32.ActiveCfg = Debug|Win32
-		{D21C31B3-1229-4CEB-8844-43EA2F7A071D}.Debug|Win32.Build.0 = Debug|Win32
-		{D21C31B3-1229-4CEB-8844-43EA2F7A071D}.Release|Win32.ActiveCfg = Release|Win32
-		{D21C31B3-1229-4CEB-8844-43EA2F7A071D}.Release|Win32.Build.0 = Release|Win32
+		{D21C31B3-1229-4CEB-8844-43EA2F7A071D}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{D21C31B3-1229-4CEB-8844-43EA2F7A071D}.Debug|Xbox.Build.0 = Debug|Xbox
+		{D21C31B3-1229-4CEB-8844-43EA2F7A071D}.Release|Xbox.ActiveCfg = Release|Xbox
+		{D21C31B3-1229-4CEB-8844-43EA2F7A071D}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

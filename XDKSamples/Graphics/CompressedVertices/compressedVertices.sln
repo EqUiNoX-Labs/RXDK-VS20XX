@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CompressedVertices", "Compr
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{68736A1E-C533-463E-A22F-619995A45C9C}.Debug|Win32.ActiveCfg = Debug|Win32
-		{68736A1E-C533-463E-A22F-619995A45C9C}.Debug|Win32.Build.0 = Debug|Win32
-		{68736A1E-C533-463E-A22F-619995A45C9C}.Release|Win32.ActiveCfg = Release|Win32
-		{68736A1E-C533-463E-A22F-619995A45C9C}.Release|Win32.Build.0 = Release|Win32
+		{68736A1E-C533-463E-A22F-619995A45C9C}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{68736A1E-C533-463E-A22F-619995A45C9C}.Debug|Xbox.Build.0 = Debug|Xbox
+		{68736A1E-C533-463E-A22F-619995A45C9C}.Release|Xbox.ActiveCfg = Release|Xbox
+		{68736A1E-C533-463E-A22F-619995A45C9C}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PerPixelLightingVS", "PerPi
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D996B77D-4ACC-4E46-ABF9-FBE01C9A5AA4}.Debug|Win32.ActiveCfg = Debug|Win32
-		{D996B77D-4ACC-4E46-ABF9-FBE01C9A5AA4}.Debug|Win32.Build.0 = Debug|Win32
-		{D996B77D-4ACC-4E46-ABF9-FBE01C9A5AA4}.Release|Win32.ActiveCfg = Release|Win32
-		{D996B77D-4ACC-4E46-ABF9-FBE01C9A5AA4}.Release|Win32.Build.0 = Release|Win32
+		{D996B77D-4ACC-4E46-ABF9-FBE01C9A5AA4}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{D996B77D-4ACC-4E46-ABF9-FBE01C9A5AA4}.Debug|Xbox.Build.0 = Debug|Xbox
+		{D996B77D-4ACC-4E46-ABF9-FBE01C9A5AA4}.Release|Xbox.ActiveCfg = Release|Xbox
+		{D996B77D-4ACC-4E46-ABF9-FBE01C9A5AA4}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -81,9 +81,9 @@ function Invoke-Publish {
 }
 
 function Invoke-Samples {
-    Info "Building sample solution ($Config|Win32)"
+    Info "Building sample solution ($Config|Xbox)"
     $msb = Get-MSBuild
-    & $msb -nologo -v:m -restore "-p:Configuration=$Config;Platform=Win32" $SamplesSln
+    & $msb -nologo -v:m -restore "-p:Configuration=$Config;Platform=Xbox" $SamplesSln
     if ($LASTEXITCODE -ne 0) { throw "sample build failed" }
     Ok "Samples built."
 }
@@ -94,7 +94,7 @@ function Invoke-Deploy {
     Info "Building+deploying '$Sample' to the kit"
     # Build via MSBuild so Rxdk.Xbox.targets generates the manifest from the .vcxproj.
     $msb = Get-MSBuild
-    & $msb -nologo -v:m "-p:Configuration=$Config;Platform=Win32" (Join-Path (Get-SampleDir) "$Sample.vcxproj")
+    & $msb -nologo -v:m "-p:Configuration=$Config;Platform=Xbox" (Join-Path (Get-SampleDir) "$Sample.vcxproj")
     if ($LASTEXITCODE -ne 0) { throw "build failed" }
     & $Cli deploy --project-root (Get-SampleDir) --manifest (Get-SampleManifest)
     if ($LASTEXITCODE -ne 0) { throw "deploy failed" }

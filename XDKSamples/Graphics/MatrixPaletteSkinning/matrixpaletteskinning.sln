@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MatrixPaletteSkinning", "Ma
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5446C4EB-B61F-4536-BADB-BEEAA694D5BF}.Debug|Win32.ActiveCfg = Debug|Win32
-		{5446C4EB-B61F-4536-BADB-BEEAA694D5BF}.Debug|Win32.Build.0 = Debug|Win32
-		{5446C4EB-B61F-4536-BADB-BEEAA694D5BF}.Release|Win32.ActiveCfg = Release|Win32
-		{5446C4EB-B61F-4536-BADB-BEEAA694D5BF}.Release|Win32.Build.0 = Release|Win32
+		{5446C4EB-B61F-4536-BADB-BEEAA694D5BF}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{5446C4EB-B61F-4536-BADB-BEEAA694D5BF}.Debug|Xbox.Build.0 = Debug|Xbox
+		{5446C4EB-B61F-4536-BADB-BEEAA694D5BF}.Release|Xbox.ActiveCfg = Release|Xbox
+		{5446C4EB-B61F-4536-BADB-BEEAA694D5BF}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

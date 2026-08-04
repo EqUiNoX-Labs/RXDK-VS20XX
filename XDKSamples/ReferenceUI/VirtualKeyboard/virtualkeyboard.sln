@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VirtualKeyboard", "VirtualK
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C78FA019-E401-4ABE-93D7-E3AD725E9B7B}.Debug|Win32.ActiveCfg = Debug|Win32
-		{C78FA019-E401-4ABE-93D7-E3AD725E9B7B}.Debug|Win32.Build.0 = Debug|Win32
-		{C78FA019-E401-4ABE-93D7-E3AD725E9B7B}.Release|Win32.ActiveCfg = Release|Win32
-		{C78FA019-E401-4ABE-93D7-E3AD725E9B7B}.Release|Win32.Build.0 = Release|Win32
+		{C78FA019-E401-4ABE-93D7-E3AD725E9B7B}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{C78FA019-E401-4ABE-93D7-E3AD725E9B7B}.Debug|Xbox.Build.0 = Debug|Xbox
+		{C78FA019-E401-4ABE-93D7-E3AD725E9B7B}.Release|Xbox.ActiveCfg = Release|Xbox
+		{C78FA019-E401-4ABE-93D7-E3AD725E9B7B}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

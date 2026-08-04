@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UIXPlayers", "UIXPlayers\UI
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DEE5C9AD-8C9C-4C36-809D-FA9145A6BD89}.Debug|Win32.ActiveCfg = Debug|Win32
-		{DEE5C9AD-8C9C-4C36-809D-FA9145A6BD89}.Debug|Win32.Build.0 = Debug|Win32
-		{DEE5C9AD-8C9C-4C36-809D-FA9145A6BD89}.Release|Win32.ActiveCfg = Release|Win32
-		{DEE5C9AD-8C9C-4C36-809D-FA9145A6BD89}.Release|Win32.Build.0 = Release|Win32
+		{DEE5C9AD-8C9C-4C36-809D-FA9145A6BD89}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{DEE5C9AD-8C9C-4C36-809D-FA9145A6BD89}.Debug|Xbox.Build.0 = Debug|Xbox
+		{DEE5C9AD-8C9C-4C36-809D-FA9145A6BD89}.Release|Xbox.ActiveCfg = Release|Xbox
+		{DEE5C9AD-8C9C-4C36-809D-FA9145A6BD89}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

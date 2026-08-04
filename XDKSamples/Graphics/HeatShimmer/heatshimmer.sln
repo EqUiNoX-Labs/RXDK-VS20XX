@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HeatShimmer", "HeatShimmer\
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B5DB691B-EC80-4A2F-A4EF-3C05FCFFB415}.Debug|Win32.ActiveCfg = Debug|Win32
-		{B5DB691B-EC80-4A2F-A4EF-3C05FCFFB415}.Debug|Win32.Build.0 = Debug|Win32
-		{B5DB691B-EC80-4A2F-A4EF-3C05FCFFB415}.Release|Win32.ActiveCfg = Release|Win32
-		{B5DB691B-EC80-4A2F-A4EF-3C05FCFFB415}.Release|Win32.Build.0 = Release|Win32
+		{B5DB691B-EC80-4A2F-A4EF-3C05FCFFB415}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{B5DB691B-EC80-4A2F-A4EF-3C05FCFFB415}.Debug|Xbox.Build.0 = Debug|Xbox
+		{B5DB691B-EC80-4A2F-A4EF-3C05FCFFB415}.Release|Xbox.ActiveCfg = Release|Xbox
+		{B5DB691B-EC80-4A2F-A4EF-3C05FCFFB415}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

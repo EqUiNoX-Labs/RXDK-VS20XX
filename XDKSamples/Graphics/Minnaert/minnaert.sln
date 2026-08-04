@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Minnaert", "Minnaert\Minnae
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{28DDF10C-ED71-4CAE-BE11-4DCA0B0580DE}.Debug|Win32.ActiveCfg = Debug|Win32
-		{28DDF10C-ED71-4CAE-BE11-4DCA0B0580DE}.Debug|Win32.Build.0 = Debug|Win32
-		{28DDF10C-ED71-4CAE-BE11-4DCA0B0580DE}.Release|Win32.ActiveCfg = Release|Win32
-		{28DDF10C-ED71-4CAE-BE11-4DCA0B0580DE}.Release|Win32.Build.0 = Release|Win32
+		{28DDF10C-ED71-4CAE-BE11-4DCA0B0580DE}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{28DDF10C-ED71-4CAE-BE11-4DCA0B0580DE}.Debug|Xbox.Build.0 = Debug|Xbox
+		{28DDF10C-ED71-4CAE-BE11-4DCA0B0580DE}.Release|Xbox.ActiveCfg = Release|Xbox
+		{28DDF10C-ED71-4CAE-BE11-4DCA0B0580DE}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

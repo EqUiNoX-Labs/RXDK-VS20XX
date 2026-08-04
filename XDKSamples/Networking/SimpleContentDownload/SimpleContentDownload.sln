@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleContentDownload", "Si
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8F6BBABC-5DD2-4356-9772-FFEEA9D8E40B}.Debug|Win32.ActiveCfg = Debug|Win32
-		{8F6BBABC-5DD2-4356-9772-FFEEA9D8E40B}.Debug|Win32.Build.0 = Debug|Win32
-		{8F6BBABC-5DD2-4356-9772-FFEEA9D8E40B}.Release|Win32.ActiveCfg = Release|Win32
-		{8F6BBABC-5DD2-4356-9772-FFEEA9D8E40B}.Release|Win32.Build.0 = Release|Win32
+		{8F6BBABC-5DD2-4356-9772-FFEEA9D8E40B}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{8F6BBABC-5DD2-4356-9772-FFEEA9D8E40B}.Debug|Xbox.Build.0 = Debug|Xbox
+		{8F6BBABC-5DD2-4356-9772-FFEEA9D8E40B}.Release|Xbox.ActiveCfg = Release|Xbox
+		{8F6BBABC-5DD2-4356-9772-FFEEA9D8E40B}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

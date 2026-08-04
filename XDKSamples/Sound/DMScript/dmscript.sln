@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DMScript", "DMScript\DMScri
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BAE7570C-4A4C-4531-8263-B3E748D79798}.Debug|Win32.ActiveCfg = Debug|Win32
-		{BAE7570C-4A4C-4531-8263-B3E748D79798}.Debug|Win32.Build.0 = Debug|Win32
-		{BAE7570C-4A4C-4531-8263-B3E748D79798}.Release|Win32.ActiveCfg = Release|Win32
-		{BAE7570C-4A4C-4531-8263-B3E748D79798}.Release|Win32.Build.0 = Release|Win32
+		{BAE7570C-4A4C-4531-8263-B3E748D79798}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{BAE7570C-4A4C-4531-8263-B3E748D79798}.Debug|Xbox.Build.0 = Debug|Xbox
+		{BAE7570C-4A4C-4531-8263-B3E748D79798}.Release|Xbox.ActiveCfg = Release|Xbox
+		{BAE7570C-4A4C-4531-8263-B3E748D79798}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

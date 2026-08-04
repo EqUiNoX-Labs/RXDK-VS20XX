@@ -7,14 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AntiAlias", "AntiAlias\Anti
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|Xbox = Debug|Xbox
+		Release|Xbox = Release|Xbox
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DFBCC0D8-D6D8-4CBD-B5C3-5D5AC3642369}.Debug|Win32.ActiveCfg = Debug|Win32
-		{DFBCC0D8-D6D8-4CBD-B5C3-5D5AC3642369}.Debug|Win32.Build.0 = Debug|Win32
-		{DFBCC0D8-D6D8-4CBD-B5C3-5D5AC3642369}.Release|Win32.ActiveCfg = Release|Win32
-		{DFBCC0D8-D6D8-4CBD-B5C3-5D5AC3642369}.Release|Win32.Build.0 = Release|Win32
+		{DFBCC0D8-D6D8-4CBD-B5C3-5D5AC3642369}.Debug|Xbox.ActiveCfg = Debug|Xbox
+		{DFBCC0D8-D6D8-4CBD-B5C3-5D5AC3642369}.Debug|Xbox.Build.0 = Debug|Xbox
+		{DFBCC0D8-D6D8-4CBD-B5C3-5D5AC3642369}.Release|Xbox.ActiveCfg = Release|Xbox
+		{DFBCC0D8-D6D8-4CBD-B5C3-5D5AC3642369}.Release|Xbox.Build.0 = Release|Xbox
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
