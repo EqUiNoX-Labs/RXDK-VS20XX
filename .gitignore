@@ -35,3 +35,11 @@ XDKSamples/**/XactSounds.h
 XDKSamples/**/XactSounds.txt
 XDKSamples/**/XACTSounds.h
 XDKSamples/**/XACTSounds.txt
+
+# Build byproducts the bundler / xactbld / srbld generate next to the sample
+# sources. They are outputs, not sources -- regenerated on every build.
+XDKSamples/Input/DebugKeyboard/systemfont.h
+XDKSamples/Networking/Auth/OnlineFont.h
+XDKSamples/Networking/Auth/OnlineIconsFont.h
+XDKSamples/Networking/UIXKeyboard/audio.txt
+XDKSamples/Networking/UIXKeyboard/ressound.h
