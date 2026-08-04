@@ -32,13 +32,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Xbox'">
     <RxdkBuildFlavor>Debug</RxdkBuildFlavor>
     <RxdkDefines>WIN32;_CONSOLE</RxdkDefines>
-    <RxdkLibraries>libxgraphics;libc;libcpp;libkernel</RxdkLibraries>
+    <RxdkLibraries>libxgraphics;libxfont;libc;libcpp;libkernel</RxdkLibraries>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Xbox'">
     <RxdkBuildFlavor>Release</RxdkBuildFlavor>
     <RxdkReleaseOptimize>ReleaseFast</RxdkReleaseOptimize>
     <RxdkDefines>WIN32;_CONSOLE</RxdkDefines>
-    <RxdkLibraries>libxgraphics;libc;libcpp;libkernel</RxdkLibraries>
+    <RxdkLibraries>libxgraphics;libxfont;libc;libcpp;libkernel</RxdkLibraries>
   </PropertyGroup>
   <ItemGroup>
     <ClCompile Include="..\CreatePushBufferOnPC.cpp" />

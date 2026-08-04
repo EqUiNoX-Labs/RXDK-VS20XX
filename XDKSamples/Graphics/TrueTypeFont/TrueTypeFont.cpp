@@ -70,7 +70,10 @@ class CXBoxSample : public CXBApplication
                                          // Created with the MakeFont tool.
     XFONT*      m_pKanji16BitmapFont;    // Pointer to the Arial16Kanji Bitmap font
                                          // Created with the MakeFont tool.
-    USHORT*     m_pKanjiMessage;         // Contains the first 20 Unicode Kanji Characters
+    // RXDK: was USHORT*. MSVC's wchar_t was an alias for unsigned short, so this passed
+    // straight to TextOut's LPCWSTR; clang's wchar_t is a distinct type. It is a wide
+    // string, so say so.
+    WCHAR*      m_pKanjiMessage;         // Contains the first 20 Unicode Kanji Characters
 
     void*       m_pFontMemory;           // Memory to hold image of below font.
     XFONT*      m_pArial24BitmapFont;    // Pointer to the Arial24Italic Bitmap font
@@ -186,7 +189,7 @@ HRESULT CXBoxSample::Initialize()
 
     m_dwFontDrawStyle = FONT_DRAW_STYLE_1;
 
-    m_pKanjiMessage = new USHORT[21];
+    m_pKanjiMessage = new WCHAR[21];
     for (USHORT i=0x4e00; i<0x4e14; i++)
         m_pKanjiMessage[i-0x4e00] = i;
 

@@ -40,11 +40,13 @@ public static class Vcproj2003Importer
         "RxdkXboxCertificate.xml", "RxdkXboxTitleInfo.xml",
     };
 
-    // XDK link library (base name, variant suffix stripped) -> RXDK library. null = no equivalent.
+    // XDK link library (base name, variant suffix stripped) -> RXDK libraries, semicolon
+    // separated. null = no equivalent. One XDK library can map to several: retail keeps XFONT
+    // inside xgraphics.lib, where RXDK has it in its own libxfont.
     private static readonly Dictionary<string, string?> LibMap = new(StringComparer.OrdinalIgnoreCase)
     {
         ["d3d8"] = "libd3d8", ["d3dx8"] = "libd3dx8", ["dsound"] = "libdsound",
-        ["xapilib"] = "libxapi", ["xgraphics"] = "libxgraphics", ["xmv"] = "libxmv",
+        ["xapilib"] = "libxapi", ["xgraphics"] = "libxgraphics;libxfont", ["xmv"] = "libxmv",
         ["xbdm"] = "libxbdm", ["xboxkrnl"] = "libkernel",
         ["xonline"] = "libxonline", ["xnet"] = "libxnet",
         ["xact"] = "libxact", ["xacteng"] = "libxact", ["dmusic"] = "libdmusic",
@@ -201,7 +203,7 @@ public static class Vcproj2003Importer
         foreach (var raw in SplitLibs((string?)link?.Attribute("AdditionalDependencies")))
         {
             var mapped = MapLib(raw, out var known);
-            if (mapped != null) Add(mapped);
+            if (mapped != null) foreach (var one in mapped.Split(';')) Add(one);
             else if (!known) { /* unknown, non-.lib token - ignore */ }
             else unmapped.Add(raw);
         }
