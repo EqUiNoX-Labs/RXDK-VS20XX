@@ -1181,9 +1181,7 @@ HRESULT CUIPlugin::SetState( D3DSurface* pRenderTarget )
     D3DDevice::SetRenderState( D3DRS_DITHERENABLE,                FALSE );
     D3DDevice::SetRenderState( D3DRS_COLORWRITEENABLE,            D3DCOLORWRITEENABLE_ALL );
     D3DDevice::SetRenderState( D3DRS_SWATHWIDTH,                  D3DSWATH_OFF );
-    // RXDK: D3DRS_STIPPLEENABLE is a post-leak render state (5849 value 83 collides with the
-    // leak's D3DRS_FOGTABLEMODE); the leak d3d8 has no stipple, and it defaults off anyway.
-    // D3DDevice::SetRenderState( D3DRS_STIPPLEENABLE,               FALSE );
+    D3DDevice::SetRenderState( D3DRS_STIPPLEENABLE,               FALSE );
     D3DDevice::SetRenderState( D3DRS_FOGENABLE,                   FALSE );
     D3DDevice::SetRenderState( D3DRS_WRAP0,                       0 );
     D3DDevice::SetRenderState( D3DRS_WRAP1,                       0 );
