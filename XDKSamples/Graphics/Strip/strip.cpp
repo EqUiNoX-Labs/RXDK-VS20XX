@@ -831,7 +831,8 @@ HRESULT CRobotGeometry::InitVertexBuffers( MESHTYPE meshtype )
     OUTPUT_DEBUG_STRING( "Strip: Begin initializing vertex buffers\n" );
 
     // Release any previously allocated meshes
-    for( DWORD i = 0; i < m_dwNumMeshes; i++ )
+    DWORD i;   // RXDK: MSVC for-scope leak -- reused after the loop
+    for( i= 0; i < m_dwNumMeshes; i++ )
     {
         SAFE_RELEASE( m_pMeshes[i].pIndexBuffer );
         SAFE_RELEASE( m_pMeshes[i].pVertexBuffer );

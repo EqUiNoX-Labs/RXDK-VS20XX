@@ -165,7 +165,8 @@ LPDIRECT3DVERTEXBUFFER8 CreateBasisVectorsVB( D3DPRIMITIVETYPE dwPrimType,
     pBasisVB->Lock( 0, 0, (BYTE**)&pVertexBases, 0 );
 
     // Clear the basis vectors
-    for( DWORD i = 0; i < dwNumVertices; i++)
+    DWORD i;   // RXDK: MSVC for-scope leak -- reused by the loop below
+    for( i = 0; i < dwNumVertices; i++)
     {
         pVertexBases[i].S = D3DXVECTOR3( 0.0f, 0.0f, 0.0f );
         pVertexBases[i].T = D3DXVECTOR3( 0.0f, 0.0f, 0.0f );
@@ -295,7 +296,8 @@ HRESULT CGearMesh::Create( FLOAT fRadius, FLOAT fRotationSpeed, DWORD dwNumTeeth
     FILL_VERTEX( pVertex++, vfront, nfront, 0.5f, 0.5f ); 
     FILL_VERTEX( pVertex++, vback,  nback,  0.5f, 0.5f ); 
 
-    for( DWORD i=0; i<dwNumTeeth; i++ )
+    DWORD i;   // RXDK: MSVC for-scope leak -- reused by the loops below
+    for( i=0; i<dwNumTeeth; i++ )
     {
         fTheta    = (i*2*D3DX_PI) / dwNumTeeth;
         fSubTheta = ( 2*D3DX_PI / dwNumTeeth )/6;

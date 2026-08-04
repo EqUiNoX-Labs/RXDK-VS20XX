@@ -496,7 +496,8 @@ HRESULT CXBoxSample::CreateShader()
     int       dwLightDiffuseBase  = dwLightPositionBase + 32;
 
     // Do single-lights first
-    for( DWORD light = 0; light < 28; light++ )
+    DWORD light;   // RXDK: MSVC for-scope leak -- reused by the loop below
+    for( light = 0; light < 28; light++ )
     {
         buffer.Clear();
         buffer.Append( strPrefix );

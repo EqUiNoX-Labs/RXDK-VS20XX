@@ -288,9 +288,13 @@ VOID P3WarmCache( const VOID* pMem, DWORD dwCount)
     __asm mov ecx, pMem
     __asm add ecx, dwCount;
 
+    // RXDK: one __asm block -- clang scopes asm labels to a single block.
+    __asm
+    {
 PREFETCH_LOOP:
-    __asm prefetcht0 [eax] // prefetch cache line containing the address in eax
-    __asm add eax, 32
-    __asm cmp eax, ecx
-    __asm jl PREFETCH_LOOP
+        prefetcht0 [eax]    // prefetch cache line containing the address in eax
+        add eax, 32
+        cmp eax, ecx
+        jl PREFETCH_LOOP
+    }
 }

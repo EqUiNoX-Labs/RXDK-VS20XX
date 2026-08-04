@@ -174,7 +174,9 @@ struct SortEntry
     int iOrigIndex;
 
     // Define the < operator, which is needed for the STL sort() routine.
-    BOOL operator<( const SortEntry& rhs ) { return iFirstUsed < rhs.iFirstUsed; }
+    // RXDK: std::sort compares two const elements, so this must be const-qualified and take
+    // a const operand. MSVC's older STL called it on non-const lvalues and let this compile.
+    BOOL operator<( const SortEntry& rhs ) const { return iFirstUsed < rhs.iFirstUsed; }
 };
 
 
@@ -1037,7 +1039,8 @@ void CStripper::BuildStrips( CStripList* pStripList, int maxlen, BOOL bLookAhead
         float bestratio = 2.0f;
         int   bestneighborcount = INT_MAX;
 
-        for( int tri = 0; tri < m_dwNumTris; tri++)
+        int tri;   // RXDK: MSVC for-scope leak -- reused by the loops below
+        for( tri = 0; tri < m_dwNumTris; tri++)
         {
             // if used the continue
             if(m_pUsed[tri])
@@ -1170,7 +1173,8 @@ CStripper::CStripper( int dwNumTris, TRIANGLELIST pTriangles )
     m_pTriInfo   = new TRIANGLEINFO[dwNumTris];
 
     // init triinfo
-    for( int itri = 0; itri < dwNumTris; itri++ )
+    int itri;   // RXDK: MSVC for-scope leak -- reused by the loops below
+    for( itri = 0; itri < dwNumTris; itri++ )
     {
         m_pTriInfo[itri].neighbortri[0] = -1;
         m_pTriInfo[itri].neighbortri[1] = -1;
@@ -1463,7 +1467,8 @@ VOID ComputeVertexPermutation( DWORD dwNumStripIndices, WORD* pStripIndices,
     SortEntry* pSortTable = new SortEntry[dwNumVertices];
 
     // Fill in original index.
-    for( DWORD i = 0; i < dwNumVertices; i++ )
+    DWORD i;   // RXDK: MSVC for-scope leak -- reused after the loop
+    for( i= 0; i < dwNumVertices; i++ )
     {
         pSortTable[i].iOrigIndex = i;
         pSortTable[i].iFirstUsed = -1;

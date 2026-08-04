@@ -758,6 +758,16 @@ bool RayMesh::kDOPTree::RaykDOPIntersection( const kDOP* pDOP,
 
     const float fZero = 0.0f;
 
+    // RXDK: the __asm block reads iNumPlanes through memory, which odr-uses the in-class
+    // initialized static const and so needs an out-of-class definition that does not exist.
+    // Copy it into a local instead.
+    const int iNumPlanesLocal = kDOPTree::iNumPlanes;
+
+    // RXDK: the original jumped from inside the __asm block to the C label EXIT_FALSE below it,
+    // which MSVC allowed and clang's -fasm-blocks does not. The early exits now land on a label
+    // inside the block and the result leaves in bHit.
+    int bHit = 1;
+
     __asm
     {
         movss   xmm2,[t_min]
@@ -767,7 +777,7 @@ bool RayMesh::kDOPTree::RaykDOPIntersection( const kDOP* pDOP,
         mov     ebx,[pQuery]
 
         mov     ecx,0
-        mov     edx,[iNumPlanes]
+        mov     edx,[iNumPlanesLocal]
 
         ALIGN   16
 
@@ -824,12 +834,15 @@ EndOfLoop:
 
         mov     eax,[pT]
         movss   [eax],xmm2
-    }
-
-    return true;
+        jmp     DONE
 
 EXIT_FALSE:
-    return false;
+        mov     dword ptr [bHit],0
+
+DONE:
+    }
+
+    return bHit != 0;
 
 #else
 

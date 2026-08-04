@@ -588,19 +588,23 @@ VOID WriteCombiningReadTest()
     __asm mov eax, pSrc
     __asm mov ecx, pSrc
     __asm add ecx, NUM_BYTES
+    // RXDK: one __asm block -- clang scopes asm labels to a single block.
+    __asm
+    {
 READ32:
-    __asm movd mm0, dword ptr[eax]
-    __asm movd mm1, dword ptr[eax+4]
-    __asm movd mm2, dword ptr[eax+8]
-    __asm movd mm3, dword ptr[eax+12]
-    __asm movd mm4, dword ptr[eax+16]
-    __asm movd mm5, dword ptr[eax+20]
-    __asm movd mm6, dword ptr[eax+24]
-    __asm movd mm7, dword ptr[eax+28]
-    __asm add eax, 32
-    __asm cmp eax, ecx
-    __asm jne READ32
-    __asm emms
+        movd mm0, dword ptr[eax]
+        movd mm1, dword ptr[eax+4]
+        movd mm2, dword ptr[eax+8]
+        movd mm3, dword ptr[eax+12]
+        movd mm4, dword ptr[eax+16]
+        movd mm5, dword ptr[eax+20]
+        movd mm6, dword ptr[eax+24]
+        movd mm7, dword ptr[eax+28]
+        add eax, 32
+        cmp eax, ecx
+        jne READ32
+        emms
+    }
     g_pP3Timer->StopTimer( "32 Bit WC Read" );
    
 
@@ -611,19 +615,23 @@ READ32:
     __asm mov eax, pSrc
     __asm mov ecx, pSrc
     __asm add ecx, NUM_BYTES
+    // RXDK: one __asm block -- clang scopes asm labels to a single block.
+    __asm
+    {
 READ64:
-    __asm movq mm0, qword ptr[eax]
-    __asm movq mm1, qword ptr[eax+8]
-    __asm movq mm2, qword ptr[eax+16]
-    __asm movq mm3, qword ptr[eax+24]
-    __asm movq mm4, qword ptr[eax+32]
-    __asm movq mm5, qword ptr[eax+40]
-    __asm movq mm6, qword ptr[eax+48]
-    __asm movq mm7, qword ptr[eax+56]
-    __asm add eax, 64
-    __asm cmp eax, ecx
-    __asm jne READ64
-    __asm emms
+        movq mm0, qword ptr[eax]
+        movq mm1, qword ptr[eax+8]
+        movq mm2, qword ptr[eax+16]
+        movq mm3, qword ptr[eax+24]
+        movq mm4, qword ptr[eax+32]
+        movq mm5, qword ptr[eax+40]
+        movq mm6, qword ptr[eax+48]
+        movq mm7, qword ptr[eax+56]
+        add eax, 64
+        cmp eax, ecx
+        jne READ64
+        emms
+    }
     g_pP3Timer->StopTimer( "64 Bit WC Read" );
 
 
@@ -635,18 +643,23 @@ READ64:
     __asm mov eax, pSrc
     __asm mov ecx, pSrc
     __asm add ecx, NUM_BYTES
+    // RXDK: one __asm block -- clang scopes asm labels to a single block.
+    __asm
+    {
 READ128:
-    __asm movaps xmm0, qword ptr[eax]
-    __asm movaps xmm1, qword ptr[eax+16]
-    __asm movaps xmm2, qword ptr[eax+32]
-    __asm movaps xmm3, qword ptr[eax+48]
-    __asm movaps xmm4, qword ptr[eax+64]
-    __asm movaps xmm5, qword ptr[eax+80]
-    __asm movaps xmm6, qword ptr[eax+96]
-    __asm movaps xmm7, qword ptr[eax+112]
-    __asm add eax, 128
-    __asm cmp eax, ecx
-    __asm jne READ128
+        // RXDK: movaps moves 128 bits -- MSVC tolerated the qword annotation, clang does not.
+        movaps xmm0, xmmword ptr[eax]
+        movaps xmm1, xmmword ptr[eax+16]
+        movaps xmm2, xmmword ptr[eax+32]
+        movaps xmm3, xmmword ptr[eax+48]
+        movaps xmm4, xmmword ptr[eax+64]
+        movaps xmm5, xmmword ptr[eax+80]
+        movaps xmm6, xmmword ptr[eax+96]
+        movaps xmm7, xmmword ptr[eax+112]
+        add eax, 128
+        cmp eax, ecx
+        jne READ128
+    }
     g_pP3Timer->StopTimer( "128 Bit WC Read" );
 
     // free resources

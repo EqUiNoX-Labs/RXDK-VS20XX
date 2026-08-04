@@ -41,6 +41,11 @@ public static class XboxBuild
         // Legacy XDK code narrows freely in braced initializers (e.g. STRING = {(USHORT)strlen(s),
         // (USHORT)strlen(s)+1, s}); the C++11 narrowing rule makes those hard errors. Benign here.
         "-Wno-c++11-narrowing",
+        // MSVC let you take the address of a temporary, and the XDK's math idiom leans on it
+        // (D3DXVec3Cross(&out, &D3DXVECTOR3(...), ...)). The temporary lives to the end of the
+        // full expression, so the callee -- which only reads through the pointer during the
+        // call -- is safe; clang otherwise makes this a hard error.
+        "-Wno-address-of-temporary",
     };
 
     // Resolve a project's manifest: hand-authored rxdk.project.json if present, else the
@@ -108,6 +113,10 @@ public static class XboxBuild
         common.AddRange(includeArgs);
         common.AddRange(defineArgs);
         common.AddRange(XdkClangWarnings);
+        // -x: state the language rather than letting clang infer it from the extension. Its
+        // suffix table is case-sensitive, so an imported project spelling a source "Foo.Cpp"
+        // would otherwise be treated as a linker input and -c would silently emit no object.
+        common.AddRange(new[] { "-x", isCpp ? "c++" : "c" });
         common.AddRange(new[] { "-c", source, $"-o{obj}" });
 
         var toolArgs = new List<string>();
@@ -355,6 +364,11 @@ public static class XboxBuild
             var isCpp = ext is ".cpp" or ".cxx";
             if (isCpp) usesCpp = true;
             await ZigCompileAsync(zig, src, obj, includeArgs, defineArgs, isCpp, optimize, log, ct);
+            // A compiler can exit 0 and still write nothing (see the -x note above). Catch that
+            // here, where we still know which source it was, rather than at link time.
+            if (!File.Exists(obj))
+                throw new InvalidOperationException(
+                    $"Compiler reported success but produced no object for {src} (expected {obj}).");
             log?.Invoke($"Compiled {obj}");
             objs.Add(obj);
         }

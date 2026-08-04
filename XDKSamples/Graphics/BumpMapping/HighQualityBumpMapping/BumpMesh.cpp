@@ -108,7 +108,11 @@ VOID BumpMesh::RenderMeshCallback( DWORD dwFrame, XBMESH_FRAME* pFrame,
     D3DXMatrixInverse( &matWorldInverse, 0, &matWorld );
 
     // Pass the local space light position to the vertex shader.
-    D3DXVECTOR4 v4LocalLightPos = m_vLightPos;
+    // RXDK: this was `= m_vLightPos`, which MSVC resolved through TWO user-defined conversions
+    // (VECTOR3::operator FLOAT* -> VECTOR4(CONST FLOAT*)) -- ill-formed in standard C++, and it
+    // read a fourth float past the end of the 3-float member. w = 1 is what a transformed
+    // position wants, and matches v4LocalViewPos just below.
+    D3DXVECTOR4 v4LocalLightPos( m_vLightPos.x, m_vLightPos.y, m_vLightPos.z, 1.0f );
     D3DXVec4Transform( &v4LocalLightPos, &v4LocalLightPos, &matWorldInverse );
     D3DDevice::SetVertexShaderConstant( 4, &v4LocalLightPos, 1 );
 
@@ -225,7 +229,8 @@ VOID BumpMesh::CalculateMeshTextureSpaceBasis( XBMESH_DATA* pMesh,
     (*pBasisVB)->Lock( 0, 0, (BYTE**)&pBasis, 0 );
 
     // Clear the basis vectors
-    for( DWORD i = 0; i < pMesh->m_dwNumVertices; i++)
+    DWORD i;   // RXDK: MSVC for-scope leak -- reused by the loops below
+    for( i = 0; i < pMesh->m_dwNumVertices; i++)
     {
         pBasis[i].S = D3DXVECTOR3( 0.0f, 0.0f, 0.0f );
         pBasis[i].T = D3DXVECTOR3( 0.0f, 0.0f, 0.0f );
