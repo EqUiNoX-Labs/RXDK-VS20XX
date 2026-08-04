@@ -16,7 +16,7 @@
 #include "XBRandName.h"
 #include "XBNetMsg.h"
 #include "XBOnlineTask.h"
-#include "match.h"
+#include "MatchMaking.h" // RXDK: the sample ships MatchMaking.h; there is no match.h anywhere in the XDK
 
 #pragma warning( disable: 4786 )
 #include <vector>

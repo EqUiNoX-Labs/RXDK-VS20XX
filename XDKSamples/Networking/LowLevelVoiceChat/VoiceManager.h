@@ -62,6 +62,13 @@ struct REMOTE_CHATTER;
 // Font for drawing debug info - only needed for sample
 class CXBFont;
 
+// RXDK: forward-declare the DPC callbacks at namespace scope. The class below
+// only declares them as friends, which does not make the names visible to the
+// call sites (MSVC's friend name injection allowed it; standard C++ does not).
+VOID CALLBACK StreamCallback( LPVOID, LPVOID, DWORD );
+VOID CALLBACK MicrophoneCallback( LPVOID, LPVOID, DWORD );
+VOID CALLBACK HeadphoneCallback( LPVOID, LPVOID, DWORD );
+
 
 
 //-----------------------------------------------------------------------------

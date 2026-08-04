@@ -25,7 +25,7 @@
 //-------------------------------------------------------------------------------------
 DWORD CalculateSignature( PBYTE rwSignature, DWORD dwMaxSigSize,
                           const PBYTE pUserData, const DWORD dwUserDataSize,
-                          const dwSigType )
+                          const DWORD dwSigType )
 {
     assert( rwSignature != NULL );
 

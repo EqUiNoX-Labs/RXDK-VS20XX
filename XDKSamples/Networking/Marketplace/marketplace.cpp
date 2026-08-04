@@ -647,12 +647,12 @@ HRESULT Marketplace::FrameMove()
             // If message waiting, process it
             if( iResult != SOCKET_ERROR && iResult > 0 )
             {
-                packet >> (WORD)wMessage;
+                packet >> wMessage;
                 switch (wMessage)
                 {
                 case MSG_JOIN_OK:               
                     m_State = STATE_PLAYING_GAME;
-                    packet >> (WORD)wMe;                   
+                    packet >> wMe;                   
                     
                     g_PlayerMgr.ReadPlayerListFull( packet );
                     g_PlayerMgr.SetLocalPlayerLUID( wMe );

@@ -498,7 +498,9 @@ VOID CXBoxSample::UpdateStateLoggingOn( Event ev )
   
 
         // Check for service errors
-        for( DWORD  i = 0; i < NUM_SERVICES; ++i )
+        // RXDK: hoisted out of the for-init (MSVC's old for-scope leaked it to the later loop)
+        DWORD i;
+        for( i = 0; i < NUM_SERVICES; ++i )
         {
             hr = XOnlineGetServiceInfo( m_pServices[i], NULL );
             if( FAILED( hr ) )

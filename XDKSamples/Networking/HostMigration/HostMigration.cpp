@@ -2176,9 +2176,11 @@ VOID CXBoxSample::ProcessConnectToMigratedHost( const MsgConnectToMigratedHost &
            
         // search to see if someone already has the ID he says he has
 
-        for( PlayerList::iterator i = m_Players.begin(); i != m_Players.end(); ++i )
+        // RXDK: hoisted out of the for-init (MSVC's old for-scope leaked it past the loop)
+        PlayerList::iterator i;
+        for( i = m_Players.begin(); i != m_Players.end(); ++i )
         {
-            if( i->gameData.dwID == msgCMH.gameData.dwID ) break;                        
+            if( i->gameData.dwID == msgCMH.gameData.dwID ) break;
         }
 
         if( i == m_Players.end() )

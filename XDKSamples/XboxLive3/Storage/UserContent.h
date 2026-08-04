@@ -31,7 +31,7 @@ DWORD   CalculateSignature( PBYTE rwSignature,
                             DWORD dwMaxSigSize,
                             const PBYTE pUserData,
                             const DWORD dwUserDataSize,
-                            const dwSigType );
+                            const DWORD dwSigType );
 
 VOID    CalculateDigest( BYTE *pbData, DWORD dwSize,
                          BYTE *pDigest, DWORD dwDigestSize );

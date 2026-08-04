@@ -4006,7 +4006,7 @@ VOID CXBoxSample::RenderStateGameSession()
     const FLOAT REMOTE_USER_POS_X = SCREEN_SIZE_X * 0.75f;
     const FLOAT LOCAL_USER_POS_X  = SCREEN_SIZE_X * 0.25f;
 
-    const SCORE_STRING_SIZE = XONLINE_GAMERTAG_SIZE + 32;
+    const DWORD SCORE_STRING_SIZE = XONLINE_GAMERTAG_SIZE + 32;
 
 
     // Show the remote players first

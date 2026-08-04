@@ -285,7 +285,6 @@ HRESULT CVoiceCommunicator::GetMicrophonePacket( XMEDIAPACKET* pPacket, DWORD dw
 // Name: SubmitMicrophonePacket
 // Desc: Submits the XMEDIAPACKET to the microphone XMO
 //-----------------------------------------------------------------------------
-inline
 HRESULT CVoiceCommunicator::SubmitMicrophonePacket( XMEDIAPACKET* pPacket )
 {
     return m_pMicrophoneXMO->Process( NULL, pPacket );
@@ -313,7 +312,6 @@ HRESULT CVoiceCommunicator::GetHeadphonePacket( XMEDIAPACKET* pPacket, DWORD dwI
 // Name: SubmitHeadphonePacket
 // Desc: Submits the XMEDIAPACKET to the headphone XMO
 //-----------------------------------------------------------------------------
-inline
 HRESULT CVoiceCommunicator::SubmitHeadphonePacket( XMEDIAPACKET* pPacket )
 {
     return m_pHeadphoneXMO->Process( pPacket, NULL );
