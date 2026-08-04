@@ -2,7 +2,7 @@
 // File: main.cpp
 //
 // XFONT bitmap-font text rendering -- demoscene-style scroller sample for
-// RXDK's libxfont text-rendering library.
+// RXDK's XFONT text-rendering library (packed into libxgraphics, as in the retail XDK).
 //
 // Opens the library's embedded default font (XFONT_OpenDefaultFont -- zero
 // external assets, exercises the full memory-loading engine) and renders a

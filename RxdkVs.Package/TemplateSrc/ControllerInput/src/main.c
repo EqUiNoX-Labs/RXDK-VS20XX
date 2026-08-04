@@ -2,7 +2,7 @@
 // File: main.c
 //
 // XInput device monitor -- based on RXDK-Libs samples/xapi-input, extended
-// with an on-screen terminal (libd3d8 + libxfont) so button presses, connects,
+// with an on-screen terminal (libd3d8 + XFONT, in libxgraphics) so button presses, connects,
 // and keystrokes are visible on the TV instead of only in the debug log.
 //
 // Polls for connection/disconnection of controllers, IR remotes, mice, and

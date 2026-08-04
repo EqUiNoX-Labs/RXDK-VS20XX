@@ -3,7 +3,7 @@
 //
 // RXDK network sample -- brings up the XNet stack (the MCPX NIC), waits for a
 // DHCP lease, then hosts a tiny single-page HTTP server. Once the network is
-// up, the screen shows the kit's IP address via libxfont so you know which
+// up, the screen shows the kit's IP address via XFONT so you know which
 // URL to open in a browser without having to watch debug output.
 //
 // Written in plain C against the D3D8/XFONT free-function API (the same style
