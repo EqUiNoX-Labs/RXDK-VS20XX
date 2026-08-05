@@ -718,7 +718,8 @@ HRESULT CXBoxSample::FilterCopy( LPDIRECT3DTEXTURE8 pTextureDst,
     D3DDevice_SetRenderState( D3DRS_DESTBLEND, D3DBLEND_ONE );
 
     // Set texture state
-    for( UINT xx = 0; xx < 4; xx++)
+    UINT xx;    // reused by the sample loop below, which relied on VC6 for-scope
+    for( xx = 0; xx < 4; xx++)
     {
         // Use our source texture for all four stages
         D3DDevice_SetTexture( xx, pTextureSrc);  

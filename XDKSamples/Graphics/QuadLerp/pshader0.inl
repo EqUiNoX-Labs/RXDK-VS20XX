@@ -1,0 +1,37 @@
+// Xbox Shader Assembler 1.00.5849.1
+// Generated from pshader0.psh -- regenerate with: xsasm pshader0.psh out.xpu
+D3DPIXELSHADERDEF psd;
+ZeroMemory(&psd, sizeof(psd));
+psd.PSAlphaInputs[0]=0xc5301010;
+psd.PSAlphaInputs[1]=0xdadc30dc;
+psd.PSAlphaInputs[3]=0xd9dd30dc;
+psd.PSAlphaInputs[5]=0xd8dd30dc;
+psd.PSAlphaInputs[6]=0xdcd41010;
+psd.PSFinalCombinerInputsABCD=0x00000c00;
+psd.PSFinalCombinerInputsEFG=0x00001c80;
+psd.PSConstant0[2]=0x0000ff00;
+psd.PSConstant0[4]=0x00ff0000;
+psd.PSAlphaOutputs[0]=0x000000c0;
+psd.PSAlphaOutputs[1]=0x00000c00;
+psd.PSAlphaOutputs[3]=0x00000c00;
+psd.PSAlphaOutputs[5]=0x00000c00;
+psd.PSAlphaOutputs[6]=0x000100c0;
+psd.PSRGBInputs[0]=0xcbd50000;
+psd.PSRGBInputs[1]=0xcadc20cc;
+psd.PSRGBInputs[2]=0xc5c10000;
+psd.PSRGBInputs[3]=0xc9cd20cc;
+psd.PSRGBInputs[4]=0xc5c10000;
+psd.PSRGBInputs[5]=0xc8cd20cc;
+psd.PSRGBInputs[6]=0xccc40000;
+psd.PSRGBOutputs[0]=0x000000c0;
+psd.PSRGBOutputs[1]=0x00000c00;
+psd.PSRGBOutputs[2]=0x000820d0;
+psd.PSRGBOutputs[3]=0x00000c00;
+psd.PSRGBOutputs[4]=0x000820d0;
+psd.PSRGBOutputs[5]=0x00000c00;
+psd.PSRGBOutputs[6]=0x000100c0;
+psd.PSCombinerCount=0x00011107;
+psd.PSTextureModes=0x00008421;
+psd.PSC0Mapping=0xfff0f1ff;
+psd.PSC1Mapping=0xffffffff;
+psd.PSFinalCombinerConstants=0x000001ff;
