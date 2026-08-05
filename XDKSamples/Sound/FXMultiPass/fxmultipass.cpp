@@ -343,7 +343,11 @@ HRESULT CXBoxSample::Initialize()
 
     // Fill the VB for the grid
     m_pvbGrid->Lock( 0, 0, (BYTE **)&pVertices, 0 );
-    for( int i = ZMIN, j = 0; i <= ZMAX; i++, j++ )
+    // i and j both carry into the second loop (VC6 for-scope). Declaring them
+    // above and leaving the for-init alone would SHADOW them, and the second
+    // loop would then read an uninitialised j instead of the running count.
+    int i, j = 0;
+    for( i = ZMIN; i <= ZMAX; i++, j++ )
     {
         pVertices[ j * 2 ].p     = D3DXVECTOR3( XMIN, 0, (FLOAT)i ); pVertices[ j * 2 ].c     = 0xFF00A000;
         pVertices[ j * 2 + 1 ].p = D3DXVECTOR3( XMAX, 0, (FLOAT)i ); pVertices[ j * 2 + 1 ].c = 0xFF00A000;

@@ -35,6 +35,8 @@
     <RxdkIncludePaths>..\..\..\Common\include</RxdkIncludePaths>
     <RxdkLibraries>libxbdm;libxapi;libd3d8;libd3dx8;libxgraphics;libdsound;libkernel;libc;libcpp</RxdkLibraries>
     <RxdkDeployPaths>..\media</RxdkDeployPaths>
+    <!-- The DSP image, embedded as an XBE section the sample XLoadSection()s. -->
+    <RxdkEmbed>..\Media\DSPImage.bin|DSPImage</RxdkEmbed>
     <RxdkStackSize>65536</RxdkStackSize>
     <RxdkImageDebug>true</RxdkImageDebug>
     <RxdkDontMountUtilityDrive>true</RxdkDontMountUtilityDrive>
@@ -50,6 +52,8 @@
     <RxdkIncludePaths>..\..\..\Common\include</RxdkIncludePaths>
     <RxdkLibraries>libxapi;libd3d8;libd3dx8;libxgraphics;libdsound;libkernel;libc;libcpp</RxdkLibraries>
     <RxdkDeployPaths>..\media</RxdkDeployPaths>
+    <!-- The DSP image, embedded as an XBE section the sample XLoadSection()s. -->
+    <RxdkEmbed>..\Media\DSPImage.bin|DSPImage</RxdkEmbed>
     <RxdkStackSize>65536</RxdkStackSize>
     <RxdkImageDebug>true</RxdkImageDebug>
     <RxdkDontMountUtilityDrive>true</RxdkDontMountUtilityDrive>

@@ -689,7 +689,8 @@ HRESULT CXBoxSample::Initialize()
     // Open up each of our wave files - note that this is just opening
     // the file and finding the important chunks, but doesn't actually
     // load any data
-    for( int i = 0; i < NUM_SOUNDS; i++ )
+    int i;    // reused by the mixbin loop below, which relied on VC6 for-scope
+    for( i = 0; i < NUM_SOUNDS; i++ )
     {
         char strFullPath[MAX_PATH];
         sprintf( strFullPath, "d:\\%S%S", g_strMediaDir, g_astrFileNames[i] );
