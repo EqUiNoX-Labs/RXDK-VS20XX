@@ -117,7 +117,8 @@ MipmapFilter::MipmapFilter( UINT nSuperSample,
 void MipmapFilter::NormalizeAdd()
 {
     float fSum = 0.0f;
-    for (UINT iSample = 0; iSample < m_nSample; iSample++)
+    UINT iSample;   // RXDK: MSVC for-scope leak -- reused after the loop
+    for( iSample= 0; iSample < m_nSample; iSample++)
         fSum += m_rSample[iSample].m_fValue;
     float fOffset = (1.0f - fSum) / m_nSample;
     for ( iSample = 0; iSample < m_nSample; iSample++)
@@ -134,7 +135,8 @@ void MipmapFilter::NormalizeAdd()
 void MipmapFilter::NormalizeMultiply()
 {
     float fSum = 0.0f;
-    for (UINT iSample = 0; iSample < m_nSample; iSample++)
+    UINT iSample;   // RXDK: MSVC for-scope leak -- reused after the loop
+    for( iSample= 0; iSample < m_nSample; iSample++)
         fSum += m_rSample[iSample].m_fValue;
     float fScale = 1.0f/fSum;
     for ( iSample = 0; iSample < m_nSample; iSample++)

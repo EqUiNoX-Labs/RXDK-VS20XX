@@ -130,7 +130,8 @@ void CXBFur::InitFuzz( DWORD nfuzz, DWORD nfuzzlib )
     // Generate the individual fuzzes in the library
     m_fYSize = 0.0f;
     srand(m_dwSeed);
-    for( DWORD i=0; i<m_dwNumFuzzLib; i++ )
+    DWORD i;   // RXDK: MSVC for-scope leak -- reused after the loop
+    for( i=0; i<m_dwNumFuzzLib; i++ )
     {
         m_pFuzzLib[i].vel.x = (m_fuzzCenter.vel.x + m_fuzzRandom.vel.x*(2*frand(1.0f)-1.0f))*g_fOneInch;
         m_pFuzzLib[i].vel.y = (m_fuzzCenter.vel.y + m_fuzzRandom.vel.y*(2*frand(1.0f)-1.0f))*g_fOneInch;
