@@ -241,12 +241,18 @@ VOID PreCachePallette( const D3DXMATRIX* pPallette,
     __asm mov ebx, pPallette  // store pallette pointer
     __asm add ebx, dwNumPalletteMatrices // compute end pallette pointer
     
+    // RXDK: one __asm block -- clang scopes asm labels to a single block, so a
+    // jump from inside __asm to a label sitting between separate single-statement
+    // __asm lines does not resolve.
+    __asm
+    {
 PRECACHE:
-        __asm prefetcht0 [eax]        // prefetch first half of matrix
-        __asm prefetcht0 [eax + 16*2] // prefetch second half of matrix
-        __asm add eax, 16*4           // increment pallette pointer
-        __asm cmp eax, ebx            // finished when at end
-        __asm jne PRECACHE
+        prefetcht0 [eax]        // prefetch first half of matrix
+        prefetcht0 [eax + 16*2] // prefetch second half of matrix
+        add eax, 16*4           // increment pallette pointer
+        cmp eax, ebx            // finished when at end
+        jne PRECACHE
+    }
     
     return;
 }
@@ -322,10 +328,10 @@ BEGIN:
     
 
 OUTVEC:
-    __asm add   ebx, SIZE D3DXVECTOR3;         // increment invec pointer
+    __asm add   ebx, 12 /* RXDK: was SIZE D3DXVECTOR3 -- clang's asm parser wants an expression, not a type */;         // increment invec pointer
     OUTVEC( ecx );                             // store vec
     __asm mov   eax, dwNumNormalsPerVert       // mov num normals to eax
-    __asm add   ecx, SIZE D3DXVECTOR3;         // increment outvec pointer
+    __asm add   ecx, 12 /* RXDK: was SIZE D3DXVECTOR3 -- clang's asm parser wants an expression, not a type */;         // increment outvec pointer
 
     __asm cmp   eax, 0                         // compare num normals and 0
     __asm je CONTINUE                          // if no normals to compute,
@@ -359,12 +365,12 @@ NORMALS:
     ADDVEC();  // add vec
 
 OUTNORM:
-    __asm add   ebx, SIZE D3DXVECTOR3;         // increment invec pointer
+    __asm add   ebx, 12 /* RXDK: was SIZE D3DXVECTOR3 -- clang's asm parser wants an expression, not a type */;         // increment invec pointer
     OUTVEC( ecx );                             // store outvec
 
     __asm sub   eax, 1                         // subtract 1 from number of
                                                // normals left to compute
-    __asm add   ecx, SIZE D3DXVECTOR3;         // increment outvec pointer
+    __asm add   ecx, 12 /* RXDK: was SIZE D3DXVECTOR3 -- clang's asm parser wants an expression, not a type */;         // increment outvec pointer
 
     __asm cmp   eax, 0                         // compare num normals and 0
     __asm jne NORMALS                          // if no more normals to
