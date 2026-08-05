@@ -77,6 +77,12 @@ public:
     inline Vector3( const D3DXVECTOR3& );
     inline Vector3& operator=( const D3DXVECTOR3& );
 
+    // RXDK: construct straight from the plain D3DVECTOR the game's data tables hold.
+    // Without this it takes TWO user-defined conversions to get there
+    // (D3DVECTOR -> D3DXVECTOR3 -> Vector3), which MSVC allowed and standard C++
+    // does not. Same shape as the D3DXVECTOR3 overload just above.
+    inline Vector3( const D3DVECTOR& );
+
     // Operators
     inline Vector3 operator-() const;
     inline Vector3 operator+( const Vector3& ) const;

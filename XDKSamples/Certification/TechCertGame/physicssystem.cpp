@@ -310,7 +310,8 @@ bool PhysicsSystem::ProcessCollisionsAndForces( float cur_time, FLOAT& fRumble )
     }
 
     // Add static constraints to active list.
-    for (UINT i = 0; i < StaticConstraints.size(); i++)
+    UINT i;   // RXDK: MSVC for-scope leak -- reused after the loop
+    for( i= 0; i < StaticConstraints.size(); i++)
     {
         const Constraint& sc = *StaticConstraints[i];
 
@@ -1056,7 +1057,8 @@ bool PhysicsSystem::SolveLinearSystem(float A[][iMaxConstraints], int n, float* 
     float p[iMaxConstraints];
 
     // Cholesky decomposition.
-    for (int i = 0; i < n; i++)
+    int i;   // RXDK: MSVC for-scope leak -- reused after the loop
+    for( i= 0; i < n; i++)
     {
         for (int j = 0; j < n; j++)
         {
