@@ -75,17 +75,22 @@ public static class SolutionImporter
             log?.Invoke($"Importing {p.SlnName} -> {p.OutSubdir}");
             p.Result = Vcproj2003Importer.Import(p.AbsVcproj, p.OutSubdir, scaffoldDir,
                 copySources: copySources, projectRefs: refs, log: log);
-            result.Projects.Add(p.Result);
             result.Warnings.AddRange(p.Result.Warnings.Select(w => $"[{p.SlnName}] {w}"));
+            // A PC-side host tool generated nothing, so it must not go into the solution either.
+            if (p.Result.SkippedNotXbox) continue;
+            result.Projects.Add(p.Result);
         }
 
         // ---- write the umbrella .sln ----
         var slnName = Path.GetFileNameWithoutExtension(slnPath);
         var outSln = Path.Combine(outDir, slnName + ".sln");
-        File.WriteAllText(outSln, BuildSln(projects), new UTF8Encoding(false));
+        // Skipped PC-side tools generated no .vcxproj, so they must not appear here either --
+        // a solution entry pointing at a file that was never written will not load.
+        var emitted = projects.Where(p => p.Result is { SkippedNotXbox: false }).ToList();
+        File.WriteAllText(outSln, BuildSln(emitted), new UTF8Encoding(false));
         result.SlnPath = outSln;
 
-        log?.Invoke($"Imported {projects.Count} project(s) -> {outSln}");
+        log?.Invoke($"Imported {emitted.Count} project(s) -> {outSln}");
         return result;
     }
 

@@ -27,6 +27,10 @@ public static class Vcproj2003Importer
         public List<(string Name, string Flavor)> Configs = new();
         public List<string> UnmappedLibraries = new();
         public List<string> Warnings = new();
+        /// <summary>True when the .vcproj has no Xbox configuration at all -- a PC-side host
+        /// tool that ships alongside a sample (CreatePushBufferOnPC writes pushbuffer data on
+        /// the PC for the Xbox sample to load). Nothing was generated for it.</summary>
+        public bool SkippedNotXbox;
     }
 
     /// <summary>A native &lt;ProjectReference&gt; to emit into the generated .vcxproj.</summary>
@@ -105,8 +109,13 @@ public static class Vcproj2003Importer
         var xboxElems = allElems.Where(c => ConfigPlatform(c).Equals("Xbox", StringComparison.OrdinalIgnoreCase)).ToList();
         if (xboxElems.Count == 0 && allElems.Count > 0)
         {
-            xboxElems = allElems;
-            result.Warnings.Add("no Xbox-platform configs found; imported all platforms.");
+            // Not an Xbox project at all -- a PC-side host tool that happens to sit in a sample
+            // directory, like CreatePushBufferOnPC (which writes pushbuffer data on the PC for
+            // the Xbox PushBuffer sample to load). Importing it anyway produced a .vcxproj that
+            // can never build: its sources include PC-only headers such as d3d8-xbox.h.
+            result.SkippedNotXbox = true;
+            result.Warnings.Add("no Xbox-platform configuration; skipped (PC-side host tool).");
+            return result;
         }
         var allConfigs = xboxElems.Select(c => ParseConfig(c, unmapped)).ToList();
 
