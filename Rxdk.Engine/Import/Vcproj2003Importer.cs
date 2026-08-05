@@ -53,7 +53,12 @@ public static class Vcproj2003Importer
         ["d3d8"] = "libd3d8", ["d3dx8"] = "libd3dx8", ["dsound"] = "libdsound",
         ["xapilib"] = "libxapi", ["xgraphics"] = "libxgraphics", ["xmv"] = "libxmv",
         ["xbdm"] = "libxbdm", ["xboxkrnl"] = "libkernel",
-        ["xonline"] = "libxonline", ["xnet"] = "libxnet",
+        ["xonline"] = "libxonline",
+        // The XNet stack ships in two variants and they are NOT interchangeable: xnet
+        // is the plain sockets build, xneto adds ONLINE/QoS/SG and only links when
+        // paired with xonline. 'o' is a feature-set letter, not a variant suffix, so
+        // each needs its own entry (the 'd'/'s' suffixes still strip off either).
+        ["xnet"] = "libxnet", ["xneto"] = "libxneto", ["xnetos"] = "libxneto",
         ["xact"] = "libxact", ["xacteng"] = "libxact", ["dmusic"] = "libdmusic",
         ["xvoice"] = "libxvoice", ["xfont"] = "libxgraphics", ["uix"] = "libxonline",
         // No RXDK equivalent (soundtrack API / the instrumented perf build):
