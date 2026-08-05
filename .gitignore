@@ -43,3 +43,5 @@ XDKSamples/Networking/Auth/OnlineFont.h
 XDKSamples/Networking/Auth/OnlineIconsFont.h
 XDKSamples/Networking/UIXKeyboard/audio.txt
 XDKSamples/Networking/UIXKeyboard/ressound.h
+XDKSamples/Graphics/PerPixelLighting/Resource.h
+XDKSamples/Graphics/XRay/Resource.h

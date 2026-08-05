@@ -136,7 +136,8 @@ HRESULT CTree::ComputeBoundingBox(D3DXVECTOR3 *pvMin, D3DXVECTOR3 *pvMax)
     if (m_TreeBranch.m_pMesh->m_dwNumFrames > MAXMAT) 
         return E_NOTIMPL;
     // Save original xfms
-    for (UINT iFrame = 0; iFrame < m_TreeBranch.m_pMesh->m_dwNumFrames; iFrame++)
+    UINT iFrame;   // RXDK: MSVC for-scope leak -- reused after the loop
+    for( iFrame= 0; iFrame < m_TreeBranch.m_pMesh->m_dwNumFrames; iFrame++)
     {
         XBMESH_FRAME *pFrame = &m_TreeBranch.m_pMesh->m_pMeshFrames[iFrame];
         matSave[iFrame] = pFrame->m_matTransform;
@@ -144,7 +145,8 @@ HRESULT CTree::ComputeBoundingBox(D3DXVECTOR3 *pvMin, D3DXVECTOR3 *pvMax)
     for (UINT iBranch = 0; iBranch < m_nBranch; iBranch++)
     {
         // Brain surgery on top-level frame of branch mesh
-        for (UINT iFrame = 0; iFrame < m_TreeBranch.m_pMesh->m_dwNumFrames; iFrame++)
+        UINT iFrame;   // RXDK: MSVC for-scope leak -- reused after the loop
+        for( iFrame= 0; iFrame < m_TreeBranch.m_pMesh->m_dwNumFrames; iFrame++)
         {
             XBMESH_FRAME *pFrame = &m_TreeBranch.m_pMesh->m_pMeshFrames[iFrame];
             pFrame->m_matTransform = matSave[iFrame] * m_rBranch[iBranch].m_matXfm;

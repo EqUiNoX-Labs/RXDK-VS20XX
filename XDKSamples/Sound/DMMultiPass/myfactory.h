@@ -1,22 +1,3 @@
-//
-// RXDK NOTE -- RECONSTRUCTED, not restored.
-//
-// DMMultiPass and DMTool both #include "myfactory.h" from their own directory and
-// neither file shipped in the XDK. It could not be copied from a sibling: all five
-// DirectMusic samples that have one carry a DIFFERENT one, because this is a
-// per-sample factory whose CreateObject chain registers exactly the CLSIDs that
-// sample loads. That is the Xbox substitute for COM's registry -- there is no
-// CoCreateInstance here, so the title links in the GUID -> constructor mapping and
-// the linker pulls only the track types it names.
-//
-// This is the UNION of all five (32 classes; DMScript's 28 as the base, plus Band,
-// SeqTrack, StyleTrack and LyricsTrack lifted verbatim from DMGrooveLevel and
-// DMNotifications). Registering more classes than a sample needs is harmless --
-// extra branches, slightly more code pulled in; registering too few fails at load
-// time on an unregistered CLSID, which is untestable without hardware. So the
-// union is the safe direction to err in.
-//
-
                                                                                                   
 //--------------------------------------------------------------------------------------------    
 DEFINE_GUID(CLSID_DirectMusicBand,0x79ba9e00, 0xb6ee, 0x11d1, 0x86, 0xbe, 0x0, 0xc0, 0x4f, 0xbf, 0x8f, 0xef); 
@@ -40,12 +21,12 @@ DEFINE_GUID(CLSID_DirectMusicParamControlTrack, 0x4be0537b, 0x5c19, 0x11d3, 0x8b
 DEFINE_GUID(CLSID_DirectMusicMelodyFormulationTrack, 0xb0684266, 0xb57f, 0x11d2, 0x97, 0xf9, 0x0, 0xc0, 0x4f, 0xa3, 0x6e, 0x58);
 DEFINE_GUID(CLSID_DirectMusicWaveTrack,0xeed36461, 0x9ea5, 0x11d3, 0x9b, 0xd1, 0x0, 0x80, 0xc7, 0x15, 0xa, 0x74);
 DEFINE_GUID(CLSID_DirectMusicSynth,0x58C2B4D0,0x46E7,0x11D1,0x89,0xAC,0x00,0xA0,0xC9,0x05,0x41,0x29);
-DEFINE_GUID(CLSID_AutDirectMusicPerformance,        0xa861c6e2, 0xfcfc, 0x11d2, 0x8b, 0xc9, 0x0, 0x60, 0x8, 0x93, 0xb1, 0xb6); // {A861C6E2-FCFC-11d2-8BC9-00600893B1B6}
-DEFINE_GUID(CLSID_AutDirectMusicSegment,            0x4062c116, 0x0270, 0x11d3, 0x8b, 0xcb, 0x0, 0x60, 0x8, 0x93, 0xb1, 0xb6); // {4062C116-0270-11d3-8BCB-00600893B1B6}
-DEFINE_GUID(CLSID_AutDirectMusicSong,                0xa16f1761, 0xb6d8, 0x42eb, 0x8d, 0x57, 0x4a, 0x44, 0xfe, 0xdd, 0x3b, 0xd2);// {A16F1761-B6D8-42eb-8D57-4A44FEDD3BD2}
-DEFINE_GUID(CLSID_AutDirectMusicSegmentState,        0xebf2320a, 0x2502, 0x11d3, 0x8b, 0xd1, 0x0, 0x60, 0x8, 0x93, 0xb1, 0xb6); // {EBF2320A-2502-11d3-8BD1-00600893B1B6}
-DEFINE_GUID(CLSID_AutDirectMusicAudioPathConfig,    0x1cebde3e, 0x6b91, 0x484a, 0xaf, 0x48, 0x5e, 0x4f, 0x4e, 0xd6, 0xb1, 0xe1);// {1CEBDE3E-6B91-484a-AF48-5E4F4ED6B1E1}
-DEFINE_GUID(CLSID_AutDirectMusicAudioPath,            0x2c5f9b72, 0x7148, 0x4d97, 0xbf, 0xc9, 0x68, 0xa0, 0xe0, 0x76, 0xbe, 0xbd);// {2C5F9B72-7148-4d97-BFC9-68A0E076BEBD}
+DEFINE_GUID(CLSID_AutDirectMusicPerformance,		0xa861c6e2, 0xfcfc, 0x11d2, 0x8b, 0xc9, 0x0, 0x60, 0x8, 0x93, 0xb1, 0xb6); // {A861C6E2-FCFC-11d2-8BC9-00600893B1B6}
+DEFINE_GUID(CLSID_AutDirectMusicSegment,			0x4062c116, 0x0270, 0x11d3, 0x8b, 0xcb, 0x0, 0x60, 0x8, 0x93, 0xb1, 0xb6); // {4062C116-0270-11d3-8BCB-00600893B1B6}
+DEFINE_GUID(CLSID_AutDirectMusicSong,				0xa16f1761, 0xb6d8, 0x42eb, 0x8d, 0x57, 0x4a, 0x44, 0xfe, 0xdd, 0x3b, 0xd2);// {A16F1761-B6D8-42eb-8D57-4A44FEDD3BD2}
+DEFINE_GUID(CLSID_AutDirectMusicSegmentState,		0xebf2320a, 0x2502, 0x11d3, 0x8b, 0xd1, 0x0, 0x60, 0x8, 0x93, 0xb1, 0xb6); // {EBF2320A-2502-11d3-8BD1-00600893B1B6}
+DEFINE_GUID(CLSID_AutDirectMusicAudioPathConfig,	0x1cebde3e, 0x6b91, 0x484a, 0xaf, 0x48, 0x5e, 0x4f, 0x4e, 0xd6, 0xb1, 0xe1);// {1CEBDE3E-6B91-484a-AF48-5E4F4ED6B1E1}
+DEFINE_GUID(CLSID_AutDirectMusicAudioPath,			0x2c5f9b72, 0x7148, 0x4d97, 0xbf, 0xc9, 0x68, 0xa0, 0xe0, 0x76, 0xbe, 0xbd);// {2C5F9B72-7148-4d97-BFC9-68A0E076BEBD}
 
 STDAPI DirectMusicChordTrackCreate( REFIID iid, void ** ppDMT );
 STDAPI DirectMusicCommandTrackCreate( REFIID iid, void ** ppDMT );
@@ -103,7 +84,12 @@ HRESULT CALLBACK MyFactory(REFCLSID clsid,
                            LPVOID *ppvInterface)
 {
    HRESULT hr = E_FAIL;
-    if (clsid == CLSID_DirectSoundWave)
+    if (clsid == CLSID_DirectMusicWaveTrack)
+    {
+        // Wave Track - plays one or more waves.
+        hr = DirectMusicWaveTrackCreate(iid,ppvInterface);
+    }
+    else if (clsid == CLSID_DirectSoundWave)
     {
         // Wave: represents the file version of a wave - required if wave files are used.
         hr = DirectSoundWaveCreate(iid,ppvInterface);
@@ -113,90 +99,10 @@ HRESULT CALLBACK MyFactory(REFCLSID clsid,
         // Segment - primary playback mechanism - always required.
         hr = DirectMusicSegmentCreate(iid,ppvInterface);
     }
-    else if (clsid == CLSID_AutDirectMusicSegment)
-    {
-        // Segment Automation: used by scripting to control a segment.
-        hr = DirectMusicAutSegmentCreate(pUnkOuter,iid,ppvInterface);
-    }
-    else if (clsid == CLSID_DirectMusicWaveTrack)
-    {
-        // Wave Track - plays one or more waves.
-        hr = DirectMusicWaveTrackCreate(iid,ppvInterface);
-    }
-    else if (clsid == CLSID_DirectMusicContainer)
-    {
-        // Container: storage container for multiple DirectMusic file objects. Always used in scripting.
-        hr = DirectMusicContainerCreate(iid,ppvInterface);
-    }
-    else if (clsid == CLSID_DirectMusicTimeSigTrack)
-    {
-        // Time Signature Track - defines time signature in segments, always required for music synchronization.
-        hr = DirectMusicTimeSigTrackCreate(iid,ppvInterface);
-    }
-    else if (clsid == CLSID_DirectMusicCollection)
-    {
-        // DLS Collection: manages a DLS file - always required for MIDI + DLS.
-        hr = DirectMusicCollectionCreate(iid,ppvInterface);
-    }
-    else if (clsid == CLSID_DirectMusicScriptTrack)
-    {
-        // Script Track: Sequences script routines to play in time with the music.
-        hr = DirectMusicScriptTrackCreate(iid,ppvInterface);
-    }
-    else if (clsid == CLSID_DirectMusicBandTrack)
-    {
-        // Band Track - manages one or more bands - always required for any MIDI + DLS playback.
-        hr = DirectMusicBandTrackCreate(iid,ppvInterface);
-    }
-    else if (clsid == CLSID_DirectMusicStyle)
-    {
-        // Style - style playback object, represents a specific style type.
-        hr = DirectMusicStyleCreate(iid,ppvInterface);
-    }
-    else if (clsid == CLSID_DirectMusicPatternTrack)
-    {
-        // Pattern Track - plays patterns with variations tranposed to chord progression.
-        hr = DirectMusicPatternTrackCreate(iid,ppvInterface);
-    }
-    else if (clsid == CLSID_DirectMusicTempoTrack)
-    {
-        // Tempo Track - defines tempo changes, always required for music.
-        hr = DirectMusicTempoTrackCreate(iid,ppvInterface);
-    }
-    else if (clsid == CLSID_DirectMusicScript)
-    {
-        // Script: Manages a script and all embedded and linked content.
-        hr = DirectMusicScriptCreate(iid,ppvInterface);
-    }
     else if (clsid == CLSID_DirectMusicSynth)
     {
         // Synthesizer: controls the hardware synthesizer - always required.
         hr = DirectMusicSynthCreate(iid,ppvInterface);
-    }
-    else if (clsid == CLSID_AutDirectMusicAudioPathConfig)
-    {
-        // Audio Path Configuration Automation - used by scripting to control an audiopath configuration.
-        hr = DirectMusicAutAudioPathConfigCreate(pUnkOuter,iid,ppvInterface);
-    }
-    else if (clsid == CLSID_AutDirectMusicSong)
-    {
-        // Song Automation - used by scripting to control a song.
-        hr = DirectMusicAutSongCreate(pUnkOuter,iid,ppvInterface);
-    }
-    else if (clsid == CLSID_AutDirectMusicSegmentState)
-    {
-        // A helper scripting object that implements IDispatch.
-        hr = AutDirectMusicSegmentStateCreate(pUnkOuter,iid,ppvInterface);
-    }
-    else if (clsid == CLSID_AutDirectMusicPerformance)
-    {
-        // Performance Automation - used by scripting to control a performance.
-        hr = DirectMusicAutPerformanceCreate(pUnkOuter,iid,ppvInterface);
-    }
-    else if (clsid == CLSID_AutDirectMusicAudioPath)
-    {
-        // Audio Path Automation - used by scripting to control a style directly.
-        hr = DirectMusicAutAudioPathCreate(pUnkOuter,iid,ppvInterface);
     }
     else if (clsid == CLSID_DirectMusicCommandTrack)
     {
@@ -233,6 +139,11 @@ HRESULT CALLBACK MyFactory(REFCLSID clsid,
         // File Stream - used to read content from disk.
         hr = DirectMusicFileStreamCreate(iid,ppvInterface);
     }
+    else if (clsid == CLSID_DirectMusicCollection)
+    {
+        // DLS Collection: manages a DLS file - always required for MIDI + DLS.
+        hr = DirectMusicCollectionCreate(iid,ppvInterface);
+    }
     else if (clsid == CLSID_DirectMusicLoader)
     {
         // Loader: required to read files from disk and link objects. May be replaced by application.
@@ -244,26 +155,6 @@ HRESULT CALLBACK MyFactory(REFCLSID clsid,
         hr = DirectMusicPerformanceCreate(iid,ppvInterface);
     }
     #ifndef AUDANALYZE_NODEBUG     
-    else if (clsid == CLSID_DirectMusicBand)
-    {
-        // Band - manages downloading of DLS instruments as well as volume and pan presets - always required for MIDI + DLS.
-        hr = DirectMusicBandCreate(iid,ppvInterface);
-    }
-    else if (clsid == CLSID_DirectMusicSeqTrack)
-    {
-        // Sequence Track: plays straight MIDI sequences.
-        hr = DirectMusicSeqTrackCreate(iid,ppvInterface);
-    }
-    else if (clsid == CLSID_DirectMusicStyleTrack)
-    {
-        // Style Track - selects style for playback.
-        hr = DirectMusicStyleTrackCreate(iid,ppvInterface);
-    }
-    else if (clsid == CLSID_DirectMusicLyricsTrack)
-    {
-        // Lyrics Track: sends lyrics.
-        hr = DirectMusicLyricsTrackCreate(iid,ppvInterface);
-    }
     else                           
     {                              
         OUTPUT_DEBUG_STRING("DirectMusic needs to allocate an object that your MyFactory() function doesn't support.  \n");

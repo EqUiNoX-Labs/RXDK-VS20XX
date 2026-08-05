@@ -211,7 +211,8 @@ HRESULT CSliceObject::BeginDrawCubeSlices()
 //
 HRESULT CSliceObject::SetCubeFade(const D3DXVECTOR3 &vFrom, DWORD dwFlags)
 {
-    for (UINT iDirection = 0; iDirection < m_nDirection; iDirection++)
+    UINT iDirection;   // RXDK: MSVC for-scope leak -- reused after the loop
+    for( iDirection= 0; iDirection < m_nDirection; iDirection++)
         m_rfFade[iDirection] = 0.f;
     // Set values based on center of object.
     D3DXVECTOR3 vCenter = 0.5f * (m_vMin + m_vMax);
