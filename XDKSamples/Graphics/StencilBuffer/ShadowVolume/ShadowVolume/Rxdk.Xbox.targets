@@ -23,6 +23,8 @@
       <PublicIncludePaths ParameterType="System.String" />
       <IncludePaths ParameterType="System.String" />
       <Defines ParameterType="System.String" />
+      <CppStandard ParameterType="System.String" />
+      <Exceptions ParameterType="System.String" />
       <ProjectReferences ParameterType="System.String" />
       <DeployPaths ParameterType="System.String" />
       <Embed ParameterType="System.String" />
@@ -86,6 +88,10 @@
         if (inc.Length > 0) sb.Append("  \"includePaths\": " + arr(inc) + ",\n");
         var defs = split(Defines);
         if (defs.Length > 0) sb.Append("  \"defines\": " + arr(defs) + ",\n");
+        if (!string.IsNullOrWhiteSpace(CppStandard))
+            sb.Append("  \"cppStandard\": \"" + esc(CppStandard.Trim()) + "\",\n");
+        if (!string.IsNullOrWhiteSpace(Exceptions))
+            sb.Append("  \"exceptions\": " + (Exceptions.Trim().ToLowerInvariant() == "true" ? "true" : "false") + ",\n");
         var prefs = split(ProjectReferences);
         if (prefs.Length > 0) sb.Append("  \"projectReferences\": " + arr(prefs) + ",\n");
         var deploys = split(DeployPaths);
@@ -160,6 +166,8 @@
       PublicIncludePaths="$(RxdkPublicIncludePaths)"
       IncludePaths="$(RxdkIncludePaths)"
       Defines="$(RxdkDefines)"
+      CppStandard="$(RxdkCppStandard)"
+      Exceptions="$(RxdkExceptions)"
       ProjectReferences="$(RxdkProjectReferences);@(ProjectReference->'%(RelativeDir)')"
       DeployPaths="$(RxdkDeployPaths)"
       Embed="$(RxdkEmbed)"

@@ -76,7 +76,8 @@ public static class XboxBuild
 
     private static async Task ZigCompileAsync(
         string zig, string source, string obj, IReadOnlyList<string> includeArgs,
-        IReadOnlyList<string> defineArgs, bool isCpp, RxdkOptimizeMode optimize,
+        IReadOnlyList<string> defineArgs, bool isCpp, string cppStandard, bool exceptions,
+        RxdkOptimizeMode optimize,
         Action<string>? log, CancellationToken ct)
     {
         var common = new List<string> { "-target", "x86-windows-gnu" };
@@ -122,7 +123,11 @@ public static class XboxBuild
         var toolArgs = new List<string>();
         if (isCpp)
         {
-            toolArgs.AddRange(new[] { "c++", "-std=c++23", "-nostdinc++", "-fno-exceptions", "-frtti" });
+            // The standard is per-project (manifest "cppStandard"), defaulting to c++23. XDK-era
+            // code that uses the C++98 allocator members has to name an older one -- libc++ gates
+            // those on the standard with no opt-in macro, unlike auto_ptr just below.
+            toolArgs.AddRange(new[] { "c++", $"-std={cppStandard}", "-nostdinc++",
+                                      exceptions ? "-fexceptions" : "-fno-exceptions", "-frtti" });
             // Ported XDK-era C++ predates C++17 and still uses std::auto_ptr (removed in C++17,
             // which -std=c++23 selects). libc++ keeps the implementation behind this macro, so
             // opt legacy titles back in rather than forcing them off a modern standard.
@@ -363,7 +368,8 @@ public static class XboxBuild
             var ext = Path.GetExtension(src).ToLowerInvariant();
             var isCpp = ext is ".cpp" or ".cxx";
             if (isCpp) usesCpp = true;
-            await ZigCompileAsync(zig, src, obj, includeArgs, defineArgs, isCpp, optimize, log, ct);
+            await ZigCompileAsync(zig, src, obj, includeArgs, defineArgs, isCpp,
+                                  m.EffectiveCppStandard, m.Exceptions ?? false, optimize, log, ct);
             // A compiler can exit 0 and still write nothing (see the -x note above). Catch that
             // here, where we still know which source it was, rather than at link time.
             if (!File.Exists(obj))

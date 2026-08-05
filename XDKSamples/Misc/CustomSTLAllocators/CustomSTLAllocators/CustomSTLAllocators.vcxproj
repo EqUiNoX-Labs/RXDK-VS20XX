@@ -32,6 +32,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Xbox'">
     <RxdkBuildFlavor>Debug</RxdkBuildFlavor>
     <RxdkDefines>_USE_XGMATH;XBOX_SAMPLE</RxdkDefines>
+    <!-- This sample exercises the C++98 allocator interface (rebind, pointer,
+         address, two-argument allocate), which libc++ gates on the standard with
+         no opt-in macro. Build it as the C++ it was written for. -->
+    <RxdkCppStandard>c++17</RxdkCppStandard>
+    <!-- Its allocators report exhaustion by throwing std::bad_alloc. -->
+    <RxdkExceptions>true</RxdkExceptions>
     <RxdkIncludePaths>..\..\..\Common\include</RxdkIncludePaths>
     <RxdkLibraries>libxbdm;libxapi;libd3d8;libd3dx8;libxgraphics;libdsound;libkernel;libc;libcpp</RxdkLibraries>
     <RxdkStackSize>65536</RxdkStackSize>
@@ -46,6 +52,12 @@
     <RxdkBuildFlavor>Release</RxdkBuildFlavor>
     <RxdkReleaseOptimize>ReleaseFast</RxdkReleaseOptimize>
     <RxdkDefines>_USE_XGMATH;XBOX_SAMPLE</RxdkDefines>
+    <!-- This sample exercises the C++98 allocator interface (rebind, pointer,
+         address, two-argument allocate), which libc++ gates on the standard with
+         no opt-in macro. Build it as the C++ it was written for. -->
+    <RxdkCppStandard>c++17</RxdkCppStandard>
+    <!-- Its allocators report exhaustion by throwing std::bad_alloc. -->
+    <RxdkExceptions>true</RxdkExceptions>
     <RxdkIncludePaths>..\..\..\Common\include</RxdkIncludePaths>
     <RxdkLibraries>libxapi;libd3d8;libd3dx8;libxgraphics;libdsound;libkernel;libc;libcpp</RxdkLibraries>
     <RxdkStackSize>65536</RxdkStackSize>

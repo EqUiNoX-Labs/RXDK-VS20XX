@@ -170,6 +170,28 @@ public sealed class RxdkProjectManifest
     /// <summary>Extra preprocessor defines (cl /D), appended after RXDK defaults.</summary>
     public List<string>? Defines { get; set; }
 
+    /// <summary>
+    /// C++ language standard for this project's C++ sources, e.g. "c++17". Omitted = the RXDK
+    /// default (see <see cref="EffectiveCppStandard"/>).
+    ///
+    /// XDK-era C++ predates most of what the default standard removed. Some of it can be opted
+    /// back in per feature (std::auto_ptr has a libc++ macro, and RXDK always passes that one),
+    /// but the C++98 allocator members -- rebind, pointer, address, two-argument allocate --
+    /// have no such escape: libc++ gates them on the standard alone. A project that uses them
+    /// has to be compiled as the C++ it was written in.
+    /// </summary>
+    public string? CppStandard { get; set; }
+
+    /// <summary>
+    /// Compile C++ sources with exception support (-fexceptions). Omitted = false, i.e.
+    /// -fno-exceptions, which is what a title normally wants on a 64 MB console.
+    ///
+    /// The runtime side is already in place either way: libcpp.lib bundles libunwind and the
+    /// link brackets .eh_frame with the two marker objects it needs. This only decides whether
+    /// the title's own code may throw.
+    /// </summary>
+    public bool? Exceptions { get; set; }
+
     // ---- Derived helpers (port of the free functions in projectTypes.ts) ----
 
     [JsonIgnore]
@@ -177,6 +199,11 @@ public sealed class RxdkProjectManifest
 
     [JsonIgnore]
     public RxdkConfiguration EffectiveConfiguration => Configuration ?? RxdkConfiguration.Release;
+
+    /// <summary>The C++ standard to compile with; "c++23" unless the project asks for another.</summary>
+    [JsonIgnore]
+    public string EffectiveCppStandard =>
+        string.IsNullOrWhiteSpace(CppStandard) ? "c++23" : CppStandard!.Trim();
 
     [JsonIgnore]
     public bool IsPrebuilt => Prebuilt is not null && !string.IsNullOrEmpty(Prebuilt.Xbe);

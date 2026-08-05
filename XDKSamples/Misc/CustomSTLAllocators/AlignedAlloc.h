@@ -118,7 +118,10 @@ public:
 
     pointer allocate( size_type nCount, const void* /* pHint */ )
     {
-        pointer p = (pointer)_aligned_malloc( nCount * sizeof( T ), Alignment );
+        // memalign, not _aligned_malloc: <malloc.h> here is picolibc's, which
+        // spells it the POSIX way (and takes the arguments in the other order).
+        // Its result is released with plain free(), see deallocate below.
+        pointer p = (pointer)memalign( Alignment, nCount * sizeof( T ) );
         assert( (size_t)p % Alignment == 0 ); // verify alignment
         
         // For C++ Standard compliance, throw bad_alloc on error.
@@ -131,12 +134,14 @@ public:
 
     //-------------------------------------------------------------------------
     // Name: deallocate
-    // Desc: Deallocate aligned memory using MS CRT function _aligned_free
+    // Desc: Deallocate aligned memory. picolibc's memalign blocks are ordinary
+    //       heap blocks, so free() releases them -- there is no _aligned_free
+    //       counterpart to pair with as there is in the MS CRT.
     //-------------------------------------------------------------------------
     void deallocate( pointer p, size_type /* nCount */ )
     {
         assert( (size_t)p % Alignment == 0 ); // verify alignment
-        _aligned_free( p );
+        free( p );
     }
 
 private:
