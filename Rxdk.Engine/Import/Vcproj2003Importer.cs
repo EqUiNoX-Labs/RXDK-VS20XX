@@ -60,7 +60,10 @@ public static class Vcproj2003Importer
         // each needs its own entry (the 'd'/'s' suffixes still strip off either).
         ["xnet"] = "libxnet", ["xneto"] = "libxneto", ["xnetos"] = "libxneto",
         ["xact"] = "libxact", ["xacteng"] = "libxact", ["dmusic"] = "libdmusic",
-        ["xvoice"] = "libxvoice", ["xfont"] = "libxgraphics", ["uix"] = "libxonline",
+        ["xvoice"] = "libxvoice", ["xfont"] = "libxgraphics",
+        // UIX is its own archive, as in 5849. It calls into libxonline, so a
+        // title linking it needs both -- libuix first.
+        ["uix"] = "libuix;libxonline",
         // No RXDK equivalent (soundtrack API / the instrumented perf build):
         ["xsndtrk"] = null, ["xperf"] = null,
     };
