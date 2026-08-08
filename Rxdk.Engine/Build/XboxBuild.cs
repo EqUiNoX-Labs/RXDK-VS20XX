@@ -282,6 +282,95 @@ public static class XboxBuild
         }
     }
 
+    /// <summary>
+    /// Compiles the project's shader sources to NV2A microcode with xsasm: each *.vsh -> *.xvu
+    /// and *.psh -> *.xpu, written next to the source so it deploys with the media tree (titles
+    /// load e.g. "Shaders\\Foo.xvu" at runtime). Uses the manifest's .vsh/.psh resources if
+    /// listed, otherwise auto-discovers under the project root (skipping build-output dirs).
+    /// Files without a shader version line are include fragments (#included by others), so they
+    /// are skipped rather than compiled standalone. A shader that fails to assemble fails the build.
+    /// </summary>
+    private static async Task CompileShadersAsync(
+        string projectRoot, RxdkProjectManifest manifest, Action<string>? log, CancellationToken ct)
+    {
+        static bool IsShaderSource(string p) =>
+            p.EndsWith(".vsh", StringComparison.OrdinalIgnoreCase) ||
+            p.EndsWith(".psh", StringComparison.OrdinalIgnoreCase);
+
+        var shaders = new List<string>();
+
+        // Explicit .vsh/.psh entries carried in the manifest resources list.
+        foreach (var rel in manifest.Resources ?? new())
+        {
+            if (string.IsNullOrWhiteSpace(rel) || !IsShaderSource(rel)) continue;
+            var p = Path.GetFullPath(Path.Combine(projectRoot, rel.Replace('/', Path.DirectorySeparatorChar)));
+            if (File.Exists(p)) shaders.Add(p);
+        }
+
+        // Auto-discover if none listed: every *.vsh / *.psh under the project, excluding the
+        // build-output trees (out/, obj/, bin/) so deployed copies are not recompiled.
+        if (shaders.Count == 0)
+        {
+            foreach (var pat in new[] { "*.vsh", "*.psh" })
+                foreach (var f in Directory.EnumerateFiles(projectRoot, pat, SearchOption.AllDirectories))
+                    if (!IsBuildOutputPath(f, projectRoot))
+                        shaders.Add(Path.GetFullPath(f));
+        }
+
+        var unique = shaders
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .Where(HasShaderVersionLine)   // skip include fragments (no vs./ps. version directive)
+            .ToList();
+        if (unique.Count == 0) return;
+
+        var xsasm = RxdkPaths.ResolveHostTool("xsasm");
+        if (!File.Exists(xsasm))
+            throw new FileNotFoundException(
+                $"xsasm host tool not found: {xsasm}. Update the RXDK tools (the shader pipeline needs xsasm).");
+
+        foreach (var src in unique)
+        {
+            var isPixel = src.EndsWith(".psh", StringComparison.OrdinalIgnoreCase);
+            var outPath = Path.ChangeExtension(src, isPixel ? ".xpu" : ".xvu");
+            var dir = Path.GetDirectoryName(src)!;
+            log?.Invoke($"Compiling shader: {Path.GetFileName(src)} -> {Path.GetFileName(outPath)}");
+            // -I <dir>: fur/fin-style shaders #include sibling fragments from their own directory.
+            var result = await ProcessRunner.RunStreamedAsync(
+                xsasm, new[] { src, "-o", outPath, "-I", dir }, log, dir, ct);
+            if (!result.Success)
+                throw new InvalidOperationException(
+                    $"xsasm failed on {Path.GetFileName(src)} (exit {result.ExitCode})");
+        }
+    }
+
+    /// <summary>True when the path lives under a build-output tree (out/, obj/, bin/).</summary>
+    private static bool IsBuildOutputPath(string file, string projectRoot)
+    {
+        var rel = "/" + Path.GetRelativePath(projectRoot, file).Replace('\\', '/') + "/";
+        return rel.Contains("/out/", StringComparison.OrdinalIgnoreCase)
+            || rel.Contains("/obj/", StringComparison.OrdinalIgnoreCase)
+            || rel.Contains("/bin/", StringComparison.OrdinalIgnoreCase);
+    }
+
+    /// <summary>
+    /// True when a .vsh/.psh begins (past comments/blank lines) with a shader version directive
+    /// such as vs.1.1 / xvs.1.1 / xvss.1.1 / ps.1.1 / xps.1.1. Files without one are shared
+    /// include fragments, not standalone shaders.
+    /// </summary>
+    private static bool HasShaderVersionLine(string file)
+    {
+        foreach (var raw in File.ReadLines(file))
+        {
+            var line = raw;
+            int c = line.IndexOf("//", StringComparison.Ordinal); if (c >= 0) line = line[..c];
+            int s = line.IndexOf(';'); if (s >= 0) line = line[..s];
+            line = line.Trim();
+            if (line.Length == 0 || line.StartsWith('#')) continue;
+            return Regex.IsMatch(line, @"^(xvss|xvsw|xvs|vs|xps|ps)\s*\.\s*\d", RegexOptions.IgnoreCase);
+        }
+        return false;
+    }
+
     // ---- multi-project (library reference) support ----
 
     private static List<string> GetProjectReferences(string projectRoot, RxdkProjectManifest m)
@@ -435,6 +524,10 @@ public static class XboxBuild
             // sources, so the generated Resource.h exists at compile time and the packed .xpr
             // is written (to the out_packedresource path named in the .rdf) for deploy.
             await CompileResourcesAsync(projectRoot, manifest, log, ct);
+
+            // Shader pipeline: assemble .vsh/.psh sources to .xvu/.xpu microcode with xsasm so
+            // titles that load precompiled shaders (e.g. "Shaders\\Foo.xvu") find them in media.
+            await CompileShadersAsync(projectRoot, manifest, log, ct);
 
             var sdkInclude = SdkLayout.GetSdkIncludeDir();
             var sdkLib = SdkLayout.GetSdkLibDir();

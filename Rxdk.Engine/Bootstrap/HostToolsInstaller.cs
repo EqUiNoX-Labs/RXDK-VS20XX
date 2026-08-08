@@ -21,7 +21,7 @@ public static partial class HostToolsInstaller
     /// </summary>
     public static readonly string[] RequiredHostTools =
     {
-        "imagebld", "xbcp", "xbox-launch", "xboxdbg-bridge", "xbwatson", "xdvdfs",
+        "imagebld", "bundler", "xactbld", "xsasm", "xbcp", "xbox-launch", "xboxdbg-bridge", "xbwatson", "xdvdfs",
     };
 
     /// <summary>True when every required tool exists in the staged tools root.</summary>
